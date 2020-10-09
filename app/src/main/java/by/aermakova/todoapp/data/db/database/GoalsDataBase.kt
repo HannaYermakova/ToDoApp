@@ -6,11 +6,11 @@ import by.aermakova.todoapp.data.db.dao.*
 import by.aermakova.todoapp.data.db.entity.*
 
 const val GOALS_DATABASE_NAME = "Goals.db"
-const val GOALS_TABLE_NAME = "goals_table_name"
-const val TASKS_TABLE_NAME = "tasks_table_name"
-const val IDEAS_TABLE_NAME = "ideas_table_name"
-const val KEY_RESULTS_TABLE_NAME = "key_results_table_name"
-const val STEPS_TABLE_NAME = "steps_table_name"
+const val GOALS_TABLE_NAME = "goals_table"
+const val TASKS_TABLE_NAME = "tasks_table"
+const val IDEAS_TABLE_NAME = "ideas_table"
+const val KEY_RESULTS_TABLE_NAME = "key_results_table"
+const val STEPS_TABLE_NAME = "steps_table"
 
 @Database(
     entities = [TaskEntity::class,
