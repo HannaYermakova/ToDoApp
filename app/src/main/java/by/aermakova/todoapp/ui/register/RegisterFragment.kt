@@ -17,5 +17,4 @@ class RegisterFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
-
 }

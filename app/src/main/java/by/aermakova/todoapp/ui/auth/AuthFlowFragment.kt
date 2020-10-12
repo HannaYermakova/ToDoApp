@@ -1,22 +1,23 @@
 package by.aermakova.todoapp.ui.auth
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.databinding.FragmentAuthFlowBinding
+import by.aermakova.todoapp.ui.base.BaseFragment
 
-class AuthFlowFragment : Fragment() {
+class AuthFlowFragment : BaseFragment<FragmentAuthFlowBinding>() {
 
-    private lateinit var viewModel: AuthViewModel
+    private val viewModel: AuthViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_auth_flow, container, false)
+    override val layout: Int
+        get() = R.layout.fragment_auth_flow
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Navigation.setViewNavController(binding.root, NavHostFragment.findNavController(this))
     }
-
-
 }
