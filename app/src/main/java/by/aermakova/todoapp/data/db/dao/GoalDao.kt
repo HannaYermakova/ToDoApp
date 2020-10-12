@@ -18,6 +18,6 @@ interface GoalDao {
     @Query("SELECT * FROM goals_table")
     fun getAllGoals(): Flowable<List<GoalEntity>>
 
-    @Query("SELECT * FROM goals_table WHERE goalId =:goalId")
+    @Query("SELECT * FROM goals_table WHERE goal_id =:goalId")
     fun getGoalById(goalId: Long): Flowable<GoalEntity>
 }

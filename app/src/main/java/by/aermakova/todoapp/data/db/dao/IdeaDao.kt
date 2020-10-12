@@ -15,7 +15,7 @@ interface IdeaDao {
     @Insert
     fun insertAllIdeas(ideas: List<IdeaEntity>)
 
-    @Query("SELECT * FROM ideas_table WHERE ideaId = :ideaId")
+    @Query("SELECT * FROM ideas_table WHERE idea_id = :ideaId")
     fun getIdeaById(ideaId: Long): Flowable<IdeaEntity>
 
     @Query("SELECT * FROM ideas_table")

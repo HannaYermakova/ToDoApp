@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.db.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import by.aermakova.todoapp.data.db.database.IDEAS_TABLE_NAME
@@ -9,17 +10,17 @@ import com.google.gson.annotations.SerializedName
 data class IdeaEntity(
 
     @PrimaryKey
-    @SerializedName("idea_id")
+    @ColumnInfo(name ="idea_id")
     val ideaId: Long,
 
-    @SerializedName("goal_id")
-    val goalId: Long?,
+    @ColumnInfo(name ="idea_goal_id")
+    val ideaGoalId: Long?,
 
-    @SerializedName("key_result_id")
-    val keyResultId: Long?,
+    @ColumnInfo(name ="idea_key_result_id")
+    val ideaKeyResultId: Long?,
 
-    @SerializedName("step_id")
-    val stepId: Long?,
+    @ColumnInfo(name ="idea_step_id")
+    val ideaStepId: Long?,
 
     val text: String
 )

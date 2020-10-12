@@ -15,9 +15,9 @@ interface StepDao {
     @Insert
     fun insertAllSteps(steps: List<StepEntity>)
 
-    @Query("SELECT * FROM steps_table WHERE stepId = :stepId")
+    @Query("SELECT * FROM steps_table WHERE step_id = :stepId")
     fun getStepById(stepId: Long): Flowable<StepEntity>
 
-    @Query("SELECT * FROM ideas_table")
+    @Query("SELECT * FROM steps_table")
     fun getAllSteps(): Flowable<List<StepEntity>>
 }

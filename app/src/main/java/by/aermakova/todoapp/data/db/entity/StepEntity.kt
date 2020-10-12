@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.db.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import by.aermakova.todoapp.data.db.database.STEPS_TABLE_NAME
@@ -9,17 +10,17 @@ import com.google.gson.annotations.SerializedName
 data class StepEntity(
 
     @PrimaryKey(autoGenerate = true)
-    @SerializedName("step_id")
+    @ColumnInfo(name ="step_id")
     val stepId: Long,
 
-    @SerializedName("key_result_id")
-    val keyResultId: Long,
+    @ColumnInfo(name ="step_key_result_id")
+    val stepKeyResultId: Long,
 
-    @SerializedName("goal_id")
-    val goalId: Long,
+    @ColumnInfo(name ="step_goal_id")
+    val stepGoalId: Long,
 
-    @SerializedName("status_done")
-    val statusDone: Boolean,
+    @ColumnInfo(name ="step_status_done")
+    val stepStatusDone: Boolean,
 
     val text: String
 )

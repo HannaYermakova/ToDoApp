@@ -15,9 +15,9 @@ interface KeyResultDao {
     @Insert
     fun insertAllKeyResults(keyResults: List<KeyResultEntity>)
 
-    @Query("SELECT * FROM key_results_table WHERE keyResultId = :keyResultId")
+    @Query("SELECT * FROM key_results_table WHERE key_result_id = :keyResultId")
     fun getKeyResultById(keyResultId: Long): Flowable<KeyResultEntity>
 
-    @Query("SELECT * FROM ideas_table")
+    @Query("SELECT * FROM key_results_table")
     fun getAllIKeyResults(): Flowable<List<KeyResultEntity>>
 }

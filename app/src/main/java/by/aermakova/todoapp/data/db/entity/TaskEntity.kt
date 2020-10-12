@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.db.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import by.aermakova.todoapp.data.db.database.TASKS_TABLE_NAME
@@ -9,30 +10,30 @@ import com.google.gson.annotations.SerializedName
 data class TaskEntity(
 
     @PrimaryKey(autoGenerate = true)
-    @SerializedName("task_name")
+    @ColumnInfo(name ="task_id")
     val taskId: Long,
 
-    @SerializedName("status_done")
-    val statusDone: Boolean,
+    @ColumnInfo(name ="task_status_done")
+    val taskStatusDone: Boolean,
 
     val text: String,
 
-    @SerializedName("goal_id")
-    val goalId: Long?,
+    @ColumnInfo(name ="task_goal_id")
+    val taskGoalId: Long?,
 
-    @SerializedName("key_result_id")
-    val keyResultId: Long?,
+    @ColumnInfo(name ="task_key_result_id")
+    val taskKeyResultId: Long?,
 
-    @SerializedName("step_id")
-    val stepId: Long?,
+    @ColumnInfo(name ="task_step_id")
+    val taskStepId: Long?,
 
-    @SerializedName("finish_time")
+    @ColumnInfo(name ="finish_time")
     val finishTime: Long?,
 
-    @SerializedName("start_time")
+    @ColumnInfo(name ="start_time")
     val startTime: Long,
 
-    @SerializedName("scheduled_task")
+    @ColumnInfo(name ="scheduled_task")
     val scheduledTask: Boolean,
 
     val interval: Long?

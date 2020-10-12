@@ -15,9 +15,9 @@ interface TaskDao {
     @Insert
     fun insertAllTasks(tasks: List<TaskEntity>)
 
-    @Query("SELECT * FROM tasks_table WHERE taskId = :taskId")
+    @Query("SELECT * FROM tasks_table WHERE task_id = :taskId")
     fun getTaskById(taskId: Long): Flowable<TaskEntity>
 
-    @Query("SELECT * FROM ideas_table")
+    @Query("SELECT * FROM tasks_table")
     fun getAllTasks(): Flowable<List<TaskEntity>>
 }
