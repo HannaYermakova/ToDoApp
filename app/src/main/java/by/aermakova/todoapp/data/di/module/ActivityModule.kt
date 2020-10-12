@@ -1,14 +1,14 @@
 package by.aermakova.todoapp.data.di.module
 
-import android.content.Context
+import android.app.Activity
+import by.aermakova.todoapp.ui.app.AppActivity
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
+import dagger.android.support.AndroidSupportInjectionModule
 
-@Module
-class ActivityModule(private val context: Context) {
+@Module(includes = [AndroidSupportInjectionModule::class])
+open class ActivityModule(private val activity: AppActivity) {
 
-    @Named("activity_context")
     @Provides
-    fun provideContext(): Context = context
+    fun provideActivity() : Activity = activity
 }

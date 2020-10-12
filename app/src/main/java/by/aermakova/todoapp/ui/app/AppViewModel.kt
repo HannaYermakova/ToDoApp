@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
 import com.facebook.AccessToken
+import javax.inject.Inject
 
-class AppViewModel : ViewModel() {
+class AppViewModel @Inject constructor() : ViewModel() {
 
     fun checkLogin(controller: NavController) {
         if (checkFacebookLogin()) {
