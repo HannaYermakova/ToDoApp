@@ -1,6 +1,6 @@
 package by.aermakova.todoapp.data.di.module
 
-import by.aermakova.todoapp.ui.App
+import by.aermakova.todoapp.ui.app.App
 import dagger.Module
 import dagger.Provides
 

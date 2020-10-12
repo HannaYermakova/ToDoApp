@@ -18,6 +18,6 @@ class AuthFlowFragment : BaseFragment<FragmentAuthFlowBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Navigation.setViewNavController(binding.root, NavHostFragment.findNavController(this))
+        Navigation.setViewNavController(binding.root, Navigation.findNavController(binding.root))
     }
 }

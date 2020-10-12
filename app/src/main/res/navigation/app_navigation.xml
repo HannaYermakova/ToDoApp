@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_auth_flow">
         <action
             android:id="@+id/action_authFlowFragment_to_mainFlowFragment"
-            app:destination="@id/mainFlowFragment" />
+            app:destination="@id/mainFlowFragment"
+            app:popUpTo="@id/authFlowFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

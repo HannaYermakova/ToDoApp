@@ -1,20 +1,50 @@
 package by.aermakova.todoapp.ui.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.databinding.FragmentLoginBinding
+import by.aermakova.todoapp.ui.base.BaseFragment
+import com.facebook.CallbackManager
 
-class LoginFragment : Fragment() {
+private const val FACEBOOK_PERMISSION_EMAIL = "email"
+private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
 
-    private lateinit var viewModel: LoginViewModel
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    private val viewModel: LoginViewModel by viewModels()
+
+    private lateinit var hostController: NavController
+    private val fbCallbackManager = CallbackManager.Factory.create()
+
+    override val layout: Int
+        get() = R.layout.fragment_login
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.let {
+            hostController = Navigation.findNavController(it, R.id.app_host_fragment)
+            setFacebookListener()
+        }
+    }
+
+    private fun setFacebookListener() {
+        with(binding.loginButtonFacebook) {
+            setReadPermissions(FACEBOOK_PERMISSION_EMAIL, FACEBOOK_PERMISSION_PUBLIC_PROFILE)
+            fragment = this@LoginFragment
+        }
+        viewModel.registerFacebookLoginListener(fbCallbackManager, hostController)
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        fbCallbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
