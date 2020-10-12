@@ -3,4 +3,8 @@
 
     <string name="facebook_application_id">345618806781851</string>
     <string name="facebook_login_protocol_scheme">fb345618806781851</string>
+    <string name="title_goals">Goals</string>
+    <string name="title_tasks">Tasks</string>
+    <string name="title_steps">Steps</string>
+    <string name="title_ideas">Ideas</string>
 </resources>

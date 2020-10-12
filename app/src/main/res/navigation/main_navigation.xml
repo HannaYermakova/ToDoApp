@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/navigation_goals">
+
+    <fragment
+        android:id="@+id/navigation_goals"
+        android:name="by.aermakova.todoapp.ui.goal.GoalsFragment"
+        android:label="@string/title_goals"
+        tools:layout="@layout/fragment_goals" />
+
+    <fragment
+        android:id="@+id/navigation_steps"
+        android:name="by.aermakova.todoapp.ui.step.StepsFragment"
+        android:label="@string/title_steps"
+        tools:layout="@layout/fragment_steps" />
+
+    <fragment
+        android:id="@+id/navigation_tasks"
+        android:name="by.aermakova.todoapp.ui.task.TasksFragment"
+        android:label="@string/title_tasks"
+        tools:layout="@layout/fragment_tasks" />
+
+    <fragment
+        android:id="@+id/navigation_ideas"
+        android:name="by.aermakova.todoapp.ui.idea.IdeaFragment"
+        android:label="@string/title_ideas"
+        tools:layout="@layout/fragment_ideas" />
+</navigation>

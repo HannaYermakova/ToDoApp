@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_goals"
+        android:icon="@drawable/ic_goals"
+        android:title="@string/title_goals" />
+
+    <item
+        android:id="@+id/navigation_tasks"
+        android:icon="@drawable/ic_tasks"
+        android:title="@string/title_tasks" />
+
+    <item
+        android:id="@+id/navigation_steps"
+        android:icon="@drawable/ic_steps"
+        android:title="@string/title_steps" />
+
+    <item
+        android:id="@+id/navigation_ideas"
+        android:icon="@drawable/ic_ideas"
+        android:title="@string/title_ideas" />
+</menu>
