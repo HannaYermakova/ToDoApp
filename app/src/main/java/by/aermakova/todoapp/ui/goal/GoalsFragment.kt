@@ -38,6 +38,7 @@ class GoalsFragment : BaseFragment<FragmentGoalsBinding>(), HasSupportFragmentIn
 
     override fun onResume() {
         super.onResume()
+        binding.viewModel = viewModel
         viewModel.checkGoalsViewModel()
     }
 }

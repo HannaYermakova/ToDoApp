@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentMainFlowBinding
 import by.aermakova.todoapp.ui.base.BaseFragment
+import dagger.android.support.AndroidSupportInjection
 import kotlin.concurrent.fixedRateTimer
 
 class MainFlowFragment : BaseFragment<FragmentMainFlowBinding>() {

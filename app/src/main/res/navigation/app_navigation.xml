@@ -21,6 +21,15 @@
         android:id="@+id/mainFlowFragment"
         android:name="by.aermakova.todoapp.ui.main.MainFlowFragment"
         android:label="fragment_main_flow"
-        tools:layout="@layout/fragment_main_flow" />
+        tools:layout="@layout/fragment_main_flow">
+        <action
+            android:id="@+id/action_mainFlowFragment_to_addGoalFragment"
+            app:destination="@id/addGoalFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/addGoalFragment"
+        android:name="by.aermakova.todoapp.ui.goal.AddGoalFragment"
+        android:label="fragment_add_goal"
+        tools:layout="@layout/fragment_add_goal" />
 </navigation>

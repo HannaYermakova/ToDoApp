@@ -2,41 +2,42 @@ package by.aermakova.todoapp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentLoginBinding
 import by.aermakova.todoapp.ui.base.BaseFragment
-import com.facebook.CallbackManager
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
-private const val FACEBOOK_PERMISSION_EMAIL = "email"
-private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
+class LoginFragment : BaseFragment<FragmentLoginBinding>(), HasSupportFragmentInjector {
 
-class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+    @Inject
+    lateinit var viewModel: LoginViewModel
 
-    private val viewModel: LoginViewModel by viewModels()
+    private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
 
-    private lateinit var hostController: NavController
-    private val fbCallbackManager = CallbackManager.Factory.create()
+    @Inject
+    fun injectDependencies(fragmentInjector: DispatchingAndroidInjector<Fragment>) {
+        this.fragmentInjector = fragmentInjector
+    }
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment>? {
+        return fragmentInjector
+    }
+
+    @Inject
+    lateinit var facebookLoginHelper: FacebookLoginHelper
 
     override val layout: Int
         get() = R.layout.fragment_login
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.let {
-            hostController = Navigation.findNavController(it, R.id.app_host_fragment)
-            setFacebookListener()
-        }
-    }
-
-    private fun setFacebookListener() {
-        with(binding.loginButtonFacebook) {
-            setReadPermissions(FACEBOOK_PERMISSION_EMAIL, FACEBOOK_PERMISSION_PUBLIC_PROFILE)
-            fragment = this@LoginFragment
-        }
-        viewModel.registerFacebookLoginListener(fbCallbackManager, hostController)
+        AndroidSupportInjection.inject(this)
+        facebookLoginHelper.setFacebookListener(binding.loginButtonFacebook, this)
     }
 
     override fun onActivityResult(
@@ -44,7 +45,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         resultCode: Int,
         data: Intent?
     ) {
-        fbCallbackManager.onActivityResult(requestCode, resultCode, data)
+        facebookLoginHelper.fbCallbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 }

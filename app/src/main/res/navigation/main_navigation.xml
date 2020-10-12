@@ -10,9 +10,6 @@
         android:name="by.aermakova.todoapp.ui.goal.GoalsFragment"
         android:label="@string/title_goals"
         tools:layout="@layout/fragment_goals" >
-        <action
-            android:id="@+id/action_navigation_goals_to_addGoalFragment"
-            app:destination="@id/addGoalFragment" />
     </fragment>
 
     <fragment
@@ -32,9 +29,5 @@
         android:name="by.aermakova.todoapp.ui.idea.IdeaFragment"
         android:label="@string/title_ideas"
         tools:layout="@layout/fragment_ideas" />
-    <fragment
-        android:id="@+id/addGoalFragment"
-        android:name="by.aermakova.todoapp.ui.goal.AddGoalFragment"
-        android:label="fragment_add_goal"
-        tools:layout="@layout/fragment_add_goal" />
+
 </navigation>
