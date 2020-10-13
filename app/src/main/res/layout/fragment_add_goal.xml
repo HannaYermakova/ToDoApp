@@ -83,7 +83,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/key_result_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/key_result_title"
-                app:onClick="@{viewModel.addKeyResult}" />
+                app:openDialog="@{viewModel.addKeyResult}"
+                app:addTitle="@{@string/add_key_result}"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

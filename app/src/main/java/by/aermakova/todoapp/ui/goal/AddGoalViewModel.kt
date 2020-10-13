@@ -12,9 +12,11 @@ class AddGoalViewModel @Inject constructor(
 ) : ViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
-    val addKeyResult = {
-        dialogNavigation.openAddItemDialog("Add Key Result")
+
+    val addKeyResult: (String) -> Unit = {
+        dialogNavigation.openAddItemDialog(it)
     }
+
     val saveGoal = { }
 
     val keyResultObserver: LiveData<String>?
