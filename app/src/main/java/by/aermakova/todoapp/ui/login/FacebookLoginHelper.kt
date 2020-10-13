@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.ui.navigation.AuthFlowNavigation
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -14,7 +15,7 @@ import com.facebook.login.widget.LoginButton
 private const val FACEBOOK_PERMISSION_EMAIL = "email"
 private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
 
-class FacebookLoginHelper(private val hostController: NavController){
+class FacebookLoginHelper(private val authFlowNavigation: AuthFlowNavigation){
 
     private val _fbCallbackManager = CallbackManager.Factory.create()
     val fbCallbackManager : CallbackManager
@@ -33,13 +34,11 @@ class FacebookLoginHelper(private val hostController: NavController){
             object : FacebookCallback<LoginResult?> {
                 override fun onSuccess(loginResult: LoginResult?) {
                     Log.i("LoginViewModel", "onSuccess")
-                    hostController.navigate(R.id.action_authFlowFragment_to_mainFlowFragment)
-                    Log.d("LoginViewModel", "facebook:onSuccess:$loginResult");
+                    authFlowNavigation.navigateAfterLoginSuccess()
                 }
 
                 override fun onCancel() {
                     Log.i("LoginViewModel", "onCancel")
-
                 }
 
                 override fun onError(exception: FacebookException) {

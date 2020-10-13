@@ -3,15 +3,15 @@ package by.aermakova.todoapp.ui.goal
 import android.util.Log
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.ui.navigation.FragmentNavigation
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 
-class GoalsNavigation(private val controller: NavController) : FragmentNavigation {
+class GoalsNavigation(private val controller: NavController) : MainFlowNavigation {
 
-    override fun addNewElementFragment() {
+    override fun navigateToAddNewElementFragment() {
         controller.navigate(R.id.action_mainFlowFragment_to_addGoalFragment)
     }
 
-    override fun showDetailsFragment(id: Long) {
+    override fun navigateToShowDetailsFragment(id: Long) {
         Log.i("GoalsNavigation", "showDetailsFragment")
     }
 

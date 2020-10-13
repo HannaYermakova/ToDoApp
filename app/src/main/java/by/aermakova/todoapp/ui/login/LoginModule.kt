@@ -13,9 +13,13 @@ import dagger.multibindings.IntoMap
 class LoginModule {
 
     @Provides
-    fun provideFacebookLoginHelper(activity: Activity) : FacebookLoginHelper{
-        val controller = Navigation.findNavController(activity, R.id.app_host_fragment)
-        return FacebookLoginHelper(controller)
+    fun provideFacebookLoginHelper(loginNavigation: LoginNavigation) =
+       FacebookLoginHelper(loginNavigation)
+
+    @Provides
+    fun provideLoginNavigation(activity: Activity) : LoginNavigation{
+        val hostController = Navigation.findNavController(activity, R.id.app_host_fragment)
+        return LoginNavigation(hostController)
     }
 
     @Provides
