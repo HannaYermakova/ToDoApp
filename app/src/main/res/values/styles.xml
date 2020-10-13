@@ -15,4 +15,31 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <style name="CustomEditTextStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/color_grey</item>
+        <item name="colorControlActivated">@color/color_blue</item>
+        <item name="colorControlHighlight">@color/color_blue</item>
+    </style>
+
+    <style name="CustomButtonStyle">
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:background">@drawable/regular_button_bg</item>
+    </style>
+
+    <style name="CustomTextStyle">
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
+    </style>
+
+    <style name="TextRegular" parent="CustomTextStyle">
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@color/color_grey</item>
+    </style>
+
+    <style name="TextTitle" parent="CustomTextStyle">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 </resources>
