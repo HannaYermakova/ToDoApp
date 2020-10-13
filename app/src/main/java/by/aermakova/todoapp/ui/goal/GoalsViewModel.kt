@@ -10,7 +10,7 @@ class GoalsViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun checkGoalsViewModel() {
-        Log.i("GoalsViewModel", "navigation != null")
+        Log.d("GoalsViewModel", "navigation != null")
     }
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }

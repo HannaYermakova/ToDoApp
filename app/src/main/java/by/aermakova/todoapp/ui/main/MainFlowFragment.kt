@@ -2,20 +2,17 @@ package by.aermakova.todoapp.ui.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentMainFlowBinding
 import by.aermakova.todoapp.ui.base.BaseFragment
 import dagger.android.support.AndroidSupportInjection
-import kotlin.concurrent.fixedRateTimer
+import javax.inject.Inject
 
-class MainFlowFragment : BaseFragment<FragmentMainFlowBinding>() {
+class MainFlowFragment : BaseFragment<MainFlowViewModel, FragmentMainFlowBinding>() {
 
-    private val viewModel: MainFlowViewModel by viewModels()
     private lateinit var controller: NavController
 
     override val layout: Int

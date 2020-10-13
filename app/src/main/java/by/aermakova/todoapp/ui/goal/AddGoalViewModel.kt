@@ -1,7 +1,8 @@
 package by.aermakova.todoapp.ui.goal
 
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class AddGoalViewModel : ViewModel() {
+class AddGoalViewModel @Inject constructor() : ViewModel() {
 
 }
