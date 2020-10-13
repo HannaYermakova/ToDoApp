@@ -15,7 +15,8 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> : Fragment(), HasSupportFragmentInjector {
+abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
+    Fragment(), HasSupportFragmentInjector {
 
     @get:LayoutRes
     protected abstract val layout: Int
@@ -25,7 +26,11 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> : Fragmen
     @Inject
     protected lateinit var viewModel: VM
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
         binding.lifecycleOwner = this
         return binding.root
