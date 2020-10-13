@@ -15,6 +15,8 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
+private const val DEFAULT_BINDING_VIEW_MODEL_ID = -1
+
 abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     Fragment(), HasSupportFragmentInjector {
 
@@ -25,6 +27,8 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
 
     @Inject
     protected lateinit var viewModel: VM
+
+    open var bindingViewModelId: Int = DEFAULT_BINDING_VIEW_MODEL_ID
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +43,13 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         AndroidSupportInjection.inject(this)
+        bindViewModel(binding, viewModel)
+    }
+
+    private fun bindViewModel(binding: Binding, viewModel: VM) {
+        if (bindingViewModelId > DEFAULT_BINDING_VIEW_MODEL_ID) {
+            binding.setVariable(bindingViewModelId, viewModel)
+        }
     }
 
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null

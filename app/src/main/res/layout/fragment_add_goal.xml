@@ -5,12 +5,27 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="by.aermakova.todoapp.ui.goal.AddGoalViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.goal.AddGoalFragment">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:elevation="@dimen/elevation_button"
+            app:backgroundTint="@color/color_blue"
+            app:fabSize="mini"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onClick="@{viewModel.popBack}"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
             android:layout_width="wrap_content"
