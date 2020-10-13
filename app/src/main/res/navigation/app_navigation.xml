@@ -32,4 +32,21 @@
         android:name="by.aermakova.todoapp.ui.goal.AddGoalFragment"
         android:label="fragment_add_goal"
         tools:layout="@layout/fragment_add_goal" />
+
+    <dialog
+        android:id="@+id/name_item_dialog"
+        android:name="by.aermakova.todoapp.ui.dialog.AddItemDialogFragment"
+        tools:layout="@layout/fragment_add_item">
+        <argument
+            android:name="title"
+            android:defaultValue="title"
+            app:argType="string" />
+    </dialog>
+
+    <action
+        android:id="@+id/action_global_name_item_dialog"
+        app:destination="@id/name_item_dialog" >
+
+    </action>
+
 </navigation>

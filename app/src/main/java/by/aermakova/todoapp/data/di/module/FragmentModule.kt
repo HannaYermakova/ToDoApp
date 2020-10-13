@@ -4,6 +4,8 @@ import by.aermakova.todoapp.ui.app.AppActivity
 import by.aermakova.todoapp.ui.app.AppModule
 import by.aermakova.todoapp.ui.auth.AuthFlowFragment
 import by.aermakova.todoapp.ui.auth.AuthFlowModule
+import by.aermakova.todoapp.ui.dialog.AddItemDialogFragment
+import by.aermakova.todoapp.ui.dialog.AddItemModule
 import by.aermakova.todoapp.ui.goal.AddGoalFragment
 import by.aermakova.todoapp.ui.goal.AddGoalModule
 import by.aermakova.todoapp.ui.goal.GoalsModule
@@ -35,4 +37,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [AddGoalModule::class])
     abstract fun provideAddGoalFragment(): AddGoalFragment
+
+    @ContributesAndroidInjector(modules = [AddItemModule::class])
+    abstract fun provideAddItemDialogFragment(): AddItemDialogFragment
 }

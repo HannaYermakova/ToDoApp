@@ -1,13 +1,22 @@
 package by.aermakova.todoapp.ui.goal
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import javax.inject.Inject
 
 class AddGoalViewModel @Inject constructor(
-    private val navigation: MainFlowNavigation
+    private val mainFlowNavigation: MainFlowNavigation,
+    private val dialogNavigation: DialogNavigation
 ) : ViewModel() {
 
-    val popBack = { navigation.popBack() }
+    val popBack = { mainFlowNavigation.popBack() }
+    val addKeyResult = {
+        dialogNavigation.openAddItemDialog("Add Key Result")
+    }
+    val saveGoal = { }
 
+    val keyResultObserver: LiveData<String>?
+        get() = dialogNavigation.getDialogResult()
 }

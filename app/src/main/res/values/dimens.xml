@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
     <dimen name="elevation_button">6dp</dimen>
@@ -11,4 +12,7 @@
     <dimen name="button_corner_radius">7dp</dimen>
     <dimen name="button_width">160dp</dimen>
     <dimen name="button_height">36dp</dimen>
+
+    <dimen name="dialog_width">256dp</dimen>
+    <dimen name="dialog_height">128dp</dimen>
 </resources>
