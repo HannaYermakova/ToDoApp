@@ -54,6 +54,7 @@
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="text"
+                app:tempTitle="@{viewModel.tempGoalTitle}"
                 android:maxLines="5"
                 android:theme="@style/CustomEditTextStyle"
                 app:layout_constraintEnd_toEndOf="parent"

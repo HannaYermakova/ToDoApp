@@ -11,13 +11,13 @@ data class KeyResultEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name ="key_result_id")
-    val keyResultId: Long,
+    val keyResultId: Long = 0,
 
     @ColumnInfo(name ="key_result_goal_id")
     val keyResultGoalId: Long,
 
     @ColumnInfo(name ="key_result_status_done")
-    val keyResultStatusDone: Boolean,
+    val keyResultStatusDone: Boolean = false,
 
     val text: String
 )

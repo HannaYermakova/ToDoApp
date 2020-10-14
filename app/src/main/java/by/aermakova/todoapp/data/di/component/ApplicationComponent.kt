@@ -2,7 +2,6 @@ package by.aermakova.todoapp.data.di.component
 
 import by.aermakova.todoapp.data.di.module.ActivityModule
 import by.aermakova.todoapp.data.di.module.ApplicationModule
-import by.aermakova.todoapp.data.di.module.ContextModule
 import by.aermakova.todoapp.data.di.module.FragmentModule
 import by.aermakova.todoapp.data.di.scope.ActivityScope
 import by.aermakova.todoapp.data.di.scope.ApplicationScope

@@ -10,7 +10,7 @@ import io.reactivex.Flowable
 interface GoalDao {
 
     @Insert
-    fun insertGoal(goal: GoalEntity)
+    fun insertGoal(goal: GoalEntity) : Long
 
     @Insert
     fun insertAllGoals(goals: List<GoalEntity>)

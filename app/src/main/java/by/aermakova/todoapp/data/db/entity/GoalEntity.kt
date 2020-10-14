@@ -11,7 +11,7 @@ data class GoalEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "goal_id")
-    val goalId: Long,
+    val goalId: Long = 0,
 
     @ColumnInfo(name ="goal_status_done")
     val goalStatusDone: Boolean,
