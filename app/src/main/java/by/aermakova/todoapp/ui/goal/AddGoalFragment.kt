@@ -18,7 +18,8 @@ class AddGoalFragment : BaseFragment<AddGoalViewModel, FragmentAddGoalBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.keyResultObserver?.observe(viewLifecycleOwner, Observer {
-            Log.i("AddGoalFragment", it)
+            Log.i("AddGoalFragment", "key result: $it")
+            viewModel.addTempKeyResult(it)
         })
     }
 }
