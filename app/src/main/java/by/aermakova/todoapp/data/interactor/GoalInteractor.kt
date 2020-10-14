@@ -7,7 +7,6 @@ import by.aermakova.todoapp.data.repository.GoalRepository
 class GoalInteractor (
     private val goalRepository: GoalRepository
 ) {
-
     fun saveGoal(goalTitle: String, keyResults: List<String>) {
         val goalId = goalRepository.saveGoalInLocalDataBase(
             GoalEntity(

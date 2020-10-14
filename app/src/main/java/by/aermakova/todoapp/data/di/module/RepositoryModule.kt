@@ -5,7 +5,6 @@ import by.aermakova.todoapp.data.db.dao.KeyResultDao
 import by.aermakova.todoapp.data.repository.GoalRepository
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module(includes = [InteractorModule::class])
 class RepositoryModule {
