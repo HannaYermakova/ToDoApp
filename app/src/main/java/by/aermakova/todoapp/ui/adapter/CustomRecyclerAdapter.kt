@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomRecyclerAdapter<Type> :
     RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder<Type>>() {
 
-    private val listOfItems = arrayListOf<Model<Type>>()
+    private val listOfItems = arrayListOf<ModelWrapper<Type>>()
 
-    fun update(items: List<Model<Type>>) {
+    fun update(items: List<ModelWrapper<Type>>) {
         val diffResult = DiffUtil.calculateDiff(ItemDiffUtil(listOfItems, items))
         setData(items)
         diffResult.dispatchUpdatesTo(this)
     }
 
-    private fun setData(items: List<Model<Type>>) {
+    private fun setData(items: List<ModelWrapper<Type>>) {
         listOfItems.clear()
         listOfItems.addAll(items)
     }
@@ -28,12 +29,16 @@ class CustomRecyclerAdapter<Type> :
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(model: Model<Type>) {
+        fun bind(model: ModelWrapper<Type>) {
             try {
                 binding.setVariable(model.variableId, model.type)
-//                binding.executePendingBindings()
             } catch (e: Exception) {
                 print("The model is not attached to this layout")
+            }
+            model.clickAction?.let { func ->
+                binding.root.setOnClickListener {
+                    func.invoke(model.id)
+                }
             }
         }
     }
@@ -58,33 +63,19 @@ class CustomRecyclerAdapter<Type> :
 }
 
 class ItemDiffUtil<Type>(
-    private val oldList: List<Model<Type>>,
-    private val newList: List<Model<Type>>
+    private val oldList: List<ModelWrapper<Type>>,
+    private val newList: List<ModelWrapper<Type>>
 ) :
     DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-        oldList[oldItemPosition].id == newList[newItemPosition].id
+        oldList[oldItemPosition] == newList[newItemPosition]
 
     override fun getOldListSize() = oldList.size
 
     override fun getNewListSize() = newList.size
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].hashCode() == newList[newItemPosition].hashCode()
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 }
-
-open class Model<Type>(
-    val id: Long,
-    val type: Type,
-    val layout: Int,
-    val variableId: Int
-)
-
-fun <Type> toModel(
-    id: Long,
-    type: Type,
-    layout: Int,
-    variableId: Int
-): Model<Type> = Model(id, type, layout, variableId)

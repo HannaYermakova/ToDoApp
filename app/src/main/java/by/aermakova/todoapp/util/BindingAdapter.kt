@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.ui.adapter.CustomRecyclerAdapter
 import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
-import by.aermakova.todoapp.ui.adapter.Model
+import by.aermakova.todoapp.ui.adapter.ModelWrapper
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
@@ -60,7 +60,7 @@ fun editTextListener(
 )
 fun <Type> bindListToRecycler(
     recyclerView: RecyclerView,
-    items: Observable<List<Model<Type>>>?,
+    items: Observable<List<ModelWrapper<Type>>>?,
     disposable: CompositeDisposable?
 ) {
     recyclerView.adapter = CustomRecyclerAdapter<Type>()
@@ -88,7 +88,7 @@ fun <Type> bindListToRecycler(
 )
 fun <Type> bindPlainListToRecycler(
     recyclerView: RecyclerView,
-    items: List<Model<Type>>?
+    items: List<ModelWrapper<Type>>?
 ) {
 
     recyclerView.adapter = CustomRecyclerAdapter<Type>()

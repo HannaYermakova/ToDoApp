@@ -7,7 +7,7 @@ import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.database.KEY_RESULTS_TABLE_NAME
 import by.aermakova.todoapp.data.model.KeyResult
-import by.aermakova.todoapp.ui.adapter.Model
+import by.aermakova.todoapp.ui.adapter.ModelWrapper
 
 @Entity(tableName = KEY_RESULTS_TABLE_NAME)
 data class KeyResultEntity(
@@ -27,8 +27,4 @@ data class KeyResultEntity(
 
 fun KeyResultEntity.toModel(): KeyResult {
     return KeyResult(keyResultId, keyResultGoalId, keyResultStatusDone, text)
-}
-
-fun KeyResult.toModelKeyResult(): Model<KeyResult> {
-    return Model(keyResultId, this, R.layout.item_key_result, BR.keyResult)
 }

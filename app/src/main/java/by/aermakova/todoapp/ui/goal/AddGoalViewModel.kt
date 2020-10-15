@@ -2,13 +2,9 @@ package by.aermakova.todoapp.ui.goal
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import by.aermakova.todoapp.BR
-import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.databinding.ItemTextLineBinding
-import by.aermakova.todoapp.databinding.ItemTextLineBindingImpl
-import by.aermakova.todoapp.ui.adapter.Model
-import by.aermakova.todoapp.ui.adapter.toModel
+import by.aermakova.todoapp.ui.adapter.ModelWrapper
+import by.aermakova.todoapp.ui.adapter.toModelStringList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -56,8 +52,8 @@ class AddGoalViewModel @Inject constructor(
     val keyResultObserver: LiveData<String>?
         get() = dialogNavigation.getDialogResult()
 
-    private val _tempKeyResultsList = BehaviorSubject.create<List<Model<String>>>()
-    val tempKeyResultsList: Observable<List<Model<String>>>
+    private val _tempKeyResultsList = BehaviorSubject.create<List<ModelWrapper<String>>>()
+    val tempKeyResultsList: Observable<List<ModelWrapper<String>>>
         get() = _tempKeyResultsList.hide()
 
     private val _tempGoalTitle = BehaviorSubject.create<String>()
@@ -82,9 +78,4 @@ class AddGoalViewModel @Inject constructor(
                     { it.printStackTrace() })
         )
     }
-}
-
-fun List<String>.toModelStringList(): List<Model<String>> {
-    var i = 0L
-    return map { toModel(i++, it, R.layout.item_text_line, BR.text) }
 }
