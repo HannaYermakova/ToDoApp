@@ -3,5 +3,6 @@ package by.aermakova.todoapp.data.model
 data class Goal(
     val goalId: Long,
     val status: Boolean,
-    val text: String
+    val text: String,
+    val keyResults: List<KeyResult>
 )

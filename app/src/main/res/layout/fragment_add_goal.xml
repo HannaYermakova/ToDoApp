@@ -63,7 +63,7 @@
 
             <TextView
                 android:id="@+id/key_result_title"
-                style="@style/TextRegular"
+                style="@style/TextInstructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
@@ -97,13 +97,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/key_result_title"
-                tools:listitem="@layout/item_key_result" />
+                tools:listitem="@layout/item_text_line" />
 
             <Button
                 android:id="@+id/save_button"
                 style="@style/CustomButtonStyle"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:text="@string/save_button"
+                android:elevation="@dimen/elevation_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recycler_view"

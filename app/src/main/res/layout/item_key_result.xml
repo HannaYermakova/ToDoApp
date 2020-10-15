@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="keyResultItem"
-            type="String" />
-
+            name="keyResult"
+            type="by.aermakova.todoapp.data.model.KeyResult" />
     </data>
 
-    <TextView
-        android:id="@+id/key_result_item"
-        style="@style/TextRegular"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{keyResultItem}"
-        tools:padding="@dimen/margin_small"
-        tools:text="@string/add_key_result" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/key_result_item"
+            style="@style/TextRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{keyResult.text}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:paddingBottom="@dimen/margin_small"
+            tools:paddingTop="@dimen/margin_small"
+            tools:text="@string/add_key_result" />
+
+        <ToggleButton
+            android:id="@+id/done_check_toggle"
+            android:layout_width="@dimen/toggle_size"
+            android:layout_height="@dimen/toggle_size"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:background="@drawable/done_check"
+            android:checked="@{keyResult.status}"
+            android:src="@drawable/done_check"
+            android:text="@string/empty"
+            android:textOff="@string/empty"
+            android:textOn="@string/empty"
+            app:layout_constraintBaseline_toBaselineOf="@id/key_result_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:checked="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

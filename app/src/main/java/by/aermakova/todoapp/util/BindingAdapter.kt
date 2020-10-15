@@ -67,7 +67,7 @@ fun <Type> bindListToRecycler(
     disposable: CompositeDisposable?
 ) {
     recyclerView.adapter = CustomRecyclerAdapter<Type, ItemKeyResultBinding>(
-        R.layout.item_key_result,
+        R.layout.item_text_line,
         BR.keyResultItem
     )
 

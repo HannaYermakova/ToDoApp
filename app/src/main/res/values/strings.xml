@@ -6,6 +6,7 @@
 
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="save_button">Save</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>
@@ -15,6 +16,7 @@
     <string name="add_new_goal_instruction">Add new goal and specify several key results that belong to that goal</string>
     <string name="add_key_results">Specify several key results\nthat belong to the Goal</string>
     <string name="add_key_result">Specify key result</string>
-    <string name="save_button">Save</string>
+    <string name="key_results">Key results of the Goal:</string>
     <string name="enter_goal_title">Name your Goal</string>
+    <string name="empty" />
 </resources>

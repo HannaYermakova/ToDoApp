@@ -5,29 +5,55 @@
 
     <data>
 
+        <variable
+            name="goalModel"
+            type="by.aermakova.todoapp.data.model.Goal" />
+
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialog_width"
-        app:cardCornerRadius="12dp"
-        tools:layout_margin="8dp">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        tools:layout_height="@dimen/dialog_width"
+        tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_normal"
             android:background="@color/color_white">
 
             <TextView
+                android:id="@+id/goal_title"
+                style="@style/TextTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{goalModel.text}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/title_goals" />
+                tools:text="Native Android development " />
+
+            <TextView
+                android:id="@+id/key_results_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_small"
+                android:text="@string/key_results"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/key_results_text"
+                tools:listitem="@layout/item_key_result" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 </layout>
