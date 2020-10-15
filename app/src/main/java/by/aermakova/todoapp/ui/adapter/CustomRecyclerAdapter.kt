@@ -7,11 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomRecyclerAdapter<Type, Binding : ViewDataBinding>(
-    private val layout: Int,
-    private val variableId: Int
-) :
-    RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder<Type, Binding>>() {
+class CustomRecyclerAdapter<Type> :
+    RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder<Type>>() {
 
     private val listOfItems = arrayListOf<Model<Type>>()
 
@@ -26,30 +23,35 @@ class CustomRecyclerAdapter<Type, Binding : ViewDataBinding>(
         listOfItems.addAll(items)
     }
 
-    class ViewHolder<Type, Binding : ViewDataBinding>(
-        private val binding: Binding,
-        private val variableId: Int
+    class ViewHolder<Type>(
+        private val binding: ViewDataBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: Model<Type>) {
             try {
-                binding.setVariable(variableId, model.type)
+                binding.setVariable(model.variableId, model.type)
+//                binding.executePendingBindings()
             } catch (e: Exception) {
                 print("The model is not attached to this layout")
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<Type, Binding> {
+    override fun getItemViewType(position: Int): Int {
+        return listOfItems[position].layout
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<Type> {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: Binding = DataBindingUtil.inflate(layoutInflater, layout, parent, false)
-        return ViewHolder(binding, variableId)
+        val binding: ViewDataBinding =
+            DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = listOfItems.size
 
-    override fun onBindViewHolder(holder: ViewHolder<Type, Binding>, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder<Type>, position: Int) {
         val model = listOfItems[position]
         holder.bind(model)
     }
@@ -73,6 +75,16 @@ class ItemDiffUtil<Type>(
     }
 }
 
-open class Model<Type>(val id: Int, val type: Type)
+open class Model<Type>(
+    val id: Long,
+    val type: Type,
+    val layout: Int,
+    val variableId: Int
+)
 
-fun <Type> toModel(id: Int, type: Type): Model<Type> = Model(id, type)
+fun <Type> toModel(
+    id: Long,
+    type: Type,
+    layout: Int,
+    variableId: Int
+): Model<Type> = Model(id, type, layout, variableId)

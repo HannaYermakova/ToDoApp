@@ -30,7 +30,7 @@
     </style>
 
     <style name="CustomTextStyle">
-        <item name="android:fontFamily">@font/proxima_nova_thin</item>
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
     <style name="TextRegular" parent="CustomTextStyle">
@@ -40,13 +40,14 @@
 
     <style name="TextInstructions" parent="CustomTextStyle">
         <item name="android:textSize">@dimen/small_text_size</item>
-        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textColor">@color/color_blue_dark</item>
 
     </style>
 
-    <style name="TextTitle" parent="CustomTextStyle">
+    <style name="TextTitle">
         <item name="android:textSize">@dimen/title_text_size</item>
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/proxima_nova_thin</item>
     </style>
 
 </resources>

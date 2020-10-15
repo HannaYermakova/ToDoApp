@@ -7,9 +7,6 @@ import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.aermakova.todoapp.BR
-import by.aermakova.todoapp.R
-import by.aermakova.todoapp.databinding.ItemKeyResultBinding
 import by.aermakova.todoapp.ui.adapter.CustomRecyclerAdapter
 import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
 import by.aermakova.todoapp.ui.adapter.Model
@@ -66,12 +63,8 @@ fun <Type> bindListToRecycler(
     items: Observable<List<Model<Type>>>?,
     disposable: CompositeDisposable?
 ) {
-    recyclerView.adapter = CustomRecyclerAdapter<Type, ItemKeyResultBinding>(
-        R.layout.item_text_line,
-        BR.keyResultItem
-    )
-
-    recyclerView.addItemDecoration(MarginItemDecorator(divide = 4))
+    recyclerView.adapter = CustomRecyclerAdapter<Type>()
+    recyclerView.addItemDecoration(MarginItemDecorator(8, 8, divide = 4))
 
     val manager = LinearLayoutManager(recyclerView.context)
     recyclerView.layoutManager = manager
@@ -81,11 +74,32 @@ fun <Type> bindListToRecycler(
             items.subscribe(
                 {
                     @Suppress("UNCHECKED_CAST")
-                    (recyclerView.adapter as? CustomRecyclerAdapter<Type, ItemKeyResultBinding>)?.update(
+                    (recyclerView.adapter as? CustomRecyclerAdapter<Type>)?.update(
                         it
                     )
                 },
                 { it.printStackTrace() })
+        )
+    }
+}
+
+@BindingAdapter(
+    "app:bindPlainList"
+)
+fun <Type> bindPlainListToRecycler(
+    recyclerView: RecyclerView,
+    items: List<Model<Type>>?
+) {
+
+    recyclerView.adapter = CustomRecyclerAdapter<Type>()
+    recyclerView.addItemDecoration(MarginItemDecorator(divide = 2))
+    val manager = LinearLayoutManager(recyclerView.context)
+    recyclerView.layoutManager = manager
+
+    @Suppress("UNCHECKED_CAST")
+    items?.let {
+        (recyclerView.adapter as? CustomRecyclerAdapter<Type>)?.update(
+            it
         )
     }
 }

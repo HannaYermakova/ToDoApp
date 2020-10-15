@@ -2,26 +2,29 @@ package by.aermakova.todoapp.ui.goal
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import by.aermakova.todoapp.BR
+import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.databinding.ItemTextLineBinding
+import by.aermakova.todoapp.databinding.ItemTextLineBindingImpl
 import by.aermakova.todoapp.ui.adapter.Model
 import by.aermakova.todoapp.ui.adapter.toModel
+import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class AddGoalViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val dialogNavigation: DialogNavigation
-    , private val goalInteractor: GoalInteractor
-) : ViewModel() {
+    private val dialogNavigation: DialogNavigation,
+    private val goalInteractor: GoalInteractor
+) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
 
@@ -63,10 +66,6 @@ class AddGoalViewModel @Inject constructor(
 
     private val _tempKeyResult = BehaviorSubject.create<List<String>>()
 
-    private val _disposable = CompositeDisposable()
-    val disposable: CompositeDisposable
-        get() = _disposable
-
     private val tempKeyResults = arrayListOf<String>()
 
     fun addTempKeyResult(tempKeyResult: String) {
@@ -77,16 +76,15 @@ class AddGoalViewModel @Inject constructor(
     init {
         _disposable.add(
             _tempKeyResult
-                .subscribe({ it ->
-                    var i = 0
-                    _tempKeyResultsList.onNext(it.map { toModel(i++, it) })
+                .subscribe({
+                    _tempKeyResultsList.onNext(it.toModelStringList())
                 },
                     { it.printStackTrace() })
         )
     }
+}
 
-    override fun onCleared() {
-        _disposable.clear()
-        super.onCleared()
-    }
+fun List<String>.toModelStringList(): List<Model<String>> {
+    var i = 0L
+    return map { toModel(i++, it, R.layout.item_text_line, BR.text) }
 }

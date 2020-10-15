@@ -3,7 +3,9 @@ package by.aermakova.todoapp.data.repository
 import by.aermakova.todoapp.data.db.dao.GoalDao
 import by.aermakova.todoapp.data.db.dao.KeyResultDao
 import by.aermakova.todoapp.data.db.entity.GoalEntity
+import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class GoalRepository @Inject constructor(
@@ -17,5 +19,9 @@ class GoalRepository @Inject constructor(
 
     fun saveKeyResults(keyResultEntities: List<KeyResultEntity>) {
         keyResultDao.insertAllKeyResults(keyResultEntities)
+    }
+
+    fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>>{
+        return goalDao.getAllGoalsWithKeyResults()
     }
 }

@@ -30,7 +30,6 @@
             android:id="@+id/done_check_toggle"
             android:layout_width="@dimen/toggle_size"
             android:layout_height="@dimen/toggle_size"
-            android:layout_marginEnd="@dimen/margin_normal"
             android:background="@drawable/done_check"
             android:checked="@{keyResult.status}"
             android:src="@drawable/done_check"

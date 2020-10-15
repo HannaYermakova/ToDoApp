@@ -17,13 +17,18 @@
         tools:context=".ui.goal.GoalsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/margin_normal"
             android:id="@+id/goals_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:addDisposable="@{viewModel.disposable}"
+            app:bindList="@{viewModel.goalsList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_goal" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
