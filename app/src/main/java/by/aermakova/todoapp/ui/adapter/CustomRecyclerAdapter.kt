@@ -1,12 +1,12 @@
 package by.aermakova.todoapp.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import by.aermakova.todoapp.util.provideClickToParent
 
 class CustomRecyclerAdapter<Type> :
     RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder<Type>>() {
@@ -35,9 +35,15 @@ class CustomRecyclerAdapter<Type> :
             } catch (e: Exception) {
                 print("The model is not attached to this layout")
             }
-            model.clickAction?.let { func ->
-                binding.root.setOnClickListener {
-                    func.invoke(model.id)
+
+            with(binding.root) {
+                setOnClickListener {
+                    val func = model.clickAction
+                    if (func != null) {
+                        func.invoke(model.id)
+                    } else {
+                        provideClickToParent(it)
+                    }
                 }
             }
         }

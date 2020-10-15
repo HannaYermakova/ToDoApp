@@ -26,4 +26,8 @@ interface GoalDao {
     @Transaction
     @Query("SELECT * FROM goals_table")
     fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>>
+
+    @Transaction
+    @Query("SELECT * FROM goals_table WHERE goal_id =:id")
+    fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults>
 }

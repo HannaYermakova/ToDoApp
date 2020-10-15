@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainFlowFragment_to_addGoalFragment"
             app:destination="@id/addGoalFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_goalDetailsFragment"
+            app:destination="@id/goalDetailsFragment" />
     </fragment>
 
     <fragment
@@ -48,5 +51,15 @@
         app:destination="@id/name_item_dialog" >
 
     </action>
+    <fragment
+        android:id="@+id/goalDetailsFragment"
+        android:name="by.aermakova.todoapp.ui.goal.details.GoalDetailsFragment"
+        android:label="GoalDetailsFragment"
+        tools:layout="@layout/fragment_goal_details">
+        <argument
+            android:name="goalId"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
 
 </navigation>

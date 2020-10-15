@@ -24,7 +24,7 @@ class GoalsViewModel @Inject constructor(
         get() = _goalsList.hide()
 
     init {
-        _disposable.add(
+        compositeDisposable.add(
             goalInteractor.getAllGoalsWithKeyResults()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

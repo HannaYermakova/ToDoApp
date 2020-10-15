@@ -10,5 +10,5 @@
     <color name="color_grey">#333333</color>
     <color name="color_blue_light">#969FD6</color>
     <color name="color_blue_dark">#24307E</color>
-    <color name="color_ripple">#66E2E2E2</color>
+    <color name="color_ripple">#66505050</color>
 </resources>

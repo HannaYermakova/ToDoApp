@@ -28,4 +28,8 @@ class GoalInteractor (
     fun getAllGoalsWithKeyResults() : Observable<List<Goal>>{
         return goalRepository.getAllGoalsWithKeyResults().map { list -> list.map { it.toModel() } }
     }
+
+    fun getGoalWithKeyResultsById(id: Long) : Observable<Goal>{
+        return goalRepository.getGoalWithKeyResultsById(id).map { it.toModel() }
+    }
 }

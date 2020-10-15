@@ -9,13 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import by.aermakova.todoapp.BR
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
-
-private const val DEFAULT_BINDING_VIEW_MODEL_ID = -1
 
 abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     Fragment(), HasSupportFragmentInjector {
@@ -28,7 +27,7 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     @Inject
     protected lateinit var viewModel: VM
 
-    open var bindingViewModelId: Int = DEFAULT_BINDING_VIEW_MODEL_ID
+    open var bindingViewModelId: Int = BR.viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +46,7 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     }
 
     private fun bindViewModel(binding: Binding, viewModel: VM) {
-        if (bindingViewModelId > DEFAULT_BINDING_VIEW_MODEL_ID) {
-            binding.setVariable(bindingViewModelId, viewModel)
-        }
+        binding.setVariable(bindingViewModelId, viewModel)
     }
 
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null

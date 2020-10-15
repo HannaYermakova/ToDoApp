@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.goal
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.adapter.ModelWrapper
@@ -37,7 +36,6 @@ class AddGoalViewModel @Inject constructor(
                     goalInteractor.saveGoal(_tempGoalTitle.value!!, tempKeyResults)
                     it.onSuccess(true)
                 } else {
-                    Log.i("AddGoalViewModel", "_tempGoalTitle is blank")
                     it.onSuccess(false)
                 }
             }.subscribeOn(Schedulers.io())
@@ -70,7 +68,7 @@ class AddGoalViewModel @Inject constructor(
     }
 
     init {
-        _disposable.add(
+        compositeDisposable.add(
             _tempKeyResult
                 .subscribe({
                     _tempKeyResultsList.onNext(it.toModelStringList())
