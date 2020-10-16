@@ -28,4 +28,8 @@ class GoalRepository @Inject constructor(
     fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults>{
         return goalDao.getGoalWithKeyResultsById(id)
     }
+
+    fun getGoalById(goalId: Long): GoalEntity {
+        return goalDao.getGoalById(goalId)
+    }
 }

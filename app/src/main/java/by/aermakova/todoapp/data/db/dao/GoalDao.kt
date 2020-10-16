@@ -21,7 +21,7 @@ interface GoalDao {
     fun getAllGoals(): Observable<List<GoalEntity>>
 
     @Query("SELECT * FROM goals_table WHERE goal_id =:goalId")
-    fun getGoalById(goalId: Long): Observable<GoalEntity>
+    fun getGoalById(goalId: Long): GoalEntity
 
     @Transaction
     @Query("SELECT * FROM goals_table")

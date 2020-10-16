@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -33,6 +34,8 @@ class AppActivity : AppCompatActivity(), HasSupportFragmentInjector {
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         val view = binding.root
+
+        FirebaseApp.initializeApp(this)
 
         controller = Navigation.findNavController(this, R.id.app_host_fragment).apply {
             Navigation.setViewNavController(view, this)

@@ -1,7 +1,9 @@
 package by.aermakova.todoapp.ui.goal
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.ui.adapter.ModelWrapper
 import by.aermakova.todoapp.ui.adapter.toModelStringList
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -33,7 +35,7 @@ class AddGoalViewModel @Inject constructor(
         disposable.add(
             Single.create<Boolean> {
                 if (!_tempGoalTitle.value.isNullOrBlank()) {
-                    goalInteractor.saveGoal(_tempGoalTitle.value!!, tempKeyResults)
+                    goalInteractor.saveAndSyncGoalAndKeyRes(_tempGoalTitle.value!!, tempKeyResults)
                     it.onSuccess(true)
                 } else {
                     it.onSuccess(false)
@@ -74,6 +76,21 @@ class AddGoalViewModel @Inject constructor(
                     _tempKeyResultsList.onNext(it.toModelStringList())
                 },
                     { it.printStackTrace() })
+        )
+
+        val dataObserver = BehaviorSubject.create<Collection<GoalRemoteModel>>()
+        goalInteractor.addDataListener(dataObserver)
+        compositeDisposable.add(
+            dataObserver
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.d("A_AddGoalViewModel", "$it")
+                    }, {
+
+                    }
+                )
         )
     }
 }
