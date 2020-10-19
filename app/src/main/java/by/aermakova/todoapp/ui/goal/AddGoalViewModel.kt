@@ -1,9 +1,7 @@
 package by.aermakova.todoapp.ui.goal
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.ui.adapter.ModelWrapper
 import by.aermakova.todoapp.ui.adapter.toModelStringList
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -29,24 +27,32 @@ class AddGoalViewModel @Inject constructor(
         dialogNavigation.openAddItemDialog(it)
     }
 
-    val saveGoal = { saveGoalToLocalDataBase() }
+    val saveGoal = { saveGoalToLocalDataBaseAndSyncToRemote() }
 
-    private fun saveGoalToLocalDataBase() {
-        disposable.add(
-            Single.create<Boolean> {
-                if (!_tempGoalTitle.value.isNullOrBlank()) {
-                    goalInteractor.saveAndSyncGoalAndKeyRes(_tempGoalTitle.value!!, tempKeyResults)
-                    it.onSuccess(true)
-                } else {
-                    it.onSuccess(false)
+    private fun saveGoalToLocalDataBaseAndSyncToRemote() {
+        if (!_tempGoalTitle.value.isNullOrBlank()) {
+            disposable.add(
+                Single.create<Long> {
+                    it.onSuccess(
+                        goalInteractor.saveGoalAndKeyResToLocal(
+                            _tempGoalTitle.value!!,
+                            tempKeyResults
+                        )
+                    )
                 }
-            }.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    if (it) mainFlowNavigation.popBack()
-                },
-                    { it.printStackTrace() })
-        )
+                    .map {
+                        goalInteractor.getGoalKeyResultsById(it).subscribe { goalKeyResults ->
+                            goalInteractor.saveGoalAndKeyResultsToRemote(goalKeyResults)
+                        }
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { mainFlowNavigation.popBack() },
+                        { it.printStackTrace() }
+                    )
+            )
+        }
     }
 
     val keyResultObserver: LiveData<String>?

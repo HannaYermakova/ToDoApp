@@ -27,7 +27,6 @@ abstract class FirebaseRealtimeDatabase<Type>(
         uid?.let {
             databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d("A_FirebaseRealtime", "onDataChange")
                     val model: List<Type> = convertDataSnapshotToList(snapshot.children)
                     dataObserver.onNext(model)
                 }

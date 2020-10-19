@@ -8,7 +8,7 @@ import io.reactivex.Observable
 @Dao
 interface GoalDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGoal(goal: GoalEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

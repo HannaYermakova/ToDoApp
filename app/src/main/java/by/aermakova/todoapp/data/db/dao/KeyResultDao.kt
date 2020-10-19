@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import io.reactivex.Flowable
@@ -9,10 +10,10 @@ import io.reactivex.Flowable
 @Dao
 interface KeyResultDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertKeyResult(keyResult: KeyResultEntity)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllKeyResults(keyResults: List<KeyResultEntity>)
 
     @Query("SELECT * FROM key_results_table WHERE key_result_id = :keyResultId")

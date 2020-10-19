@@ -26,7 +26,7 @@ class GoalDetailsViewModel @Inject constructor(
                 .subscribe({
                     _goalModel.postValue(it)
                 }, {
-
+                    it.printStackTrace()
                 })
         )
     }
