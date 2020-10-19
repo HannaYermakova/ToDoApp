@@ -8,6 +8,7 @@
     <color name="color_blue">#3949AB</color>
     <color name="color_default">#03DAC5</color>
     <color name="color_grey">#333333</color>
+    <color name="color_grey_light">#BDBDBD</color>
     <color name="color_blue_light">#969FD6</color>
     <color name="color_blue_dark">#24307E</color>
     <color name="color_ripple">#66505050</color>

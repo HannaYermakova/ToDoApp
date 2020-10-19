@@ -19,7 +19,7 @@ class TasksModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
-    fun provideGoalsNavigation(controller: NavController): MainFlowNavigation =
+    fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
         TasksNavigation(controller)
 
     @Provides

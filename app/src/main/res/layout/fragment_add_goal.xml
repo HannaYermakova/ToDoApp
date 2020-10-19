@@ -50,7 +50,7 @@
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_large"
                 android:layout_marginEnd="@dimen/margin_normal"
-                android:hint="@string/enter_goal_title"
+                android:hint="@string/enter_goal_hint"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="text"
