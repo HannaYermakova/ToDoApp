@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_mainFlowFragment_to_goalDetailsFragment"
             app:destination="@id/goalDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
     </fragment>
 
     <fragment
@@ -61,5 +64,10 @@
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>
+    <fragment
+        tools:layout="@layout/fragment_add_task"
+        android:id="@+id/addTaskFragment"
+        android:name="by.aermakova.todoapp.ui.task.addNew.AddTaskFragment"
+        android:label="AddTaskFragment" />
 
 </navigation>

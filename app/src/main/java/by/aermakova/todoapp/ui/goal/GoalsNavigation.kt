@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.goal
 
-import android.util.Log
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
@@ -13,7 +12,6 @@ class GoalsNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToShowDetailsFragment(id: Long){
-        Log.i("GoalsNavigation", "showDetailsFragment")
         controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToGoalDetailsFragment(id))
     }
 

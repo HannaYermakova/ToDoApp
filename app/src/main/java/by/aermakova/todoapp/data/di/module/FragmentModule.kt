@@ -8,14 +8,18 @@ import by.aermakova.todoapp.ui.dialog.AddItemDialogFragment
 import by.aermakova.todoapp.ui.dialog.AddItemModule
 import by.aermakova.todoapp.ui.goal.AddGoalFragment
 import by.aermakova.todoapp.ui.goal.AddGoalModule
-import by.aermakova.todoapp.ui.goal.GoalsModule
 import by.aermakova.todoapp.ui.goal.GoalsFragment
+import by.aermakova.todoapp.ui.goal.GoalsModule
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsFragment
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsModule
 import by.aermakova.todoapp.ui.login.LoginFragment
 import by.aermakova.todoapp.ui.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
+import by.aermakova.todoapp.ui.task.TasksFragment
+import by.aermakova.todoapp.ui.task.TasksModule
+import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment
+import by.aermakova.todoapp.ui.task.addNew.AddTaskModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -45,4 +49,10 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [AddItemModule::class])
     abstract fun provideAddItemDialogFragment(): AddItemDialogFragment
+
+    @ContributesAndroidInjector(modules = [TasksModule::class])
+    abstract fun provideTasksFragment(): TasksFragment
+
+    @ContributesAndroidInjector(modules = [AddTaskModule::class])
+    abstract fun provideAddTaskFragment(): AddTaskFragment
 }
