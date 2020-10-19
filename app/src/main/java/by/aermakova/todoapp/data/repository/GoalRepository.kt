@@ -17,6 +17,10 @@ class GoalRepository @Inject constructor(
         return goalDao.insertGoal(goalEntity)
     }
 
+    fun saveGoalsInLocalDataBase(goalEntities: List<GoalEntity>) {
+        goalDao.insertAllGoals(goalEntities)
+    }
+
     fun saveKeyResults(keyResultEntities: List<KeyResultEntity>) {
         keyResultDao.insertAllKeyResults(keyResultEntities)
     }

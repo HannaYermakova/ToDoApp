@@ -77,20 +77,5 @@ class AddGoalViewModel @Inject constructor(
                 },
                     { it.printStackTrace() })
         )
-
-        val dataObserver = BehaviorSubject.create<Collection<GoalRemoteModel>>()
-        goalInteractor.addDataListener(dataObserver)
-        compositeDisposable.add(
-            dataObserver
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        Log.d("A_AddGoalViewModel", "$it")
-                    }, {
-
-                    }
-                )
-        )
     }
 }

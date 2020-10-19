@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.goal
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.Goal
+import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.ui.adapter.ModelWrapper
 import by.aermakova.todoapp.ui.adapter.toModelGoalList
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -24,6 +25,16 @@ class GoalsViewModel @Inject constructor(
         get() = _goalsList.hide()
 
     init {
+        val dataObserver = PublishSubject.create<List<GoalRemoteModel>>()
+        goalInteractor.addDataListener(dataObserver)
+        compositeDisposable.add(
+            dataObserver
+                .observeOn(Schedulers.io())
+                .subscribe(
+                    { goalInteractor.saveGoalsInLocalDatabase(it) },
+                    { it.printStackTrace() }
+                )
+        )
         compositeDisposable.add(
             goalInteractor.getAllGoalsWithKeyResults()
                 .subscribeOn(Schedulers.io())

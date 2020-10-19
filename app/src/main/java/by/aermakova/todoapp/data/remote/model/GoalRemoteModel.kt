@@ -16,3 +16,9 @@ data class GoalRemoteModel(
 internal fun GoalEntity.toRemote(): GoalRemoteModel {
     return GoalRemoteModel(goalId, goalStatusDone, text)
 }
+
+fun GoalRemoteModel.toLocal(): GoalEntity {
+    return if (goalId != null && goalStatusDone != null && text != null)
+        GoalEntity(goalId!!, goalStatusDone!!, text!!)
+    else throw Exception("Goal can't be null!")
+}

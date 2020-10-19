@@ -1,14 +1,11 @@
 package by.aermakova.todoapp.ui.app
 
 import android.app.Application
-import by.aermakova.todoapp.BuildConfig
 import by.aermakova.todoapp.data.di.component.ApplicationComponent
 import by.aermakova.todoapp.data.di.component.DaggerApplicationComponent
 import by.aermakova.todoapp.data.di.module.ActivityModule
 import by.aermakova.todoapp.data.di.module.ApplicationModule
-
 import com.facebook.FacebookSdk
-import com.facebook.LoggingBehavior
 import com.facebook.appevents.AppEventsLogger
 
 class App : Application() {

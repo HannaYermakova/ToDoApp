@@ -5,6 +5,7 @@ import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.repository.GoalRepository
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -22,7 +23,18 @@ class InteractorModule {
 
     @Provides
     fun provideRemoteDataBase(): RemoteDatabase<GoalRemoteModel> {
-        return FirebaseRealtimeDatabase(Firebase.database.reference.child(GOALS_REMOTE_DATA_BASE))
+        return object : FirebaseRealtimeDatabase<GoalRemoteModel>(
+            Firebase.database.reference.child(GOALS_REMOTE_DATA_BASE)
+        ) {
+            override fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<GoalRemoteModel> {
+                val list = arrayListOf<GoalRemoteModel>()
+                for (snapshot in iterable) {
+                   val model =  snapshot.getValue(GoalRemoteModel::class.java)
+                    model?.let { list.add(it) }
+                }
+                return list
+            }
+        }
     }
 }
 

@@ -1,9 +1,6 @@
 package by.aermakova.todoapp.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import io.reactivex.Observable
@@ -14,7 +11,7 @@ interface GoalDao {
     @Insert
     fun insertGoal(goal: GoalEntity): Long
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllGoals(goals: List<GoalEntity>)
 
     @Query("SELECT * FROM goals_table")
