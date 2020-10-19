@@ -20,7 +20,6 @@ class AddTaskViewModel @Inject constructor(
     val saveTask = { saveTaskToLocalDataBaseAndSyncToRemote() }
 
     private fun saveTaskToLocalDataBaseAndSyncToRemote() {
-        Log.d("A_AddTaskViewModel", "saveTask")
         mainFlowNavigation.popBack()
     }
 }

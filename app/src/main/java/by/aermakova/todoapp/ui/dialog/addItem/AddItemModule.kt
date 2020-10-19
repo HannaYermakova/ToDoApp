@@ -11,7 +11,7 @@ import dagger.Provides
 class AddItemModule {
 
     @Provides
-    fun provideDialogNavigation(activity: Activity) : DialogNavigation{
+    fun provideDialogNavigation(activity: Activity) : DialogNavigation<String>{
         val navController =  Navigation.findNavController(activity, R.id.app_host_fragment)
         return AddItemDialogNavigation(navController)
     }

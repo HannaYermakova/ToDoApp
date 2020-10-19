@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class GoalDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val dialogNavigation: DialogNavigation,
+    private val dialogNavigation: DialogNavigation<String>,
     private val goalInteractor: GoalInteractor,
     private val goalId: Long
 ) : BaseViewModel() {

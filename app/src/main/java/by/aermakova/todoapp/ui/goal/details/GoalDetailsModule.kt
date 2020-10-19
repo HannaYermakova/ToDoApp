@@ -32,7 +32,7 @@ class GoalDetailsModule {
         GoalsNavigation(controller)
 
     @Provides
-    fun provideDialogNavigation(controller: NavController): DialogNavigation =
+    fun provideDialogNavigation(controller: NavController): DialogNavigation<String> =
         AddItemDialogNavigation(controller)
 
     @Provides

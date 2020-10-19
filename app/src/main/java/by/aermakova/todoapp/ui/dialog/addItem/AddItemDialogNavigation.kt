@@ -8,10 +8,9 @@ import by.aermakova.todoapp.ui.navigation.DialogNavigation
 
 private const val DIALOG_RESULT = "dialog_result"
 
-class AddItemDialogNavigation(private val controller: NavController) : DialogNavigation {
+class AddItemDialogNavigation(private val controller: NavController) : DialogNavigation<String> {
 
     override fun openAddItemDialog(title: String) {
-//        controller.navigate(AddGoalFragmentDirections.actionGlobalNameItemDialog(title))
         controller.navigate(AppNavigationDirections.actionGlobalNameItemDialog(title))
     }
 

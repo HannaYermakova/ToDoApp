@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.dialog.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -26,7 +25,7 @@ class AddGoalModule {
         GoalsNavigation(controller)
 
     @Provides
-    fun provideDialogNavigation(controller: NavController): DialogNavigation =
+    fun provideDialogNavigation(controller: NavController): DialogNavigation<String> =
         AddItemDialogNavigation(controller)
 
     @Provides
