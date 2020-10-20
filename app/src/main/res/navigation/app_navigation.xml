@@ -50,8 +50,8 @@
     </dialog>
 
     <dialog
-        android:id="@+id/select_item_dialog"
-        android:name="by.aermakova.todoapp.ui.dialog.selectItem.SelectItemDialogFragment"
+        android:id="@+id/select_goal_dialog"
+        android:name="by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogFragment"
         tools:layout="@layout/fragment_select_item">
 
         <argument
@@ -80,6 +80,8 @@
         android:name="by.aermakova.todoapp.ui.task.addNew.AddTaskFragment"
         android:label="AddTaskFragment"
         tools:layout="@layout/fragment_add_task" />
-    <action android:id="@+id/action_global_select_item_dialog" app:destination="@id/select_item_dialog" />
+    <action
+        android:id="@+id/action_global_select_item_dialog"
+        app:destination="@id/select_goal_dialog" />
 
 </navigation>

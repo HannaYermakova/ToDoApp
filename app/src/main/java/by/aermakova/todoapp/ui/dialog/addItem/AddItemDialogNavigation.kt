@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.dialog
+package by.aermakova.todoapp.ui.dialog.addItem
 
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -10,7 +10,7 @@ private const val DIALOG_RESULT = "dialog_result"
 
 class AddItemDialogNavigation(private val controller: NavController) : DialogNavigation<String> {
 
-    override fun openAddItemDialog(title: String) {
+    override fun openItemDialog(title: String) {
         controller.navigate(AppNavigationDirections.actionGlobalNameItemDialog(title))
     }
 

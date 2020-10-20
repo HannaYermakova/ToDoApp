@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 
 interface DialogNavigation<Type> {
 
-    fun openAddItemDialog(title: String)
+    fun openItemDialog(title: String)
 
     fun getDialogResult(): MutableLiveData<Type>?
 

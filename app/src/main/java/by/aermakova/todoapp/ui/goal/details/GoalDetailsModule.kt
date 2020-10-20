@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.ui.dialog.AddItemDialogNavigation
+import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
