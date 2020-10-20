@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.Goal
+import by.aermakova.todoapp.ui.adapter.GoalModel
+import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -24,7 +26,7 @@ class GoalDetailsViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _goalModel.postValue(it)
+                    _goalModel.postValue(it.toCommonModel {  })
                 }, {
                     it.printStackTrace()
                 })
@@ -32,8 +34,8 @@ class GoalDetailsViewModel @Inject constructor(
     }
 
     val popBack = { mainFlowNavigation.popBack() }
-    private val _goalModel = MutableLiveData<Goal>()
 
-    val goalModel : LiveData<Goal>
+    private val _goalModel = MutableLiveData<GoalModel>()
+    val goalModel : LiveData<GoalModel>
         get() = _goalModel
 }

@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.ui.task
 
-import by.aermakova.todoapp.data.model.Task
-import by.aermakova.todoapp.ui.adapter.ModelWrapper
+import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.Observable
@@ -14,7 +13,7 @@ class TasksViewModel @Inject constructor(
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
-    private val _tasksList = PublishSubject.create<List<ModelWrapper<Task>>>()
-    val tasksList: Observable<List<ModelWrapper<Task>>>
+    private val _tasksList = PublishSubject.create<List<CommonModel>>()
+    val tasksList: Observable<List<CommonModel>>
         get() = _tasksList.hide()
 }

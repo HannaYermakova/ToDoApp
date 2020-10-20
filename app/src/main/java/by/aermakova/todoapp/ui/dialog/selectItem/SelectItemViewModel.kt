@@ -1,13 +1,14 @@
 package by.aermakova.todoapp.ui.dialog.selectItem
 
-import by.aermakova.todoapp.ui.adapter.ModelWrapper
+import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
-abstract class SelectItemViewModel<Type> : BaseViewModel() {
+abstract class SelectItemViewModel : BaseViewModel() {
 
-    val itemList: Observable<List<ModelWrapper<Type>>>
-        get() = getItemsList()
+    private val _itemList = PublishSubject.create<List<CommonModel>>()
 
-    abstract fun getItemsList():Observable<List<ModelWrapper<Type>>>
+    val itemList: Observable<List<CommonModel>>
+        get() = _itemList.hide()
 }

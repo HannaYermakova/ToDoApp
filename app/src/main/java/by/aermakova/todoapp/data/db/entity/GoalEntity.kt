@@ -26,7 +26,3 @@ data class GoalKeyResults(
     )
     val keyResults: List<KeyResultEntity>
 )
-
-fun GoalKeyResults.toModel(): Goal {
-    return with(goal) { Goal(goalId, goalStatusDone, text, keyResults.map { it.toModel().toModelKeyResult() }) }
-}

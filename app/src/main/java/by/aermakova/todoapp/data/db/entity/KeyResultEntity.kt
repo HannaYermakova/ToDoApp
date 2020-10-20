@@ -3,11 +3,8 @@ package by.aermakova.todoapp.data.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import by.aermakova.todoapp.BR
-import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.database.KEY_RESULTS_TABLE_NAME
-import by.aermakova.todoapp.data.model.KeyResult
-import by.aermakova.todoapp.ui.adapter.ModelWrapper
+import by.aermakova.todoapp.ui.adapter.KeyResultModel
 
 @Entity(tableName = KEY_RESULTS_TABLE_NAME)
 data class KeyResultEntity(
@@ -25,6 +22,6 @@ data class KeyResultEntity(
     val text: String
 )
 
-fun KeyResultEntity.toModel(): KeyResult {
-    return KeyResult(keyResultId, keyResultGoalId, keyResultStatusDone, text)
+fun KeyResultEntity.toCommonModel(): KeyResultModel {
+    return KeyResultModel(keyResultId, keyResultGoalId, keyResultStatusDone, text)
 }

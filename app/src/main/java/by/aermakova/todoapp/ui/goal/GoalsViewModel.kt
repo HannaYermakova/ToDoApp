@@ -1,11 +1,10 @@
 package by.aermakova.todoapp.ui.goal
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.data.model.Goal
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
-import by.aermakova.todoapp.ui.adapter.ModelWrapper
-import by.aermakova.todoapp.ui.adapter.toModelGoalList
+import by.aermakova.todoapp.ui.adapter.CommonModel
+import by.aermakova.todoapp.ui.adapter.toCommonModelGoalList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.Observable
@@ -21,20 +20,20 @@ class GoalsViewModel @Inject constructor(
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
-    private val _goalsList = PublishSubject.create<List<ModelWrapper<Goal>>>()
-    val goalsList: Observable<List<ModelWrapper<Goal>>>
+    private val _goalsList = PublishSubject.create<List<CommonModel>>()
+    val goalsList: Observable<List<CommonModel>>
         get() = _goalsList.hide()
 
     init {
         syncGoalsRemoteDataBase()
         syncKeyResultsRemoteDataBase()
         compositeDisposable.add(
-            goalInteractor.getAllGoalsWithKeyResults()
+            goalInteractor.getAllGoalsWithKeyResultsWithoutConverting()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        _goalsList.onNext(it.toModelGoalList { id ->
+                        _goalsList.onNext(it.toCommonModelGoalList { id ->
                             navigation.navigateToShowDetailsFragment(
                                 id
                             )

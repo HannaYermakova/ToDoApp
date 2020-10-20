@@ -1,11 +1,8 @@
 package by.aermakova.todoapp.data.interactor
 
-import android.util.Log
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
-import by.aermakova.todoapp.data.db.entity.toModel
-import by.aermakova.todoapp.data.model.Goal
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
@@ -14,7 +11,6 @@ import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.repository.GoalRepository
 import io.reactivex.Observable
 import io.reactivex.Observer
-import io.reactivex.Single
 
 class GoalInteractor(
     private val goalRepository: GoalRepository,
@@ -40,7 +36,7 @@ class GoalInteractor(
         return goalId
     }
 
-    fun getGoalKeyResultsById(goalId:Long) : Observable<GoalKeyResults>{
+    fun getGoalKeyResultsById(goalId: Long): Observable<GoalKeyResults> {
         return goalRepository.getGoalWithKeyResultsById(goalId)
     }
 
@@ -60,12 +56,12 @@ class GoalInteractor(
         keyResRemoteDatabase.addDataListener(dataObserver)
     }
 
-    fun getAllGoalsWithKeyResults(): Observable<List<Goal>> {
-        return goalRepository.getAllGoalsWithKeyResults().map { list -> list.map { it.toModel() } }
+    fun getAllGoalsWithKeyResultsWithoutConverting(): Observable<List<GoalKeyResults>> {
+        return goalRepository.getAllGoalsWithKeyResults()
     }
 
-    fun getGoalWithKeyResultsById(id: Long): Observable<Goal> {
-        return goalRepository.getGoalWithKeyResultsById(id).map { it.toModel() }
+    fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults> {
+        return goalRepository.getGoalWithKeyResultsById(id)
     }
 
     fun saveGoalsInLocalDatabase(collection: List<GoalRemoteModel>) {
