@@ -2,8 +2,10 @@ package by.aermakova.todoapp.util
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ViewSwitcher
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,23 @@ import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
+
+@BindingAdapter(
+    "app:showView"
+)
+fun switchView(view: ViewSwitcher, visible: Boolean?) {
+    visible?.let {
+        if (it) view.showNext()
+        Log.d("A_BindingAdapter", "$view $visible")
+    }
+}
+
+@BindingAdapter("app:visible")
+fun setVisibility(view: View, visible: Boolean?) {
+    visible?.let {
+        view.visibility = if (it) View.VISIBLE else View.GONE
+    }
+}
 
 @BindingAdapter("app:onClick")
 fun clickListener(view: View, listener: (() -> Unit)?) {

@@ -26,5 +26,6 @@
     <string name="attach_to_goal_text">Task is attached to Goal:</string>
     <string name="select_goal_text">Select the Goal:</string>
     <string name="attach_to_key_result_text">Task is attached to Key Result:</string>
+    <string name="select_key_result_text">Select the Key Result:</string>
     <string name="attach_to_step_text">Task is attached to Step:</string>
 </resources>

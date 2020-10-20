@@ -13,11 +13,14 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class SelectItemDialogFragment<Type> : DialogFragment(), HasSupportFragmentInjector {
+abstract class SelectItemDialogFragment : DialogFragment(), HasSupportFragmentInjector {
 
-//    private val router: DialogNavigation<Long>
+    private val compositeDisposable = CompositeDisposable()
+    val disposable: CompositeDisposable
+        get() = compositeDisposable
 
     private val viewModel: SelectItemViewModel
         get() = injectViewModel()
@@ -37,6 +40,11 @@ abstract class SelectItemDialogFragment<Type> : DialogFragment(), HasSupportFrag
         super.onActivityCreated(savedInstanceState)
         AndroidSupportInjection.inject(this)
         binding.setVariable(bindingViewModelId, viewModel)
+        setDismissListener()
+    }
+
+    private fun setDismissListener(){
+        disposable.add(viewModel.dismissCommand.subscribe { if (it) dismiss() })
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,11 +57,6 @@ abstract class SelectItemDialogFragment<Type> : DialogFragment(), HasSupportFrag
             builder
                 .setMessage(title)
                 .setView(binding.root)
-                .setPositiveButton(R.string.save_button)
-                { _, _ ->
-//                    router.setDialogResult(binding.dialogEditText.text.toString())
-                    dismiss()
-                }
                 .setNegativeButton(R.string.cancel)
                 { _, _ -> dismiss() }
             builder.create()
@@ -69,5 +72,10 @@ abstract class SelectItemDialogFragment<Type> : DialogFragment(), HasSupportFrag
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment>? {
         return fragmentInjector
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 }

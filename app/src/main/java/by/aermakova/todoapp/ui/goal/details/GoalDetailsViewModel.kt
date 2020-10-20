@@ -3,7 +3,6 @@ package by.aermakova.todoapp.ui.goal.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.data.model.Goal
 import by.aermakova.todoapp.ui.adapter.GoalModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel

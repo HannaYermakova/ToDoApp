@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import io.reactivex.Flowable
+import io.reactivex.Observable
 
 @Dao
 interface KeyResultDao {
@@ -17,8 +18,8 @@ interface KeyResultDao {
     fun insertAllKeyResults(keyResults: List<KeyResultEntity>)
 
     @Query("SELECT * FROM key_results_table WHERE key_result_id = :keyResultId")
-    fun getKeyResultById(keyResultId: Long): Flowable<KeyResultEntity>
+    fun getKeyResultById(keyResultId: Long): Observable<KeyResultEntity>
 
     @Query("SELECT * FROM key_results_table")
-    fun getAllIKeyResults(): Flowable<List<KeyResultEntity>>
+    fun getAllIKeyResults(): Observable<List<KeyResultEntity>>
 }

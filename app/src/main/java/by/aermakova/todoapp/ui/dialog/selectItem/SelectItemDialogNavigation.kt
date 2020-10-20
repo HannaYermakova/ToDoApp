@@ -1,20 +1,25 @@
 package by.aermakova.todoapp.ui.dialog.selectItem
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import by.aermakova.todoapp.AppNavigationDirections
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
-import javax.inject.Inject
 
-private const val DIALOG_RESULT = "dialog_result"
 
 abstract class SelectItemDialogNavigation (private val controller: NavController) : DialogNavigation<Long> {
 
+    private val dialogResult : String
+        get()  = getTag()
+
+    abstract fun getTag(): String
+
     override fun getDialogResult(): MutableLiveData<Long>? {
-        return controller.currentBackStackEntry?.savedStateHandle?.getLiveData<Long>(DIALOG_RESULT)
+        Log.d("A_SelectItemDialog", "getDialogResult")
+        return controller.currentBackStackEntry?.savedStateHandle?.getLiveData<Long>(dialogResult)
     }
 
     override fun setDialogResult(id: Long) {
-        controller.previousBackStackEntry?.savedStateHandle?.set(DIALOG_RESULT, id)
+        Log.d("A_SelectItemDialog", "setDialogResult $id")
+        controller.previousBackStackEntry?.savedStateHandle?.set(dialogResult, id)
     }
 }

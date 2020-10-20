@@ -28,7 +28,7 @@ class GoalsViewModel @Inject constructor(
         syncGoalsRemoteDataBase()
         syncKeyResultsRemoteDataBase()
         compositeDisposable.add(
-            goalInteractor.getAllGoalsWithKeyResultsWithoutConverting()
+            goalInteractor.getAllGoalsWithKeyResults()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

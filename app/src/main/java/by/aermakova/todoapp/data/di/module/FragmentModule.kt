@@ -4,11 +4,11 @@ import by.aermakova.todoapp.ui.app.AppActivity
 import by.aermakova.todoapp.ui.app.AppModule
 import by.aermakova.todoapp.ui.auth.AuthFlowFragment
 import by.aermakova.todoapp.ui.auth.AuthFlowModule
-import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment
-import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemDialogFragment
+import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
 import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemModule
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogFragment
+import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogFragment
 import by.aermakova.todoapp.ui.goal.AddGoalFragment
 import by.aermakova.todoapp.ui.goal.AddGoalModule
 import by.aermakova.todoapp.ui.goal.GoalsFragment
@@ -61,4 +61,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [SelectItemModule::class])
     abstract fun provideSelectGoalDialogFragment(): SelectGoalDialogFragment
+
+    @ContributesAndroidInjector(modules = [SelectItemModule::class])
+    abstract fun provideSelectKeyResultDialogFragment(): SelectKeyResultDialogFragment
 }

@@ -56,8 +56,12 @@ class GoalInteractor(
         keyResRemoteDatabase.addDataListener(dataObserver)
     }
 
-    fun getAllGoalsWithKeyResultsWithoutConverting(): Observable<List<GoalKeyResults>> {
+    fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>> {
         return goalRepository.getAllGoalsWithKeyResults()
+    }
+
+    fun getAllGoals(): Observable<List<GoalEntity>>{
+        return goalRepository.getAllGoals()
     }
 
     fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults> {
@@ -70,5 +74,9 @@ class GoalInteractor(
 
     fun saveKeyResultsInLocalDatabase(list: List<KeyResultRemoteModel>) {
         goalRepository.saveKeyResults(list.map { it.toLocal() })
+    }
+
+    fun getKeyResultsById(keyResultId: Long): Observable<KeyResultEntity> {
+        return goalRepository.getKeyResultById(keyResultId)
     }
 }

@@ -7,8 +7,11 @@ import io.reactivex.subjects.PublishSubject
 
 abstract class SelectItemViewModel : BaseViewModel() {
 
-    private val _itemList = PublishSubject.create<List<CommonModel>>()
-
+    protected val _itemList = PublishSubject.create<List<CommonModel>>()
     val itemList: Observable<List<CommonModel>>
         get() = _itemList.hide()
+
+    protected val _dismissCommand = PublishSubject.create<Boolean>()
+    val dismissCommand: Observable<Boolean>
+        get() = _dismissCommand.hide()
 }

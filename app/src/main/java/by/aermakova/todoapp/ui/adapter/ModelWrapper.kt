@@ -5,8 +5,6 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.model.Goal
 import by.aermakova.todoapp.data.model.KeyResult
 
-typealias Function = (Long) -> Unit
-
 class ModelWrapper<Type> private constructor(
     val id: Long,
     val type: Type,

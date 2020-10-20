@@ -7,11 +7,13 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
+import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Named
 
 @Module
 class AddTaskModule {
@@ -25,8 +27,14 @@ class AddTaskModule {
         TasksNavigation(controller)
 
     @Provides
+    @Named("SelectGoal")
     fun provideSelectGoalDialogNavigation(controller: NavController): SelectGoalDialogNavigation =
         SelectGoalDialogNavigation(controller)
+
+    @Provides
+    @Named("SelectKeyResult")
+    fun provideSelectKeyResDialogNavigation(controller: NavController): SelectKeyResultDialogNavigation =
+        SelectKeyResultDialogNavigation(controller)
 
     @Provides
     @IntoMap

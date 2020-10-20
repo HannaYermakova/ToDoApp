@@ -1,5 +1,6 @@
-package by.aermakova.todoapp.ui.dialog.selectItem.goal
+package by.aermakova.todoapp.ui.dialog.selectItem.keyResult
 
+import android.os.Bundle
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.adapter.toTextModel
@@ -9,30 +10,35 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class SelectGoalDialogFragment : SelectItemDialogFragment() {
+class SelectKeyResultDialogFragment : SelectItemDialogFragment() {
 
     @Inject
-    lateinit var injectedViewModel: SelectGoalViewModel
+    lateinit var injectedViewModel: SelectKeyResultViewModel
 
     override fun injectViewModel() = injectedViewModel
 
-    private val args: SelectGoalDialogFragmentArgs by navArgs()
+    private val args: SelectKeyResultDialogFragmentArgs by navArgs()
 
     override fun setTitle(): String = args.title
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        injectedViewModel.showKeyResult(args.goalId)
+    }
 }
 
-class SelectGoalViewModel @Inject constructor(
-    goalInteractor: GoalInteractor,
-    private val dialogNavigation: SelectGoalDialogNavigation
+class SelectKeyResultViewModel @Inject constructor(
+    private val goalInteractor: GoalInteractor,
+    private val dialogNavigation: SelectKeyResultDialogNavigation
 ) : SelectItemViewModel() {
 
-    init {
+    fun showKeyResult(goalId: Long) {
         disposable.add(
-            goalInteractor.getAllGoals()
+            goalInteractor.getGoalKeyResultsById(goalId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    it.map { entity ->
+                    it.keyResults.map { entity ->
                         entity.toTextModel { id ->
                             dialogNavigation.setDialogResult(id)
                             _dismissCommand.onNext(true)
