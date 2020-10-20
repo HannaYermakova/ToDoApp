@@ -21,7 +21,6 @@ class ModelWrapper<Type> private constructor(
         var variableId: Int,
         var clickAction: Function? = null
     ) {
-
         fun clickAction(clickAction: Function) = apply { this.clickAction = clickAction }
         fun build() = ModelWrapper(id, type, layout, variableId, clickAction)
     }

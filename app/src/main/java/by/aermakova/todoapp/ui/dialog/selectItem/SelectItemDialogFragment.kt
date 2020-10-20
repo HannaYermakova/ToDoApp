@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment
 import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentSelectItemBinding
+import by.aermakova.todoapp.util.adapterSettings
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
+
+private const val SIDE_MARGIN = 8
+private const val DIVIDE_MARGIN = 4
 
 abstract class SelectItemDialogFragment<Type> : DialogFragment(), HasSupportFragmentInjector {
 
@@ -44,6 +48,9 @@ abstract class SelectItemDialogFragment<Type> : DialogFragment(), HasSupportFrag
         binding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_select_item, null, false)
         binding.lifecycleOwner = this
+
+        adapterSettings<Type>(binding.recyclerView, SIDE_MARGIN, SIDE_MARGIN, DIVIDE_MARGIN)
+
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder

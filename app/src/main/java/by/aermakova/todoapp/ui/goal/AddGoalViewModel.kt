@@ -2,8 +2,8 @@ package by.aermakova.todoapp.ui.goal
 
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.ui.adapter.ModelWrapper
-import by.aermakova.todoapp.ui.adapter.toModelStringList
+import by.aermakova.todoapp.ui.adapter.CommonModel
+import by.aermakova.todoapp.ui.adapter.toCommonModelStringList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -58,8 +58,8 @@ class AddGoalViewModel @Inject constructor(
     val keyResultObserver: LiveData<String>?
         get() = dialogNavigation.getDialogResult()
 
-    private val _tempKeyResultsList = BehaviorSubject.create<List<ModelWrapper<String>>>()
-    val tempKeyResultsList: Observable<List<ModelWrapper<String>>>
+    private val _tempKeyResultsList = BehaviorSubject.create<List<CommonModel>>()
+    val tempKeyResultsList: Observable<List<CommonModel>>
         get() = _tempKeyResultsList.hide()
 
     private val _tempGoalTitle = BehaviorSubject.create<String>()
@@ -78,9 +78,8 @@ class AddGoalViewModel @Inject constructor(
     init {
         compositeDisposable.add(
             _tempKeyResult
-                .subscribe({
-                    _tempKeyResultsList.onNext(it.toModelStringList())
-                },
+                .subscribe(
+                    { _tempKeyResultsList.onNext(it.toCommonModelStringList()) },
                     { it.printStackTrace() })
         )
     }

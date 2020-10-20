@@ -8,7 +8,6 @@ import by.aermakova.todoapp.ui.app.App
 import dagger.MapKey
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 @Module(includes = [GoalsDataBaseModule::class])

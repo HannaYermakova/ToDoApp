@@ -7,9 +7,7 @@ import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.aermakova.todoapp.ui.adapter.CustomRecyclerAdapter
-import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
-import by.aermakova.todoapp.ui.adapter.ModelWrapper
+import by.aermakova.todoapp.ui.adapter.*
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
@@ -63,20 +61,37 @@ fun <Type> bindListToRecycler(
     items: Observable<List<ModelWrapper<Type>>>?,
     disposable: CompositeDisposable?
 ) {
-    recyclerView.adapter = CustomRecyclerAdapter<Type>()
-    recyclerView.addItemDecoration(MarginItemDecorator(8, 8, divide = 4))
-
-    val manager = LinearLayoutManager(recyclerView.context)
-    recyclerView.layoutManager = manager
+    adapterSettings<Type>(recyclerView, 8, 8, 4)
 
     if (items != null && disposable != null) {
         disposable.add(
             items.subscribe(
                 {
                     @Suppress("UNCHECKED_CAST")
-                    (recyclerView.adapter as? CustomRecyclerAdapter<Type>)?.update(
-                        it
-                    )
+                    (recyclerView.adapter as? CustomRecyclerAdapter<Type>)?.update(it)
+                },
+                { it.printStackTrace() })
+        )
+    }
+}
+
+@BindingAdapter(
+    "app:bindList2",
+    "app:addDisposable2"
+)
+fun bindCommonListToRecycler(
+    recyclerView: RecyclerView,
+    items: Observable<List<CommonModel>>?,
+    disposable: CompositeDisposable?
+) {
+    commonAdapterSettings(recyclerView, 8, 8, 4)
+
+    if (items != null && disposable != null) {
+        disposable.add(
+            items.subscribe(
+                {
+                    @Suppress("UNCHECKED_CAST")
+                    (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
                 },
                 { it.printStackTrace() })
         )
@@ -90,16 +105,45 @@ fun <Type> bindPlainListToRecycler(
     recyclerView: RecyclerView,
     items: List<ModelWrapper<Type>>?
 ) {
-
-    recyclerView.adapter = CustomRecyclerAdapter<Type>()
-    recyclerView.addItemDecoration(MarginItemDecorator(divide = 2))
-    val manager = LinearLayoutManager(recyclerView.context)
-    recyclerView.layoutManager = manager
-
+    adapterSettings<Type>(recyclerView, divide = 2)
     @Suppress("UNCHECKED_CAST")
     items?.let {
-        (recyclerView.adapter as? CustomRecyclerAdapter<Type>)?.update(
-            it
-        )
+        (recyclerView.adapter as? CustomRecyclerAdapter<Type>)?.update(it)
     }
+}
+
+fun <Type> adapterSettings(
+    recyclerView: RecyclerView,
+    leftMargin: Int = 0,
+    rightMargin: Int = 0,
+    divide: Int = 0
+) {
+    recyclerView.adapter = CustomRecyclerAdapter<Type>()
+    recyclerView.addItemDecoration(
+        MarginItemDecorator(
+            leftMargin = leftMargin,
+            rightMargin = rightMargin,
+            divide = divide
+        )
+    )
+    val manager = LinearLayoutManager(recyclerView.context)
+    recyclerView.layoutManager = manager
+}
+
+fun commonAdapterSettings(
+    recyclerView: RecyclerView,
+    leftMargin: Int = 0,
+    rightMargin: Int = 0,
+    divide: Int = 0
+) {
+    recyclerView.adapter = CommonRecyclerAdapter()
+    recyclerView.addItemDecoration(
+        MarginItemDecorator(
+            leftMargin = leftMargin,
+            rightMargin = rightMargin,
+            divide = divide
+        )
+    )
+    val manager = LinearLayoutManager(recyclerView.context)
+    recyclerView.layoutManager = manager
 }

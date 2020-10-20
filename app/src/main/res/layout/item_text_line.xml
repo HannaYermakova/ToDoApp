@@ -6,8 +6,7 @@
 
         <variable
             name="text"
-            type="String" />
-
+            type="by.aermakova.todoapp.ui.adapter.TextModel" />
     </data>
 
     <TextView
@@ -15,7 +14,7 @@
         style="@style/TextRegular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{text}"
+        android:text="@{text.text}"
         tools:paddingTop="@dimen/margin_small"
         tools:paddingBottom="@dimen/margin_small"
         tools:text="@string/add_key_result" />
