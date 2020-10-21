@@ -28,4 +28,5 @@
     <string name="attach_to_key_result_text">Task is attached to Key Result:</string>
     <string name="select_key_result_text">Select the Key Result:</string>
     <string name="attach_to_step_text">Task is attached to Step:</string>
+    <string name="select_step_text">Select the Step:</string>
 </resources>

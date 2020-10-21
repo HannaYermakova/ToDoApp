@@ -1,11 +1,13 @@
 package by.aermakova.todoapp.data.di.module
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
 import by.aermakova.todoapp.data.repository.GoalRepository
+import by.aermakova.todoapp.data.repository.StepRepository
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -14,6 +16,11 @@ import dagger.Provides
 
 @Module
 class InteractorModule {
+
+    @Provides
+    fun provideStepInteractor(
+        stepRepository: StepRepository
+    ): StepInteractor = StepInteractor(stepRepository)
 
     @Provides
     fun provideGoalInteractor(
@@ -58,3 +65,4 @@ class InteractorModule {
 
 private const val GOALS_REMOTE_DATA_BASE = "goals_remote_data_base"
 private const val KEY_RESULTS_REMOTE_DATA_BASE = "key_results_remote_data_base"
+private const val STEP_REMOTE_DATA_BASE = "step_remote_data_base"

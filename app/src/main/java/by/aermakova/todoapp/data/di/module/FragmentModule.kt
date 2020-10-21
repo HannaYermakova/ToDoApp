@@ -9,6 +9,7 @@ import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
 import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemModule
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogFragment
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogFragment
+import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogFragment
 import by.aermakova.todoapp.ui.goal.AddGoalFragment
 import by.aermakova.todoapp.ui.goal.AddGoalModule
 import by.aermakova.todoapp.ui.goal.GoalsFragment
@@ -64,4 +65,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [SelectItemModule::class])
     abstract fun provideSelectKeyResultDialogFragment(): SelectKeyResultDialogFragment
+
+    @ContributesAndroidInjector(modules = [SelectItemModule::class])
+    abstract fun provideSelectStepDialogFragment(): SelectStepDialogFragment
 }

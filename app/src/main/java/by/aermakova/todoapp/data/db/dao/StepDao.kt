@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.StepEntity
-import io.reactivex.Flowable
+import io.reactivex.Observable
 
 @Dao
 interface StepDao {
@@ -16,8 +16,11 @@ interface StepDao {
     fun insertAllSteps(steps: List<StepEntity>)
 
     @Query("SELECT * FROM steps_table WHERE step_id = :stepId")
-    fun getStepById(stepId: Long): Flowable<StepEntity>
+    fun getStepById(stepId: Long): Observable<StepEntity>
+
+    @Query("SELECT * FROM steps_table WHERE step_key_result_id = :keyResultId")
+    fun getStepByKeyResultId(keyResultId: Long): Observable<List<StepEntity>>
 
     @Query("SELECT * FROM steps_table")
-    fun getAllSteps(): Flowable<List<StepEntity>>
+    fun getAllSteps(): Observable<List<StepEntity>>
 }

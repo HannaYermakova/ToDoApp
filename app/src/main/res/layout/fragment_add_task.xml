@@ -162,6 +162,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/key_result_switcher"
+            app:visible="@{viewModel.stepsIsVisible}"
             tools:visibility="visible" />
 
         <ViewSwitcher
@@ -173,6 +174,8 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attach_to_step_text"
+            app:showView="@{viewModel.stepsIsSelected}"
+            app:visible="@{viewModel.stepsIsVisible}"
             tools:visibility="visible">
 
             <Button
@@ -183,7 +186,9 @@
                 android:background="@drawable/select_button_bg"
                 android:elevation="@dimen/elevation_button"
                 android:text="@string/select"
-                android:textColor="@color/color_grey_light" />
+                android:textColor="@color/color_grey_light"
+                app:addTitle="@{@string/select_step_text}"
+                app:openDialog="@{viewModel.selectStep}" />
 
             <TextView
                 android:id="@+id/attached_step_title"

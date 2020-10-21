@@ -95,12 +95,31 @@
             app:argType="string" />
         <argument
             android:name="goalId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </dialog>
 
     <action
         android:id="@+id/action_global_selectKeyResultDialogFragment"
         app:destination="@id/selectKeyResultDialogFragment" />
+
+    <dialog
+        android:id="@+id/selectStepDialogFragment"
+        android:name="by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogFragment"
+        android:label="SelectStepDialogFragment"
+        tools:layout="@layout/fragment_select_item">
+        <argument
+            android:name="title"
+            android:defaultValue="Select"
+            app:argType="string" />
+        <argument
+            android:name="keyResultId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+    </dialog>
+    <action
+        android:id="@+id/action_global_selectStepDialogFragment"
+        app:destination="@id/selectStepDialogFragment" />
 
 </navigation>

@@ -10,6 +10,8 @@ import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalViewModel
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultViewModel
+import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
+import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -30,6 +32,10 @@ class SelectItemModule {
         SelectKeyResultDialogNavigation(controller)
 
     @Provides
+    fun provideSelectStepDialogNavigation(controller: NavController): SelectStepDialogNavigation =
+        SelectStepDialogNavigation(controller)
+
+    @Provides
     @IntoMap
     @ViewModelKey(SelectGoalViewModel::class)
     fun provideGoalViewModel(viewModel: SelectGoalViewModel): ViewModel = viewModel
@@ -38,4 +44,9 @@ class SelectItemModule {
     @IntoMap
     @ViewModelKey(SelectKeyResultViewModel::class)
     fun provideKeyResultViewModel(viewModel: SelectKeyResultViewModel): ViewModel = viewModel
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(SelectStepViewModel::class)
+    fun provideStepViewModel(viewModel: SelectStepViewModel): ViewModel = viewModel
 }

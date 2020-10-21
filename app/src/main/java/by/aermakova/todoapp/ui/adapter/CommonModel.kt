@@ -2,10 +2,7 @@ package by.aermakova.todoapp.ui.adapter
 
 import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.data.db.entity.GoalEntity
-import by.aermakova.todoapp.data.db.entity.GoalKeyResults
-import by.aermakova.todoapp.data.db.entity.KeyResultEntity
-import by.aermakova.todoapp.data.db.entity.toCommonModel
+import by.aermakova.todoapp.data.db.entity.*
 
 typealias Function = (Long) -> Unit
 
@@ -30,6 +27,15 @@ data class KeyResultModel(
     val status: Boolean,
     val text: String
 ) : CommonModel(keyResultId, R.layout.item_key_result, BR.keyResult)
+
+data class StepModel(
+    val stepId: Long,
+    val keyResultId: Long,
+    val goalId: Long,
+    val status: Boolean,
+    val text: String,
+    val action: Function? = null
+) : CommonModel(stepId, R.layout.item_step, BR.step, action)
 
 data class TextModel(
     val textId: Long,
@@ -65,6 +71,14 @@ fun GoalEntity.toTextModel(clickAction: Function): TextModel {
 
 fun KeyResultEntity.toTextModel(clickAction: Function): TextModel {
     return TextModel(keyResultId, text, action = clickAction)
+}
+
+fun StepEntity.toTextModel(clickAction: Function): TextModel {
+    return TextModel(stepId, text, action = clickAction)
+}
+
+fun StepEntity.toCommonModel(clickAction: Function): StepModel {
+    return StepModel(stepId, stepKeyResultId, stepGoalId, stepStatusDone, text, clickAction)
 }
 
 fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: Function): List<GoalModel> {

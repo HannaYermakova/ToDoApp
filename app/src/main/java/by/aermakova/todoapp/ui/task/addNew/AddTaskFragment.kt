@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.ui.task.addNew
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentAddItemBinding
@@ -15,12 +14,10 @@ class AddTaskFragment : BaseFragment<AddTaskViewModel, FragmentAddItemBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.selectedGoalObserver?.observe(viewLifecycleOwner, Observer {
-            Log.d("A_AddTaskFragment", "selectedGoalObserver")
             viewModel.addTempGoal(it)
         })
 
         viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
-            Log.d("A_AddTaskFragment", "selectedKeyResObserver")
             viewModel.addTempKeyResult(it)
         })
     }
