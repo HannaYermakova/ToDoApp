@@ -6,15 +6,15 @@
     <data>
 
         <variable
-            name="taskModel"
-            type="by.aermakova.todoapp.data.model.Task" />
+            name="task"
+            type="by.aermakova.todoapp.ui.adapter.TaskModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_corner_radius"
         android:background="@drawable/card_background"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,15 +23,62 @@
             android:layout_margin="@dimen/margin_normal">
 
             <TextView
-                android:id="@+id/goal_title"
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/task_title"
+                style="@style/TextAccent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.492"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:text="@{task.text}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Task 1" />
+                tools:text="Task Task T ask TaskTa sk Tas kTaskTa sk 1" />
+
+            <TextView
+                android:id="@+id/deadline_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deadline_text"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/deadline_task_text"
+                style="@style/TextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/deadline_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:setDate="@{task.finishTime}"
+                tools:text="12.12.2020" />
+
+            <TextView
+                android:id="@+id/status_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_text"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/deadline_text" />
+
+            <TextView
+                android:id="@+id/status_task_text"
+                style="@style/TextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBaseline_toBaselineOf="@id/status_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:setStatus="@{task.status}"
+                tools:text="done" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

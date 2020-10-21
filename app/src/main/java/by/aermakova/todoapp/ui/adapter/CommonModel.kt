@@ -28,6 +28,20 @@ data class KeyResultModel(
     val text: String
 ) : CommonModel(keyResultId, R.layout.item_key_result, BR.keyResult)
 
+data class TaskModel(
+    val taskId: Long,
+    val status: Boolean,
+    val text: String,
+    val goalId: Long?,
+    val keyResultId: Long?,
+    val stepId: Long?,
+    val finishTime: Long?,
+    val startTime: Long,
+    val scheduledTask: Boolean,
+    val interval: Int?,
+    val action: Function? = null
+) : CommonModel(taskId, R.layout.item_task, BR.task, action)
+
 data class StepModel(
     val stepId: Long,
     val keyResultId: Long,
@@ -75,6 +89,22 @@ fun KeyResultEntity.toTextModel(clickAction: Function): TextModel {
 
 fun StepEntity.toTextModel(clickAction: Function): TextModel {
     return TextModel(stepId, text, action = clickAction)
+}
+
+fun TaskEntity.toCommonModel(clickAction: Function): TaskModel {
+    return TaskModel(
+        taskId,
+        taskStatusDone,
+        text,
+        taskGoalId,
+        taskKeyResultId,
+        taskStepId,
+        finishDate,
+        startTime,
+        scheduledTask,
+        interval,
+        clickAction
+    )
 }
 
 fun StepEntity.toCommonModel(clickAction: Function): StepModel {

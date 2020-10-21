@@ -42,4 +42,8 @@ class TaskInteractor(
             taskRemoteDatabase.saveData(it.toRemote())
         }
     }
+
+    fun getAllTasks(): Observable<List<TaskEntity>> {
+        return taskRepository.getAllTasks()
+    }
 }

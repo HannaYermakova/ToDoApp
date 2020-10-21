@@ -14,4 +14,7 @@ class TaskRepository @Inject constructor(
     fun getTaskById(taskId: Long): Observable<TaskEntity> =
         taskDao.getTaskById(taskId)
 
+    fun getAllTasks(): Observable<List<TaskEntity>> {
+        return taskDao.getAllTasks()
+    }
 }

@@ -3,7 +3,6 @@ package by.aermakova.todoapp.ui.dialog.addItem
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import by.aermakova.todoapp.AppNavigationDirections
-import by.aermakova.todoapp.ui.goal.AddGoalFragmentDirections
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 
 private const val DIALOG_RESULT = "dialog_result"

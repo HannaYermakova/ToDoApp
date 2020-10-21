@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.goal
+package by.aermakova.todoapp.ui.goal.main
 
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentGoalsBinding

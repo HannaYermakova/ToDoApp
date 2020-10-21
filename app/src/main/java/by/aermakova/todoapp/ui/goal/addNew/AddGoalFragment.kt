@@ -1,7 +1,6 @@
-package by.aermakova.todoapp.ui.goal
+package by.aermakova.todoapp.ui.goal.addNew
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentAddGoalBinding

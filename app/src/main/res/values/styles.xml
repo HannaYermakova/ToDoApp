@@ -56,4 +56,10 @@
         <item name="android:fontFamily">@font/proxima_nova_thin</item>
     </style>
 
+    <style name="TextAccent">
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/proxima_nova_bold</item>
+    </style>
+
 </resources>

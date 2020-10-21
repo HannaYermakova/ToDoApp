@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.goal.AddGoalFragment">
+            tools:context=".ui.goal.addNew.AddGoalFragment">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -40,7 +40,7 @@
                 android:text="@{viewModel.goalModel.text}"
                 app:layout_constraintBottom_toBottomOf="@+id/fab"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fab"
                 app:layout_constraintTop_toTopOf="@id/fab"
                 tools:text="Native Android development" />
 

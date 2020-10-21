@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.goal
+package by.aermakova.todoapp.ui.goal.main
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel

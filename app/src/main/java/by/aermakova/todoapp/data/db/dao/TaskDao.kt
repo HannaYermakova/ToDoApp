@@ -20,5 +20,5 @@ interface TaskDao {
     fun getTaskById(taskId: Long): Observable<TaskEntity>
 
     @Query("SELECT * FROM tasks_table")
-    fun getAllTasks(): Flowable<List<TaskEntity>>
+    fun getAllTasks(): Observable<List<TaskEntity>>
 }

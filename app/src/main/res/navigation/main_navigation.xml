@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_goals"
-        android:name="by.aermakova.todoapp.ui.goal.GoalsFragment"
+        android:name="by.aermakova.todoapp.ui.goal.main.GoalsFragment"
         android:label="@string/title_goals"
         tools:layout="@layout/fragment_goals" >
     </fragment>
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_tasks"
-        android:name="by.aermakova.todoapp.ui.task.TasksFragment"
+        android:name="by.aermakova.todoapp.ui.task.main.TasksFragment"
         android:label="@string/title_tasks"
         tools:layout="@layout/fragment_tasks" />
 

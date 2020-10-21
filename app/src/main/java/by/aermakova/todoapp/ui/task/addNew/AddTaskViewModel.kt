@@ -164,6 +164,7 @@ class AddTaskViewModel @Inject constructor(
         if (finishTime != null && finishTime > System.currentTimeMillis()) {
             _finishDateIsSelected.postValue(true)
             _finishDateText.postValue(convertLongToDate(finishTime))
+            tempFinishTime = finishTime
         }
     }
 
@@ -179,11 +180,11 @@ class AddTaskViewModel @Inject constructor(
                             tempGoalId,
                             tempKeyResultId,
                             tempStepId,
-                            if (deadlinedTask.value!!) {
+                            finishDate = if (deadlinedTask.value!!) {
                                 tempFinishTime
                             } else null,
-                            scheduledTask.value!!,
-                            if (scheduledTask.value!!) taskInterval.value else null
+                            scheduledTask = scheduledTask.value!!,
+                            interval = if (scheduledTask.value!!) taskInterval.value else null
                         )
                     )
                 }

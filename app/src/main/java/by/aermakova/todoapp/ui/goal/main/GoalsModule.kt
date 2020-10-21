@@ -1,10 +1,11 @@
-package by.aermakova.todoapp.ui.goal
+package by.aermakova.todoapp.ui.goal.main
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
 import dagger.Provides

@@ -31,11 +31,14 @@
         <action
             android:id="@+id/action_mainFlowFragment_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addGoalFragment"
-        android:name="by.aermakova.todoapp.ui.goal.AddGoalFragment"
+        android:name="by.aermakova.todoapp.ui.goal.addNew.AddGoalFragment"
         android:label="fragment_add_goal"
         tools:layout="@layout/fragment_add_goal" />
 
@@ -129,5 +132,15 @@
     <action
         android:id="@+id/action_global_pickDayDialogFragment"
         app:destination="@id/pickDayDialogFragment" />
+    <fragment
+        android:id="@+id/taskDetailsFragment"
+        android:name="by.aermakova.todoapp.ui.task.details.TaskDetailsFragment"
+        android:label="TaskDetailsFragment"
+        tools:layout="@layout/fragment_task_details">
+        <argument
+            android:name="taskId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

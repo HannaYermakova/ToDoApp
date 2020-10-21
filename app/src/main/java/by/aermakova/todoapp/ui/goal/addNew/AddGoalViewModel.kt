@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.goal
+package by.aermakova.todoapp.ui.goal.addNew
 
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor

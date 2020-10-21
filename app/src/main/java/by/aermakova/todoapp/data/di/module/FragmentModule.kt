@@ -12,20 +12,22 @@ import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemModule
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogFragment
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogFragment
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogFragment
-import by.aermakova.todoapp.ui.goal.AddGoalFragment
-import by.aermakova.todoapp.ui.goal.AddGoalModule
-import by.aermakova.todoapp.ui.goal.GoalsFragment
-import by.aermakova.todoapp.ui.goal.GoalsModule
+import by.aermakova.todoapp.ui.goal.addNew.AddGoalFragment
+import by.aermakova.todoapp.ui.goal.addNew.AddGoalModule
+import by.aermakova.todoapp.ui.goal.main.GoalsFragment
+import by.aermakova.todoapp.ui.goal.main.GoalsModule
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsFragment
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsModule
 import by.aermakova.todoapp.ui.login.LoginFragment
 import by.aermakova.todoapp.ui.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
-import by.aermakova.todoapp.ui.task.TasksFragment
-import by.aermakova.todoapp.ui.task.TasksModule
+import by.aermakova.todoapp.ui.task.main.TasksFragment
+import by.aermakova.todoapp.ui.task.main.TasksModule
 import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment
 import by.aermakova.todoapp.ui.task.addNew.AddTaskModule
+import by.aermakova.todoapp.ui.task.details.TaskDetailsFragment
+import by.aermakova.todoapp.ui.task.details.TaskDetailsModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -73,4 +75,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [PickDayModule::class])
     abstract fun providePickDayDialogFragment(): PickDayDialogFragment
+
+    @ContributesAndroidInjector(modules = [TaskDetailsModule::class])
+    abstract fun provideTaskDetailsFragment(): TaskDetailsFragment
 }

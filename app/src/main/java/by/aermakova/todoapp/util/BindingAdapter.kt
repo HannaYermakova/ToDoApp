@@ -3,10 +3,7 @@ package by.aermakova.todoapp.util
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.ToggleButton
-import android.widget.ViewSwitcher
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +18,33 @@ import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
 @BindingAdapter(
+    "app:setStatus"
+)
+fun setStatus(textView: TextView, status: Boolean?) {
+    val res = textView.context.resources
+    textView.text = status?.let {
+        if (it) res.getString(R.string.status_done)
+        else res.getString(R.string.status_in_progress)
+    } ?: res.getString(R.string.status_in_progress)
+}
+
+@BindingAdapter(
+    "app:setDate"
+)
+fun setDate(textView: TextView, finishTime: Long?) {
+    val theme = textView.context.theme
+    val res = textView.context.resources
+    textView.text = finishTime?.let {
+        textView.setTextColor(
+            if (it > System.currentTimeMillis()) {
+                res.getColor(R.color.colorAccent, theme)
+            } else res.getColor(R.color.color_black, theme)
+        )
+        convertLongToDate(finishTime)
+    } ?: res.getString(R.string.not_specified)
+}
+
+@BindingAdapter(
     "app:intervalListener"
 )
 fun setIntervalListener(radioGroup: RadioGroup, interval: MutableLiveData<Interval>?) {
@@ -33,6 +57,20 @@ fun setIntervalListener(radioGroup: RadioGroup, interval: MutableLiveData<Interv
             }
         )
     }
+}
+
+@BindingAdapter(
+    "app:setScheduled"
+)
+fun setScheduled(textView: TextView, interval: Int?) {
+    val res = textView.context.resources
+    textView.text = interval?.let {
+        when (it) {
+            Interval.DAILY.code -> res.getString(R.string.daily_text)
+            Interval.WEEKLY.code -> res.getString(R.string.weekly_text)
+            else -> res.getString(R.string.monthly_text)
+        }
+    } ?: res.getString(R.string.no_text)
 }
 
 @BindingAdapter(
