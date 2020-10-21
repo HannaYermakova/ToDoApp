@@ -20,5 +20,9 @@ class AddTaskFragment : BaseFragment<AddTaskViewModel, FragmentAddItemBinding>()
         viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.addTempKeyResult(it)
         })
+
+        viewModel.selectedStepObserver?.observe(viewLifecycleOwner, Observer {
+            viewModel.addTempStep(it)
+        })
     }
 }

@@ -1,13 +1,17 @@
 package by.aermakova.todoapp.data.di.module
 
+import by.aermakova.todoapp.data.db.database.TASKS_TABLE_NAME
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
+import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
 import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.StepRepository
+import by.aermakova.todoapp.data.repository.TaskRepository
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -16,6 +20,12 @@ import dagger.Provides
 
 @Module
 class InteractorModule {
+
+    @Provides
+    fun provideTaskInteractor(
+        taskRepository: TaskRepository,
+        taskRemoteDatabase: RemoteDatabase<TaskRemoteModel>
+    ): TaskInteractor = TaskInteractor(taskRepository, taskRemoteDatabase)
 
     @Provides
     fun provideStepInteractor(
@@ -29,6 +39,22 @@ class InteractorModule {
         keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>
     ): GoalInteractor =
         GoalInteractor(goalRepository, goalsRemoteDatabase, keyResRemoteDatabase)
+
+    @Provides
+    fun provideRemoteTaskDatabase(): RemoteDatabase<TaskRemoteModel> {
+        return object : FirebaseRealtimeDatabase<TaskRemoteModel>(
+            Firebase.database.reference.child(TASKS_TABLE_NAME)
+        ) {
+            override fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<TaskRemoteModel> {
+                val list = arrayListOf<TaskRemoteModel>()
+                for (snapshot in iterable) {
+                    val model = snapshot.getValue(TaskRemoteModel::class.java)
+                    model?.let { list.add(it) }
+                }
+                return list
+            }
+        }
+    }
 
     @Provides
     fun provideRemoteDataBase(): RemoteDatabase<GoalRemoteModel> {

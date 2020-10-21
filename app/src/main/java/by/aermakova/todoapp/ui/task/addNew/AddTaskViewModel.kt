@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
@@ -12,13 +13,12 @@ import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialog
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.Observer
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 import javax.inject.Named
-
-private const val INITIAL_VALUE = -1L
 
 class AddTaskViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
@@ -26,7 +26,8 @@ class AddTaskViewModel @Inject constructor(
     @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     @Named("SelectStep") private val selectStepDialogNavigation: SelectStepDialogNavigation,
     private val goalInteractor: GoalInteractor,
-    private val stepInteractor: StepInteractor
+    private val stepInteractor: StepInteractor,
+    private val taskInteractor: TaskInteractor
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -40,17 +41,19 @@ class AddTaskViewModel @Inject constructor(
     val selectGoal: (String) -> Unit = { selectGoalDialogNavigation.openItemDialog(it) }
 
     val selectKeyResult: (String) -> Unit =
-        { selectKeyResDialogNavigation.openItemDialog(it, tempGoalId) }
+        { title -> tempGoalId?.let { selectKeyResDialogNavigation.openItemDialog(title, it) } }
 
-    val selectStep: (String) -> Unit = {
-        selectStepDialogNavigation.openItemDialog(it, tempKeyResultId)
+    val selectStep: (String) -> Unit = { title ->
+        tempKeyResultId?.let {
+            selectStepDialogNavigation.openItemDialog(title, it)
+        }
     }
 
-    private var tempGoalId = INITIAL_VALUE
+    private var tempGoalId: Long? = null
 
-    private var tempKeyResultId = INITIAL_VALUE
+    private var tempKeyResultId: Long? = null
 
-    private var tempStepId = INITIAL_VALUE
+    private var tempStepId: Long? = null
 
     val selectedGoalObserver: LiveData<Long>?
         get() = selectGoalDialogNavigation.getDialogResult()
@@ -88,7 +91,7 @@ class AddTaskViewModel @Inject constructor(
     fun addTempGoal(goalId: Long?) {
         goalId?.let {
             tempGoalId = goalId
-            _keyResultIsVisible.postValue(tempGoalId > INITIAL_VALUE)
+            _keyResultIsVisible.postValue(tempGoalId != null)
             disposable.add(
                 goalInteractor.getGoalKeyResultsById(it)
                     .subscribeOn(Schedulers.io())
@@ -103,7 +106,7 @@ class AddTaskViewModel @Inject constructor(
     fun addTempKeyResult(keyResultId: Long?) {
         keyResultId?.let {
             tempKeyResultId = keyResultId
-            _stepsIsVisible.postValue(tempKeyResultId > INITIAL_VALUE)
+            _stepsIsVisible.postValue(tempKeyResultId != null)
             disposable.add(
                 goalInteractor.getKeyResultsById(it)
                     .subscribeOn(Schedulers.io())
@@ -119,7 +122,7 @@ class AddTaskViewModel @Inject constructor(
     fun addTempStep(stepId: Long?) {
         stepId?.let {
             tempStepId = stepId
-            _stepsIsSelected.postValue(tempStepId > INITIAL_VALUE)
+            _stepsIsSelected.postValue(tempStepId != null)
             disposable.add(
                 stepInteractor.getStepById(it)
                     .subscribeOn(Schedulers.io())
@@ -133,6 +136,30 @@ class AddTaskViewModel @Inject constructor(
     }
 
     private fun saveTaskToLocalDataBaseAndSyncToRemote() {
-        mainFlowNavigation.popBack()
+        if (!_tempTaskTitle.value.isNullOrBlank()) {
+            disposable.add(
+                Single.create<Long> {
+                    it.onSuccess(
+                        taskInteractor.saveTaskInLocalDatabase(
+                            _tempTaskTitle.value!!,
+                            tempGoalId,
+                            tempKeyResultId,
+                            tempStepId
+                        )
+                    )
+                }
+                    .map {
+                        taskInteractor.getTaskById(it).subscribe { entity ->
+                            taskInteractor.saveTaskToRemote(entity)
+                        }
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { mainFlowNavigation.popBack() },
+                        { it.printStackTrace() }
+                    )
+            )
+        }
     }
 }

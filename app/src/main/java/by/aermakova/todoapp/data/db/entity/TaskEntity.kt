@@ -11,10 +11,10 @@ data class TaskEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name ="task_id")
-    val taskId: Long,
+    val taskId: Long = 0,
 
     @ColumnInfo(name ="task_status_done")
-    val taskStatusDone: Boolean,
+    val taskStatusDone: Boolean = false,
 
     val text: String,
 
@@ -31,7 +31,7 @@ data class TaskEntity(
     val finishTime: Long?,
 
     @ColumnInfo(name ="start_time")
-    val startTime: Long,
+    val startTime: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name ="scheduled_task")
     val scheduledTask: Boolean,
