@@ -1,11 +1,13 @@
 package by.aermakova.todoapp.ui.task.addNew
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
@@ -41,6 +43,12 @@ class AddTaskModule {
     @Named("SelectStep")
     fun provideSelectStepDialogNavigation(controller: NavController): SelectStepDialogNavigation =
         SelectStepDialogNavigation(controller)
+
+    @Provides
+    @Named("PickDate")
+    fun provideDialogNavigation(controller: NavController): PickDayDialogNavigator {
+        return PickDayDialogNavigator(controller)
+    }
 
     @Provides
     @IntoMap

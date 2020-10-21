@@ -15,7 +15,7 @@ data class TaskRemoteModel(
     var finishTime: Long? = 0,
     var startTime: Long? = 0,
     var scheduledTask: Boolean? = false,
-    var interval: Long? = 0
+    var interval: Int? = 0
 )
 
 fun TaskEntity.toRemote(): TaskRemoteModel =
@@ -26,7 +26,7 @@ fun TaskEntity.toRemote(): TaskRemoteModel =
         taskGoalId,
         taskKeyResultId,
         taskStepId,
-        finishTime,
+        finishDate,
         startTime,
         scheduledTask,
         interval

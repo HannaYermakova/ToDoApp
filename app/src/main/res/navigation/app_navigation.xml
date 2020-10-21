@@ -121,5 +121,13 @@
     <action
         android:id="@+id/action_global_selectStepDialogFragment"
         app:destination="@id/selectStepDialogFragment" />
+    <dialog
+        android:id="@+id/pickDayDialogFragment"
+        android:name="by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogFragment"
+        android:label="PickDayDialogFragment" />
+
+    <action
+        android:id="@+id/action_global_pickDayDialogFragment"
+        app:destination="@id/pickDayDialogFragment" />
 
 </navigation>

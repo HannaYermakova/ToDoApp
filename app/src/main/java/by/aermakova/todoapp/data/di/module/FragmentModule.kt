@@ -6,6 +6,8 @@ import by.aermakova.todoapp.ui.auth.AuthFlowFragment
 import by.aermakova.todoapp.ui.auth.AuthFlowModule
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
+import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogFragment
+import by.aermakova.todoapp.ui.dialog.datePicker.PickDayModule
 import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemModule
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogFragment
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogFragment
@@ -68,4 +70,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [SelectItemModule::class])
     abstract fun provideSelectStepDialogFragment(): SelectStepDialogFragment
+
+    @ContributesAndroidInjector(modules = [PickDayModule::class])
+    abstract fun providePickDayDialogFragment(): PickDayDialogFragment
 }

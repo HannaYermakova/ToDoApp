@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.di.module
 
-import by.aermakova.todoapp.data.db.database.TASKS_TABLE_NAME
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
@@ -43,7 +42,7 @@ class InteractorModule {
     @Provides
     fun provideRemoteTaskDatabase(): RemoteDatabase<TaskRemoteModel> {
         return object : FirebaseRealtimeDatabase<TaskRemoteModel>(
-            Firebase.database.reference.child(TASKS_TABLE_NAME)
+            Firebase.database.reference.child(TASK_REMOTE_DATA_BASE)
         ) {
             override fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<TaskRemoteModel> {
                 val list = arrayListOf<TaskRemoteModel>()
@@ -91,4 +90,5 @@ class InteractorModule {
 
 private const val GOALS_REMOTE_DATA_BASE = "goals_remote_data_base"
 private const val KEY_RESULTS_REMOTE_DATA_BASE = "key_results_remote_data_base"
+private const val TASK_REMOTE_DATA_BASE = "task_remote_data_base"
 private const val STEP_REMOTE_DATA_BASE = "step_remote_data_base"

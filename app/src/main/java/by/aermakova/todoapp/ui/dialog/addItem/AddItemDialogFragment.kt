@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentAddItemBinding
-import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragmentArgs
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -34,8 +33,7 @@ class AddItemDialogFragment : DialogFragment(), HasSupportFragmentInjector {
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_add_item, null, false)
 
         return activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder
+            AlertDialog.Builder(it)
                 .setMessage(args.title)
                 .setView(binding.root)
                 .setPositiveButton(R.string.save_button)
@@ -45,7 +43,7 @@ class AddItemDialogFragment : DialogFragment(), HasSupportFragmentInjector {
                 }
                 .setNegativeButton(R.string.cancel)
                 { _, _ -> dismiss() }
-            builder.create()
+                .create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 

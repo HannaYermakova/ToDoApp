@@ -38,6 +38,12 @@
         <item name="android:textColor">@color/color_grey</item>
     </style>
 
+    <style name="CustomRadioButtonStyle" parent="TextRegular">
+        <item name="android:background">@null</item>
+        <item name="android:button">@drawable/radio_button_bg</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+    </style>
+
     <style name="TextInstructions" parent="CustomTextStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
         <item name="android:textColor">@color/color_blue_dark</item>

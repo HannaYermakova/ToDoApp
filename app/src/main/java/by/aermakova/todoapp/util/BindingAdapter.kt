@@ -2,13 +2,17 @@ package by.aermakova.todoapp.util
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioGroup
+import android.widget.ToggleButton
 import android.widget.ViewSwitcher
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.aermakova.todoapp.R
+import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.CommonRecyclerAdapter
 import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
@@ -17,12 +21,35 @@ import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
 @BindingAdapter(
+    "app:intervalListener"
+)
+fun setIntervalListener(radioGroup: RadioGroup, interval: MutableLiveData<Interval>?) {
+    interval?.let {
+        it.postValue(
+            when (radioGroup.id) {
+                R.id.daily_radio_button -> Interval.DAILY
+                R.id.weekly_radio_button -> Interval.WEEKLY
+                else -> Interval.MONTHLY
+            }
+        )
+    }
+}
+
+@BindingAdapter(
     "app:showView"
 )
 fun switchView(view: ViewSwitcher, visible: Boolean?) {
     visible?.let {
         if (it) view.showNext()
-        Log.d("A_BindingAdapter", "$view $visible")
+    }
+}
+
+@BindingAdapter(
+    "app:checkedListener"
+)
+fun toggleListener(toggleButton: ToggleButton, checked: MutableLiveData<Boolean>?) {
+    checked?.let {
+        checked.postValue(toggleButton.isChecked)
     }
 }
 

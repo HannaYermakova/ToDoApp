@@ -19,4 +19,7 @@
 
     <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="toggle_size">24dp</dimen>
+
+    <dimen name="radio_button_size">16dp</dimen>
+    <dimen name="radio_button_stroke">1dp</dimen>
 </resources>
