@@ -8,6 +8,7 @@
     <string name="ok">OK</string>
     <string name="save_button">Save</string>
     <string name="select">Select</string>
+    <string name="pick_day">Pick day</string>
     <string name="empty" />
 
     <string name="title_goals">Goals</string>
@@ -29,4 +30,10 @@
     <string name="select_key_result_text">Select the Key Result:</string>
     <string name="attach_to_step_text">Task is attached to Step:</string>
     <string name="select_step_text">Select the Step:</string>
+    <string name="scheduled_task_text">Is it Scheduled Task?</string>
+    <string name="set_finish_time_task_text">Do you want to set deadline for the Task?</string>
+    <string name="repeat_text">Repeat:</string>
+    <string name="daily_text">daily</string>
+    <string name="weekly_text">weekly</string>
+    <string name="monthly_text">monthly</string>
 </resources>
