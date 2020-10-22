@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.step
 
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 
 class StepsNavigation(private val controller: NavController) : MainFlowNavigation {
@@ -11,7 +12,7 @@ class StepsNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToShowDetailsFragment(id: Long) {
-//        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToTaskDetailsFragment(id))
+        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToStepDetailsFragment(id))
     }
 
     override fun popBack() {

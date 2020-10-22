@@ -25,7 +25,7 @@ class StepsViewModel @Inject constructor(
     init {
         disposable.add(
             stepInteractor.getAllSteps()
-                .map { list -> list.map { it.toCommonModel { } } }
+                .map { list -> list.map { it.toCommonModel  { id -> navigation.navigateToShowDetailsFragment(id) }  } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
