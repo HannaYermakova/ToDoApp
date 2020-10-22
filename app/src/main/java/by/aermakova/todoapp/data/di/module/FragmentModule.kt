@@ -22,6 +22,10 @@ import by.aermakova.todoapp.ui.login.LoginFragment
 import by.aermakova.todoapp.ui.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
+import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
+import by.aermakova.todoapp.ui.step.addNew.AddStepModule
+import by.aermakova.todoapp.ui.step.main.StepsFragment
+import by.aermakova.todoapp.ui.step.main.StepsModule
 import by.aermakova.todoapp.ui.task.main.TasksFragment
 import by.aermakova.todoapp.ui.task.main.TasksModule
 import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment
@@ -78,4 +82,10 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [TaskDetailsModule::class])
     abstract fun provideTaskDetailsFragment(): TaskDetailsFragment
+
+    @ContributesAndroidInjector(modules = [StepsModule::class])
+    abstract fun provideStepsFragment(): StepsFragment
+
+    @ContributesAndroidInjector(modules = [AddStepModule::class])
+    abstract fun provideAddStepFragment(): AddStepFragment
 }

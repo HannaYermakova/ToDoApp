@@ -11,7 +11,7 @@ data class StepEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name ="step_id")
-    val stepId: Long,
+    val stepId: Long = 0,
 
     @ColumnInfo(name ="step_key_result_id")
     val stepKeyResultId: Long,
@@ -20,7 +20,7 @@ data class StepEntity(
     val stepGoalId: Long,
 
     @ColumnInfo(name ="step_status_done")
-    val stepStatusDone: Boolean,
+    val stepStatusDone: Boolean = false,
 
     val text: String
 )

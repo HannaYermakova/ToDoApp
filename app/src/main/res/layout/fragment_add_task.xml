@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
-                android:text="@string/attach_to_goal_text"
+                android:text="@string/task_attach_to_goal_text"
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/goal_title" />
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
-                android:text="@string/attach_to_key_result_text"
+                android:text="@string/task_attach_to_key_result_text"
                 android:textAlignment="textStart"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"

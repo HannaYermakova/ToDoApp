@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_mainFlowFragment_to_taskDetailsFragment"
             app:destination="@id/taskDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_addStepFragment"
+            app:destination="@id/addStepFragment" />
     </fragment>
 
     <fragment
@@ -142,5 +145,10 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/addStepFragment"
+        android:name="by.aermakova.todoapp.ui.step.addNew.AddStepFragment"
+        android:label="AddStepFragment"
+        tools:layout="@layout/fragment_add_step" />
 
 </navigation>

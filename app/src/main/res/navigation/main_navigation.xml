@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/navigation_steps"
-        android:name="by.aermakova.todoapp.ui.step.StepsFragment"
+        android:name="by.aermakova.todoapp.ui.step.main.StepsFragment"
         android:label="@string/title_steps"
         tools:layout="@layout/fragment_steps" />
 

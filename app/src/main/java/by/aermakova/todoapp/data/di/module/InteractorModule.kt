@@ -7,6 +7,7 @@ import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
+import by.aermakova.todoapp.data.remote.model.StepRemoteModel
 import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
 import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.StepRepository
@@ -28,8 +29,9 @@ class InteractorModule {
 
     @Provides
     fun provideStepInteractor(
-        stepRepository: StepRepository
-    ): StepInteractor = StepInteractor(stepRepository)
+        stepRepository: StepRepository,
+        stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
+    ): StepInteractor = StepInteractor(stepRepository, stepRemoteDatabase)
 
     @Provides
     fun provideGoalInteractor(
@@ -38,6 +40,22 @@ class InteractorModule {
         keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>
     ): GoalInteractor =
         GoalInteractor(goalRepository, goalsRemoteDatabase, keyResRemoteDatabase)
+
+    @Provides
+    fun provideRemoteStepDatabase(): RemoteDatabase<StepRemoteModel> {
+        return object : FirebaseRealtimeDatabase<StepRemoteModel>(
+            Firebase.database.reference.child(STEP_REMOTE_DATA_BASE)
+        ) {
+            override fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<StepRemoteModel> {
+                val list = arrayListOf<StepRemoteModel>()
+                for (snapshot in iterable) {
+                    val model = snapshot.getValue(StepRemoteModel::class.java)
+                    model?.let { list.add(it) }
+                }
+                return list
+            }
+        }
+    }
 
     @Provides
     fun provideRemoteTaskDatabase(): RemoteDatabase<TaskRemoteModel> {

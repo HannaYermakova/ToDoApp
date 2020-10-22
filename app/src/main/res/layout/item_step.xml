@@ -22,15 +22,24 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/margin_normal">
 
-            <TextView
-                android:id="@+id/goal_title"
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.492"
+            <ImageView
+                android:id="@+id/image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_step"
+                android:layout_width="36dp"
+                android:layout_height="36dp"/>
+
+            <TextView
+                android:id="@+id/goal_title"
+                style="@style/TextAccent"
+                android:text="@{step.text}"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@id/image"
+                app:layout_constraintBottom_toBottomOf="@id/image"
                 tools:text="Step 1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

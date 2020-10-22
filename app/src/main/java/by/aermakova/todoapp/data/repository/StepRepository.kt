@@ -16,4 +16,12 @@ class StepRepository @Inject constructor(
     fun getStepById(stepId: Long): Observable<StepEntity> {
         return stepDao.getStepById(stepId)
     }
+
+    fun saveStepEntity(stepEntity: StepEntity) : Long {
+        return stepDao.insertStep(stepEntity)
+    }
+
+    fun getAllSteps(): Observable<List<StepEntity>> {
+        return stepDao.getAllSteps()
+    }
 }

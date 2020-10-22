@@ -32,9 +32,9 @@
 
     <string name="add_new_task_title">Add new Task</string>
     <string name="enter_task_hint">Name Task</string>
-    <string name="attach_to_goal_text">Task is attached to Goal:</string>
+    <string name="task_attach_to_goal_text">Task is attached to Goal:</string>
     <string name="select_goal_text">Select the Goal:</string>
-    <string name="attach_to_key_result_text">Task is attached to Key Result:</string>
+    <string name="task_attach_to_key_result_text">Task is attached to Key Result:</string>
     <string name="select_key_result_text">Select the Key Result:</string>
     <string name="attach_to_step_text">Task is attached to Step:</string>
     <string name="select_step_text">Select the Step:</string>
@@ -53,4 +53,10 @@
     <string name="not_specified">Not specified</string>
     <string name="attach_to">Attached to:</string>
     <string name="mark_as_done_text">Mark as Done</string>
+
+    <string name="add_new_step_title">Add new Step</string>
+    <string name="enter_step_hint">Name Step</string>
+    <string name="step_attach_to_goal_text">Step is attached to Goal:</string>
+    <string name="step_attach_to_key_result_text">Step is attached to Key Result:</string>
+
 </resources>

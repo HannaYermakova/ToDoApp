@@ -10,7 +10,7 @@ import io.reactivex.Observable
 interface StepDao {
 
     @Insert
-    fun insertStep(step: StepEntity)
+    fun insertStep(step: StepEntity): Long
 
     @Insert
     fun insertAllSteps(steps: List<StepEntity>)
