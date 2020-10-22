@@ -14,10 +14,14 @@ import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialog
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogFragment
 import by.aermakova.todoapp.ui.goal.addNew.AddGoalFragment
 import by.aermakova.todoapp.ui.goal.addNew.AddGoalModule
-import by.aermakova.todoapp.ui.goal.main.GoalsFragment
-import by.aermakova.todoapp.ui.goal.main.GoalsModule
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsFragment
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsModule
+import by.aermakova.todoapp.ui.goal.main.GoalsFragment
+import by.aermakova.todoapp.ui.goal.main.GoalsModule
+import by.aermakova.todoapp.ui.idea.addNew.AddIdeaFragment
+import by.aermakova.todoapp.ui.idea.addNew.AddIdeaModule
+import by.aermakova.todoapp.ui.idea.main.IdeaFragment
+import by.aermakova.todoapp.ui.idea.main.IdeaModule
 import by.aermakova.todoapp.ui.login.LoginFragment
 import by.aermakova.todoapp.ui.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
@@ -26,12 +30,12 @@ import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
 import by.aermakova.todoapp.ui.step.addNew.AddStepModule
 import by.aermakova.todoapp.ui.step.main.StepsFragment
 import by.aermakova.todoapp.ui.step.main.StepsModule
-import by.aermakova.todoapp.ui.task.main.TasksFragment
-import by.aermakova.todoapp.ui.task.main.TasksModule
 import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment
 import by.aermakova.todoapp.ui.task.addNew.AddTaskModule
 import by.aermakova.todoapp.ui.task.details.TaskDetailsFragment
 import by.aermakova.todoapp.ui.task.details.TaskDetailsModule
+import by.aermakova.todoapp.ui.task.main.TasksFragment
+import by.aermakova.todoapp.ui.task.main.TasksModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -88,4 +92,10 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [AddStepModule::class])
     abstract fun provideAddStepFragment(): AddStepFragment
+
+    @ContributesAndroidInjector(modules = [IdeaModule::class])
+    abstract fun provideIdeaFragment(): IdeaFragment
+
+    @ContributesAndroidInjector(modules = [AddIdeaModule::class])
+    abstract fun provideAddIdeaFragment(): AddIdeaFragment
 }

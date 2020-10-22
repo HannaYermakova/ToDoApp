@@ -1,15 +1,14 @@
 package by.aermakova.todoapp.data.di.module
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
-import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
-import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
-import by.aermakova.todoapp.data.remote.model.StepRemoteModel
-import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
+import by.aermakova.todoapp.data.remote.model.*
 import by.aermakova.todoapp.data.repository.GoalRepository
+import by.aermakova.todoapp.data.repository.IdeaRepository
 import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.repository.TaskRepository
 import com.google.firebase.database.DataSnapshot
@@ -28,6 +27,12 @@ class InteractorModule {
     ): TaskInteractor = TaskInteractor(taskRepository, taskRemoteDatabase)
 
     @Provides
+    fun provideIdeaInteractor(
+        ideaRepository: IdeaRepository,
+        ideaRemoteDatabase: RemoteDatabase<IdeaRemoteModel>
+    ): IdeaInteractor = IdeaInteractor(ideaRepository, ideaRemoteDatabase)
+
+    @Provides
     fun provideStepInteractor(
         stepRepository: StepRepository,
         stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
@@ -40,6 +45,22 @@ class InteractorModule {
         keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>
     ): GoalInteractor =
         GoalInteractor(goalRepository, goalsRemoteDatabase, keyResRemoteDatabase)
+
+    @Provides
+    fun provideRemoteIdeaDatabase(): RemoteDatabase<IdeaRemoteModel> {
+        return object : FirebaseRealtimeDatabase<IdeaRemoteModel>(
+            Firebase.database.reference.child(IDEA_REMOTE_DATA_BASE)
+        ) {
+            override fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<IdeaRemoteModel> {
+                val list = arrayListOf<IdeaRemoteModel>()
+                for (snapshot in iterable) {
+                    val model = snapshot.getValue(IdeaRemoteModel::class.java)
+                    model?.let { list.add(it) }
+                }
+                return list
+            }
+        }
+    }
 
     @Provides
     fun provideRemoteStepDatabase(): RemoteDatabase<StepRemoteModel> {
@@ -110,3 +131,4 @@ private const val GOALS_REMOTE_DATA_BASE = "goals_remote_data_base"
 private const val KEY_RESULTS_REMOTE_DATA_BASE = "key_results_remote_data_base"
 private const val TASK_REMOTE_DATA_BASE = "task_remote_data_base"
 private const val STEP_REMOTE_DATA_BASE = "step_remote_data_base"
+private const val IDEA_REMOTE_DATA_BASE = "idea_remote_data_base"

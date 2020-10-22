@@ -5,19 +5,20 @@ import androidx.room.Insert
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
 import io.reactivex.Flowable
+import io.reactivex.Observable
 
 @Dao
 interface IdeaDao {
 
     @Insert
-    fun insertIdea(idea: IdeaEntity)
+    fun insertIdea(idea: IdeaEntity): Long
 
     @Insert
     fun insertAllIdeas(ideas: List<IdeaEntity>)
 
     @Query("SELECT * FROM ideas_table WHERE idea_id = :ideaId")
-    fun getIdeaById(ideaId: Long): Flowable<IdeaEntity>
+    fun getIdeaById(ideaId: Long): Observable<IdeaEntity>
 
     @Query("SELECT * FROM ideas_table")
-    fun getAllIdeas() : Flowable<List<IdeaEntity>>
+    fun getAllIdeas() : Observable<List<IdeaEntity>>
 }

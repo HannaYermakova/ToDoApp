@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_mainFlowFragment_to_addStepFragment"
             app:destination="@id/addStepFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_addIdeaFragment"
+            app:destination="@id/addIdeaFragment" />
     </fragment>
 
     <fragment
@@ -150,5 +153,10 @@
         android:name="by.aermakova.todoapp.ui.step.addNew.AddStepFragment"
         android:label="AddStepFragment"
         tools:layout="@layout/fragment_add_step" />
+    <fragment
+        tools:layout="@layout/fragment_add_idea"
+        android:id="@+id/addIdeaFragment"
+        android:name="by.aermakova.todoapp.ui.idea.addNew.AddIdeaFragment"
+        android:label="AddIdeaFragment" />
 
 </navigation>
