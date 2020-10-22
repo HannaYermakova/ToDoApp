@@ -33,7 +33,7 @@ class PickDayDialogNavigator(private val controller: NavController) :
         return controller.currentBackStackEntry?.savedStateHandle?.getLiveData<Long>(DIALOG_RESULT)
     }
 
-    override fun setDialogResult(text: Long) {
-        controller.previousBackStackEntry?.savedStateHandle?.set(DIALOG_RESULT, text)
+    override fun setDialogResult(result: Long) {
+        controller.previousBackStackEntry?.savedStateHandle?.set(DIALOG_RESULT, result)
     }
 }

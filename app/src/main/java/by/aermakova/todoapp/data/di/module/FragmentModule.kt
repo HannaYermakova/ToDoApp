@@ -6,6 +6,8 @@ import by.aermakova.todoapp.ui.auth.AuthFlowFragment
 import by.aermakova.todoapp.ui.auth.AuthFlowModule
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
+import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskDialogFragment
+import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskModule
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogFragment
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayModule
 import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemModule
@@ -108,4 +110,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [IdeaDetailsModule::class])
     abstract fun provideIdeaDetailsFragment(): IdeaDetailsFragment
+
+    @ContributesAndroidInjector(modules = [ConvertIdeaIntoTaskModule::class])
+    abstract fun provideConvertIdeaFragment(): ConvertIdeaIntoTaskDialogFragment
 }

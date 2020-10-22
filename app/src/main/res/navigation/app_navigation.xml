@@ -184,4 +184,17 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+    <dialog
+        android:id="@+id/convertIdeaIntoTaskDialogFragment"
+        android:name="by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskDialogFragment"
+        android:label="ConvertIdeaIntoTaskDialogFragment"
+        tools:layout="@layout/fragment_convert_idea_into_task">
+        <argument
+            android:name="ideaId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_convertIdeaIntoTaskDialogFragment"
+        app:destination="@id/convertIdeaIntoTaskDialogFragment" />
 </navigation>

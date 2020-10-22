@@ -17,7 +17,7 @@ class AddItemDialogNavigation(private val controller: NavController) : DialogNav
         return controller.currentBackStackEntry?.savedStateHandle?.getLiveData<String>(DIALOG_RESULT)
     }
 
-    override fun setDialogResult(text: String) {
-        controller.previousBackStackEntry?.savedStateHandle?.set(DIALOG_RESULT, text)
+    override fun setDialogResult(result: String) {
+        controller.previousBackStackEntry?.savedStateHandle?.set(DIALOG_RESULT, result)
     }
 }

@@ -24,8 +24,9 @@ class AddTaskFragment : BaseFragment<AddTaskViewModel, FragmentAddItemBinding>()
         viewModel.selectedStepObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.addTempStep(it)
         })
-        viewModel.selectedFinishTimeObserver?.observe(viewLifecycleOwner, Observer {
-            viewModel.checkAndSetFinishTime(it)
+        viewModel.taskCreator.selectedFinishTimeObserver?.observe(viewLifecycleOwner, Observer {
+//            viewModel.checkAndSetFinishTime(it)
+            viewModel.taskCreator.checkAndSetFinishTime(it)
         })
     }
 }

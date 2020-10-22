@@ -1,9 +1,6 @@
 package by.aermakova.todoapp.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -11,10 +8,10 @@ import io.reactivex.Observable
 @Dao
 interface IdeaDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertIdea(idea: IdeaEntity): Long
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllIdeas(ideas: List<IdeaEntity>)
 
     @Query("SELECT * FROM ideas_table WHERE idea_id = :ideaId")

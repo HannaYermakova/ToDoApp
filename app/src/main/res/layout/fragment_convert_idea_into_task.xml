@@ -7,38 +7,24 @@
 
         <variable
             name="viewModel"
-            type="by.aermakova.todoapp.ui.task.addNew.AddTaskViewModel" />
+            type="by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_normal"
         tools:context=".ui.goal.addNew.AddGoalFragment">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:elevation="@dimen/elevation_button"
-            app:backgroundTint="@color/color_blue"
-            app:fabSize="mini"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:onClick="@{viewModel.popBack}"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
             android:id="@+id/title"
             style="@style/TextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_new_task_title"
-            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            android:text="@string/convert_idea_into_task"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/fab" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/scheduled_task_text"
@@ -62,7 +48,7 @@
             android:text="@string/empty"
             android:textOff="@string/empty"
             android:textOn="@string/empty"
-            app:checkedListener="@{viewModel.scheduledTask}"
+            app:checkedListener="@{viewModel.taskCreator.scheduledTask}"
             app:layout_constraintBaseline_toBaselineOf="@id/scheduled_task_text"
             app:layout_constraintEnd_toEndOf="parent"
             tools:checked="true" />
@@ -77,7 +63,7 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scheduled_task_toggle"
-            app:visible="@{viewModel.scheduledTask}"
+            app:visible="@{viewModel.taskCreator.scheduledTask}"
             tools:visibility="visible">
 
             <TextView
@@ -96,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:checkedButton="@id/daily_radio_button"
                 android:orientation="horizontal"
-                app:intervalListener="@{viewModel.taskInterval}">
+                app:intervalListener="@{viewModel.taskCreator.taskInterval}">
 
                 <RadioButton
                     android:id="@+id/daily_radio_button"
@@ -122,7 +108,6 @@
                     android:layout_marginStart="@dimen/margin_small"
                     android:text="@string/monthly_text" />
             </RadioGroup>
-
         </LinearLayout>
 
         <TextView
@@ -146,7 +131,7 @@
             android:text="@string/empty"
             android:textOff="@string/empty"
             android:textOn="@string/empty"
-            app:checkedListener="@{viewModel.deadlinedTask}"
+            app:checkedListener="@{viewModel.taskCreator.deadlinedTask}"
             app:layout_constraintBaseline_toBaselineOf="@id/set_finish_time_task_text"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -159,8 +144,8 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/task_with_deadline_toggle"
-            app:showView="@{viewModel.finishDateIsSelected}"
-            app:visible="@{viewModel.deadlinedTask}"
+            app:showView="@{viewModel.taskCreator.finishDateIsSelected}"
+            app:visible="@{viewModel.taskCreator.deadlinedTask}"
             tools:visibility="visible">
 
             <Button
@@ -172,28 +157,40 @@
                 android:elevation="@dimen/elevation_button"
                 android:text="@string/pick_day"
                 android:textColor="@color/color_grey_light"
-                app:onClick="@{viewModel.pickFinishDay}" />
+                app:onClick="@{viewModel.taskCreator.pickFinishDay}" />
 
             <TextView
                 android:id="@+id/deadline_title"
                 style="@style/TextRegular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.finishDateText}"
+                android:text="@{viewModel.taskCreator.finishDateText}"
                 tools:text="15.12.2020" />
         </ViewSwitcher>
 
         <Button
             android:id="@+id/save_button"
-            style="@style/CustomButtonStyle"
+            style="@style/AccentButtonStyle"
             android:layout_marginTop="@dimen/margin_normal"
             android:elevation="@dimen/elevation_button"
             android:text="@string/save_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cancel_button"
+            app:layout_constraintTop_toBottomOf="@id/deadline_switcher"
+            app:onClick="@{viewModel.taskCreator.saveTask}" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/RegularButtonStyle"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:elevation="@dimen/elevation_button"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toStartOf="@+id/save_button"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/deadline_switcher"
-            app:onClick="@{viewModel.saveTask}" />
+            app:onClick="@{viewModel.cancel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -2,10 +2,10 @@ package by.aermakova.todoapp.ui.task.addNew
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -14,9 +14,7 @@ import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import by.aermakova.todoapp.util.convertLongToDate
 import io.reactivex.Observer
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -31,37 +29,47 @@ class AddTaskViewModel @Inject constructor(
     @Named("PickDate") private val pickDayDialogNavigation: PickDayDialogNavigator,
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
-    private val taskInteractor: TaskInteractor
+    private val taskInteractor: TaskInteractor,
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
+
+    private val saveAndClose = BehaviorSubject.create<Boolean>()
+
+    val taskCreator =
+        TaskCreator(pickDayDialogNavigation, taskInteractor, disposable, saveAndClose)
 
     private val _tempTaskTitle = BehaviorSubject.create<String>()
     val tempTaskTitle: Observer<String>
         get() = _tempTaskTitle
 
-    val saveTask = { saveTaskToLocalDataBaseAndSyncToRemote() }
+    init {
+        disposable.add(
+            _tempTaskTitle
+                .subscribe { taskCreator.tempTaskTitle = it }
+        )
+        disposable.add(
+            saveAndClose.subscribe { if (it) mainFlowNavigation.popBack() }
+        )
+    }
 
     val selectGoal: (String) -> Unit = { selectGoalDialogNavigation.openItemDialog(it) }
 
     val selectKeyResult: (String) -> Unit =
-        { title -> tempGoalId?.let { selectKeyResDialogNavigation.openItemDialog(title, it) } }
+        { title ->
+            taskCreator.tempGoalId?.let {
+                selectKeyResDialogNavigation.openItemDialog(
+                    title,
+                    it
+                )
+            }
+        }
 
     val selectStep: (String) -> Unit = { title ->
-        tempKeyResultId?.let {
+        taskCreator.tempKeyResultId?.let {
             selectStepDialogNavigation.openItemDialog(title, it)
         }
     }
-
-    val pickFinishDay = { pickDayDialogNavigation.openItemDialog("") }
-
-    private var tempGoalId: Long? = null
-
-    private var tempKeyResultId: Long? = null
-
-    private var tempStepId: Long? = null
-
-    private var tempFinishTime: Long? = null
 
     val selectedGoalObserver: LiveData<Long>?
         get() = selectGoalDialogNavigation.getDialogResult()
@@ -71,9 +79,6 @@ class AddTaskViewModel @Inject constructor(
 
     val selectedStepObserver: LiveData<Long>?
         get() = selectStepDialogNavigation.getDialogResult()
-
-    val selectedFinishTimeObserver: LiveData<Long>?
-        get() = pickDayDialogNavigation.getDialogResult()
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)
     val keyResultIsVisible: LiveData<Boolean>
@@ -87,10 +92,6 @@ class AddTaskViewModel @Inject constructor(
     val stepsIsSelected: LiveData<Boolean>
         get() = _stepsIsSelected
 
-    private val _finishDateIsSelected = MutableLiveData<Boolean>(false)
-    val finishDateIsSelected: LiveData<Boolean>
-        get() = _finishDateIsSelected
-
     private val _goalTitle = MutableLiveData<String>()
     val goalTitle: LiveData<String>
         get() = _goalTitle
@@ -103,20 +104,10 @@ class AddTaskViewModel @Inject constructor(
     val stepTitle: LiveData<String>
         get() = _stepTitle
 
-    private val _finishDateText = MutableLiveData<String>()
-    val finishDateText: LiveData<String>
-        get() = _finishDateText
-
-    val scheduledTask = MutableLiveData<Boolean>()
-
-    val taskInterval = MutableLiveData<Interval>()
-
-    val deadlinedTask = MutableLiveData<Boolean>(false)
-
     fun addTempGoal(goalId: Long?) {
         goalId?.let {
-            tempGoalId = goalId
-            _keyResultIsVisible.postValue(tempGoalId != null)
+            taskCreator.tempGoalId = goalId
+            _keyResultIsVisible.postValue(taskCreator.tempGoalId != null)
             disposable.add(
                 goalInteractor.getGoalKeyResultsById(it)
                     .subscribeOn(Schedulers.io())
@@ -130,8 +121,8 @@ class AddTaskViewModel @Inject constructor(
 
     fun addTempKeyResult(keyResultId: Long?) {
         keyResultId?.let {
-            tempKeyResultId = keyResultId
-            _stepsIsVisible.postValue(tempKeyResultId != null)
+            taskCreator.tempKeyResultId = keyResultId
+            _stepsIsVisible.postValue(taskCreator.tempKeyResultId != null)
             disposable.add(
                 goalInteractor.getKeyResultsById(it)
                     .subscribeOn(Schedulers.io())
@@ -146,8 +137,8 @@ class AddTaskViewModel @Inject constructor(
 
     fun addTempStep(stepId: Long?) {
         stepId?.let {
-            tempStepId = stepId
-            _stepsIsSelected.postValue(tempStepId != null)
+            taskCreator.tempStepId = stepId
+            _stepsIsSelected.postValue(taskCreator.tempStepId != null)
             disposable.add(
                 stepInteractor.getStepById(it)
                     .subscribeOn(Schedulers.io())
@@ -156,49 +147,6 @@ class AddTaskViewModel @Inject constructor(
                     .subscribe { step ->
                         _stepTitle.postValue(step.text)
                     }
-            )
-        }
-    }
-
-    fun checkAndSetFinishTime(finishTime: Long?) {
-        if (finishTime != null && finishTime > System.currentTimeMillis()) {
-            _finishDateIsSelected.postValue(true)
-            _finishDateText.postValue(convertLongToDate(finishTime))
-            tempFinishTime = finishTime
-        }
-    }
-
-    private fun saveTaskToLocalDataBaseAndSyncToRemote() {
-        if (!_tempTaskTitle.value.isNullOrBlank()
-            && scheduledTask.value != null
-        ) {
-            disposable.add(
-                Single.create<Long> {
-                    it.onSuccess(
-                        taskInteractor.saveTaskInLocalDatabase(
-                            _tempTaskTitle.value!!,
-                            tempGoalId,
-                            tempKeyResultId,
-                            tempStepId,
-                            finishDate = if (deadlinedTask.value!!) {
-                                tempFinishTime
-                            } else null,
-                            scheduledTask = scheduledTask.value!!,
-                            interval = if (scheduledTask.value!!) taskInterval.value else null
-                        )
-                    )
-                }
-                    .map {
-                        taskInteractor.getTaskById(it).subscribe { entity ->
-                            taskInteractor.saveTaskToRemote(entity)
-                        }
-                    }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { mainFlowNavigation.popBack() },
-                        { it.printStackTrace() }
-                    )
             )
         }
     }

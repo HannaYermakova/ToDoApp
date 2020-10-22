@@ -5,20 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.ui.adapter.IdeaModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Named
 
 class IdeaDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
+    @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
     private val ideaInteractor: IdeaInteractor,
     private val goalInteractor: GoalInteractor,
-    private val taskInteractor: TaskInteractor,
     private val stepInteractor: StepInteractor,
     private val ideaId: Long
 ) : BaseViewModel() {
@@ -40,6 +41,9 @@ class IdeaDetailsViewModel @Inject constructor(
     private val _keyResTitle = MutableLiveData<String>()
     val keyResTitle: LiveData<String>
         get() = _keyResTitle
+
+    val convertIdeaToTaskObserver: LiveData<Boolean>?
+        get() = convertIdeaDialogNavigator.getDialogResult()
 
     init {
         disposable.add(
@@ -72,7 +76,7 @@ class IdeaDetailsViewModel @Inject constructor(
     }
 
     private fun convertIdeaIntoTask() {
-
+        convertIdeaDialogNavigator.openConvertIdeaDialog(ideaId)
     }
 
     private fun convertIdeaIntoStep() {
@@ -92,5 +96,9 @@ class IdeaDetailsViewModel @Inject constructor(
                     )
             )
         }
+    }
+
+    fun saveAndClose(value: Boolean?) {
+        value?.let { if (value) mainFlowNavigation.popBack() }
     }
 }

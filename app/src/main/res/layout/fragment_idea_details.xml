@@ -141,7 +141,7 @@
 
         <Button
             android:id="@+id/convert_into_task_button"
-            style="@style/CustomButtonStyle"
+            style="@style/AccentButtonStyle"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/margin_normal"
             android:elevation="@dimen/elevation_button"
@@ -153,7 +153,7 @@
 
         <Button
             android:id="@+id/convert_into_step_button"
-            style="@style/CustomButtonStyle"
+            style="@style/AccentButtonStyle"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/margin_normal"
             android:elevation="@dimen/elevation_button"

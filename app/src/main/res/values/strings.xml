@@ -66,6 +66,6 @@
     <string name="my_idea">My Idea</string>
 
     <string name="convert_idea_into_step">convert idea into step</string>
-    <string name="convert_idea_into_task">convert idea into task</string>
+    <string name="convert_idea_into_task">Convert idea into task</string>
 
 </resources>

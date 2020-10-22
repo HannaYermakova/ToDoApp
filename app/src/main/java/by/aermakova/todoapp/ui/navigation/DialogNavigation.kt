@@ -8,5 +8,5 @@ interface DialogNavigation<Type> {
 
     fun getDialogResult(): MutableLiveData<Type>?
 
-    fun setDialogResult(text:Type)
+    fun setDialogResult(result:Type)
 }

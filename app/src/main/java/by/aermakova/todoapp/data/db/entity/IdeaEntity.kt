@@ -8,7 +8,7 @@ import by.aermakova.todoapp.data.db.database.IDEAS_TABLE_NAME
 @Entity(tableName = IDEAS_TABLE_NAME)
 data class IdeaEntity(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name ="idea_id")
     val ideaId: Long = 0,
 

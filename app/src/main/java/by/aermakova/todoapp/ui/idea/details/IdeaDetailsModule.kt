@@ -7,11 +7,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Named
 
 @Module
 class IdeaDetailsModule {
@@ -28,6 +30,12 @@ class IdeaDetailsModule {
     @Provides
     fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
         IdeasNavigation(controller)
+
+    @Provides
+    @Named("ConvertIdea")
+    fun provideConvertDialogNavigation(controller: NavController): ConvertIdeaDialogNavigator {
+        return ConvertIdeaDialogNavigator(controller)
+    }
 
     @Provides
     @IntoMap

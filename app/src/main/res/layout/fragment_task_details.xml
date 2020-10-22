@@ -252,7 +252,7 @@
 
         <Button
             android:id="@+id/save_button"
-            style="@style/CustomButtonStyle"
+            style="@style/AccentButtonStyle"
             android:layout_marginBottom="@dimen/margin_normal"
             android:elevation="@dimen/elevation_button"
             android:text="@string/save_button"

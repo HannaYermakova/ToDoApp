@@ -22,12 +22,20 @@
         <item name="android:fontFamily">@font/proxima_nova_thin</item>
     </style>
 
-    <style name="CustomButtonStyle">
+    <style name="AccentButtonStyle">
         <item name="android:layout_width">@dimen/button_width</item>
         <item name="android:layout_height">@dimen/button_height</item>
         <item name="android:textColor">@color/color_white</item>
+        <item name="android:background">@drawable/accent_button_bg</item>
+    </style>
+
+    <style name="RegularButtonStyle">
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:background">@drawable/regular_button_bg</item>
     </style>
+
 
     <style name="CustomTextStyle">
         <item name="android:fontFamily">@font/proxima_nova_font</item>

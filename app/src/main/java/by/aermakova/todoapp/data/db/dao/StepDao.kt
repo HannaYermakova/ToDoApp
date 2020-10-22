@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import io.reactivex.Observable
@@ -9,10 +10,10 @@ import io.reactivex.Observable
 @Dao
 interface StepDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStep(step: StepEntity): Long
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllSteps(steps: List<StepEntity>)
 
     @Query("SELECT * FROM steps_table WHERE step_id = :stepId")
