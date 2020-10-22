@@ -10,7 +10,7 @@ data class IdeaEntity(
 
     @PrimaryKey
     @ColumnInfo(name ="idea_id")
-    val ideaId: Long? = 0,
+    val ideaId: Long = 0,
 
     @ColumnInfo(name ="idea_goal_id")
     val ideaGoalId: Long,

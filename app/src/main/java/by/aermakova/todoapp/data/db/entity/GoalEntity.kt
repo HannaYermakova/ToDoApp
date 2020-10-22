@@ -2,8 +2,6 @@ package by.aermakova.todoapp.data.db.entity
 
 import androidx.room.*
 import by.aermakova.todoapp.data.db.database.GOALS_TABLE_NAME
-import by.aermakova.todoapp.data.model.Goal
-import by.aermakova.todoapp.ui.adapter.toModelKeyResult
 
 @Entity(tableName = GOALS_TABLE_NAME)
 data class GoalEntity(
