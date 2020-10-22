@@ -5,9 +5,9 @@ import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.StepRemoteModel
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.repository.StepRepository
-import by.aermakova.todoapp.ui.adapter.StepModel
-import by.aermakova.todoapp.ui.adapter.toCommonModel
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 
 class StepInteractor(
     private val stepRepository: StepRepository,
@@ -22,14 +22,8 @@ class StepInteractor(
         return stepRepository.getStepById(stepId)
     }
 
-    fun saveStepInLocalDatabase(text: String, goalId: Long, keyResultId: Long): Long {
-        return stepRepository.saveStepEntity(
-            StepEntity(
-                stepGoalId = goalId,
-                stepKeyResultId = keyResultId,
-                text = text
-            )
-        )
+    fun saveStepInLocalDatabase(stepEntity: StepEntity): Long {
+        return stepRepository.saveStepEntity(stepEntity)
     }
 
     fun saveTaskToRemote(entity: StepEntity) {
@@ -39,4 +33,24 @@ class StepInteractor(
     fun getAllSteps(): Observable<List<StepEntity>> {
         return stepRepository.getAllSteps()
     }
+
+    fun createStep(text: String, goalId: Long, keyResultId: Long): Single<Disposable> {
+        return Single.create<Long> {
+            it.onSuccess(
+                saveStepInLocalDatabase(createStepEntity(text, goalId, keyResultId))
+            )
+        }
+            .map {
+                getStepById(it).subscribe { entity ->
+                    saveTaskToRemote(entity)
+                }
+            }
+    }
+
+   private fun createStepEntity(text: String, goalId: Long, keyResultId: Long) =
+        StepEntity(
+            stepGoalId = goalId,
+            stepKeyResultId = keyResultId,
+            text = text
+        )
 }

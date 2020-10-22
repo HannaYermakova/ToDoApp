@@ -7,11 +7,15 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class StepRemoteModel(
 
     var stepId: Long? = 0,
+
     var stepKeyResultId: Long? = 0,
+
     var stepGoalId: Long? = 0,
+
     var stepStatusDone: Boolean? = false,
+
     var text: String? = ""
-)
+) : BaseRemoteModel(stepId.toString())
 
 fun StepEntity.toRemote(): StepRemoteModel =
     StepRemoteModel(

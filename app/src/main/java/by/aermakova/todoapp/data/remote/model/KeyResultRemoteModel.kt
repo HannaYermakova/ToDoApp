@@ -13,7 +13,8 @@ data class KeyResultRemoteModel(
     var status: Boolean? = false,
 
     var text: String? = ""
-)
+
+) : BaseRemoteModel(keyResultId.toString())
 
 fun KeyResultEntity.toRemote(): KeyResultRemoteModel {
     return KeyResultRemoteModel(keyResultId, keyResultGoalId, keyResultStatusDone, text)

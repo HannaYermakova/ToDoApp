@@ -11,7 +11,8 @@ data class GoalRemoteModel(
     var goalStatusDone: Boolean? = false,
 
     var text: String? = ""
-)
+
+) : BaseRemoteModel(goalId.toString())
 
 internal fun GoalEntity.toRemote(): GoalRemoteModel {
     return GoalRemoteModel(goalId, goalStatusDone, text)

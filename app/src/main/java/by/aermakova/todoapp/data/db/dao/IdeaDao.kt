@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
@@ -21,4 +22,7 @@ interface IdeaDao {
 
     @Query("SELECT * FROM ideas_table")
     fun getAllIdeas() : Observable<List<IdeaEntity>>
+
+    @Query("DELETE FROM ideas_table WHERE idea_id = :ideaId")
+    fun deleteIdea(ideaId: Long)
 }

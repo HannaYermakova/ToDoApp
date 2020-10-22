@@ -14,12 +14,14 @@ class IdeaInteractor(
 
     fun saveIdeaInLocalDatabase(
         text: String,
-        goalId: Long
+        goalId: Long,
+        keyResultId: Long
     ): Long {
         return ideaRepository.saveIdea(
             IdeaEntity(
                 text = text,
-                ideaGoalId = goalId
+                ideaGoalId = goalId,
+                ideaKeyResultId = keyResultId
             )
         )
     }
@@ -34,5 +36,10 @@ class IdeaInteractor(
 
     fun getAllIdeas(): Observable<List<IdeaEntity>> {
         return ideaRepository.getAllIdeas()
+    }
+
+    fun deleteIdea(ideaId: Long) {
+        ideaRepository.deleteIdea(ideaId)
+        ideaRemoteDatabase.removeData(ideaId.toString())
     }
 }

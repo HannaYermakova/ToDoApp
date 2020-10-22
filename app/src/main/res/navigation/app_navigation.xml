@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_mainFlowFragment_to_stepDetailsFragment"
             app:destination="@id/stepDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_ideaDetailsFragment"
+            app:destination="@id/ideaDetailsFragment" />
     </fragment>
 
     <fragment
@@ -165,11 +168,20 @@
         android:id="@+id/stepDetailsFragment"
         android:name="by.aermakova.todoapp.ui.step.details.StepDetailsFragment"
         android:label="StepDetailsFragment"
-        tools:layout="@layout/fragment_step_details" >
+        tools:layout="@layout/fragment_step_details">
         <argument
             android:name="stepId"
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
-
+    <fragment
+        android:id="@+id/ideaDetailsFragment"
+        android:name="by.aermakova.todoapp.ui.idea.details.IdeaDetailsFragment"
+        android:label="IdeaDetailsFragment"
+        tools:layout="@layout/fragment_idea_details">
+        <argument
+            android:name="ideaId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 </navigation>

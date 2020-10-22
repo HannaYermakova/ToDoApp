@@ -10,7 +10,6 @@ import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.Observer
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -101,20 +100,11 @@ class AddStepViewModel @Inject constructor(
             && tempKeyResultId != null
         ) {
             disposable.add(
-                Single.create<Long> {
-                    it.onSuccess(
-                        stepInteractor.saveStepInLocalDatabase(
-                            _tempStepTitle.value!!,
-                            tempGoalId!!,
-                            tempKeyResultId!!
-                        )
-                    )
-                }
-                    .map {
-                        stepInteractor.getStepById(it).subscribe { entity ->
-                            stepInteractor.saveTaskToRemote(entity)
-                        }
-                    }
+                stepInteractor.createStep(
+                    _tempStepTitle.value!!,
+                    tempGoalId!!,
+                    tempKeyResultId!!
+                )
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

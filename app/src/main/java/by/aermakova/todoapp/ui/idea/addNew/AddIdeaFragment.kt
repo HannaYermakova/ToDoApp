@@ -17,5 +17,9 @@ class AddIdeaFragment : BaseFragment<AddIdeaViewModel, FragmentAddIdeaBinding>()
         viewModel.selectedGoalObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.addTempGoal(it)
         })
+
+        viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
+            viewModel.addTempKeyResult(it)
+        })
     }
 }

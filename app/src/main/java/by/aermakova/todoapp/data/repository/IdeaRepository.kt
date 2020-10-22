@@ -17,4 +17,8 @@ class IdeaRepository @Inject constructor(
     fun getAllIdeas(): Observable<List<IdeaEntity>> {
         return ideaDao.getAllIdeas()
     }
+
+    fun deleteIdea(ideaId: Long) {
+        ideaDao.deleteIdea(ideaId)
+    }
 }

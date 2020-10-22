@@ -15,5 +15,8 @@ data class IdeaEntity(
     @ColumnInfo(name ="idea_goal_id")
     val ideaGoalId: Long,
 
+    @ColumnInfo(name ="idea_key_result_id")
+    val ideaKeyResultId: Long,
+
     val text: String
 )

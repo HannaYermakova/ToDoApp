@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.idea
 
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 
 class IdeasNavigation(private val controller: NavController) : MainFlowNavigation {
@@ -11,7 +12,7 @@ class IdeasNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToShowDetailsFragment(id: Long) {
-//        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToTaskDetailsFragment(id))
+        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToIdeaDetailsFragment(id))
     }
 
     override fun popBack() {

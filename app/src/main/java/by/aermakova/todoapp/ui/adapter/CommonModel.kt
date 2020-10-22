@@ -54,6 +54,7 @@ data class StepModel(
 data class IdeaModel(
     val ideaId: Long,
     val goalId: Long,
+    val keyResultId: Long,
     val text: String,
     val action: Function? = null
 ) : CommonModel(ideaId, R.layout.item_idea, BR.idea, action)
@@ -119,7 +120,7 @@ fun StepEntity.toCommonModel(clickAction: Function): StepModel {
 }
 
 fun IdeaEntity.toCommonModel(clickAction: Function): IdeaModel {
-    return IdeaModel(ideaId, ideaGoalId, text, clickAction)
+    return IdeaModel(ideaId, ideaGoalId, ideaKeyResultId, text, clickAction)
 }
 
 fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: Function): List<GoalModel> {

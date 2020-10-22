@@ -12,6 +12,6 @@
     <color name="color_blue_light">#969FD6</color>
     <color name="color_accent_light">#FFC1D8</color>
     <color name="color_blue_dark">#24307E</color>
-    <color name="color_yellow_light">#FFE8A4</color>
+    <color name="color_yellow_light">#FFFACF</color>
     <color name="color_ripple">#66505050</color>
 </resources>

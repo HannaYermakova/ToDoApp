@@ -25,7 +25,15 @@ class IdeaViewModel @Inject constructor(
     init {
         disposable.add(
             ideaInteractor.getAllIdeas()
-                .map { list -> list.map { it.toCommonModel { } } }
+                .map { list ->
+                    list.map {
+                        it.toCommonModel { id ->
+                            mainFlowNavigation.navigateToShowDetailsFragment(
+                                id
+                            )
+                        }
+                    }
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
