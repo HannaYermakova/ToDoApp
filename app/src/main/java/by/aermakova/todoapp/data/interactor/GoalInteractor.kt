@@ -79,4 +79,8 @@ class GoalInteractor(
     fun getKeyResultsById(keyResultId: Long): Observable<KeyResultEntity> {
         return goalRepository.getKeyResultById(keyResultId)
     }
+
+    fun getGoalById(goalId: Long) : Observable<GoalEntity> {
+        return goalRepository.getGoalById(goalId)
+    }
 }
