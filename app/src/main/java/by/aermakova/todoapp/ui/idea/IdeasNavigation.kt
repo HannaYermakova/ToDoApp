@@ -16,6 +16,6 @@ class IdeasNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun popBack() {
-        controller.popBackStack()
+        controller.popBackStack(R.id.mainFlowFragment, false)
     }
 }

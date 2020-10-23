@@ -10,6 +10,7 @@ import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -99,6 +100,19 @@ class IdeaDetailsViewModel @Inject constructor(
     }
 
     fun saveAndClose(value: Boolean?) {
-        value?.let { if (value) mainFlowNavigation.popBack() }
+        value?.let {
+            if (value) {
+                disposable.add(
+                    Single.create<Boolean> { it.onSuccess(true) }
+                        .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            { mainFlowNavigation.popBack() },
+                            { it.printStackTrace() }
+                        )
+                )
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.dialog.datePicker
 
 import android.app.DatePickerDialog
+import android.util.Log
 import android.widget.DatePicker
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -16,6 +17,7 @@ class PickDayDialogNavigator(private val controller: NavController) :
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         val date = convertDateToLong(year, month, day)
+        Log.d("A_PickDayDialogNav", "$day.$month.$year")
         setDialogResult(date)
     }
 

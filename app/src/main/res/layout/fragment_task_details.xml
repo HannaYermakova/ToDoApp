@@ -59,13 +59,33 @@
                 android:padding="@dimen/margin_normal">
 
                 <TextView
+                    android:id="@+id/start_text"
+                    style="@style/TextInstructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/start_task_text"
+                    style="@style/TextRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBaseline_toBaselineOf="@id/start_text"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:setDate="@{viewModel.taskModel.startTime}"
+                    tools:text="12.10.2020" />
+
+                <TextView
                     android:id="@+id/deadline_text"
                     style="@style/TextInstructions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/deadline_text"
+                    android:layout_marginTop="@dimen/margin_normal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/start_text" />
 
                 <TextView
                     android:id="@+id/deadline_task_text"

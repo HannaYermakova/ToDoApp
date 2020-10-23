@@ -1,12 +1,11 @@
 package by.aermakova.todoapp.data.interactor
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.convertLongToDate
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +16,7 @@ class TaskCreator(
     private val pickDayDialogNavigation: PickDayDialogNavigator,
     private val taskInteractor: TaskInteractor,
     private val disposable: CompositeDisposable,
-    private val saveAndClose : Observer<Boolean>
+    private val saveAndClose: Observer<Boolean>
 ) {
 
     var tempTaskTitle: String = ""
@@ -56,7 +55,7 @@ class TaskCreator(
 
     val pickFinishDay = { pickDayDialogNavigation.openItemDialog("") }
 
-    val selectedFinishTimeObserver: LiveData<Long>?
+    val selectedFinishDateObserver: LiveData<Long>?
         get() = pickDayDialogNavigation.getDialogResult()
 
     private fun saveTaskToLocalDataBaseAndSyncToRemote() {
@@ -85,9 +84,7 @@ class TaskCreator(
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        {
-                            saveAndClose.onNext(true)
-                        },
+                        { saveAndClose.onNext(true) },
                         { it.printStackTrace() }
                     )
             )

@@ -3,9 +3,7 @@ package by.aermakova.todoapp.ui.dialog.convertIdea
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import by.aermakova.todoapp.AppNavigationDirections
-import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
-
 
 private const val DIALOG_RESULT = "convert_idea_dialog_result"
 
