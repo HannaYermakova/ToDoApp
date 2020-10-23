@@ -22,4 +22,5 @@
 
     <dimen name="radio_button_size">16dp</dimen>
     <dimen name="radio_button_stroke">1dp</dimen>
+    <dimen name="margin_status_bar">72dp</dimen>
 </resources>

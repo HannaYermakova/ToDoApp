@@ -13,7 +13,7 @@
         android:background="@drawable/background_second_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.task.main.TasksFragment">
+        app:paddingTop="@{null}">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="@dimen/margin_normal"

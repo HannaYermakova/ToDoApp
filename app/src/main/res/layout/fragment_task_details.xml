@@ -14,7 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_second_color">
+        android:background="@drawable/background_second_color"
+        app:paddingTopAndBottom="@{null}">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -82,8 +83,8 @@
                     style="@style/TextInstructions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/deadline_text"
                     android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@string/deadline_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/start_text" />
 

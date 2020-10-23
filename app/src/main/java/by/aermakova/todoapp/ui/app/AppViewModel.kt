@@ -11,7 +11,6 @@ class AppViewModel @Inject constructor() : ViewModel() {
 
     fun checkLogin(controller: NavController) {
         if (checkFacebookLogin()) {
-            Log.i("AppViewModel", "checkLogin")
             controller.navigate(R.id.action_authFlowFragment_to_mainFlowFragment)
         }
     }

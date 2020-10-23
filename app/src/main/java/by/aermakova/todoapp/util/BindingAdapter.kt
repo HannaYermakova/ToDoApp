@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.util
 
+import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -191,3 +192,31 @@ fun commonAdapterSettings(
     val manager = LinearLayoutManager(recyclerView.context)
     recyclerView.layoutManager = manager
 }
+
+@BindingAdapter("app:paddingTopAndBottom")
+fun setLayoutMarginTopAndBottom(view: View, value: Any?) {
+    val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
+    val navigationBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
+    view.setPadding(0, statusBarHeight, 0, navigationBarHeight)
+}
+
+@BindingAdapter("app:paddingTop")
+fun setLayoutMarginTop(view: View, value: Any?) {
+    val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
+    view.setPadding(0, statusBarHeight, 0, 0)
+}
+
+fun getElementPxHeight(resources: Resources, identifier: String): Int {
+    val statusBarId: Int? =
+        resources.getIdentifier(
+            identifier,
+            ATTRIBUTE_DIMEN,
+            ATTRIBUTE_DEF_PACKAGE
+        )
+    return if (statusBarId != null && statusBarId > 0) resources.getDimensionPixelSize(statusBarId) else 0
+}
+
+private const val ATTRIBUTE_NAME_STATUS_BAR = "status_bar_height"
+private const val ATTRIBUTE_NAME_NAVIGATION_BAR = "navigation_bar_height"
+private const val ATTRIBUTE_DIMEN = "dimen"
+private const val ATTRIBUTE_DEF_PACKAGE = "android"
