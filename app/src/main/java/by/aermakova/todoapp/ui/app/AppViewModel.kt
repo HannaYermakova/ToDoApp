@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.app
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R

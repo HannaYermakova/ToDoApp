@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.util
 
 import android.view.View
+import com.google.android.material.snackbar.Snackbar
 
 fun provideClickToParent(child: View?) {
     val parent = child?.parent as? View
@@ -14,4 +15,8 @@ fun provideClickToParent(child: View?) {
             } else return
         }
     }
+}
+
+fun View.showSnackMessage(message: String) {
+    Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
 }

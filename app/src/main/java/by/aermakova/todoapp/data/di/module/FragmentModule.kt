@@ -30,6 +30,8 @@ import by.aermakova.todoapp.ui.login.LoginFragment
 import by.aermakova.todoapp.ui.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
+import by.aermakova.todoapp.ui.splash.SplashActivity
+import by.aermakova.todoapp.ui.splash.SplashModule
 import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
 import by.aermakova.todoapp.ui.step.addNew.AddStepModule
 import by.aermakova.todoapp.ui.step.details.StepDetailsFragment
@@ -50,6 +52,9 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [AppModule::class])
     abstract fun provideAppActivity(): AppActivity
+
+    @ContributesAndroidInjector(modules = [SplashModule::class])
+    abstract fun provideSplashActivity(): SplashActivity
 
     @ContributesAndroidInjector(modules = [MainFlowModule::class])
     abstract fun provideMainFlowFragment(): MainFlowFragment

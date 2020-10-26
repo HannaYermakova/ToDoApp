@@ -12,6 +12,21 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
+        <item name="android:background">@drawable/background_color</item>
+    </style>
+
+    <style name="CustomProgressBar" >
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:indeterminateDrawable">@drawable/spinner_ring</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">

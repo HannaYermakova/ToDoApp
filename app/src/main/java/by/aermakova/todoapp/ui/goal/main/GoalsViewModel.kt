@@ -7,6 +7,7 @@ import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.toCommonModelGoalList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +25,12 @@ class GoalsViewModel @Inject constructor(
     val goalsList: Observable<List<CommonModel>>
         get() = _goalsList.hide()
 
+    private val _status = PublishSubject.create<Status>()
+    val status: Observable<Status>
+        get() = _status.hide()
+
     init {
+        _status.onNext(Status.LOADING)
         syncGoalsRemoteDataBase()
         syncKeyResultsRemoteDataBase()
         compositeDisposable.add(
@@ -34,12 +40,14 @@ class GoalsViewModel @Inject constructor(
                 .subscribe(
                     {
                         _goalsList.onNext(it.toCommonModelGoalList { id ->
-                            navigation.navigateToShowDetailsFragment(
-                                id
-                            )
+                            navigation.navigateToShowDetailsFragment(id)
                         })
+                        _status.onNext(Status.SUCCESS)
                     },
-                    { it.printStackTrace() }
+                    {
+                        it.printStackTrace()
+                        _status.onNext(Status.ERROR)
+                    }
                 )
         )
     }

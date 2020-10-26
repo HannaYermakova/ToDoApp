@@ -3,6 +3,7 @@ package by.aermakova.todoapp.util
 import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
@@ -139,6 +140,35 @@ fun editTextListener(
 }
 
 @BindingAdapter(
+    "app:show_child",
+    "app:disposable"
+)
+fun setChildOfViewFlipper(
+    flipper: ViewFlipper,
+    status: Observable<Status>?,
+    disposable: CompositeDisposable?
+) {
+    if (status != null && disposable != null) {
+        val context = flipper.context
+        disposable.add(status.subscribe({
+            Log.d("A_BindingAdapter", "Status $status")
+            flipper.displayedChild = when (it) {
+                Status.LOADING -> flipper.indexOfChild(flipper.findViewById(R.id.placeholder))
+                else -> flipper.indexOfChild(flipper.findViewById(R.id.content))
+            }
+            if (it == Status.ERROR) {
+                flipper.showSnackMessage(context.resources.getString(R.string.error_while_loading))
+            }
+        },
+            {
+                it.printStackTrace()
+                flipper.showSnackMessage(context.resources.getString(R.string.error_while_loading))
+            }
+        ))
+    }
+}
+
+@BindingAdapter(
     "app:bindList",
     "app:addDisposable"
 )
@@ -196,7 +226,8 @@ fun commonAdapterSettings(
 @BindingAdapter("app:paddingTopAndBottom")
 fun setLayoutMarginTopAndBottom(view: View, value: Any?) {
     val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
-    val navigationBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
+    val navigationBarHeight =
+        getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
     view.setPadding(0, statusBarHeight, 0, navigationBarHeight)
 }
 
