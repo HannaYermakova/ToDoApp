@@ -70,4 +70,25 @@
     <string name="convert_idea_into_step">convert idea into step</string>
     <string name="convert_idea_into_task">Convert idea into task</string>
 
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_start_date">Sort by start date</string>
+    <string name="sort_by_finish_date">Sort by finish date</string>
+
+    <string name="filter_today">today</string>
+    <string name="filter_today_title">Tasks that should be done today</string>
+    <string name="filter_tomorrow">tomorrow</string>
+    <string name="filter_tomorrow_title">Tasks that should be done tomorrow</string>
+    <string name="filter_this_week">this week</string>
+    <string name="filter_this_week_title">Tasks that should be done this week</string>
+    <string name="filter_next_week">next week</string>
+    <string name="filter_next_week_title">Tasks that should be done next week</string>
+    <string name="filter_later">later</string>
+    <string name="filter_later_title">Tasks that should be done later</string>
+    <string name="filter_someday">someday</string>
+    <string name="filter_someday_title">Tasks that should be done someday</string>
+    <string name="filter_done">Show done tasks</string>
+    <string name="filter_done_title">Done tasks</string>
+    <string name="filter_all">Show all tasks</string>
+    <string name="filter_all_title">All tasks</string>
+    <string name="filter_by">Show tasks that should be done</string>
 </resources>

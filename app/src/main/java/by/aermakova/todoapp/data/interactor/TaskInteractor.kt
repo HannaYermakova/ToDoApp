@@ -6,6 +6,7 @@ import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.repository.TaskRepository
+import by.aermakova.todoapp.util.TaskFilterItem
 import io.reactivex.Observable
 
 class TaskInteractor(
@@ -45,5 +46,13 @@ class TaskInteractor(
 
     fun getAllTasks(): Observable<List<TaskEntity>> {
         return taskRepository.getAllTasks()
+    }
+
+    fun getFilterItems(): List<TaskFilterItem> {
+        val list = arrayListOf<TaskFilterItem>()
+        for (item in enumValues<TaskFilterItem>()) {
+            list.add(item)
+        }
+        return list
     }
 }

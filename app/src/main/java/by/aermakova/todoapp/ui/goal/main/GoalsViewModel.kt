@@ -25,10 +25,6 @@ class GoalsViewModel @Inject constructor(
     val goalsList: Observable<List<CommonModel>>
         get() = _goalsList.hide()
 
-    private val _status = PublishSubject.create<Status>()
-    val status: Observable<Status>
-        get() = _status.hide()
-
     init {
         _status.onNext(Status.LOADING)
         syncGoalsRemoteDataBase()

@@ -3,7 +3,6 @@ package by.aermakova.todoapp.util
 import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
@@ -151,7 +150,6 @@ fun setChildOfViewFlipper(
     if (status != null && disposable != null) {
         val context = flipper.context
         disposable.add(status.subscribe({
-            Log.d("A_BindingAdapter", "Status $status")
             flipper.displayedChild = when (it) {
                 Status.LOADING -> flipper.indexOfChild(flipper.findViewById(R.id.placeholder))
                 else -> flipper.indexOfChild(flipper.findViewById(R.id.content))

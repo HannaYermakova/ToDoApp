@@ -1,8 +1,10 @@
 package by.aermakova.todoapp.ui.adapter
 
+import android.content.res.Resources
 import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.*
+import by.aermakova.todoapp.util.TaskFilterItem
 
 typealias Function = (Long) -> Unit
 
@@ -85,6 +87,10 @@ fun GoalKeyResults.toCommonModel(action: Function): GoalModel {
             action
         )
     }
+}
+
+fun TaskFilterItem.toTextModel(res: Resources, clickAction: Function): TextModel {
+    return TextModel(listId.toLong(), res.getString(listId), clickAction)
 }
 
 fun GoalEntity.toTextModel(clickAction: Function): TextModel {

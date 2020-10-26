@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filter_today"
+        android:title="@string/filter_today" />
+
+    <item
+        android:id="@+id/filter_tomorrow"
+        android:title="@string/filter_tomorrow" />
+
+    <item
+        android:id="@+id/filter_this_week"
+        android:title="@string/filter_this_week" />
+
+    <item
+        android:id="@+id/filter_next_week"
+        android:title="@string/filter_next_week" />
+
+    <item
+        android:id="@+id/filter_later"
+        android:title="@string/filter_later" />
+
+    <item
+        android:id="@+id/filter_someday"
+        android:title="@string/filter_someday" />
+
+    <item
+        android:id="@+id/filter_done"
+        android:title="@string/filter_done" />
+</menu>
