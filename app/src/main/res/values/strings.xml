@@ -70,9 +70,10 @@
     <string name="convert_idea_into_step">convert idea into step</string>
     <string name="convert_idea_into_task">Convert idea into task</string>
 
-    <string name="sort_by_name">Sort by name</string>
-    <string name="sort_by_start_date">Sort by start date</string>
-    <string name="sort_by_finish_date">Sort by finish date</string>
+    <string name="sort_by">Sort task by</string>
+    <string name="sort_by_name">name</string>
+    <string name="sort_by_start_date">start date</string>
+    <string name="sort_by_finish_date">finish date</string>
 
     <string name="filter_today">today</string>
     <string name="filter_today_title">Tasks that should be done today</string>

@@ -18,9 +18,17 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
-@BindingAdapter(
-    "app:setStatus"
-)
+@BindingAdapter("app:selectedItem")
+fun setSelectedItem(background: View, selected: Boolean?) {
+    val res = background.context.resources
+    val theme = background.context.theme
+    background.setBackgroundColor(selected?.let {
+        if (it) res.getColor(R.color.color_blue_light, theme)
+        else res.getColor(R.color.color_white, theme)
+    } ?: res.getColor(R.color.color_white, theme))
+}
+
+@BindingAdapter("app:setStatus")
 fun setStatus(textView: TextView, status: Boolean?) {
     val res = textView.context.resources
     textView.text = status?.let {
@@ -209,16 +217,22 @@ fun commonAdapterSettings(
     rightMargin: Int = 0,
     divide: Int = 0
 ) {
-    recyclerView.adapter = CommonRecyclerAdapter()
-    recyclerView.addItemDecoration(
-        MarginItemDecorator(
-            leftMargin = leftMargin,
-            rightMargin = rightMargin,
-            divide = divide
+    with(recyclerView) {
+        adapter = CommonRecyclerAdapter()
+
+        if (itemDecorationCount > 0) {
+            removeItemDecorationAt(0)
+        }
+        addItemDecoration(
+            MarginItemDecorator(
+                leftMargin = leftMargin,
+                rightMargin = rightMargin,
+                divide = divide
+            )
         )
-    )
-    val manager = LinearLayoutManager(recyclerView.context)
-    recyclerView.layoutManager = manager
+        val manager = LinearLayoutManager(context)
+        layoutManager = manager
+    }
 }
 
 @BindingAdapter("app:paddingTopAndBottom")

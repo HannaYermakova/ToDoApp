@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.databinding.FilterBottomSheetBinding
+import by.aermakova.todoapp.databinding.SortBottomSheetBinding
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,6 +24,18 @@ class TasksModule {
         val bind: FilterBottomSheetBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,
             R.layout.filter_bottom_sheet,
+            null,
+            false
+        )
+        bind.lifecycleOwner = fragment
+        return bind
+    }
+
+    @Provides
+    fun provideSortBottomSheetBinding(fragment: TasksFragment): SortBottomSheetBinding {
+        val bind: SortBottomSheetBinding = DataBindingUtil.inflate(
+            fragment.layoutInflater,
+            R.layout.sort_bottom_sheet,
             null,
             false
         )

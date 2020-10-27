@@ -1,72 +1,111 @@
 package by.aermakova.todoapp.ui.task.main
 
 import android.content.res.Resources
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.databinding.FilterBottomSheetBinding
+import by.aermakova.todoapp.databinding.SortBottomSheetBinding
 import by.aermakova.todoapp.ui.adapter.CommonModel
+import by.aermakova.todoapp.ui.adapter.TextModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import by.aermakova.todoapp.util.Status
-import by.aermakova.todoapp.util.TaskFilterItem
+import by.aermakova.todoapp.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import java.util.*
 import javax.inject.Inject
 
 class TasksViewModel @Inject constructor(
     private val navigation: MainFlowNavigation,
     private val taskInteractor: TaskInteractor,
     private val resources: Resources,
-    private val bind: FilterBottomSheetBinding,
-    private val filterDialog: BottomSheetDialog
-
+    private val filterBind: FilterBottomSheetBinding,
+    private val sortBind: SortBottomSheetBinding,
+    private val dialog: BottomSheetDialog
 ) : BaseViewModel() {
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
-    val openFilterDialog = { filterDialog.show() }
+    val openFilterDialog = {
+        initFilterList()
+        dialog.show()
+    }
+
+    val openSortDialog = {
+        initSortList()
+        dialog.show()
+    }
 
     private val _tasksList = PublishSubject.create<List<CommonModel>>()
     val tasksList: Observable<List<CommonModel>>
         get() = _tasksList.hide()
 
-    private val _filterTitle = MutableLiveData<String>(resources.getString(TaskFilterItem.ALL_TASKS.titleText))
+    private var _currentFilter = TaskFilterItem.ALL_TASKS
+
+    private var _currentSortCondition = TaskSortItem.BY_START_DATE
+
+    private val _filterTitle =
+        MutableLiveData<String>(resources.getString(_currentFilter.titleText))
     val filterTitle: LiveData<String>
         get() = _filterTitle
 
-    val filterItems: List<CommonModel> =
-        taskInteractor.getFilterItems()
-            .map { filter ->
-                filter.toTextModel(resources) {
-                    filterDialog.dismiss()
-                    loadTasks(filter)
-                    _filterTitle.postValue(resources.getString(filter.titleText))
+    val filterItems: LiveData<List<CommonModel>> = getLiveListOfFilterItems()
+
+    val sortItems: LiveData<List<CommonModel>> = getLiveListOfSortItems()
+
+    private fun getLiveListOfSortItems(): LiveData<List<CommonModel>> {
+        val liveList = MutableLiveData<List<CommonModel>>()
+        val list = taskInteractor.getSortItems()
+            .map { condition ->
+                condition.toTextModel(resources, selected = (_currentSortCondition == condition)) {
+                    dialog.dismiss()
+                    _currentSortCondition = condition
+                    setTextItemSelectedById(it, sortItems)
+                    loadTasks()
                 }
             }
-
-    init {
-        initFilterList()
-        loadTasks(TaskFilterItem.ALL_TASKS)
+        liveList.postValue(list)
+        return liveList
     }
 
-    private fun loadTasks(filter: TaskFilterItem) {
+    private fun getLiveListOfFilterItems(): LiveData<List<CommonModel>> {
+        val liveList = MutableLiveData<List<CommonModel>>()
+        val list = taskInteractor.getFilterItems()
+            .map { filter ->
+                filter.toTextModel(resources, selected = (_currentFilter == filter)) {
+                    dialog.dismiss()
+                    _filterTitle.postValue(resources.getString(filter.titleText))
+                    _currentFilter = filter
+                    setTextItemSelectedById(it, filterItems)
+                    loadTasks()
+                }
+            }
+        liveList.postValue(list)
+        return liveList
+    }
+
+    private fun setTextItemSelectedById(id: Long, list: LiveData<List<CommonModel>>) {
+        list.value?.forEach {
+            (it as TextModel).selected = it.id == id
+        }
+    }
+
+    init {
+        loadTasks()
+    }
+
+    private fun loadTasks() {
         _status.onNext(Status.LOADING)
         disposable.add(
             taskInteractor.getAllTasks()
-                .concatMapSingle {
-                    Observable.fromIterable(it).filter {
-                        filterTasksList(filter, it)
-                    }
-                        .toList()
+                .concatMapSingle { list ->
+                    Observable.fromIterable(list).filter {_currentFilter.filterTasksList(it) }
+                        .toSortedList(_currentSortCondition.createTasksComparator())
                 }
                 .map { list ->
                     list.map { it.toCommonModel { id -> navigation.navigateToShowDetailsFragment(id) } }
@@ -86,49 +125,13 @@ class TasksViewModel @Inject constructor(
         )
     }
 
-    private fun filterTasksList(filter: TaskFilterItem, task: TaskEntity): Boolean {
-
-        val deadline = task.finishDate
-        deadline?.let {
-            val today = Calendar.getInstance()
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = deadline
-            Log.d("A_TasksViewModel", "today ${today.get(Calendar.DATE)}")
-            Log.d("A_TasksViewModel", "deadline ${calendar.get(Calendar.DATE)}")
-
-            return when (filter) {
-                TaskFilterItem.TODAY -> {
-                    !task.taskStatusDone && today.get(Calendar.DATE) == calendar.get(Calendar.DATE)
-                }
-                TaskFilterItem.TOMORROW -> {
-                    !task.taskStatusDone && today.get(Calendar.DATE) + 1 == calendar.get(Calendar.DATE)
-                }
-                TaskFilterItem.THIS_WEEK -> {
-                    !task.taskStatusDone && calendar.get(Calendar.DATE) - today.get(Calendar.DATE) < 7
-                }
-                TaskFilterItem.NEXT_WEEK -> {
-                    !task.taskStatusDone &&
-                            calendar.get(Calendar.DATE) - today.get(Calendar.DATE) in 7..13
-                }
-                TaskFilterItem.SOMEDAY -> !task.taskStatusDone
-                TaskFilterItem.DONE -> task.taskStatusDone
-                TaskFilterItem.LATER -> {
-                    !task.taskStatusDone && calendar.get(Calendar.DATE) - today.get(Calendar.DATE) > 13
-                }
-                else -> true
-            }
-        }
-
-        return when (filter) {
-            TaskFilterItem.SOMEDAY -> task.finishDate == null
-            TaskFilterItem.DONE -> task.taskStatusDone
-            TaskFilterItem.ALL_TASKS -> true
-            else -> false
-        }
+    private fun initFilterList() {
+        filterBind.viewModel = this
+        dialog.setContentView(filterBind.root)
     }
 
-    private fun initFilterList() {
-        bind.viewModel = this
-        filterDialog.setContentView(bind.root)
+    private fun initSortList() {
+        sortBind.viewModel = this
+        dialog.setContentView(sortBind.root)
     }
 }

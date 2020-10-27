@@ -16,18 +16,18 @@
         app:disposable="@{viewModel.disposable}"
         app:show_child="@{viewModel.status}">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_second_color"
-            app:paddingTop="@{null}">
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_second_color"
+                    app:paddingTop="@{null}">
 
-            <ProgressBar
-                style="@style/CustomProgressBar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ProgressBar
+                        style="@style/CustomProgressBar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content"
@@ -55,8 +55,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
                 android:background="@drawable/ic_baseline_sort_24"
+                android:stateListAnimator="@drawable/lift_on_touch"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:onClick="@{viewModel.openSortDialog}"/>
 
             <ImageButton
                 android:id="@+id/filter_button"
@@ -64,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
                 android:background="@drawable/ic_baseline_filter_list_24"
+                android:stateListAnimator="@drawable/lift_on_touch"
                 app:layout_constraintEnd_toStartOf="@id/sort_button"
                 app:layout_constraintTop_toTopOf="parent"
                 app:onClick="@{viewModel.openFilterDialog}" />

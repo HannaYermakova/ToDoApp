@@ -5,6 +5,7 @@ import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.*
 import by.aermakova.todoapp.util.TaskFilterItem
+import by.aermakova.todoapp.util.TaskSortItem
 
 typealias Function = (Long) -> Unit
 
@@ -64,7 +65,8 @@ data class IdeaModel(
 data class TextModel(
     val textId: Long,
     val text: String,
-    val action: Function? = null
+    val action: Function? = null,
+    var selected: Boolean = false
 ) : CommonModel(textId, R.layout.item_text_line, BR.text, action)
 
 fun List<String>.toCommonModelStringList(): List<TextModel> {
@@ -89,8 +91,12 @@ fun GoalKeyResults.toCommonModel(action: Function): GoalModel {
     }
 }
 
-fun TaskFilterItem.toTextModel(res: Resources, clickAction: Function): TextModel {
-    return TextModel(listId.toLong(), res.getString(listId), clickAction)
+fun TaskFilterItem.toTextModel(res: Resources, selected: Boolean = false, clickAction: Function): TextModel {
+    return TextModel(listId.toLong(), res.getString(listId), selected = selected, action = clickAction)
+}
+
+fun TaskSortItem.toTextModel(res: Resources, selected: Boolean = false, clickAction: Function): TextModel {
+    return TextModel(listId.toLong(), res.getString(listId), selected = selected, action = clickAction)
 }
 
 fun GoalEntity.toTextModel(clickAction: Function): TextModel {
