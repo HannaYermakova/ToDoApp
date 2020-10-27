@@ -1,20 +1,14 @@
 package by.aermakova.todoapp.data.remote
 
 import by.aermakova.todoapp.data.remote.model.BaseRemoteModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import io.reactivex.Observer
 
+private const val ID_FIELD = "id"
 
 abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
     private val databaseReference: DatabaseReference
 ) : RemoteDatabase<Type> {
-
-    companion object {
-        private const val ID_FIELD = "id"
-    }
 
     private val uid: String? = FirebaseAuthUtil.getUid()
 
@@ -27,18 +21,12 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
         }
     }
 
-    override fun removeData(id: String) {
-        val query = uid?.let {
-            databaseReference
-                .child(uid)
-                .orderByChild(ID_FIELD)
-                .equalTo(id)
-        }
-
+    override fun updateData(data: Type) {
+        val query = createQuery(data.id)
         query?.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (appleSnapshot in dataSnapshot.children) {
-                    appleSnapshot.ref.removeValue()
+                for (snapshot in dataSnapshot.children) {
+                    snapshot.ref.setValue(data)
                 }
             }
 
@@ -46,6 +34,30 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
                 print(error.message)
             }
         })
+    }
+
+    override fun removeData(id: String) {
+        val query = createQuery(id)
+        query?.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    snapshot.ref.removeValue()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                print(error.message)
+            }
+        })
+    }
+
+    private fun createQuery(id: String): Query? {
+        return uid?.let {
+            databaseReference
+                .child(uid)
+                .orderByChild(ID_FIELD)
+                .equalTo(id)
+        }
     }
 
     override fun addDataListener(dataObserver: Observer<List<Type>>) {

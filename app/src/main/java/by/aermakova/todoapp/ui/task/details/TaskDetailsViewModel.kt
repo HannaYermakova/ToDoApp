@@ -9,6 +9,7 @@ import by.aermakova.todoapp.ui.adapter.TaskModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -39,12 +40,39 @@ class TaskDetailsViewModel @Inject constructor(
     val stepTitle: LiveData<String>
         get() = _stepTitle
 
+    val markAsDoneToggle = MutableLiveData<Boolean>(false)
+
+    val markAsDone = { markTaskAsDone() }
+
+    private fun markTaskAsDone() {
+        val taskId = taskModel.value!!.taskId
+        val status = markAsDoneToggle.value!!
+        disposable.add(
+            Single.create<Boolean> {
+                it.onSuccess(taskInteractor.updateTask(status, taskId))
+            }.map {
+                taskInteractor
+                    .getTaskById(taskId)
+                    .subscribe({ entity ->
+                        taskInteractor.updateTaskToRemote(entity)
+                    },
+                        { it.printStackTrace() })
+            }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { navigation.popBack() },
+                    { it.printStackTrace() }
+                )
+        )
+    }
+
     init {
         disposable.add(
             taskInteractor
                 .getTaskById(taskId)
                 .map { it.toCommonModel { } }
-                .doOnNext { task ->
+                .doOnSuccess { task ->
                     task.goalId?.let { goalId ->
                         goalInteractor.getGoalById(goalId)
                             .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +82,7 @@ class TaskDetailsViewModel @Inject constructor(
                             )
                     }
                 }
-                .doOnNext { task ->
+                .doOnSuccess { task ->
                     task.keyResultId?.let { keyResId ->
                         goalInteractor.getKeyResultsById(keyResId)
                             .observeOn(AndroidSchedulers.mainThread())
@@ -64,7 +92,7 @@ class TaskDetailsViewModel @Inject constructor(
                             )
                     }
                 }
-                .doOnNext { task ->
+                .doOnSuccess { task ->
                     task.stepId?.let { stepId ->
                         stepInteractor.getStepById(stepId)
                             .observeOn(AndroidSchedulers.mainThread())

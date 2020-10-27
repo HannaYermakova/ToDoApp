@@ -37,9 +37,7 @@ fun setStatus(textView: TextView, status: Boolean?) {
     } ?: res.getString(R.string.status_in_progress)
 }
 
-@BindingAdapter(
-    "app:setDate"
-)
+@BindingAdapter("app:setDate")
 fun setDate(textView: TextView, finishTime: Long?) {
     val theme = textView.context.theme
     val res = textView.context.resources
@@ -53,9 +51,7 @@ fun setDate(textView: TextView, finishTime: Long?) {
     } ?: res.getString(R.string.not_specified)
 }
 
-@BindingAdapter(
-    "app:intervalListener"
-)
+@BindingAdapter("app:intervalListener")
 fun setIntervalListener(radioGroup: RadioGroup, interval: MutableLiveData<Interval>?) {
     interval?.let {
         it.postValue(
@@ -68,9 +64,7 @@ fun setIntervalListener(radioGroup: RadioGroup, interval: MutableLiveData<Interv
     }
 }
 
-@BindingAdapter(
-    "app:setScheduled"
-)
+@BindingAdapter("app:setScheduled")
 fun setScheduled(textView: TextView, interval: Int?) {
     val res = textView.context.resources
     textView.text = interval?.let {
@@ -82,18 +76,14 @@ fun setScheduled(textView: TextView, interval: Int?) {
     } ?: res.getString(R.string.no_text)
 }
 
-@BindingAdapter(
-    "app:showView"
-)
+@BindingAdapter("app:showView")
 fun switchView(view: ViewSwitcher, visible: Boolean?) {
     visible?.let {
         if (it) view.showNext()
     }
 }
 
-@BindingAdapter(
-    "app:checkedListener"
-)
+@BindingAdapter("app:checkedListener")
 fun toggleListener(toggleButton: ToggleButton, checked: MutableLiveData<Boolean>?) {
     checked?.let {
         checked.postValue(toggleButton.isChecked)
@@ -126,9 +116,7 @@ fun openDialog(button: View, listener: ((String) -> Unit)?, title: String?) {
     }
 }
 
-@BindingAdapter(
-    "app:tempTitle"
-)
+@BindingAdapter("app:tempTitle")
 fun editTextListener(
     editText: EditText,
     tempTitle: Observer<String>?
@@ -197,9 +185,7 @@ fun bindCommonListToRecycler(
     }
 }
 
-@BindingAdapter(
-    "app:bindPlainList"
-)
+@BindingAdapter("app:bindPlainList")
 fun bindCommonPlainListToRecycler(
     recyclerView: RecyclerView,
     items: List<CommonModel>?
