@@ -69,6 +69,11 @@ data class TextModel(
     var selected: Boolean = false
 ) : CommonModel(textId, R.layout.item_text_line, BR.text, action)
 
+data class EmptyModel(
+    val textId: Long = 0,
+    val text: String ="" ,
+) : CommonModel(textId, R.layout.item_empty_line, BR.empty)
+
 fun List<String>.toCommonModelStringList(): List<TextModel> {
     var i = 0L
     return map { it.toCommonModel(i++) }
@@ -123,6 +128,14 @@ fun TaskEntity.toCommonModel(clickAction: Function): TaskModel {
         startTime,
         scheduledTask,
         interval,
+        clickAction
+    )
+}
+
+fun TaskEntity.toTextModel(clickAction: Function? = null): TextModel {
+    return TextModel(
+        taskId,
+        text,
         clickAction
     )
 }

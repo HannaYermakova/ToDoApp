@@ -22,4 +22,8 @@ class TaskRepository @Inject constructor(
     fun updateTask(status: Boolean, taskId: Long) {
         taskDao.updateTask(status, taskId)
     }
+
+    fun getTaskByStepId(stepId: Long): Single<List<TaskEntity>> {
+        return taskDao.getTasksByStepId(stepId)
+    }
 }

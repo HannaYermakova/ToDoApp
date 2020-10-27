@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.StepModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -16,6 +18,7 @@ class StepDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
+    private val tasksInteractor: TaskInteractor,
     private val stepId: Long
 ) : BaseViewModel() {
 
@@ -32,6 +35,10 @@ class StepDetailsViewModel @Inject constructor(
     private val _keyResTitle = MutableLiveData<String>()
     val keyResTitle: LiveData<String>
         get() = _keyResTitle
+
+    private val _stepTasks = MutableLiveData<List<CommonModel>>()
+    val stepTasks: LiveData<List<CommonModel>>
+        get() = _stepTasks
 
     init {
         disposable.add(
@@ -51,6 +58,14 @@ class StepDetailsViewModel @Inject constructor(
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                             { keyRes -> _keyResTitle.postValue(keyRes.text) },
+                            { error -> error.printStackTrace() }
+                        )
+                }
+                .doOnNext {
+                    tasksInteractor.getTaskByStepId(it.stepId)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            { tasks -> _stepTasks.postValue(tasks) },
                             { error -> error.printStackTrace() }
                         )
                 }

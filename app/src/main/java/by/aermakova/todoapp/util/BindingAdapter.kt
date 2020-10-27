@@ -13,6 +13,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.CommonRecyclerAdapter
+import by.aermakova.todoapp.ui.adapter.EmptyModel
 import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -178,7 +179,11 @@ fun bindCommonListToRecycler(
             items.subscribe(
                 {
                     @Suppress("UNCHECKED_CAST")
-                    (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
+                    if (!it.isNullOrEmpty()) {
+                        (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
+                    } else {
+                        (recyclerView.adapter as? CommonRecyclerAdapter)?.update(listOf<CommonModel>(EmptyModel()))
+                    }
                 },
                 { it.printStackTrace() })
         )
@@ -193,7 +198,11 @@ fun bindCommonPlainListToRecycler(
     commonAdapterSettings(recyclerView, divide = 2)
     @Suppress("UNCHECKED_CAST")
     items?.let {
-        (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
+        if (!it.isNullOrEmpty()) {
+            (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
+        } else {
+            (recyclerView.adapter as? CommonRecyclerAdapter)?.update(listOf<CommonModel>(EmptyModel()))
+        }
     }
 }
 

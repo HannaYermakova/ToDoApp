@@ -6,6 +6,8 @@ import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.repository.TaskRepository
+import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.util.TaskFilterItem
 import by.aermakova.todoapp.util.TaskSortItem
 import io.reactivex.Observable
@@ -60,7 +62,7 @@ class TaskInteractor(
     }
 
     fun updateTask(status: Boolean, taskId: Long): Boolean {
-       taskRepository.updateTask(status, taskId)
+        taskRepository.updateTask(status, taskId)
         return true
     }
 
@@ -68,5 +70,9 @@ class TaskInteractor(
         taskEntity?.let {
             taskRemoteDatabase.updateData(it.toRemote())
         }
+    }
+
+    fun getTaskByStepId(stepId: Long): Single<List<TextModel>> {
+        return taskRepository.getTaskByStepId(stepId).map { list -> list.map { it.toTextModel() } }
     }
 }

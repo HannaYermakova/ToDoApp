@@ -23,6 +23,9 @@ interface TaskDao {
     @Query("SELECT * FROM tasks_table WHERE task_id = :taskId")
     fun getTaskById(taskId: Long): Single<TaskEntity>
 
+    @Query("SELECT * FROM tasks_table WHERE task_step_id = :stepId")
+    fun getTasksByStepId(stepId: Long): Single<List<TaskEntity>>
+
     @Query("SELECT * FROM tasks_table")
     fun getAllTasks(): Observable<List<TaskEntity>>
 }
