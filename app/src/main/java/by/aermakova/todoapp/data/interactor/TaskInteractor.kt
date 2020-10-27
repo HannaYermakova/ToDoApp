@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.interactor
 
+import android.util.Log
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.remote.RemoteDatabase
@@ -12,6 +13,7 @@ import by.aermakova.todoapp.util.TaskFilterItem
 import by.aermakova.todoapp.util.TaskSortItem
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 
 
 class TaskInteractor(
@@ -61,9 +63,8 @@ class TaskInteractor(
         return TaskSortItem.values().asList()
     }
 
-    fun updateTask(status: Boolean, taskId: Long): Boolean {
+    fun updateTask(status: Boolean, taskId: Long) {
         taskRepository.updateTask(status, taskId)
-        return true
     }
 
     fun updateTaskToRemote(taskEntity: TaskEntity?) {
@@ -74,5 +75,17 @@ class TaskInteractor(
 
     fun getTaskByStepId(stepId: Long): Single<List<TextModel>> {
         return taskRepository.getTaskByStepId(stepId).map { list -> list.map { it.toTextModel() } }
+    }
+
+    fun markStepsTasksAsDone(status: Boolean, stepId: Long): Disposable {
+        return taskRepository.getTaskByStepId(stepId).subscribe({ list ->
+            list.forEach {
+                Log.d("A_TaskInteractor", "$it")
+                updateTask(status, it.taskId)
+                updateTaskToRemote(it)
+            }
+        },
+            { it.printStackTrace() }
+        )
     }
 }

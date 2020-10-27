@@ -144,9 +144,7 @@ class AddTaskViewModel @Inject constructor(
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .map { entity -> entity.toCommonModel {} }
-                    .subscribe { step ->
-                        _stepTitle.postValue(step.text)
-                    }
+                    .subscribe { step -> _stepTitle.postValue(step.text) }
             )
         }
     }

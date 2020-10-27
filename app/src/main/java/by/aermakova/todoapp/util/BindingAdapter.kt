@@ -173,18 +173,10 @@ fun bindCommonListToRecycler(
     disposable: CompositeDisposable?
 ) {
     commonAdapterSettings(recyclerView, 8, 8, 4)
-
     if (items != null && disposable != null) {
         disposable.add(
             items.subscribe(
-                {
-                    @Suppress("UNCHECKED_CAST")
-                    if (!it.isNullOrEmpty()) {
-                        (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
-                    } else {
-                        (recyclerView.adapter as? CommonRecyclerAdapter)?.update(listOf<CommonModel>(EmptyModel()))
-                    }
-                },
+                { updateRecyclerView(it, recyclerView) },
                 { it.printStackTrace() })
         )
     }
@@ -196,13 +188,15 @@ fun bindCommonPlainListToRecycler(
     items: List<CommonModel>?
 ) {
     commonAdapterSettings(recyclerView, divide = 2)
-    @Suppress("UNCHECKED_CAST")
+    updateRecyclerView(items, recyclerView)
+}
+
+fun updateRecyclerView(items: List<CommonModel>?, recyclerView: RecyclerView) {
     items?.let {
-        if (!it.isNullOrEmpty()) {
-            (recyclerView.adapter as? CommonRecyclerAdapter)?.update(it)
-        } else {
-            (recyclerView.adapter as? CommonRecyclerAdapter)?.update(listOf<CommonModel>(EmptyModel()))
+        val list = if (!it.isNullOrEmpty()) it else {
+            listOf<CommonModel>(EmptyModel())
         }
+        (recyclerView.adapter as? CommonRecyclerAdapter)?.update(list)
     }
 }
 

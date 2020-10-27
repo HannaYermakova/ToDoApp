@@ -49,7 +49,8 @@ class TaskDetailsViewModel @Inject constructor(
         val status = markAsDoneToggle.value!!
         disposable.add(
             Single.create<Boolean> {
-                it.onSuccess(taskInteractor.updateTask(status, taskId))
+                taskInteractor.updateTask(status, taskId)
+                it.onSuccess(true)
             }.map {
                 taskInteractor
                     .getTaskById(taskId)

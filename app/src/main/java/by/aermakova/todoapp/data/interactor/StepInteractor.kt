@@ -18,15 +18,15 @@ class StepInteractor(
         return stepRepository.getStepsByKeyResultId(keyResultId)
     }
 
-    fun getStepById(stepId: Long): Observable<StepEntity> {
+    fun getStepById(stepId: Long): Single<StepEntity> {
         return stepRepository.getStepById(stepId)
     }
 
-    fun saveStepInLocalDatabase(stepEntity: StepEntity): Long {
+    private fun saveStepInLocalDatabase(stepEntity: StepEntity): Long {
         return stepRepository.saveStepEntity(stepEntity)
     }
 
-    fun saveTaskToRemote(entity: StepEntity) {
+    private fun saveTaskToRemote(entity: StepEntity) {
         stepRemoteDatabase.saveData(entity.toRemote())
     }
 
@@ -36,9 +36,7 @@ class StepInteractor(
 
     fun createStep(text: String, goalId: Long, keyResultId: Long): Single<Disposable> {
         return Single.create<Long> {
-            it.onSuccess(
-                saveStepInLocalDatabase(createStepEntity(text, goalId, keyResultId))
-            )
+            it.onSuccess(saveStepInLocalDatabase(createStepEntity(text, goalId, keyResultId)))
         }
             .map {
                 getStepById(it).subscribe { entity ->
@@ -47,10 +45,19 @@ class StepInteractor(
             }
     }
 
-   private fun createStepEntity(text: String, goalId: Long, keyResultId: Long) =
+    private fun createStepEntity(text: String, goalId: Long, keyResultId: Long) =
         StepEntity(
             stepGoalId = goalId,
             stepKeyResultId = keyResultId,
             text = text
         )
+
+    fun updateStep(status: Boolean, stepId: Long):Boolean {
+        stepRepository.updateStatus(status, stepId)
+        return true
+    }
+
+    fun updateStepToRemote(step: StepEntity?) {
+        step?.let { stepRemoteDatabase.updateData(it.toRemote()) }
+    }
 }

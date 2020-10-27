@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.step.details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -10,7 +11,10 @@ import by.aermakova.todoapp.ui.adapter.StepModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -40,41 +44,96 @@ class StepDetailsViewModel @Inject constructor(
     val stepTasks: LiveData<List<CommonModel>>
         get() = _stepTasks
 
+    val markAsDoneToggle = MutableLiveData<Boolean>(false)
+
+    val markAsDone = { markStepAsDone() }
+
+    private fun markStepAsDone() {
+        val stepId = stepModel.value!!.stepId
+        val status = markAsDoneToggle.value!!
+        _status.onNext(Status.LOADING)
+        disposable.add(
+            Single.create<Boolean> {
+                it.onSuccess(stepInteractor.updateStep(status, stepId))
+            }
+                .map { markTasksAsDone() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        _status.onNext(Status.SUCCESS)
+                        mainFlowNavigation.popBack()
+                    },
+                    {
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
+                )
+        )
+    }
+
+    private fun markTasksAsDone(): Disposable {
+        Log.d("A_StepDetailsViewModel", "markTasksAsDone")
+        return stepInteractor
+            .getStepById(stepId)
+            .subscribe(
+                { entity ->
+                    stepInteractor.updateStepToRemote(entity)
+                    tasksInteractor.markStepsTasksAsDone(true, stepId)
+                },
+                { it.printStackTrace() }
+            )
+    }
+
+
     init {
+        _status.onNext(Status.LOADING)
         disposable.add(
             stepInteractor
                 .getStepById(stepId)
                 .map { it.toCommonModel { } }
-                .doOnNext {
-                    goalInteractor.getGoalById(it.goalId)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { goal -> _goalTitle.postValue(goal.text) },
-                            { error -> error.printStackTrace() }
-                        )
-                }
-                .doOnNext {
-                    goalInteractor.getKeyResultsById(it.keyResultId)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { keyRes -> _keyResTitle.postValue(keyRes.text) },
-                            { error -> error.printStackTrace() }
-                        )
-                }
-                .doOnNext {
-                    tasksInteractor.getTaskByStepId(it.stepId)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { tasks -> _stepTasks.postValue(tasks) },
-                            { error -> error.printStackTrace() }
-                        )
-                }
+                .doOnSuccess { setGoalTitle(it) }
+                .doOnSuccess { setKeyResultTitle(it) }
+                .doOnSuccess { setTasksList(it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { _stepModel.postValue(it) },
-                    { it.printStackTrace() }
+                    {
+                        _status.onNext(Status.SUCCESS)
+                        _stepModel.postValue(it)
+                    },
+                    {
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
                 )
         )
+    }
+
+    private fun setGoalTitle(step: StepModel): Disposable {
+        return goalInteractor.getGoalById(step.goalId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { _goalTitle.postValue(it.text) },
+                { error -> error.printStackTrace() }
+            )
+    }
+
+    private fun setKeyResultTitle(step: StepModel): Disposable {
+        return goalInteractor.getKeyResultsById(step.keyResultId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { keyRes -> _keyResTitle.postValue(keyRes.text) },
+                { error -> error.printStackTrace() }
+            )
+    }
+
+    private fun setTasksList(it: StepModel): Disposable {
+        return tasksInteractor.getTaskByStepId(it.stepId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { tasks -> _stepTasks.postValue(tasks) },
+                { error -> error.printStackTrace() }
+            )
     }
 }

@@ -10,203 +10,230 @@
             type="by.aermakova.todoapp.ui.step.details.StepDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ViewFlipper
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:paddingTopAndBottom="@{null}"
-        android:background="@drawable/background_third_color">
+        app:disposable="@{viewModel.disposable}"
+        app:show_child="@{viewModel.status}">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:elevation="@dimen/elevation_button"
-            app:backgroundTint="@color/color_default"
-            app:fabSize="mini"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:onClick="@{viewModel.popBack}"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textColor="@color/color_black"
-            android:text="@{viewModel.stepModel.text}"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fab"
-            app:layout_constraintTop_toTopOf="@id/fab"
-            tools:text="Step to Goal" />
-
-        <TextView
-            android:id="@+id/attach_text"
-            style="@style/TextAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_large"
-            android:text="@string/attach_to"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/attach_card"
+<!--        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_normal"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/attach_text">
+            android:layout_height="match_parent"
+            android:background="@drawable/background_third_color"
+            app:paddingTop="@{null}">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ProgressBar
+                style="@style/CustomProgressBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_third_color"
+            app:paddingTopAndBottom="@{null}">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:elevation="@dimen/elevation_button"
+                app:backgroundTint="@color/color_blue"
+                app:fabSize="mini"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:onClick="@{viewModel.popBack}"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:text="@{viewModel.stepModel.text}"
+                android:textAlignment="center"
+                android:textColor="@color/color_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fab"
+                app:layout_constraintTop_toTopOf="@id/fab"
+                tools:text="Step to Goal" />
+
+            <TextView
+                android:id="@+id/attach_text"
+                style="@style/TextAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/attach_to"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/attach_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_normal">
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_normal"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attach_text">
 
-                <TextView
-                    android:id="@+id/attach_to_goal_text"
-                    style="@style/TextInstructions"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_goal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:padding="@dimen/margin_normal">
 
-                <TextView
-                    android:id="@+id/attach_to_goal"
-                    style="@style/TextRegular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.goalTitle}"
-                    app:layout_constraintBaseline_toBaselineOf="@id/attach_to_goal_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    tools:text="Native Android development" />
+                    <TextView
+                        android:id="@+id/attach_to_goal_text"
+                        style="@style/TextInstructions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_goal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/attached_to_key_result_text"
-                    style="@style/TextInstructions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="@string/title_key_result"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/attach_to_goal" />
+                    <TextView
+                        android:id="@+id/attach_to_goal"
+                        style="@style/TextRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.goalTitle}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/attach_to_goal_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        tools:text="Native Android development" />
 
-                <TextView
-                    android:id="@+id/attached_to_key_result"
-                    style="@style/TextRegular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.keyResTitle}"
-                    app:layout_constraintBaseline_toBaselineOf="@id/attached_to_key_result_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    tools:text="Key result" />
+                    <TextView
+                        android:id="@+id/attached_to_key_result_text"
+                        style="@style/TextInstructions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:text="@string/title_key_result"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/attach_to_goal" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.3" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/attached_to_key_result"
+                        style="@style/TextRegular"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.keyResTitle}"
+                        app:layout_constraintBaseline_toBaselineOf="@id/attached_to_key_result_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        tools:text="Key result" />
 
-        </androidx.cardview.widget.CardView>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.3" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/attached_tasks_text"
-            style="@style/TextAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_large"
-            android:text="@string/attached_tasks"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/attach_card" />
+            </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/attached_tasks_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_normal"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/attached_tasks_text">
+            <TextView
+                android:id="@+id/attached_tasks_text"
+                style="@style/TextAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/attached_tasks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attach_card" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                app:bindPlainList="@{viewModel.stepTasks}"
-                android:padding="@dimen/margin_normal"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/attached_tasks_card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_normal"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attached_tasks_text">
 
-        </androidx.cardview.widget.CardView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_normal"
+                    app:bindPlainList="@{viewModel.stepTasks}" />
 
-        <TextView
-            android:id="@+id/status_text"
-            style="@style/TextAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_large"
-            android:text="@string/status_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/attached_tasks_card" />
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/status_task_text"
-            style="@style/TextRegular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_large"
-            app:layout_constraintBaseline_toBaselineOf="@id/status_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:setStatus="@{viewModel.stepModel.status}"
-            tools:text="done" />
+            <TextView
+                android:id="@+id/status_text"
+                style="@style/TextAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/status_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attached_tasks_card" />
 
-        <TextView
-            android:id="@+id/mark_as_done_text"
-            style="@style/TextAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="@string/mark_as_done_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_text" />
+            <TextView
+                android:id="@+id/status_task_text"
+                style="@style/TextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_large"
+                app:layout_constraintBaseline_toBaselineOf="@id/status_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:setStatus="@{viewModel.stepModel.status}"
+                tools:text="done" />
 
-        <ToggleButton
-            android:id="@+id/done_check_toggle"
-            android:layout_width="@dimen/toggle_size"
-            android:layout_height="@dimen/toggle_size"
-            android:layout_marginEnd="@dimen/margin_large"
-            android:background="@drawable/done_check"
-            android:src="@drawable/done_check"
-            android:text="@string/empty"
-            android:textOff="@string/empty"
-            android:textOn="@string/empty"
-            app:layout_constraintBaseline_toBaselineOf="@id/mark_as_done_text"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                android:id="@+id/mark_as_done_text"
+                style="@style/TextAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/mark_as_done_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_text"
+                app:visible="@{!viewModel.stepModel.status}" />
 
-        <Button
-            android:id="@+id/save_button"
-            style="@style/AccentButtonStyle"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:elevation="@dimen/elevation_button"
-            android:text="@string/save_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <ToggleButton
+                android:id="@+id/done_check_toggle"
+                android:layout_width="@dimen/toggle_size"
+                android:layout_height="@dimen/toggle_size"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:background="@drawable/done_check"
+                android:src="@drawable/done_check"
+                android:text="@string/empty"
+                android:textOff="@string/empty"
+                android:textOn="@string/empty"
+                app:checkedListener="@{viewModel.markAsDoneToggle}"
+                app:layout_constraintBaseline_toBaselineOf="@id/mark_as_done_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:visible="@{!viewModel.stepModel.status}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/save_button"
+                style="@style/AccentButtonStyle"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:elevation="@dimen/elevation_button"
+                android:text="@string/save_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:onClick="@{viewModel.markAsDone}"
+                app:visible="@{viewModel.markAsDoneToggle}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ViewFlipper>
+
+
 </layout>

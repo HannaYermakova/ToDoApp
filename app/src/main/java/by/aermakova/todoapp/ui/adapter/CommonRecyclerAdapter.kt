@@ -24,17 +24,12 @@ class CommonRecyclerAdapter :
         listOfItems.addAll(items)
     }
 
-    class ViewHolder(
-        private val binding: ViewDataBinding
-    ) :
+    class ViewHolder(private val binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: CommonModel) {
-            try {
-                binding.setVariable(model.variableId, model)
-            } catch (e: Exception) {
-                print("The model is not attached to this layout")
-            }
+            try { binding.setVariable(model.variableId, model) }
+            catch (e: Exception) {print("The model is not attached to this layout") }
 
             with(binding.root) {
                 setOnClickListener {
