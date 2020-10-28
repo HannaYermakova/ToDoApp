@@ -3,14 +3,17 @@ package by.aermakova.todoapp.data.interactor
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
+import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.GoalRemoteModel
 import by.aermakova.todoapp.data.remote.model.KeyResultRemoteModel
 import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.repository.GoalRepository
+import by.aermakova.todoapp.ui.adapter.GoalModel
 import io.reactivex.Observable
 import io.reactivex.Observer
+import io.reactivex.Single
 
 class GoalInteractor(
     private val goalRepository: GoalRepository,
@@ -36,7 +39,7 @@ class GoalInteractor(
         return goalId
     }
 
-    fun getGoalKeyResultsById(goalId: Long): Observable<GoalKeyResults> {
+    fun getGoalKeyResultsById(goalId: Long): Single<GoalKeyResults> {
         return goalRepository.getGoalWithKeyResultsById(goalId)
     }
 
@@ -60,12 +63,16 @@ class GoalInteractor(
         return goalRepository.getAllGoalsWithKeyResults()
     }
 
-    fun getAllGoals(): Observable<List<GoalEntity>>{
+    fun getAllGoals(): Observable<List<GoalEntity>> {
         return goalRepository.getAllGoals()
     }
 
-    fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults> {
+    fun getGoalWithKeyResultsById(id: Long): Single<GoalKeyResults> {
         return goalRepository.getGoalWithKeyResultsById(id)
+    }
+
+    fun getGoalWithKeyResultsAndUnattachedTasks(goalId: Long): Single<GoalModel> {
+        return goalRepository.getGoalWithInnerItems(goalId)
     }
 
     fun saveGoalsInLocalDatabase(collection: List<GoalRemoteModel>) {
@@ -80,7 +87,7 @@ class GoalInteractor(
         return goalRepository.getKeyResultById(keyResultId)
     }
 
-    fun getGoalById(goalId: Long) : Observable<GoalEntity> {
+    fun getGoalById(goalId: Long): Observable<GoalEntity> {
         return goalRepository.getGoalById(goalId)
     }
 }

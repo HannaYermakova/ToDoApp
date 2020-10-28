@@ -1,9 +1,9 @@
 package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.*
-import by.aermakova.todoapp.data.db.entity.GoalEntity
-import by.aermakova.todoapp.data.db.entity.GoalKeyResults
+import by.aermakova.todoapp.data.db.entity.*
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface GoalDao {
@@ -29,5 +29,9 @@ interface GoalDao {
 
     @Transaction
     @Query("SELECT * FROM goals_table WHERE goal_id =:id")
-    fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults>
+    fun getGoalWithKeyResultsById(id: Long): Single<GoalKeyResults>
+
+    @Transaction
+    @Query("SELECT * FROM key_results_table WHERE key_result_id =:keyRes ")
+    fun getKeyResultWithStepsById(keyRes: Long): Single<KeyResultSteps>
 }

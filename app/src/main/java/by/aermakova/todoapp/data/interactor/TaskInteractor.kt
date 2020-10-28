@@ -80,7 +80,6 @@ class TaskInteractor(
     fun markStepsTasksAsDone(status: Boolean, stepId: Long): Disposable {
         return taskRepository.getTaskByStepId(stepId).subscribe({ list ->
             list.forEach {
-                Log.d("A_TaskInteractor", "$it")
                 updateTask(status, it.taskId)
                 updateTaskToRemote(it)
             }

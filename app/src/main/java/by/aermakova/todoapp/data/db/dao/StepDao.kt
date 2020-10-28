@@ -1,10 +1,9 @@
 package by.aermakova.todoapp.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import by.aermakova.todoapp.data.db.entity.KeyResultSteps
 import by.aermakova.todoapp.data.db.entity.StepEntity
+import by.aermakova.todoapp.data.db.entity.StepTasks
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -28,4 +27,8 @@ interface StepDao {
 
     @Query("UPDATE steps_table SET step_status_done = :status WHERE step_id = :stepId")
     fun updateStatus(status: Boolean, stepId: Long)
+
+    @Transaction
+    @Query("SELECT * FROM steps_table WHERE step_id IN (:stepsId) ")
+    fun getStepsWithTasksById(stepsId: List<Long>): Single<List<StepTasks>>
 }

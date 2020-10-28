@@ -19,6 +19,16 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
+@BindingAdapter("app:imageColor")
+fun setImageColor(background: ImageView, status: Boolean?) {
+    val res = background.context.resources
+    val theme = background.context.theme
+    background.background.setTint(status?.let {
+        if (it) res.getColor(R.color.colorAccent, theme)
+        else res.getColor(R.color.color_grey_light, theme)
+    } ?: res.getColor(R.color.color_grey_light, theme))
+}
+
 @BindingAdapter("app:selectedItem")
 fun setSelectedItem(background: View, selected: Boolean?) {
     val res = background.context.resources

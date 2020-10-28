@@ -10,10 +10,9 @@ class TaskRepository @Inject constructor(
     private val taskDao: TaskDao
 ) {
 
-    fun saveTask(taskEntity: TaskEntity) : Long = taskDao.insertTask(taskEntity)
+    fun saveTask(taskEntity: TaskEntity): Long = taskDao.insertTask(taskEntity)
 
-    fun getTaskById(taskId: Long): Single<TaskEntity> =
-        taskDao.getTaskById(taskId)
+    fun getTaskById(taskId: Long): Single<TaskEntity> = taskDao.getTaskById(taskId)
 
     fun getAllTasks(): Observable<List<TaskEntity>> {
         return taskDao.getAllTasks()

@@ -14,8 +14,8 @@ import dagger.Provides
 class RepositoryModule {
 
     @Provides
-    fun provideGoalRepo(goalDao: GoalDao, keyResultDao: KeyResultDao): GoalRepository =
-        GoalRepository(goalDao, keyResultDao)
+    fun provideGoalRepo(goalDao: GoalDao, keyResultDao: KeyResultDao, taskDao: TaskDao, stepDao: StepDao): GoalRepository =
+        GoalRepository(goalDao, keyResultDao, stepDao, taskDao)
 
     @Provides
     fun provideStepRepo(stepDao: StepDao): StepRepository =

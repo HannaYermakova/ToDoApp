@@ -20,7 +20,7 @@ data class GoalModel(
     val goalId: Long,
     val status: Boolean,
     val text: String,
-    val keyResults: List<KeyResultModel>? = null,
+    val goalItemsList: List<CommonModel>? = null,
     val action: Function? = null
 ) : CommonModel(goalId, R.layout.item_goal, BR.goalModel, action)
 
@@ -28,7 +28,8 @@ data class KeyResultModel(
     val keyResultId: Long,
     val goalId: Long,
     val status: Boolean,
-    val text: String
+    val text: String,
+    val keyResultItemsList: List<CommonModel>? = null
 ) : CommonModel(keyResultId, R.layout.item_key_result, BR.keyResult)
 
 data class TaskModel(
@@ -51,8 +52,19 @@ data class StepModel(
     val goalId: Long,
     val status: Boolean,
     val text: String,
+    val stepItemsList: List<CommonModel>? = null,
     val action: Function? = null
 ) : CommonModel(stepId, R.layout.item_step, BR.step, action)
+
+data class StepInGoalModel(
+    val stepId: Long,
+    val keyResultId: Long,
+    val goalId: Long,
+    val status: Boolean,
+    val text: String,
+    val stepItemsList: List<CommonModel>? = null,
+    val action: Function? = null
+) : CommonModel(stepId, R.layout.item_step_in_goal, BR.step, action)
 
 data class IdeaModel(
     val ideaId: Long,
@@ -71,7 +83,7 @@ data class TextModel(
 
 data class EmptyModel(
     val textId: Long = 0,
-    val text: String ="" ,
+    val text: String = "",
 ) : CommonModel(textId, R.layout.item_empty_line, BR.empty)
 
 fun List<String>.toCommonModelStringList(): List<TextModel> {
@@ -84,24 +96,45 @@ fun String.toCommonModel(
     action: Function? = null
 ) = TextModel(textId, this, action)
 
-fun GoalKeyResults.toCommonModel(action: Function): GoalModel {
+fun GoalKeyResults.toCommonModel(
+    goalItemsList: List<CommonModel>? = null,
+    action: Function? = null
+): GoalModel {
     return with(goal) {
         GoalModel(
             goalId,
             goalStatusDone,
             text,
-            keyResults.map { it.toCommonModel() },
+            goalItemsList,
             action
         )
     }
 }
 
-fun TaskFilterItem.toTextModel(res: Resources, selected: Boolean = false, clickAction: Function): TextModel {
-    return TextModel(listId.toLong(), res.getString(listId), selected = selected, action = clickAction)
+fun TaskFilterItem.toTextModel(
+    res: Resources,
+    selected: Boolean = false,
+    clickAction: Function
+): TextModel {
+    return TextModel(
+        listId.toLong(),
+        res.getString(listId),
+        selected = selected,
+        action = clickAction
+    )
 }
 
-fun TaskSortItem.toTextModel(res: Resources, selected: Boolean = false, clickAction: Function): TextModel {
-    return TextModel(listId.toLong(), res.getString(listId), selected = selected, action = clickAction)
+fun TaskSortItem.toTextModel(
+    res: Resources,
+    selected: Boolean = false,
+    clickAction: Function
+): TextModel {
+    return TextModel(
+        listId.toLong(),
+        res.getString(listId),
+        selected = selected,
+        action = clickAction
+    )
 }
 
 fun GoalEntity.toTextModel(clickAction: Function): TextModel {
@@ -140,8 +173,34 @@ fun TaskEntity.toTextModel(clickAction: Function? = null): TextModel {
     )
 }
 
-fun StepEntity.toCommonModel(clickAction: Function): StepModel {
-    return StepModel(stepId, stepKeyResultId, stepGoalId, stepStatusDone, text, clickAction)
+fun StepEntity.toCommonModel(
+    innerObjects: List<CommonModel>? = null,
+    clickAction: Function
+): StepModel {
+    return StepModel(
+        stepId,
+        stepKeyResultId,
+        stepGoalId,
+        stepStatusDone,
+        text,
+        innerObjects,
+        clickAction
+    )
+}
+
+fun StepEntity.toCommonGoalModel(
+    innerObjects: List<CommonModel>? = null,
+    clickAction: Function
+): StepInGoalModel {
+    return StepInGoalModel(
+        stepId,
+        stepKeyResultId,
+        stepGoalId,
+        stepStatusDone,
+        text,
+        innerObjects,
+        clickAction
+    )
 }
 
 fun IdeaEntity.toCommonModel(clickAction: Function): IdeaModel {
@@ -150,6 +209,6 @@ fun IdeaEntity.toCommonModel(clickAction: Function): IdeaModel {
 
 fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: Function): List<GoalModel> {
     return map {
-        it.toCommonModel(clickAction)
+        it.toCommonModel(action = clickAction)
     }
 }

@@ -15,6 +15,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/background_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:paddingTopAndBottom="@{null}">
@@ -49,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:duplicateParentState="true"
-                app:bindPlainList="@{viewModel.goalModel.keyResults}"
+                app:bindList="@{viewModel.goalItemsList}"
+                app:addDisposable="@{viewModel.disposable}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

@@ -72,7 +72,9 @@ class TaskDetailsViewModel @Inject constructor(
         disposable.add(
             taskInteractor
                 .getTaskById(taskId)
-                .map { it.toCommonModel { } }
+                .map {
+                    it.toCommonModel { }
+                }
                 .doOnSuccess { task ->
                     task.goalId?.let { goalId ->
                         goalInteractor.getGoalById(goalId)

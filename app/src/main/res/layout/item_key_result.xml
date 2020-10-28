@@ -10,39 +10,54 @@
             type="by.aermakova.todoapp.ui.adapter.KeyResultModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:focusable="false"
-        android:focusableInTouchMode="false"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        tools:layout_margin="@dimen/margin_small">
 
-        <TextView
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:id="@+id/key_result_item"
-            style="@style/TextRegular"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{keyResult.text}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:paddingBottom="@dimen/margin_small"
-            tools:paddingTop="@dimen/margin_small"
-            tools:text="@string/add_key_result" />
+            android:layout_margin="@dimen/margin_normal">
 
-        <ToggleButton
-            android:id="@+id/done_check_toggle"
-            android:layout_width="@dimen/toggle_size"
-            android:layout_height="@dimen/toggle_size"
-            android:background="@drawable/done_check"
-            android:checked="@{keyResult.status}"
-            android:src="@drawable/done_check"
-            android:text="@string/empty"
-            android:textOff="@string/empty"
-            android:textOn="@string/empty"
-            app:layout_constraintBaseline_toBaselineOf="@id/key_result_item"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:checked="true" />
+            <TextView
+                android:id="@+id/key_result_item"
+                style="@style/TextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@{keyResult.text}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:paddingBottom="@dimen/margin_small"
+                tools:paddingTop="@dimen/margin_small"
+                tools:text="@string/add_key_result" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ToggleButton
+                android:id="@+id/done_check_toggle"
+                android:layout_width="@dimen/toggle_size"
+                android:layout_height="@dimen/toggle_size"
+                android:background="@drawable/done_check"
+                android:checked="@{keyResult.status}"
+                android:src="@drawable/done_check"
+                android:text="@string/empty"
+                android:textOff="@string/empty"
+                android:textOn="@string/empty"
+                app:layout_constraintBaseline_toBaselineOf="@id/key_result_item"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:checked="true" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/steps_tasks_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bindPlainList="@{keyResult.keyResultItemsList}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/key_result_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
