@@ -24,17 +24,30 @@
 
             <TextView
                 android:id="@+id/key_result_item"
-                style="@style/TextRegular"
-                android:layout_width="wrap_content"
+                style="@style/TextAccent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:text="@{keyResult.text}"
+                app:layout_constraintEnd_toStartOf="@id/mark_key_result_as_done"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:paddingBottom="@dimen/margin_small"
                 tools:paddingTop="@dimen/margin_small"
-                tools:text="@string/add_key_result" />
+                tools:text="@string/title_key_result" />
+
+            <TextView
+                android:id="@+id/mark_key_result_as_done"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:text="@string/mark_as_done_text"
+                app:layout_constraintBottom_toBottomOf="@+id/done_check_toggle"
+                app:layout_constraintEnd_toStartOf="@id/done_check_toggle"
+                app:layout_constraintTop_toTopOf="@id/done_check_toggle"
+                app:visible="@{keyResult.status}" />
 
             <ToggleButton
                 android:id="@+id/done_check_toggle"
@@ -42,22 +55,25 @@
                 android:layout_height="@dimen/toggle_size"
                 android:background="@drawable/done_check"
                 android:checked="@{keyResult.status}"
+                android:enabled="@{!keyResult.status}"
                 android:src="@drawable/done_check"
                 android:text="@string/empty"
                 android:textOff="@string/empty"
                 android:textOn="@string/empty"
                 app:layout_constraintBaseline_toBaselineOf="@id/key_result_item"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:checked="true" />
+                app:setAsDoneTemp="@{keyResult}"
+                app:visible="@{keyResult.status}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/steps_tasks_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
                 app:bindPlainList="@{keyResult.keyResultItemsList}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/key_result_item" />
-
+                app:layout_constraintTop_toBottomOf="@+id/key_result_item"
+                tools:listitem="@layout/item_step_in_goal" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

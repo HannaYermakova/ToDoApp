@@ -8,6 +8,7 @@ import by.aermakova.todoapp.util.TaskFilterItem
 import by.aermakova.todoapp.util.TaskSortItem
 
 typealias Function = (Long) -> Unit
+typealias FunctionSelect = (Long, Boolean) -> Unit
 
 open class CommonModel(
     val id: Long,
@@ -29,7 +30,8 @@ data class KeyResultModel(
     val goalId: Long,
     val status: Boolean,
     val text: String,
-    val keyResultItemsList: List<CommonModel>? = null
+    val keyResultItemsList: List<CommonModel>? = null,
+    val action: FunctionSelect? = null
 ) : CommonModel(keyResultId, R.layout.item_key_result, BR.keyResult)
 
 data class TaskModel(
@@ -80,6 +82,11 @@ data class TextModel(
     val action: Function? = null,
     var selected: Boolean = false
 ) : CommonModel(textId, R.layout.item_text_line, BR.text, action)
+
+data class TaskTextModel(
+    val textId: Long,
+    val text: String
+) : CommonModel(textId, R.layout.item_task_text_line, BR.task)
 
 data class EmptyModel(
     val textId: Long = 0,
@@ -170,6 +177,13 @@ fun TaskEntity.toTextModel(clickAction: Function? = null): TextModel {
         taskId,
         text,
         clickAction
+    )
+}
+
+fun TaskEntity.toTaskTextModel(): TaskTextModel {
+    return TaskTextModel(
+        taskId,
+        text
     )
 }
 

@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.step.details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -73,7 +72,6 @@ class StepDetailsViewModel @Inject constructor(
     }
 
     private fun markTasksAsDone(): Disposable {
-        Log.d("A_StepDetailsViewModel", "markTasksAsDone")
         return stepInteractor
             .getStepById(stepId)
             .subscribe(
@@ -84,7 +82,6 @@ class StepDetailsViewModel @Inject constructor(
                 { it.printStackTrace() }
             )
     }
-
 
     init {
         _status.onNext(Status.LOADING)

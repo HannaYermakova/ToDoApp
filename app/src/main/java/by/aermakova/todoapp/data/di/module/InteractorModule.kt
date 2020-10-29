@@ -41,10 +41,22 @@ class InteractorModule {
     @Provides
     fun provideGoalInteractor(
         goalRepository: GoalRepository,
+        stepRepository: StepRepository,
+        taskRepository: TaskRepository,
         goalsRemoteDatabase: RemoteDatabase<GoalRemoteModel>,
-        keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>
+        keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>,
+        stepRemoteDatabase: RemoteDatabase<StepRemoteModel>,
+        taskRemoteDatabase: RemoteDatabase<TaskRemoteModel>
     ): GoalInteractor =
-        GoalInteractor(goalRepository, goalsRemoteDatabase, keyResRemoteDatabase)
+        GoalInteractor(
+            goalRepository,
+            stepRepository,
+            taskRepository,
+            goalsRemoteDatabase,
+            keyResRemoteDatabase,
+            stepRemoteDatabase,
+            taskRemoteDatabase
+        )
 
     @Provides
     fun provideRemoteIdeaDatabase(): RemoteDatabase<IdeaRemoteModel> {

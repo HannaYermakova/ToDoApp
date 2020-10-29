@@ -10,53 +10,115 @@
             type="by.aermakova.todoapp.ui.goal.details.GoalDetailsViewModel" />
     </data>
 
-    <ScrollView
+    <ViewFlipper
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:disposable="@{viewModel.disposable}"
+        app:show_child="@{viewModel.status}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/background_color"
+            android:id="@+id/placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:paddingTopAndBottom="@{null}">
+            android:layout_height="match_parent"
+            android:background="@drawable/background_blue_color"
+            app:paddingTop="@{null}">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:elevation="@dimen/elevation_button"
-                app:backgroundTint="@color/color_blue"
-                app:fabSize="mini"
+            <ProgressBar
+                style="@style/CustomProgressBar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:onClick="@{viewModel.popBack}"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/TextTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.goalModel.text}"
-                app:layout_constraintBottom_toBottomOf="@+id/fab"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/fab"
-                app:layout_constraintTop_toTopOf="@id/fab"
-                tools:text="Native Android development" />
+        <ScrollView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_blue_color">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="@dimen/margin_normal"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:duplicateParentState="true"
-                app:bindList="@{viewModel.goalItemsList}"
-                app:addDisposable="@{viewModel.disposable}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fab"
-                tools:listitem="@layout/item_key_result" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                app:paddingTopAndBottom="@{null}">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:elevation="@dimen/elevation_button"
+                    app:backgroundTint="@color/color_blue"
+                    app:fabSize="mini"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:onClick="@{viewModel.popBack}"
+                    app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/TextGoalTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.goalModel.text}"
+                    app:layout_constraintBottom_toBottomOf="@+id/fab"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fab"
+                    app:layout_constraintTop_toTopOf="@id/fab"
+                    tools:text="Native Android development" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/goal_items_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:duplicateParentState="true"
+                    app:addDisposable="@{viewModel.disposable}"
+                    app:bindList="@{viewModel.goalItemsList}"
+                    app:layout_constraintBottom_toTopOf="@id/goal_items_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fab" />
+
+                <TextView
+                    android:id="@+id/mark_as_done_text"
+                    style="@style/TextAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:text="@string/mark_goal_done_text"
+                    app:layout_constraintBottom_toTopOf="@id/save_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/goal_items_list"
+                    app:visible="@{!viewModel.goalModel.status}" />
+
+                <ToggleButton
+                    android:id="@+id/done_check_toggle"
+                    android:layout_width="@dimen/toggle_size"
+                    android:layout_height="@dimen/toggle_size"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:background="@drawable/done_check"
+                    android:src="@drawable/done_check"
+                    android:text="@string/empty"
+                    android:textOff="@string/empty"
+                    android:textOn="@string/empty"
+                    app:checkedListener="@{viewModel.markGoalAsDoneToggle}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/mark_as_done_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:visible="@{!viewModel.goalModel.status}" />
+
+                <Button
+                    android:id="@+id/save_button"
+                    style="@style/AccentButtonStyle"
+                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:elevation="@dimen/elevation_button"
+                    android:text="@string/save_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:onClick="@{viewModel.saveChanges}"
+                    app:visibleSaveGoalButton="@{viewModel.markGoalAsDoneToggle}"
+                    app:visibleSaveKeyResButton="@{viewModel.markKeyResultsAsDoneToggle}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </ViewFlipper>
 </layout>

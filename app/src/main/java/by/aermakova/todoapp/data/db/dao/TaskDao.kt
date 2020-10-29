@@ -26,6 +26,9 @@ interface TaskDao {
     @Query("SELECT * FROM tasks_table WHERE task_step_id = :stepId")
     fun getTasksByStepId(stepId: Long): Single<List<TaskEntity>>
 
+    @Query("SELECT * FROM tasks_table WHERE task_goal_id = :goalId")
+    fun getTasksByGoalId(goalId: Long): Single<List<TaskEntity>>
+
     @Query("SELECT * FROM tasks_table")
     fun getAllTasks(): Observable<List<TaskEntity>>
 
@@ -34,4 +37,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks_table WHERE task_key_result_id = :keyResultId AND task_step_id IS NULL")
     fun getTasksUnattachedToStep(keyResultId: Long): Single<List<TaskEntity>>
+
+    @Query("SELECT * FROM tasks_table WHERE task_key_result_id IN (:keyResIds)")
+    fun getTasksByKeyResultsIds(keyResIds: List<Long>): Single<List<TaskEntity>>
 }

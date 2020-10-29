@@ -16,7 +16,7 @@
     </style>
 
     <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <item name="android:background">@drawable/background_color</item>
+        <item name="android:background">@drawable/background_blue_color</item>
     </style>
 
     <style name="CustomProgressBar" >
@@ -84,6 +84,12 @@
         <item name="android:textSize">@dimen/title_text_size</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">@font/proxima_nova_thin</item>
+    </style>
+
+    <style name="TextGoalTitle">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:fontFamily">@font/proxima_nova_bold</item>
     </style>
 
     <style name="TextAccent">

@@ -3,6 +3,7 @@ package by.aermakova.todoapp.util
 import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
@@ -11,10 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.Interval
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.CommonRecyclerAdapter
-import by.aermakova.todoapp.ui.adapter.EmptyModel
-import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
+import by.aermakova.todoapp.ui.adapter.*
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
@@ -94,6 +92,16 @@ fun switchView(view: ViewSwitcher, visible: Boolean?) {
     }
 }
 
+@BindingAdapter("app:setAsDoneTemp")
+fun toggleListenerKeyResult(toggleButton: ToggleButton, model: KeyResultModel?) {
+    toggleButton.setOnCheckedChangeListener { _, _ ->
+        model?.let {
+            Log.d("A_BindingAdapter", "$model")
+            model.action?.invoke(model.keyResultId, toggleButton.isChecked)
+        }
+    }
+}
+
 @BindingAdapter("app:checkedListener")
 fun toggleListener(toggleButton: ToggleButton, checked: MutableLiveData<Boolean>?) {
     checked?.let {
@@ -106,6 +114,18 @@ fun setVisibility(view: View, visible: Boolean?) {
     visible?.let {
         view.visibility = if (it) View.VISIBLE else View.GONE
     }
+}
+
+@BindingAdapter("app:visibleSaveGoalButton", "app:visibleSaveKeyResButton")
+fun setSaveGoalButtonVisibility(
+    view: View,
+    visibleSaveGoalButton: Boolean?,
+    visibleSaveKeyResButton: Boolean?
+) {
+    if (visibleSaveGoalButton != null && visibleSaveKeyResButton != null)
+        view.visibility =
+            if (visibleSaveGoalButton || visibleSaveKeyResButton) View.VISIBLE
+            else View.GONE
 }
 
 @BindingAdapter("app:onClick")

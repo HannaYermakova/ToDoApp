@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:paddingTopAndBottom="@{null}"
-        android:background="@drawable/background_fourth_color">
+        android:background="@drawable/background_yellow_color">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

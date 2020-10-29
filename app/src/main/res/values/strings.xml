@@ -56,6 +56,7 @@
     <string name="attach_to">Attached to:</string>
     <string name="attached_tasks">Attached tasks:</string>
     <string name="mark_as_done_text">Mark as Done</string>
+    <string name="mark_goal_done_text">Mark the Goal is Achieved</string>
 
     <string name="add_new_step_title">Add new Step</string>
     <string name="enter_step_hint">Name Step</string>

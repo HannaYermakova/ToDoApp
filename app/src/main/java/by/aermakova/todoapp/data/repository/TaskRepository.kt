@@ -25,4 +25,12 @@ class TaskRepository @Inject constructor(
     fun getTaskByStepId(stepId: Long): Single<List<TaskEntity>> {
         return taskDao.getTasksByStepId(stepId)
     }
+
+    fun getTasksByGoalId(goalId: Long): Single<List<TaskEntity>> {
+        return taskDao.getTasksByGoalId(goalId)
+    }
+
+    fun getTasksByKeyResultIds(keyResIds: List<Long>): Single<List<TaskEntity>> {
+        return taskDao.getTasksByKeyResultsIds(keyResIds)
+    }
 }

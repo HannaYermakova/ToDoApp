@@ -29,4 +29,12 @@ class StepRepository @Inject constructor(
     fun updateStatus(status: Boolean, stepId: Long) {
         stepDao.updateStatus(status, stepId)
     }
+
+    fun getStepsByGoalId(goalId: Long): Single<List<StepEntity>> {
+        return stepDao.getStepByGoalId(goalId)
+    }
+
+    fun getStepsByKeyResultIds(keyResIds: List<Long>): Single<List<StepEntity>> {
+        return stepDao.getStepByKeyResultIds(keyResIds)
+    }
 }

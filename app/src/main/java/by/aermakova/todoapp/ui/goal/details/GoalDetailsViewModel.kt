@@ -4,26 +4,39 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.adapter.CommonModel
+import by.aermakova.todoapp.ui.adapter.FunctionSelect
 import by.aermakova.todoapp.ui.adapter.GoalModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
-import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class GoalDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val dialogNavigation: DialogNavigation<String>,
     private val goalInteractor: GoalInteractor,
     private val goalId: Long
 ) : BaseViewModel() {
 
+    private val _markedKeyResultIds = arrayListOf<Long>()
+
+    private val keyResultMarkedAsDone: FunctionSelect = { keyResultId, select ->
+        if (select) {
+            _markedKeyResultIds.add(keyResultId)
+        } else {
+            _markedKeyResultIds.remove(keyResultId)
+        }
+        _markKeyResultsAsDoneToggle.postValue(_markedKeyResultIds.isNotEmpty())
+    }
+
     init {
         disposable.add(
-            goalInteractor.getGoalWithKeyResultsAndUnattachedTasks(goalId)
+            goalInteractor.getGoalWithKeyResultsAndUnattachedTasks(goalId, keyResultMarkedAsDone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -45,4 +58,82 @@ class GoalDetailsViewModel @Inject constructor(
     private val _goalItemsList = PublishSubject.create<List<CommonModel>>()
     val goalItemsList: Observable<List<CommonModel>>
         get() = _goalItemsList
+
+    val markGoalAsDoneToggle = MutableLiveData<Boolean>(false)
+
+    private val _markKeyResultsAsDoneToggle = MutableLiveData<Boolean>(false)
+    val markKeyResultsAsDoneToggle: LiveData<Boolean>
+        get() = _markKeyResultsAsDoneToggle
+
+    val saveChanges = { saveAllChanges() }
+
+    private fun saveAllChanges() {
+        if (markGoalAsDoneToggle.value == true) {
+            saveUpdatedGoal()
+        } else {
+           saveUpdatedKeyResults()
+        }
+    }
+
+    private fun saveUpdatedGoal() {
+        _status.onNext(Status.LOADING)
+        disposable.add(
+            Single.create<Boolean> {
+                it.onSuccess(goalInteractor.updateGoal(true, goalId))
+            }
+                .map { updateGoalToRemote() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        _status.onNext(Status.SUCCESS)
+                        mainFlowNavigation.popBack()
+                    },
+                    {
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
+                )
+        )
+    }
+
+    private fun saveUpdatedKeyResults() {
+        _status.onNext(Status.LOADING)
+        disposable.add(
+            Single.create<Boolean> {
+                it.onSuccess(goalInteractor.updateKeyResults(true, _markedKeyResultIds))
+            }
+                .map { updateKeyResultsToRemote(_markedKeyResultIds) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        _status.onNext(Status.SUCCESS)
+                        mainFlowNavigation.popBack()
+                    },
+                    {
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
+                )
+        )
+    }
+
+    private fun updateKeyResultsToRemote(keyResIds: List<Long>): Disposable {
+        return goalInteractor
+            .getKeyResultsByIds(keyResIds)
+            .subscribe(
+                { goalInteractor.updateKeyResultsToRemote(it, keyResIds) },
+                { it.printStackTrace() }
+            )
+    }
+
+    private fun updateGoalToRemote(): Disposable {
+        return goalInteractor
+            .getGoalById(goalId)
+            .subscribe(
+                { goalInteractor.updateGoalToRemote(it) },
+                { it.printStackTrace() }
+            )
+    }
 }

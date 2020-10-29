@@ -16,23 +16,24 @@
         app:disposable="@{viewModel.disposable}"
         app:show_child="@{viewModel.status}">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_third_color"
+            android:background="@drawable/background_turquoise_color"
             app:paddingTop="@{null}">
 
             <ProgressBar
                 style="@style/CustomProgressBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_third_color"
+            android:background="@drawable/background_turquoise_color"
             app:paddingTopAndBottom="@{null}">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -234,6 +235,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ViewFlipper>
-
-
 </layout>

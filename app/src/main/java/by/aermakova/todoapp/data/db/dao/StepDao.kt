@@ -22,6 +22,9 @@ interface StepDao {
     @Query("SELECT * FROM steps_table WHERE step_key_result_id = :keyResultId")
     fun getStepByKeyResultId(keyResultId: Long): Observable<List<StepEntity>>
 
+    @Query("SELECT * FROM steps_table WHERE step_goal_id = :goalId")
+    fun getStepByGoalId(goalId: Long): Single<List<StepEntity>>
+
     @Query("SELECT * FROM steps_table")
     fun getAllSteps(): Observable<List<StepEntity>>
 
@@ -31,4 +34,7 @@ interface StepDao {
     @Transaction
     @Query("SELECT * FROM steps_table WHERE step_id IN (:stepsId) ")
     fun getStepsWithTasksById(stepsId: List<Long>): Single<List<StepTasks>>
+
+    @Query("SELECT * FROM steps_table WHERE step_key_result_id IN (:keyResIds)")
+    fun getStepByKeyResultIds(keyResIds: List<Long>): Single<List<StepEntity>>
 }
