@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.goal.details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -35,6 +36,7 @@ class GoalDetailsViewModel @Inject constructor(
     }
 
     init {
+        _status.onNext(Status.LOADING)
         disposable.add(
             goalInteractor.getGoalWithKeyResultsAndUnattachedTasks(goalId, keyResultMarkedAsDone)
                 .subscribeOn(Schedulers.io())
@@ -42,9 +44,15 @@ class GoalDetailsViewModel @Inject constructor(
                 .subscribe(
                     {
                         _goalModel.postValue(it)
-                        it.goalItemsList?.let { list -> _goalItemsList.onNext(list) }
+                        it.goalItemsList?.let { list ->
+                            _goalItemsList.onNext(list)
+                        }
+                        _status.onNext(Status.SUCCESS)
                     },
-                    { it.printStackTrace() }
+                    {
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
                 )
         )
     }
@@ -71,7 +79,7 @@ class GoalDetailsViewModel @Inject constructor(
         if (markGoalAsDoneToggle.value == true) {
             saveUpdatedGoal()
         } else {
-           saveUpdatedKeyResults()
+            saveUpdatedKeyResults()
         }
     }
 

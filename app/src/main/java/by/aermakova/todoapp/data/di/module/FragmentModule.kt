@@ -2,8 +2,6 @@ package by.aermakova.todoapp.data.di.module
 
 import by.aermakova.todoapp.ui.app.AppActivity
 import by.aermakova.todoapp.ui.app.AppModule
-import by.aermakova.todoapp.ui.auth.AuthFlowFragment
-import by.aermakova.todoapp.ui.auth.AuthFlowModule
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskDialogFragment
@@ -30,6 +28,8 @@ import by.aermakova.todoapp.ui.login.LoginFragment
 import by.aermakova.todoapp.ui.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
+import by.aermakova.todoapp.ui.register.RegisterFragment
+import by.aermakova.todoapp.ui.register.RegisterModule
 import by.aermakova.todoapp.ui.splash.SplashActivity
 import by.aermakova.todoapp.ui.splash.SplashModule
 import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
@@ -59,11 +59,11 @@ abstract class FragmentModule {
     @ContributesAndroidInjector(modules = [MainFlowModule::class])
     abstract fun provideMainFlowFragment(): MainFlowFragment
 
-    @ContributesAndroidInjector(modules = [AuthFlowModule::class])
-    abstract fun provideAuthFlowFragment(): AuthFlowFragment
-
     @ContributesAndroidInjector(modules = [LoginModule::class])
     abstract fun provideLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector(modules = [RegisterModule::class])
+    abstract fun provideRegisterFragment(): RegisterFragment
 
     @ContributesAndroidInjector(modules = [GoalsModule::class])
     abstract fun provideGoalsFragment(): GoalsFragment

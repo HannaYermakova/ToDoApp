@@ -1,17 +1,20 @@
 package by.aermakova.todoapp.ui.login
 
-import android.util.Log
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.ui.navigation.AuthFlowNavigation
+import by.aermakova.todoapp.ui.navigation.AuthNavigation
 
-class LoginNavigation(private val hostController: NavController) : AuthFlowNavigation {
+class LoginNavigation(private val hostController: NavController) : AuthNavigation {
 
     override fun navigateAfterLoginSuccess() {
-        hostController.navigate(R.id.action_authFlowFragment_to_mainFlowFragment)
+        hostController.navigate(R.id.action_loginFragment_to_mainFlowFragment)
+    }
+
+    override fun navigateAfterRegisterSuccess() {
+        hostController.navigate(R.id.action_registerFragment_to_mainFlowFragment)
     }
 
     override fun navigateToRegisterFragment() {
-        Log.i("LoginNavigation", "navigateToRegisterFragment")
+        hostController.navigate(R.id.action_loginFragment_to_registerFragment)
     }
 }

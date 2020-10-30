@@ -4,6 +4,12 @@
     <string name="facebook_application_id">345618806781851</string>
     <string name="facebook_login_protocol_scheme">fb345618806781851</string>
 
+    <string name="login_with_facebook">Continue with Facebook</string>
+    <string name="login_with_email">Login</string>
+    <string name="register_with_email">Register</string>
+    <string name="enter_email_hint">Enter your email</string>
+    <string name="enter_password_hint">Enter your password</string>
+
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="no_text">no</string>

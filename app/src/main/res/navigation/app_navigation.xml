@@ -3,17 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/authFlowFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/authFlowFragment"
-        android:name="by.aermakova.todoapp.ui.auth.AuthFlowFragment"
-        android:label="fragment_auth_flow"
-        tools:layout="@layout/fragment_auth_flow">
+        android:id="@+id/loginFragment"
+        android:name="by.aermakova.todoapp.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+
         <action
-            android:id="@+id/action_authFlowFragment_to_mainFlowFragment"
+            android:id="@+id/action_loginFragment_to_mainFlowFragment"
             app:destination="@id/mainFlowFragment"
-            app:popUpTo="@id/authFlowFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="by.aermakova.todoapp.ui.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_mainFlowFragment"
+            app:destination="@id/mainFlowFragment"
+            app:popUpTo="@id/registerFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -201,5 +217,4 @@
     <action
         android:id="@+id/action_global_convertIdeaIntoTaskDialogFragment"
         app:destination="@id/convertIdeaIntoTaskDialogFragment" />
-
 </navigation>

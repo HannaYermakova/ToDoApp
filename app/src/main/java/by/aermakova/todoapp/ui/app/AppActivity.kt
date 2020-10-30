@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.ActivityMainBinding
 import by.aermakova.todoapp.ui.base.BaseActivity
+import by.aermakova.todoapp.data.remote.auth.SPLASH_AUTH_CHECK
 import com.google.firebase.FirebaseApp
 
 class AppActivity : BaseActivity<AppViewModel>() {
@@ -17,7 +18,7 @@ class AppActivity : BaseActivity<AppViewModel>() {
         (application as App).tryInjectAppActivity(this)
         setTheme(R.style.Theme_AppCompat_Light_NoActionBar_FullScreen)
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding =  DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val view = binding.root
 
         FirebaseApp.initializeApp(this)
@@ -26,7 +27,7 @@ class AppActivity : BaseActivity<AppViewModel>() {
             Navigation.setViewNavController(view, this)
         }
 
-        viewModel.checkLogin(controller)
+        if (intent.getBooleanExtra(SPLASH_AUTH_CHECK, false))
+            controller.navigate(R.id.mainFlowFragment)
     }
-
 }

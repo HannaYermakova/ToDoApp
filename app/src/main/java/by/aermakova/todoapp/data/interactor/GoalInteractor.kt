@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.interactor
 
+import android.util.Log
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
@@ -75,6 +76,7 @@ class GoalInteractor(
         goalId: Long,
         action: FunctionSelect
     ): Single<GoalModel> {
+        Log.d("A_GoalInteractor", "getGoalWithKeyResultsAndUnattachedTasks")
         return goalRepository.getGoalWithInnerItems(goalId, action)
     }
 
