@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import android.widget.ArrayAdapter
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import by.aermakova.todoapp.ui.adapter.*
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
+
 
 @BindingAdapter("app:imageColor")
 fun setImageColor(background: ImageView, status: Boolean?) {
@@ -163,6 +165,50 @@ fun editTextListener(
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
     })
+}
+
+@BindingAdapter("app:itemSelectedListener")
+fun setSpinnerListener(
+    spinner: Spinner,
+    listener: ((Long) -> Unit)?
+) {
+    spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            Log.d("BindingAdapter", "Nothing Selected")
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val item = parent?.selectedItem as TextModel
+            listener?.invoke(item.textId)
+        }
+    }
+}
+
+@BindingAdapter(
+    "app:addSpinnerAdapter",
+    "app:disposable"
+)
+fun editSpinner(
+    spinner: Spinner,
+    itemsList: Observable<List<TextModel>>?,
+    disposable: CompositeDisposable?
+) {
+
+    if (itemsList != null && disposable != null) {
+        disposable.add(itemsList.subscribe(
+            { list ->
+                ArrayAdapter<TextModel>(
+                    spinner.context,
+                    R.layout.simple_spinner_item,
+                    list
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                    spinner.adapter = adapter
+                }
+            },
+            { it.printStackTrace() }
+        ))
+    }
 }
 
 @BindingAdapter(

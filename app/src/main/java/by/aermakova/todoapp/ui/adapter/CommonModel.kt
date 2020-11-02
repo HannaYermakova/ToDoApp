@@ -81,7 +81,9 @@ data class TextModel(
     val text: String,
     val action: Function? = null,
     var selected: Boolean = false
-) : CommonModel(textId, R.layout.item_text_line, BR.text, action)
+) : CommonModel(textId, R.layout.item_text_line, BR.text, action){
+    override fun toString() = text
+}
 
 data class TaskTextModel(
     val textId: Long,
@@ -144,11 +146,11 @@ fun TaskSortItem.toTextModel(
     )
 }
 
-fun GoalEntity.toTextModel(clickAction: Function): TextModel {
+fun GoalEntity.toTextModel(clickAction: Function? = null): TextModel {
     return TextModel(goalId, text, action = clickAction)
 }
 
-fun KeyResultEntity.toTextModel(clickAction: Function): TextModel {
+fun KeyResultEntity.toTextModel(clickAction: Function? = null): TextModel {
     return TextModel(keyResultId, text, action = clickAction)
 }
 

@@ -13,12 +13,11 @@ class AddStepFragment : BaseFragment<AddStepViewModel, FragmentAddStepBinding>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.selectedGoalObserver?.observe(viewLifecycleOwner, Observer {
+/*        viewModel.selectedGoalObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.addTempGoal(it)
-        })
-
-        viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
+        })*/
+/*        viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.addTempKeyResult(it)
-        })
+        })*/
     }
 }
