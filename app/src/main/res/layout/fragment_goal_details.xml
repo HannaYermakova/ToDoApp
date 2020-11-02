@@ -16,24 +16,24 @@
         app:disposable="@{viewModel.disposable}"
         app:show_child="@{viewModel.status}">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_blue_color"
+            android:background="@drawable/bg"
             app:paddingTop="@{null}">
 
             <ProgressBar
                 style="@style/CustomProgressBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <ScrollView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_blue_color">
+            android:background="@drawable/bg">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
