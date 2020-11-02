@@ -5,9 +5,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.data.remote.auth.SPLASH_AUTH_CHECK
 import by.aermakova.todoapp.databinding.ActivityMainBinding
 import by.aermakova.todoapp.ui.base.BaseActivity
-import by.aermakova.todoapp.data.remote.auth.SPLASH_AUTH_CHECK
 import com.google.firebase.FirebaseApp
 
 class AppActivity : BaseActivity<AppViewModel>() {

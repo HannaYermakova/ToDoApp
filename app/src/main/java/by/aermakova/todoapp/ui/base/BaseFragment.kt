@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import by.aermakova.todoapp.BR
+import by.aermakova.todoapp.util.hideKeyboard
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -43,6 +45,11 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
         super.onActivityCreated(savedInstanceState)
         AndroidSupportInjection.inject(this)
         bindViewModel(binding, viewModel)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().hideKeyboard()
     }
 
     private fun bindViewModel(binding: Binding, viewModel: VM) {

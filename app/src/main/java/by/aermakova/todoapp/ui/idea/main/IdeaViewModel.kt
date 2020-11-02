@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.idea.main
 
-import android.util.Log
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
@@ -41,12 +40,10 @@ class IdeaViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        Log.d("IdeaViewModel", "Status.SUCCESS")
                         _status.onNext(Status.SUCCESS)
                         _ideasList.onNext(it)
                     },
                     {
-                        Log.d("IdeaViewModel", "Status.ERROR")
                         _status.onNext(Status.ERROR)
                         it.printStackTrace()
                     }
