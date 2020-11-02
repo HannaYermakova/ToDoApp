@@ -1,10 +1,7 @@
 package by.aermakova.todoapp.ui.login
 
-import android.util.Log
-import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
-import by.aermakova.todoapp.ui.base.BaseViewModel
-import by.aermakova.todoapp.util.Status
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
+import by.aermakova.todoapp.ui.base.BaseViewModel
 import io.reactivex.Observer
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -13,13 +10,6 @@ class LoginViewModel @Inject constructor(
     private val emailLoginManager: EmailLoginManager,
     private val loginNavigation: LoginNavigation
 ) : BaseViewModel() {
-
-    init {
-        if (!FirebaseAuthUtil.isSingIn()) {
-            Log.d("A_LoginViewModel", "LoginViewModel init")
-            _status.onNext(Status.SUCCESS)
-        }
-    }
 
     val loginWithEmailButton = { loginWithEmail() }
 

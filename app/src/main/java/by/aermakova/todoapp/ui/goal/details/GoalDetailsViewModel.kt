@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.goal.details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor

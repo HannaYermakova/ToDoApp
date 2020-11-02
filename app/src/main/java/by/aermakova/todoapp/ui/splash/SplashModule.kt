@@ -1,8 +1,9 @@
 package by.aermakova.todoapp.ui.splash
 
-import android.app.Activity
 import androidx.lifecycle.ViewModel
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.remote.RemoteDataBaseSync
 import by.aermakova.todoapp.data.remote.auth.AuthListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListenerImpl
@@ -15,8 +16,16 @@ import dagger.multibindings.IntoMap
 class SplashModule {
 
     @Provides
-    fun provideAuthListener(activity: Activity): AuthListener {
-        return SplashAuthListener(activity)
+    fun provideRemoteDataBaseSync(goalInteractor: GoalInteractor): RemoteDataBaseSync {
+        return RemoteDataBaseSync(goalInteractor)
+    }
+
+    @Provides
+    fun provideAuthListener(
+        activity: SplashActivity,
+        remoteDataBaseSync: RemoteDataBaseSync
+    ): AuthListener {
+        return SplashAuthListener(activity, remoteDataBaseSync)
     }
 
     @Provides

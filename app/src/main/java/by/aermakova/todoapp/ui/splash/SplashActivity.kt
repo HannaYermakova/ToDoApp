@@ -5,12 +5,15 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.app.App
 import by.aermakova.todoapp.ui.base.BaseActivity
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity<SplashViewModel>() {
 
     @Inject
     lateinit var authListener: LoginAuthorizationListener
+
+    val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).tryInjectSplashActivity(this)
@@ -26,5 +29,10 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     override fun onStop() {
         super.onStop()
         authListener.unregisterListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
     }
 }
