@@ -8,5 +8,4 @@ class IdeaFragment : BaseFragment<IdeaViewModel, FragmentIdeasBinding>() {
 
     override val layout: Int
         get() = R.layout.fragment_ideas
-
 }

@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/card_corner_radius"
-        android:background="@drawable/card_background"
+        app:cardBackgroundColor="@color/color_white_milk"
+        android:elevation="@dimen/elevation_button"
         tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +34,7 @@
             <TextView
                 android:id="@+id/goal_title"
                 style="@style/TextAccent"
+                android:textColor="@color/color_blue"
                 android:text="@{step.text}"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_width="wrap_content"

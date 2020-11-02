@@ -4,15 +4,18 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#D81B60</color>
     <color name="color_white">#FFFFFF</color>
+    <color name="color_white_milk">#F4F4F4</color>
     <color name="color_black">#000000</color>
     <color name="color_blue">#3949AB</color>
-    <color name="color_default">#B8E6E2</color>
+    <color name="color_default">#3C8882</color>
     <color name="color_grey">#333333</color>
-    <color name="color_grey_light">#BDBDBD</color>
-    <color name="color_blue_light">#969FD6</color>
+    <color name="color_grey_light">#CDCDCD</color>
+    <color name="color_grey_background">#EDEDED</color>
+    <color name="color_blue_light">#C1CAFF</color>
     <color name="color_accent_light">#FFC1D8</color>
     <color name="color_blue_dark">#24307E</color>
     <color name="color_yellow_light">#FFFACF</color>
-    <color name="color_ripple">#66505050</color>
+    <color name="color_yellow">#FFE400</color>
+    <color name="color_ripple">#66BDBDBD</color>
     <color name="color_facebook_blue">#3b5998</color>
 </resources>

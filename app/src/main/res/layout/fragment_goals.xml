@@ -17,29 +17,26 @@
         app:show_child="@{viewModel.status}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg"
-            app:paddingTop="@{null}">
-
-            <ProgressBar
-                style="@style/CustomProgressBar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_blue_color"
+            android:background="@drawable/background_image"
             app:paddingTop="@{null}">
+
+            <TextView
+                android:id="@+id/all_goals_text"
+                style="@style/TextAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:text="@string/all_goals_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/goals_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.goalsList}"
@@ -47,7 +44,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/all_goals_text"
                 app:layout_constraintVertical_bias="0.0"
                 tools:listitem="@layout/item_goal" />
 
@@ -64,5 +61,17 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_image"
+            app:paddingTop="@{null}">
+
+            <ProgressBar
+                style="@style/CustomProgressBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ViewFlipper>
 </layout>

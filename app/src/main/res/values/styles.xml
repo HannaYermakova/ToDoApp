@@ -13,10 +13,10 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:background">@android:color/transparent</item>
-    </style>
+    </style>/
 
     <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <item name="android:background">@drawable/background_blue_color</item>
+        <item name="android:background">@drawable/background_image</item>
     </style>
 
     <style name="CustomProgressBar" >
@@ -39,9 +39,9 @@
 
     <style name="CustomEditTextStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@color/color_grey</item>
-        <item name="colorControlActivated">@color/color_blue</item>
-        <item name="colorControlHighlight">@color/color_blue</item>
-        <item name="android:fontFamily">@font/proxima_nova_thin</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
     <style name="AccentButtonStyle">
@@ -77,7 +77,6 @@
     <style name="TextInstructions" parent="CustomTextStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
         <item name="android:textColor">@color/color_blue_dark</item>
-
     </style>
 
     <style name="TextTitle">

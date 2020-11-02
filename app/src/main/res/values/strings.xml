@@ -36,6 +36,9 @@
     <string name="add_key_result">Specify key result</string>
     <string name="key_results">Key results of the Goal:</string>
     <string name="enter_goal_hint">Name your Goal</string>
+    <string name="all_goals_text">All Goals</string>
+    <string name="all_steps_text">All Steps</string>
+    <string name="all_ideas_text">All Ideas</string>
 
     <string name="add_new_task_title">Add new Task</string>
     <string name="enter_task_hint">Name Task</string>

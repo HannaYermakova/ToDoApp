@@ -1,10 +1,12 @@
 package by.aermakova.todoapp.ui.idea.main
 
+import android.util.Log
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,6 +25,7 @@ class IdeaViewModel @Inject constructor(
     val addNewElement = { mainFlowNavigation.navigateToAddNewElementFragment() }
 
     init {
+        _status.onNext(Status.LOADING)
         disposable.add(
             ideaInteractor.getAllIdeas()
                 .map { list ->
@@ -37,8 +40,16 @@ class IdeaViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { _ideasList.onNext(it) },
-                    { it.printStackTrace() }
+                    {
+                        Log.d("IdeaViewModel", "Status.SUCCESS")
+                        _status.onNext(Status.SUCCESS)
+                        _ideasList.onNext(it)
+                    },
+                    {
+                        Log.d("IdeaViewModel", "Status.ERROR")
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
                 )
         )
     }

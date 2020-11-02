@@ -10,37 +10,69 @@
             type="by.aermakova.todoapp.ui.idea.main.IdeaViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ViewFlipper
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_yellow_color"
-        app:paddingTop="@{null}">
+        app:disposable="@{viewModel.disposable}"
+        app:show_child="@{viewModel.status}">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/goals_recycler_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_normal"
-            app:addDisposable="@{viewModel.disposable}"
-            app:bindList="@{viewModel.ideasList}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/item_idea" />
+            android:background="@drawable/background_image"
+            app:paddingTop="@{null}">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:elevation="@dimen/elevation_button"
-            app:backgroundTint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:onClick="@{viewModel.addNewElement}"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
+            <TextView
+                android:id="@+id/all_ideas_text"
+                style="@style/TextAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:text="@string/all_ideas_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/goals_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                app:addDisposable="@{viewModel.disposable}"
+                app:bindList="@{viewModel.ideasList}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/all_ideas_text"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/item_idea" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:elevation="@dimen/elevation_button"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:onClick="@{viewModel.addNewElement}"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_image"
+            app:paddingTop="@{null}">
+
+            <ProgressBar
+                style="@style/CustomProgressBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ViewFlipper>
 </layout>

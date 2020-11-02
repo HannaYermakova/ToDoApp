@@ -11,19 +11,18 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:paddingTopAndBottom="@{null}"
-        android:background="@drawable/background_yellow_color">
+        android:background="@drawable/background_image"
+        app:paddingTopAndBottom="@{null}">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+        <ImageButton
+            android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_normal"
-            android:elevation="@dimen/elevation_button"
-            app:backgroundTint="@color/color_default"
-            app:fabSize="mini"
+            android:background="@drawable/back_button_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:onClick="@{viewModel.popBack}"
@@ -31,15 +30,15 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/TextTitle"
+            style="@style/TextAccent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:text="@string/my_idea"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fab"
-            app:layout_constraintTop_toTopOf="@id/fab"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="@id/back_button"
             tools:text="My Idea" />
 
         <androidx.cardview.widget.CardView
@@ -49,6 +48,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_large"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:backgroundTint="@color/color_white_milk"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title">
@@ -80,6 +80,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:backgroundTint="@color/color_white_milk"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attach_text">

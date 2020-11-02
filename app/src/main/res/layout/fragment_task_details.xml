@@ -12,19 +12,19 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_pink_color"
+        android:background="@drawable/background_image"
         app:paddingTopAndBottom="@{null}">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+        <ImageButton
+            android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:elevation="@dimen/elevation_button"
-            app:backgroundTint="@color/color_blue"
-            app:fabSize="mini"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_small"
+            android:background="@drawable/back_button_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:onClick="@{viewModel.popBack}"
@@ -32,15 +32,16 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/TextTitle"
+            style="@style/TextAccent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:text="@{viewModel.taskModel.text}"
             android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@id/back_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fab"
-            app:layout_constraintTop_toTopOf="@id/fab"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="@id/back_button"
             tools:text="My Super Task" />
 
         <androidx.cardview.widget.CardView
@@ -50,6 +51,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_large"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:backgroundTint="@color/color_white_milk"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title">
@@ -99,7 +101,7 @@
                     tools:text="12.12.2020" />
 
                 <TextView
-                    android:id="@+id/status_text"
+                    android:id="@+id/status_icon"
                     style="@style/TextInstructions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +115,7 @@
                     style="@style/TextRegular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBaseline_toBaselineOf="@id/status_text"
+                    app:layout_constraintBaseline_toBaselineOf="@id/status_icon"
                     app:layout_constraintStart_toStartOf="@id/guideline"
                     app:setStatus="@{viewModel.taskModel.status}"
                     tools:text="done" />
@@ -126,7 +128,7 @@
                     android:layout_marginTop="@dimen/margin_normal"
                     android:text="@string/scheduled_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/status_text" />
+                    app:layout_constraintTop_toBottomOf="@id/status_icon" />
 
                 <TextView
                     android:id="@+id/scheduled_task_text"
@@ -166,6 +168,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:backgroundTint="@color/color_white_milk"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attach_text">

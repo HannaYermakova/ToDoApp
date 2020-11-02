@@ -13,6 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/color_white_milk"
         android:background="@drawable/card_background"
         app:cardCornerRadius="@dimen/card_corner_radius"
         tools:layout_margin="@dimen/margin_small">
@@ -55,7 +56,7 @@
                 tools:text="12.12.2020" />
 
             <TextView
-                android:id="@+id/status_text"
+                android:id="@+id/status_icon"
                 style="@style/TextInstructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
                 style="@style/TextRegular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBaseline_toBaselineOf="@id/status_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/status_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:setStatus="@{task.status}"
                 tools:text="done" />

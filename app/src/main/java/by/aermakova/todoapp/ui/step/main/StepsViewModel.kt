@@ -5,6 +5,7 @@ import by.aermakova.todoapp.ui.adapter.CommonModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,12 +26,26 @@ class StepsViewModel @Inject constructor(
     init {
         disposable.add(
             stepInteractor.getAllSteps()
-                .map { list -> list.map { it.toCommonModel  { id -> navigation.navigateToShowDetailsFragment(id) }  } }
+                .map { list ->
+                    list.map {
+                        it.toCommonModel { id ->
+                            navigation.navigateToShowDetailsFragment(
+                                id
+                            )
+                        }
+                    }
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { _stepsList.onNext(it) },
-                    { it.printStackTrace() }
+                    {
+                        _status.onNext(Status.SUCCESS)
+                        _stepsList.onNext(it)
+                    },
+                    {
+                        _status.onNext(Status.ERROR)
+                        it.printStackTrace()
+                    }
                 )
         )
     }
