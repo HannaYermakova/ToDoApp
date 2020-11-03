@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="by.aermakova.todoapp.ui.register.RegisterViewModel" />
+            type="by.aermakova.todoapp.ui.auth.register.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

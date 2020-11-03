@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.login
+package by.aermakova.todoapp.ui.auth.login
 
 import android.app.Activity
 import android.util.Log
@@ -11,10 +11,13 @@ import by.aermakova.todoapp.data.remote.auth.*
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
 import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
 import by.aermakova.todoapp.data.remote.sync.RemoteDatabaseSynchronization
+import by.aermakova.todoapp.ui.auth.LoginNavigation
+import by.aermakova.todoapp.util.Status
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 
 @Module
 class LoginModule {
@@ -56,40 +59,28 @@ class LoginModule {
     }
 
     @Provides
-    fun provideFacebookLoginManager() =
-        FacebookLoginManager(
-            object :
-                LoginStatusListener {
-                override fun onSuccess() {
-                    Log.d("A_LoginModule", "onSuccess")
-                }
-
-                override fun onCancel() {
-                    Log.d("A_LoginModule", "onCancel")
-                }
-
-                override fun onError() {
-                    Log.d("A_LoginModule", "onError")
-                }
-            })
+    fun provideFacebookLoginManager(loginStatusListener: LoginStatusListener) =
+        FacebookLoginManager(loginStatusListener)
 
     @Provides
-    fun provideEmailLoginManager() =
-        EmailLoginManager(
-            object :
-                LoginStatusListener {
-                override fun onSuccess() {
-                    Log.d("A_LoginModule", "onSuccess")
-                }
+    fun provideEmailLoginManager(loginStatusListener: LoginStatusListener) =
+        EmailLoginManager(loginStatusListener)
 
-                override fun onCancel() {
-                    Log.d("A_LoginModule", "onCancel")
-                }
+    @Provides
+    fun provideLoginStatusListener() =
+        object : LoginStatusListener {
+            override fun onSuccess() {
+                Log.d("A_LoginModule", "onSuccess")
+            }
 
-                override fun onError() {
-                    Log.d("A_LoginModule", "onError")
-                }
-            })
+            override fun onCancel() {
+                Log.d("A_LoginModule", "onCancel")
+            }
+
+            override fun onError() {
+                Log.d("A_LoginModule", "onError")
+            }
+        }
 
     @Provides
     fun provideLoginNavigation(activity: Activity): LoginNavigation {

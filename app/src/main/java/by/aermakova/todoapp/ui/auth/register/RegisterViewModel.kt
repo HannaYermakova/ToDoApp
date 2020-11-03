@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.register
+package by.aermakova.todoapp.ui.auth.register
 
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager

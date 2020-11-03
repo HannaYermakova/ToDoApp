@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.login
+package by.aermakova.todoapp.ui.auth
 
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
@@ -6,7 +6,7 @@ import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
 import by.aermakova.todoapp.ui.base.BaseFragment
 import javax.inject.Inject
 
-abstract class BaseLoginFragment<VM : ViewModel, Binding : ViewDataBinding> :
+abstract class BaseAuthFragment<VM : ViewModel, Binding : ViewDataBinding> :
     BaseFragment<VM, Binding>() {
 
     @Inject

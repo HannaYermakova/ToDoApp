@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.register
+package by.aermakova.todoapp.ui.auth.register
 
 import android.app.Activity
 import android.util.Log
@@ -8,7 +8,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.remote.auth.*
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
-import by.aermakova.todoapp.ui.login.*
+import by.aermakova.todoapp.ui.auth.LoginNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

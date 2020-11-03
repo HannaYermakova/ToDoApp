@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.login
+package by.aermakova.todoapp.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,13 @@ import androidx.lifecycle.Observer
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
 import by.aermakova.todoapp.databinding.FragmentLoginBinding
+import by.aermakova.todoapp.ui.auth.BaseAuthFragment
 import by.aermakova.todoapp.util.Status
 import by.aermakova.todoapp.util.hideKeyboard
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class LoginFragment : BaseLoginFragment<LoginViewModel, FragmentLoginBinding>() {
+class LoginFragment : BaseAuthFragment<LoginViewModel, FragmentLoginBinding>() {
 
     @Inject
     lateinit var facebookLoginManager: FacebookLoginManager

@@ -14,7 +14,6 @@ class EmailLoginManager(private val loginListener: LoginStatusListener) :
     }
 
     fun signInWithEmailAndPassword(email: String, password: String) {
-        Log.d("EmailLoginManager", "signInWithEmailAndPassword")
         FirebaseAuthUtil.signInWithEmailAndPassword(
             email,
             password,

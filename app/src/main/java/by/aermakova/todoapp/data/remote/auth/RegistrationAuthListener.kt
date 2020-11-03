@@ -1,6 +1,6 @@
 package by.aermakova.todoapp.data.remote.auth
 
-import by.aermakova.todoapp.ui.login.LoginNavigation
+import by.aermakova.todoapp.ui.auth.LoginNavigation
 
 class RegistrationAuthListener(private val loginNavigation: LoginNavigation) :
     AuthListener {

@@ -24,12 +24,12 @@ import by.aermakova.todoapp.ui.idea.details.IdeaDetailsFragment
 import by.aermakova.todoapp.ui.idea.details.IdeaDetailsModule
 import by.aermakova.todoapp.ui.idea.main.IdeaFragment
 import by.aermakova.todoapp.ui.idea.main.IdeaModule
-import by.aermakova.todoapp.ui.login.LoginFragment
-import by.aermakova.todoapp.ui.login.LoginModule
+import by.aermakova.todoapp.ui.auth.login.LoginFragment
+import by.aermakova.todoapp.ui.auth.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
-import by.aermakova.todoapp.ui.register.RegisterFragment
-import by.aermakova.todoapp.ui.register.RegisterModule
+import by.aermakova.todoapp.ui.auth.register.RegisterFragment
+import by.aermakova.todoapp.ui.auth.register.RegisterModule
 import by.aermakova.todoapp.ui.splash.SplashActivity
 import by.aermakova.todoapp.ui.splash.SplashModule
 import by.aermakova.todoapp.ui.step.addNew.AddStepFragment

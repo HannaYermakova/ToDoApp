@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.ui.login
+package by.aermakova.todoapp.ui.auth
 
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
