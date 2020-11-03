@@ -5,11 +5,13 @@ import by.aermakova.todoapp.data.remote.model.BaseRemoteModel
 import com.google.firebase.database.*
 import io.reactivex.Observer
 
-private const val ID_FIELD = "id"
-
 abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
     private val databaseReference: DatabaseReference
 ) : RemoteDatabase<Type> {
+
+    companion object {
+        private const val ID_FIELD = "id"
+    }
 
     private val uid: String?
         get() = FirebaseAuthUtil.getUid()

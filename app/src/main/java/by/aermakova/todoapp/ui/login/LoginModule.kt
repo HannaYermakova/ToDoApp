@@ -7,13 +7,10 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.*
-import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
-import by.aermakova.todoapp.data.remote.auth.LoginListener
 import by.aermakova.todoapp.data.remote.auth.*
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
 import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
 import by.aermakova.todoapp.data.remote.sync.RemoteDatabaseSynchronization
-import com.google.firebase.auth.AuthCredential
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -62,9 +59,9 @@ class LoginModule {
     fun provideFacebookLoginManager() =
         FacebookLoginManager(
             object :
-                LoginListener {
-                override fun onSuccess(credential: AuthCredential?) {
-                    credential?.let { FirebaseAuthUtil.signInForDataBase(credential) }
+                LoginStatusListener {
+                override fun onSuccess() {
+                    Log.d("A_LoginModule", "onSuccess")
                 }
 
                 override fun onCancel() {
@@ -80,9 +77,9 @@ class LoginModule {
     fun provideEmailLoginManager() =
         EmailLoginManager(
             object :
-                LoginListener {
-                override fun onSuccess(credential: AuthCredential?) {
-                    credential?.let { FirebaseAuthUtil.signInForDataBase(credential) }
+                LoginStatusListener {
+                override fun onSuccess() {
+                    Log.d("A_LoginModule", "onSuccess")
                 }
 
                 override fun onCancel() {

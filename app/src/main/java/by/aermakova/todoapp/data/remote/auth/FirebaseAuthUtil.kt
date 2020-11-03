@@ -33,24 +33,30 @@ object FirebaseAuthUtil {
             user?.let { authListener.isSignIn() } ?: authListener.notSignIn()
         }
 
-    fun signInForDataBase(credential: AuthCredential) {
+    fun signInForDataBase(credential: AuthCredential, loginListener: LoginStatusListener) {
         authInstance?.signInWithCredential(credential)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful && authInstance?.currentUser != null) {
                     Log.d("A_FirebaseAuthUtil", "succeeded to sign in")
+                    loginListener.onSuccess()
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to sign in. " + task.exception)
+                    loginListener.onError()
                 }
             }
     }
 
-    fun signInWithEmailAndPassword(email: String, password: String, loginListener: LoginListener) {
+    fun signInWithEmailAndPassword(
+        email: String,
+        password: String,
+        loginListener: LoginStatusListener
+    ) {
         authInstance?.signInWithEmailAndPassword(email, password)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("A_FirebaseAuthUtil", "succeeded to sign in")
                     val credential = EmailAuthProvider.getCredential(email, password)
-                    loginListener.onSuccess(credential)
+                    signInForDataBase(credential, loginListener)
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to sign in. " + task.exception)
                     loginListener.onError()
@@ -61,24 +67,18 @@ object FirebaseAuthUtil {
     fun createUserWithEmailAndPassword(
         email: String,
         password: String,
-        loginListener: LoginListener
+        loginListener: LoginStatusListener
     ) {
         authInstance?.createUserWithEmailAndPassword(email, password)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("A_FirebaseAuthUtil", "succeeded to register")
                     val credential = EmailAuthProvider.getCredential(email, password)
-                    loginListener.onSuccess(credential)
+                    signInForDataBase(credential, loginListener)
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to register. " + task.exception)
                     loginListener.onError()
                 }
             }
     }
-}
-
-interface LoginListener {
-    fun onSuccess(credential: AuthCredential? = null)
-    fun onCancel()
-    fun onError()
 }

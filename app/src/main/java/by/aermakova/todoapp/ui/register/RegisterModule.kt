@@ -9,7 +9,6 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.remote.auth.*
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
 import by.aermakova.todoapp.ui.login.*
-import com.google.firebase.auth.AuthCredential
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -36,17 +35,17 @@ class RegisterModule {
     fun provideEmailLoginManager() =
         EmailLoginManager(
             object :
-                LoginListener {
-                override fun onSuccess(credential: AuthCredential?) {
-                    credential?.let { FirebaseAuthUtil.signInForDataBase(credential) }
+                LoginStatusListener {
+                override fun onSuccess() {
+                    Log.d("RegisterModule", "onSuccess")
                 }
 
                 override fun onCancel() {
-                    Log.d("A_LoginModule", "onCancel")
+                    Log.d("RegisterModule",  "onCancel")
                 }
 
                 override fun onError() {
-                    Log.d("A_LoginModule", "onError")
+                    Log.d("RegisterModule", "onError")
                 }
             })
 

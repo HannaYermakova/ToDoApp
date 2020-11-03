@@ -2,7 +2,8 @@ package by.aermakova.todoapp.data.remote.auth.loginManager
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import by.aermakova.todoapp.data.remote.auth.LoginListener
+import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
+import by.aermakova.todoapp.data.remote.auth.LoginStatusListener
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -10,7 +11,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 
-class FacebookLoginManager(private val loginListener: LoginListener) :
+class FacebookLoginManager(private val loginListener: LoginStatusListener) :
     AppLoginManager {
 
     companion object {
@@ -37,7 +38,7 @@ class FacebookLoginManager(private val loginListener: LoginListener) :
                 override fun onSuccess(loginResult: LoginResult?) {
                     loginResult?.let {
                         val credential = FacebookAuthProvider.getCredential(it.accessToken.token)
-                        loginListener.onSuccess(credential)
+                        FirebaseAuthUtil.signInForDataBase(credential, loginListener)
                     }
                 }
 
