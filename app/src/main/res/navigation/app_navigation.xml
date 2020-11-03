@@ -29,6 +29,10 @@
         <action
             android:id="@+id/action_registerFragment_to_mainFlowFragment"
             app:destination="@id/mainFlowFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
             app:popUpTo="@id/registerFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -47,25 +51,53 @@
             app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_goalDetailsFragment"
-            app:destination="@id/goalDetailsFragment" />
+            app:destination="@id/goalDetailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
+            app:destination="@id/addTaskFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_taskDetailsFragment"
-            app:destination="@id/taskDetailsFragment" />
+            app:destination="@id/taskDetailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_addStepFragment"
-            app:destination="@id/addStepFragment" />
+            app:destination="@id/addStepFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_addIdeaFragment"
-            app:destination="@id/addIdeaFragment" />
+            app:destination="@id/addIdeaFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_stepDetailsFragment"
-            app:destination="@id/stepDetailsFragment" />
+            app:destination="@id/stepDetailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_mainFlowFragment_to_ideaDetailsFragment"
-            app:destination="@id/ideaDetailsFragment" />
+            app:destination="@id/ideaDetailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
 
     <fragment
@@ -97,7 +129,11 @@
 
     <action
         android:id="@+id/action_global_name_item_dialog"
-        app:destination="@id/name_item_dialog">
+        app:destination="@id/name_item_dialog"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit">
 
     </action>
     <fragment
@@ -117,7 +153,11 @@
         tools:layout="@layout/fragment_add_task" />
     <action
         android:id="@+id/action_global_select_item_dialog"
-        app:destination="@id/select_goal_dialog" />
+        app:destination="@id/select_goal_dialog"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit" />
 
     <dialog
         android:id="@+id/selectKeyResultDialogFragment"
@@ -136,7 +176,11 @@
 
     <action
         android:id="@+id/action_global_selectKeyResultDialogFragment"
-        app:destination="@id/selectKeyResultDialogFragment" />
+        app:destination="@id/selectKeyResultDialogFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit" />
 
     <dialog
         android:id="@+id/selectStepDialogFragment"
@@ -155,7 +199,11 @@
     </dialog>
     <action
         android:id="@+id/action_global_selectStepDialogFragment"
-        app:destination="@id/selectStepDialogFragment" />
+        app:destination="@id/selectStepDialogFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit" />
     <dialog
         android:id="@+id/pickDayDialogFragment"
         android:name="by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogFragment"
@@ -163,7 +211,11 @@
 
     <action
         android:id="@+id/action_global_pickDayDialogFragment"
-        app:destination="@id/pickDayDialogFragment" />
+        app:destination="@id/pickDayDialogFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit" />
     <fragment
         android:id="@+id/taskDetailsFragment"
         android:name="by.aermakova.todoapp.ui.task.details.TaskDetailsFragment"
@@ -216,5 +268,9 @@
     </dialog>
     <action
         android:id="@+id/action_global_convertIdeaIntoTaskDialogFragment"
-        app:destination="@id/convertIdeaIntoTaskDialogFragment" />
+        app:destination="@id/convertIdeaIntoTaskDialogFragment"
+        app:enterAnim="@anim/fragment_fade_enter"
+        app:exitAnim="@anim/fragment_fade_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit" />
 </navigation>
