@@ -10,18 +10,14 @@ import com.google.firebase.ktx.Firebase
 
 object FirebaseAuthUtil {
 
-    private val authInstance: FirebaseAuth? = Firebase.auth
+    private val authInstance: FirebaseAuth?
+        get() = Firebase.auth
 
     fun getUid(): String? {
-        authInstance?.let {
-            return it.currentUser?.uid
+        return authInstance?.let {
+            it.currentUser?.uid
         }
-        return null
     }
-
-    fun isSingIn(): Boolean = authInstance?.let {
-        return it.currentUser != null
-    } ?: false
 
     fun addListener(authListener: AuthStateListener) {
         authInstance?.addAuthStateListener(authListener)
@@ -40,7 +36,7 @@ object FirebaseAuthUtil {
     fun signInForDataBase(credential: AuthCredential) {
         authInstance?.signInWithCredential(credential)
             ?.addOnCompleteListener { task ->
-                if (task.isSuccessful && authInstance.currentUser != null) {
+                if (task.isSuccessful && authInstance?.currentUser != null) {
                     Log.d("A_FirebaseAuthUtil", "succeeded to sign in")
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to sign in. " + task.exception)

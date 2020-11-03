@@ -11,12 +11,13 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
     private val databaseReference: DatabaseReference
 ) : RemoteDatabase<Type> {
 
-    private val uid: String? = FirebaseAuthUtil.getUid()
+    private val uid: String?
+        get() = FirebaseAuthUtil.getUid()
 
     override fun saveData(data: Type) {
         uid?.let {
             databaseReference
-                .child(uid)
+                .child(it)
                 .push()
                 .setValue(data)
         }
@@ -55,7 +56,7 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
     private fun createQuery(id: String): Query? {
         return uid?.let {
             databaseReference
-                .child(uid)
+                .child(it)
                 .orderByChild(ID_FIELD)
                 .equalTo(id)
         }
@@ -63,7 +64,7 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
 
     override fun addDataListener(dataObserver: Observer<List<Type>>) {
         uid?.let {
-            databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
+            databaseReference.child(it).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val model: List<Type> = convertDataSnapshotToList(snapshot.children)
                     dataObserver.onNext(model)

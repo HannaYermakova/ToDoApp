@@ -17,32 +17,11 @@ import io.reactivex.disposables.CompositeDisposable
 class SplashModule {
 
     @Provides
-    fun provideRemoteDataBaseSync(
-        goalInteractor: GoalInteractor,
-        keyResultInteractor: KeyResultInteractor,
-        stepInteractor: StepInteractor,
-        taskInteractor: TaskInteractor,
-        ideaInteractor: IdeaInteractor
-    ): RemoteDatabaseSynchronization {
-        return RemoteDatabaseSynchronization(
-            goalInteractor,
-            keyResultInteractor,
-            stepInteractor,
-            taskInteractor,
-            ideaInteractor
-        )
-    }
-
-    @Provides
     fun provideAuthListener(
-        activity: SplashActivity,
-        remoteDataBaseSync: RemoteDatabaseSynchronization
+        activity: SplashActivity
     ): AuthListener {
-        return SplashAuthListener(activity, remoteDataBaseSync)
+        return SplashAuthListener(activity)
     }
-
-    @Provides
-    fun provideDisposable(): CompositeDisposable = CompositeDisposable()
 
     @Provides
     fun provideAuthListenerImpl(authListener: AuthListener): LoginAuthorizationListener {

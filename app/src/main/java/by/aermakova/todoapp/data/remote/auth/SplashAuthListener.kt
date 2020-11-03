@@ -1,22 +1,18 @@
 package by.aermakova.todoapp.data.remote.auth
 
 import android.content.Intent
-import by.aermakova.todoapp.data.remote.sync.RemoteDatabaseSynchronization
 import by.aermakova.todoapp.ui.app.AppActivity
 import by.aermakova.todoapp.ui.splash.SplashActivity
 
 const val SPLASH_AUTH_CHECK = "SPLASH_AUTH_CHECK"
 
 class SplashAuthListener(
-    private val activity: SplashActivity,
-    private val remoteDataBaseSync: RemoteDatabaseSynchronization
+    private val activity: SplashActivity
 ) :
     AuthListener {
 
     override fun isSignIn() {
-        remoteDataBaseSync.startSync(activity.compositeDisposable) {
-            openAppActivity(true)
-        }
+        openAppActivity(true)
     }
 
     override fun notSignIn() {
