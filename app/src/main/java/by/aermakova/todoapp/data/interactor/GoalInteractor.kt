@@ -5,6 +5,7 @@ import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.*
+import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.repository.TaskRepository
@@ -22,7 +23,8 @@ class GoalInteractor(
     private val keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>,
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>,
     private val taskRemoteDatabase: RemoteDatabase<TaskRemoteModel>
-) {
+) : RemoteSync<GoalRemoteModel> {
+
     fun saveGoalAndKeyResToLocal(
         goalTitle: String,
         keyResults: List<String>
@@ -54,14 +56,6 @@ class GoalInteractor(
         }
     }
 
-    fun addGoalsDataListener(dataObserver: Observer<List<GoalRemoteModel>>) {
-        goalsRemoteDatabase.addDataListener(dataObserver)
-    }
-
-    fun addKeyResultsDataListener(dataObserver: Observer<List<KeyResultRemoteModel>>) {
-        keyResRemoteDatabase.addDataListener(dataObserver)
-    }
-
     fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>> {
         return goalRepository.getAllGoalsWithKeyResults()
     }
@@ -85,14 +79,6 @@ class GoalInteractor(
     fun updateKeyResults(status: Boolean, keyResultIds: List<Long>): Boolean {
         goalRepository.updateKeyResults(status, keyResultIds)
         return true
-    }
-
-    fun saveGoalsInLocalDatabase(collection: List<GoalRemoteModel>) {
-        goalRepository.saveGoalsInLocalDataBase(collection.map { it.toLocal() })
-    }
-
-    fun saveKeyResultsInLocalDatabase(list: List<KeyResultRemoteModel>) {
-        goalRepository.saveKeyResults(list.map { it.toLocal() })
     }
 
     fun getKeyResultsById(keyResultId: Long): Observable<KeyResultEntity> {
@@ -123,7 +109,10 @@ class GoalInteractor(
         return goalRepository.getKeyResultByIds(keyResIds)
     }
 
-    fun updateKeyResultsToRemote(listKeyResultEntities: List<KeyResultEntity>?, keyResIds: List<Long>) {
+    fun updateKeyResultsToRemote(
+        listKeyResultEntities: List<KeyResultEntity>?,
+        keyResIds: List<Long>
+    ) {
         listKeyResultEntities?.let {
             it.map { keyResultEntity -> keyResRemoteDatabase.updateData(keyResultEntity.toRemote()) }
 
@@ -136,5 +125,13 @@ class GoalInteractor(
             }
 
         }
+    }
+
+    override fun addItemsDataListener(dataObserver: Observer<List<GoalRemoteModel>>) {
+        goalsRemoteDatabase.addDataListener(dataObserver)
+    }
+
+    override fun saveItemsInLocalDatabase(list: List<GoalRemoteModel>) {
+        goalRepository.saveGoalsInLocalDataBase(list.map { it.toLocal() })
     }
 }

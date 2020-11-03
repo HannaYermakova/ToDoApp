@@ -13,7 +13,8 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     @Inject
     lateinit var authListener: LoginAuthorizationListener
 
-    val compositeDisposable = CompositeDisposable()
+    @Inject
+    lateinit var compositeDisposable: CompositeDisposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).tryInjectSplashActivity(this)

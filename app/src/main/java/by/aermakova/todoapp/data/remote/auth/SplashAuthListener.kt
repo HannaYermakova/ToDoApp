@@ -1,7 +1,7 @@
 package by.aermakova.todoapp.data.remote.auth
 
 import android.content.Intent
-import by.aermakova.todoapp.data.remote.RemoteDataBaseSync
+import by.aermakova.todoapp.data.remote.sync.RemoteDatabaseSynchronization
 import by.aermakova.todoapp.ui.app.AppActivity
 import by.aermakova.todoapp.ui.splash.SplashActivity
 
@@ -9,7 +9,7 @@ const val SPLASH_AUTH_CHECK = "SPLASH_AUTH_CHECK"
 
 class SplashAuthListener(
     private val activity: SplashActivity,
-    private val remoteDataBaseSync: RemoteDataBaseSync
+    private val remoteDataBaseSync: RemoteDatabaseSynchronization
 ) :
     AuthListener {
 

@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.repository
 
 import by.aermakova.todoapp.data.db.dao.StepDao
+import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,7 +19,7 @@ class StepRepository @Inject constructor(
         return stepDao.getStepById(stepId)
     }
 
-    fun saveStepEntity(stepEntity: StepEntity) : Long {
+    fun saveStepEntity(stepEntity: StepEntity): Long {
         return stepDao.insertStep(stepEntity)
     }
 
@@ -36,5 +37,9 @@ class StepRepository @Inject constructor(
 
     fun getStepsByKeyResultIds(keyResIds: List<Long>): Single<List<StepEntity>> {
         return stepDao.getStepByKeyResultIds(keyResIds)
+    }
+
+    fun saveSteps(stepsEntities: List<StepEntity>) {
+        stepDao.insertAllSteps(stepsEntities)
     }
 }

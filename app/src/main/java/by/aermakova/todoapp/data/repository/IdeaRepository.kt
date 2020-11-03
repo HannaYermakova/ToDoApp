@@ -21,4 +21,8 @@ class IdeaRepository @Inject constructor(
     fun deleteIdea(ideaId: Long) {
         ideaDao.deleteIdea(ideaId)
     }
+
+    fun saveIdeas(ideaEntities: List<IdeaEntity>) {
+        ideaDao.insertAllIdeas(ideaEntities)
+    }
 }

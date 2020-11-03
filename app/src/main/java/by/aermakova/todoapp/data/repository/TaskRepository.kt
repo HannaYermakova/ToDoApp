@@ -33,4 +33,8 @@ class TaskRepository @Inject constructor(
     fun getTasksByKeyResultIds(keyResIds: List<Long>): Single<List<TaskEntity>> {
         return taskDao.getTasksByKeyResultsIds(keyResIds)
     }
+
+    fun saveTasks(taskEntities: List<TaskEntity>) {
+        taskDao.insertAllTasks(taskEntities)
+    }
 }

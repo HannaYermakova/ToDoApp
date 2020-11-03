@@ -1,9 +1,6 @@
 package by.aermakova.todoapp.data.di.module
 
-import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.data.interactor.IdeaInteractor
-import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.interactor.*
 import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.*
@@ -37,6 +34,12 @@ class InteractorModule {
         stepRepository: StepRepository,
         stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
     ): StepInteractor = StepInteractor(stepRepository, stepRemoteDatabase)
+
+    @Provides
+    fun provideKeyResultInteractor(
+        goalRepository: GoalRepository,
+        keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>
+    ): KeyResultInteractor = KeyResultInteractor(goalRepository, keyResRemoteDatabase)
 
     @Provides
     fun provideGoalInteractor(
