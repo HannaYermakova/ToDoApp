@@ -4,19 +4,13 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentSelectItemBinding
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.HasSupportFragmentInjector
+import by.aermakova.todoapp.ui.base.BaseDialogFragment
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
-abstract class SelectItemDialogFragment : DialogFragment(), HasSupportFragmentInjector {
+abstract class SelectItemDialogFragment : BaseDialogFragment() {
 
     private val compositeDisposable = CompositeDisposable()
     val disposable: CompositeDisposable
@@ -38,12 +32,11 @@ abstract class SelectItemDialogFragment : DialogFragment(), HasSupportFragmentIn
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        AndroidSupportInjection.inject(this)
         binding.setVariable(bindingViewModelId, viewModel)
         setDismissListener()
     }
 
-    private fun setDismissListener(){
+    private fun setDismissListener() {
         disposable.add(viewModel.dismissCommand.subscribe { if (it) dismiss() })
     }
 
@@ -61,17 +54,6 @@ abstract class SelectItemDialogFragment : DialogFragment(), HasSupportFragmentIn
                 { _, _ -> dismiss() }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
-    }
-
-    private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
-
-    @Inject
-    fun injectDependencies(fragmentInjector: DispatchingAndroidInjector<Fragment>) {
-        this.fragmentInjector = fragmentInjector
-    }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment>? {
-        return fragmentInjector
     }
 
     override fun onDestroy() {
