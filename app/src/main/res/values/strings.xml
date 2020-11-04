@@ -21,6 +21,8 @@
     <string name="error_while_login">Error while login</string>
     <string name="error_invalid_email_or_password">Invalid email or password</string>
     <string name="error_loading_cancel">Loading has been canceled</string>
+    <string name="error_empty_field">Field can\'t be empty</string>
+    <string name="error_empty_field_goal">Define title and several Key Result for your Goal!</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>

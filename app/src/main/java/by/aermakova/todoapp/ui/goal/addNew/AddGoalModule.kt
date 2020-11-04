@@ -22,6 +22,10 @@ class AddGoalModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
+    fun provideErrorMessage(activity: Activity): String =
+        activity.resources.getString(R.string.error_empty_field_goal)
+
+    @Provides
     fun provideGoalsNavigation(controller: NavController): MainFlowNavigation =
         GoalsNavigation(controller)
 

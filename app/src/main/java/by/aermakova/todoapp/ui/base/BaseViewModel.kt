@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.ReplaySubject
+import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -18,7 +17,7 @@ abstract class BaseViewModel : ViewModel() {
         super.onCleared()
     }
 
-    protected val _status = ReplaySubject.create<Status>()
+    protected val _status = BehaviorSubject.create<Status>()
     val status: Observable<Status>
         get() = _status.hide()
 }

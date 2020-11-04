@@ -48,8 +48,13 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
     }
 
     override fun onPause() {
-        super.onPause()
         requireActivity().hideKeyboard()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        requireActivity().hideKeyboard()
+        super.onResume()
     }
 
     private fun bindViewModel(binding: Binding, viewModel: VM) {

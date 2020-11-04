@@ -7,6 +7,7 @@ import by.aermakova.todoapp.ui.adapter.toCommonModelStringList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class AddGoalViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     private val dialogNavigation: DialogNavigation<String>,
-    private val goalInteractor: GoalInteractor
+    private val goalInteractor: GoalInteractor,
+    private val errorMessage: String
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -30,7 +32,10 @@ class AddGoalViewModel @Inject constructor(
     val saveGoal = { saveGoalToLocalDataBaseAndSyncToRemote() }
 
     private fun saveGoalToLocalDataBaseAndSyncToRemote() {
-        if (!_tempGoalTitle.value.isNullOrBlank()) {
+        if (!_tempGoalTitle.value.isNullOrBlank()
+            && tempKeyResults.isNotEmpty()
+        ) {
+            _status.onNext(Status.LOADING)
             disposable.add(
                 Single.create<Long> {
                     it.onSuccess(
@@ -49,10 +54,13 @@ class AddGoalViewModel @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { mainFlowNavigation.popBack() },
-                        { it.printStackTrace() }
+                        {
+                            _status.onNext(Status.ERROR)
+                            it.printStackTrace()
+                        }
                     )
             )
-        }
+        } else _status.onNext(Status.ERROR.apply { message = errorMessage })
     }
 
     val keyResultObserver: LiveData<String>?
