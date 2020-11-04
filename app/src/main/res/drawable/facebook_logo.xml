@@ -7,7 +7,7 @@
     android:width="16dp"
     >
     <path
-        android:fillColor="@color/colorAccent"
+        android:fillColor="@color/color_blue"
         android:pathData="M20,0H2C0.895,0 0,0.896 0,2v18c0,1.105 0.895,2 2,
             2h9.96v-8.662H9.01V9.962h2.95v-2.49c0,-2.888 1.785,-4.46 4.393,-4.46 1.25,
             0 2.323,0.09 2.637,0.13v3.02l-1.81,0.002c-1.418,0 -1.693,0.666 -1.693,

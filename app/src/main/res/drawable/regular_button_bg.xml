@@ -7,7 +7,7 @@
                 android:width="@dimen/button_width"
                 android:height="@dimen/button_height" />
             <corners android:radius="@dimen/button_corner_radius" />
-            <stroke android:width="@dimen/radio_button_stroke" android:color="@color/colorAccent"/>
+            <stroke android:width="@dimen/radio_button_stroke" android:color="@color/color_blue"/>
         </shape>
     </item>
 </ripple>

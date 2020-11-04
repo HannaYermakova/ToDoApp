@@ -65,7 +65,7 @@ class LoginModule {
     fun provideEmailLoginManager(loginStatusListener: LoginStatusListener, activity: Activity) =
         EmailLoginManager(
             loginStatusListener,
-            activity.resources.getString(R.string.error_while_login)
+            activity.resources.getString(R.string.error_invalid_email_or_password)
         )
 
     @Provides

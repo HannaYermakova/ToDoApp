@@ -45,37 +45,49 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/margin_normal">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/email_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_normal"
-                        android:hint="@string/enter_email_hint"
-                        android:imeOptions="actionNext"
-                        android:importantForAutofill="no"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
                         android:theme="@style/CustomEditTextStyle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tempTitle="@{viewModel.emailText}" />
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <EditText
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_email_hint"
+                            android:imeOptions="actionNext"
+                            android:importantForAutofill="no"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            app:tempTitle="@{viewModel.emailText}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/password_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_normal"
-                        android:hint="@string/enter_password_hint"
-                        android:imeOptions="actionDone"
-                        android:importantForAutofill="no"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
                         android:theme="@style/CustomEditTextStyle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/email_edit_text"
-                        app:tempTitle="@{viewModel.passwordText}" />
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_password_hint"
+                            android:imeOptions="actionDone"
+                            android:importantForAutofill="no"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            app:tempTitle="@{viewModel.passwordText}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/login_button_email"
