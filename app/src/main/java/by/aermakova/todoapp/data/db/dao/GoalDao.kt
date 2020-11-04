@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.*
 import by.aermakova.todoapp.data.db.entity.*
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -68,7 +69,7 @@ interface GoalDao {
     }
 
     @Transaction
-    fun updateKeyResultsInGoal(status: Boolean, keyResultIds: List<Long>){
+    fun updateKeyResultsInGoal(status: Boolean, keyResultIds: List<Long>) {
         updateKeyResults(status, keyResultIds)
         updateTasksInKeyResult(status, keyResultIds)
         updateStepsInKeyResult(status, keyResultIds)
@@ -76,4 +77,27 @@ interface GoalDao {
 
     @Query("SELECT * FROM key_results_table WHERE key_result_id IN (:keyResultIds)")
     fun getKeyResultsByIds(keyResultIds: List<Long>): Single<List<KeyResultEntity>>
+
+    @Query("DELETE FROM goals_table")
+    fun deleteAllGoals(): Single<Int>
+
+    @Query("DELETE FROM key_results_table")
+    fun deleteAllKeyResults(): Single<Int>
+
+    @Query("DELETE FROM steps_table")
+    fun deleteAllSteps(): Single<Int>
+
+    @Query("DELETE FROM ideas_table")
+    fun deleteAllIdeas(): Single<Int>
+
+    @Query("DELETE FROM tasks_table")
+    fun deleteAllTasks(): Single<Int>
+
+    fun deleteAll(): Flowable<Int> {
+        return Single.merge(
+            deleteAllGoals(),
+            deleteAllSteps(),
+            deleteAllTasks(),
+            deleteAllIdeas())
+    }
 }

@@ -19,6 +19,10 @@ object FirebaseAuthUtil {
         }
     }
 
+    fun exit(){
+        authInstance?.signOut()
+    }
+
     fun addListener(authListener: AuthStateListener) {
         authInstance?.addAuthStateListener(authListener)
     }

@@ -134,4 +134,6 @@ class GoalInteractor(
     override fun saveItemsInLocalDatabase(list: List<GoalRemoteModel>) {
         goalRepository.saveGoalsInLocalDataBase(list.map { it.toLocal() })
     }
+
+    fun removeAllFromLocalDatabase()= goalRepository.removeAll()
 }

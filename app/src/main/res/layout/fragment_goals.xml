@@ -33,6 +33,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:background="@drawable/ic_baseline_exit_to_app_24"
+                android:backgroundTint="@color/color_blue"
+                android:stateListAnimator="@drawable/lift_on_touch"
+                app:addTitle="@{@string/confirm_exit_message}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:openDialog="@{viewModel.logoutButton}" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/goals_recycler_view"
                 android:layout_width="match_parent"

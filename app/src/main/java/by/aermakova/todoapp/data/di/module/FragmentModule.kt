@@ -30,6 +30,8 @@ import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
 import by.aermakova.todoapp.ui.auth.register.RegisterFragment
 import by.aermakova.todoapp.ui.auth.register.RegisterModule
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogFragment
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmModule
 import by.aermakova.todoapp.ui.splash.SplashActivity
 import by.aermakova.todoapp.ui.splash.SplashModule
 import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
@@ -76,6 +78,9 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [AddItemModule::class])
     abstract fun provideAddItemDialogFragment(): AddItemDialogFragment
+
+    @ContributesAndroidInjector(modules = [ConfirmModule::class])
+    abstract fun provideConfirmFragment(): ConfirmDialogFragment
 
     @ContributesAndroidInjector(modules = [TasksModule::class])
     abstract fun provideTasksFragment(): TasksFragment

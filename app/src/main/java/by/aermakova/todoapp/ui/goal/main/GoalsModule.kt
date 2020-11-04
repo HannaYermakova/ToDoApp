@@ -2,10 +2,13 @@ package by.aermakova.todoapp.ui.goal.main
 
 import android.app.Activity
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
+import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
 import dagger.Provides
@@ -16,14 +19,20 @@ import dagger.multibindings.IntoMap
 class GoalsModule {
 
     @Provides
-    fun provideGoalsNavigation(activity: Activity): MainFlowNavigation {
-        val controller = Navigation.findNavController(activity, R.id.app_host_fragment)
+    fun provideNavController(activity: Activity): NavController =
+        Navigation.findNavController(activity, R.id.app_host_fragment)
+
+    @Provides
+    fun provideGoalsNavigation(controller: NavController): MainFlowNavigation {
         return GoalsNavigation(controller)
     }
+
+    @Provides
+    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller)
 
     @Provides
     @IntoMap
     @ViewModelKey(GoalsViewModel::class)
     fun provideViewModel(goalsViewModel: GoalsViewModel): ViewModel = goalsViewModel
-
 }

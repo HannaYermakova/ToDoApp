@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.interactor
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval

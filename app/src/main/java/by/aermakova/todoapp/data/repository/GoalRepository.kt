@@ -11,7 +11,6 @@ import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.ui.adapter.*
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.ArrayList
 import javax.inject.Inject
 
 class GoalRepository @Inject constructor(
@@ -61,7 +60,10 @@ class GoalRepository @Inject constructor(
             }
     }
 
-    private fun getKeyResultWithInnerItems(keyResId: Long, action: FunctionSelect): Single<KeyResultModel> {
+    private fun getKeyResultWithInnerItems(
+        keyResId: Long,
+        action: FunctionSelect
+    ): Single<KeyResultModel> {
         return goalDao.getKeyResultWithStepsById(keyResId).flatMap { keyResultStep ->
             getStepWithTasks(keyResultStep.steps.map { step -> step.stepId })
                 .flatMap { listStepModel ->
@@ -115,4 +117,6 @@ class GoalRepository @Inject constructor(
     fun getKeyResultByIds(keyResIds: List<Long>): Single<List<KeyResultEntity>> {
         return goalDao.getKeyResultsByIds(keyResIds)
     }
+
+    fun removeAll() = goalDao.deleteAll()
 }

@@ -3,7 +3,6 @@ package by.aermakova.todoapp.ui.dialog.addItem
 import android.app.Activity
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import dagger.Module
 import dagger.Provides

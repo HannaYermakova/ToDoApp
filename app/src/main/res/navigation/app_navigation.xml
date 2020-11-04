@@ -98,6 +98,11 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/mainFlowFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -273,4 +278,17 @@
         app:exitAnim="@anim/fragment_fade_exit"
         app:popEnterAnim="@anim/fragment_close_enter"
         app:popExitAnim="@anim/fragment_close_exit" />
+
+    <dialog
+        android:id="@+id/confirmDialogFragment"
+        android:name="by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogFragment"
+        android:label="ConfirmDialogFragment">
+        <argument
+            android:name="title"
+            android:defaultValue="Select"
+            app:argType="string" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_confirmDialogFragment"
+        app:destination="@id/confirmDialogFragment" />
 </navigation>

@@ -33,6 +33,7 @@
     <string name="title_idea">Idea</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
+    <string name="confirm_exit_message">Are you sure you want to log out?</string>
     <string name="add_new_goal_instruction">Add new goal and specify several key results that belong to that goal</string>
     <string name="add_key_results">Specify several key results\nthat belong to the Goal</string>
     <string name="add_key_result">Specify key result</string>

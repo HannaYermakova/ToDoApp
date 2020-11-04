@@ -18,4 +18,8 @@ class GoalsNavigation(private val controller: NavController) : MainFlowNavigatio
     override fun popBack() {
         controller.popBackStack()
     }
+
+    fun exit(){
+        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToLoginFragment())
+    }
 }
