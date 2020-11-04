@@ -6,13 +6,13 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
-import android.widget.ArrayAdapter
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.Interval
+import by.aermakova.todoapp.data.remote.auth.loginManager.AppLoginManager
 import by.aermakova.todoapp.ui.adapter.*
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -138,6 +138,22 @@ fun clickListener(view: View, listener: (() -> Unit)?) {
 }
 
 @BindingAdapter(
+    "app:onLoginClick",
+    "app:addLoginMethod"
+)
+fun loginClickListener(
+    view: View,
+    listener: ((AppLoginManager) -> Unit)?,
+    method: AppLoginManager?
+) {
+    method?.let {
+        view.setOnClickListener {
+            listener?.invoke(method)
+        }
+    }
+}
+
+@BindingAdapter(
     "app:openDialog",
     "app:addTitle"
 )
@@ -221,19 +237,19 @@ fun setChildOfViewFlipper(
     disposable: CompositeDisposable?
 ) {
     if (status != null && disposable != null) {
-        val context = flipper.context
+        val resources = flipper.context.resources
         disposable.add(status.subscribe({
             flipper.displayedChild = when (it) {
                 Status.LOADING -> flipper.indexOfChild(flipper.findViewById(R.id.placeholder))
                 else -> flipper.indexOfChild(flipper.findViewById(R.id.content))
             }
             if (it == Status.ERROR) {
-                flipper.showSnackMessage(context.resources.getString(R.string.error_while_loading))
+                flipper.showSnackMessage(it.message/*resources.getString(R.string.error_while_loading)*/)
             }
         },
             {
                 it.printStackTrace()
-                flipper.showSnackMessage(context.resources.getString(R.string.error_while_loading))
+                flipper.showSnackMessage(resources.getString(R.string.error_while_loading))
             }
         ))
     }

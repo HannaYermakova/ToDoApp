@@ -89,14 +89,6 @@ class TaskInteractor(
         )
     }
 
-    fun addTasksDataListener(observer: Observer<List<TaskRemoteModel>>) {
-        taskRemoteDatabase.addDataListener(observer)
-    }
-
-    fun saveTasksInLocalDatabase(list: List<TaskRemoteModel>) {
-        taskRepository.saveTasks(list.map { it.toLocal() })
-    }
-
     override fun addItemsDataListener(dataObserver: Observer<List<TaskRemoteModel>>) {
         taskRemoteDatabase.addDataListener(dataObserver)
     }

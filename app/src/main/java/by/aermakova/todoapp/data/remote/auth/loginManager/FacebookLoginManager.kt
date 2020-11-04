@@ -11,13 +11,19 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 
-class FacebookLoginManager(private val loginListener: LoginStatusListener) :
+class FacebookLoginManager(
+    private val loginListener: LoginStatusListener,
+    private val message: String?
+) :
     AppLoginManager {
 
     companion object {
         private const val FACEBOOK_PERMISSION_EMAIL = "email"
         private const val FACEBOOK_PERMISSION_PUBLIC_PROFILE = "public_profile"
     }
+
+    override val errorMessage: String?
+        get() = message
 
     private val _fbCallbackManager = CallbackManager.Factory.create()
 
@@ -47,7 +53,7 @@ class FacebookLoginManager(private val loginListener: LoginStatusListener) :
                 }
 
                 override fun onError(exception: FacebookException) {
-                    loginListener.onError()
+                    loginListener.onError(exception.message)
                 }
             })
     }

@@ -46,14 +46,6 @@ class IdeaInteractor(
         ideaRemoteDatabase.removeData(ideaId.toString())
     }
 
-    fun addIdeasDataListener(observer: Observer<List<IdeaRemoteModel>>) {
-        ideaRemoteDatabase.addDataListener(observer)
-    }
-
-    fun saveIdeasInLocalDatabase(list: List<IdeaRemoteModel>) {
-        ideaRepository.saveIdeas(list.map { it.toLocal() })
-    }
-
     override fun addItemsDataListener(dataObserver: Observer<List<IdeaRemoteModel>>) {
         ideaRemoteDatabase.addDataListener(dataObserver)
     }

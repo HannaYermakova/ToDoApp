@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.ui.auth.login
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
@@ -60,25 +59,32 @@ class LoginModule {
 
     @Provides
     fun provideFacebookLoginManager(loginStatusListener: LoginStatusListener) =
-        FacebookLoginManager(loginStatusListener)
+        FacebookLoginManager(loginStatusListener, null)
 
     @Provides
-    fun provideEmailLoginManager(loginStatusListener: LoginStatusListener) =
-        EmailLoginManager(loginStatusListener)
+    fun provideEmailLoginManager(loginStatusListener: LoginStatusListener, activity: Activity) =
+        EmailLoginManager(
+            loginStatusListener,
+            activity.resources.getString(R.string.error_while_login)
+        )
 
     @Provides
-    fun provideLoginStatusListener() =
+    fun provideLoginStatusListener(activity: Activity, command: Subject<Status>) =
         object : LoginStatusListener {
             override fun onSuccess() {
-                Log.d("A_LoginModule", "onSuccess")
+                command.onNext(Status.SUCCESS)
             }
 
             override fun onCancel() {
-                Log.d("A_LoginModule", "onCancel")
+                command.onNext(Status.ERROR.apply {
+                    message = activity.resources.getString(R.string.error_loading_cancel)
+                })
             }
 
-            override fun onError() {
-                Log.d("A_LoginModule", "onError")
+            override fun onError(errorMessage: String?) {
+                command.onNext(Status.ERROR.apply {
+                    message = errorMessage ?: ""
+                })
             }
         }
 

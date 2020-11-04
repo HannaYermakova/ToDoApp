@@ -32,7 +32,7 @@ class RegisterModule {
     }
 
     @Provides
-    fun provideEmailLoginManager() =
+    fun provideEmailLoginManager(activity: Activity) =
         EmailLoginManager(
             object :
                 LoginStatusListener {
@@ -41,13 +41,15 @@ class RegisterModule {
                 }
 
                 override fun onCancel() {
-                    Log.d("RegisterModule",  "onCancel")
+                    Log.d("RegisterModule", "onCancel")
                 }
 
-                override fun onError() {
+                override fun onError(errorMessage: String?) {
                     Log.d("RegisterModule", "onError")
                 }
-            })
+            },
+            activity.resources.getString(R.string.error_loading_cancel)
+        )
 
     @Provides
     fun provideLoginNavigation(activity: Activity): LoginNavigation {

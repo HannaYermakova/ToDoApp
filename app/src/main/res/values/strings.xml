@@ -18,6 +18,8 @@
     <string name="pick_day">Pick day</string>
     <string name="empty" />
     <string name="error_while_loading">Error while loading</string>
+    <string name="error_while_login">Error while login</string>
+    <string name="error_loading_cancel">Loading has been canceled</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>

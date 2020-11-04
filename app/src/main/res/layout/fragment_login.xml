@@ -84,10 +84,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_normal"
                         android:text="@string/login_with_email"
+                        app:addLoginMethod="@{viewModel.emailLoginManager}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/password_edit_text"
-                        app:onClick="@{viewModel.loginWithEmailButton}" />
+                        app:onLoginClick="@{viewModel.loginButton}" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -118,9 +119,11 @@
                 android:drawableStart="@drawable/facebook_logo"
                 android:padding="16dp"
                 android:text="@string/login_with_facebook"
+                app:addLoginMethod="@{viewModel.facebookLoginManager}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/register_button_email" />
+                app:layout_constraintTop_toBottomOf="@id/register_button_email"
+                app:onLoginClick="@{viewModel.loginButton}" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"

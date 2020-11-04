@@ -5,8 +5,14 @@ import android.util.Log
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
 import by.aermakova.todoapp.data.remote.auth.LoginStatusListener
 
-class EmailLoginManager(private val loginListener: LoginStatusListener) :
+class EmailLoginManager(
+    private val loginListener: LoginStatusListener,
+    private val message: String?
+) :
     AppLoginManager {
+
+    override val errorMessage: String?
+        get() = message
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
         Log.d("A_EmailLoginManager", "onActivityResult")

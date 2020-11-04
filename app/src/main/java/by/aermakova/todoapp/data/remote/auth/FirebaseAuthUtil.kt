@@ -41,7 +41,7 @@ object FirebaseAuthUtil {
                     loginListener.onSuccess()
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to sign in. " + task.exception)
-                    loginListener.onError()
+                    loginListener.onError(task.exception?.message)
                 }
             }
     }
@@ -59,7 +59,7 @@ object FirebaseAuthUtil {
                     signInForDataBase(credential, loginListener)
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to sign in. " + task.exception)
-                    loginListener.onError()
+                    loginListener.onError(task.exception?.message)
                 }
             }
     }
@@ -77,7 +77,7 @@ object FirebaseAuthUtil {
                     signInForDataBase(credential, loginListener)
                 } else {
                     Log.d("A_FirebaseAuthUtil", "failed to register. " + task.exception)
-                    loginListener.onError()
+                    loginListener.onError(task.exception?.message)
                 }
             }
     }

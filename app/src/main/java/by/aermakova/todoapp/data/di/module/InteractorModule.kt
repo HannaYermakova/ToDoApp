@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.di.module
 
+import by.aermakova.todoapp.data.di.scope.ApplicationScope
 import by.aermakova.todoapp.data.interactor.*
 import by.aermakova.todoapp.data.remote.FirebaseRealtimeDatabase
 import by.aermakova.todoapp.data.remote.RemoteDatabase
@@ -8,14 +9,21 @@ import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.IdeaRepository
 import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.repository.TaskRepository
+import by.aermakova.todoapp.util.Status
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 
 @Module
 class InteractorModule {
+
+    @ApplicationScope
+    @Provides
+    fun provideStateListener(): Subject<Status> = PublishSubject.create()
 
     @Provides
     fun provideTaskInteractor(
