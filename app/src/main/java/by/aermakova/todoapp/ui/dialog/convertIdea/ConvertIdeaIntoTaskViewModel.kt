@@ -3,12 +3,10 @@ package by.aermakova.todoapp.ui.dialog.convertIdea
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.base.BaseDialogVieModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -18,13 +16,9 @@ class ConvertIdeaIntoTaskViewModel @Inject constructor(
     private val taskInteractor: TaskInteractor,
     private val ideaInteractor: IdeaInteractor,
     private val ideaId: Long
-) : BaseViewModel() {
+) : BaseDialogVieModel() {
 
     private val saveAndClose = BehaviorSubject.create<Boolean>()
-
-    private val _dismissCommand = PublishSubject.create<Boolean>()
-    val dismissCommand: Observable<Boolean>
-        get() = _dismissCommand.hide()
 
     val taskCreator = TaskCreator(
         pickDayDialogNavigation,
@@ -56,8 +50,11 @@ class ConvertIdeaIntoTaskViewModel @Inject constructor(
         )
     }
 
-    val cancel = {
+    override fun doOnCancel() {
         convertIdeaDialogNavigator.setDialogResult(false)
-        _dismissCommand.onNext(true)
+    }
+
+    override fun doOnOk() {
+
     }
 }

@@ -6,9 +6,8 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.databinding.FragmentConvertIdeaIntoTaskBinding
+import by.aermakova.todoapp.databinding.DialogConvertIdeaIntoTaskBinding
 import by.aermakova.todoapp.ui.base.BaseDialogFragment
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ConvertIdeaIntoTaskDialogFragment : BaseDialogFragment() {
@@ -16,11 +15,7 @@ class ConvertIdeaIntoTaskDialogFragment : BaseDialogFragment() {
     @Inject
     lateinit var viewModel: ConvertIdeaIntoTaskViewModel
 
-    private lateinit var binding: FragmentConvertIdeaIntoTaskBinding
-
-    private val bindingViewModelId: Int = by.aermakova.todoapp.BR.viewModel
-
-    private val disposable = CompositeDisposable()
+    private lateinit var binding: DialogConvertIdeaIntoTaskBinding
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,7 +37,7 @@ class ConvertIdeaIntoTaskDialogFragment : BaseDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.fragment_convert_idea_into_task,
+            R.layout.dialog_convert_idea_into_task,
             null,
             false
         )
@@ -52,10 +47,5 @@ class ConvertIdeaIntoTaskDialogFragment : BaseDialogFragment() {
                 .setView(binding.root)
                 .create()
         } ?: throw IllegalStateException("Activity cannot be null")
-    }
-
-    override fun onDestroyView() {
-        disposable.clear()
-        super.onDestroyView()
     }
 }

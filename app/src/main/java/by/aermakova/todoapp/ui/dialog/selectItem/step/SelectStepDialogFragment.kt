@@ -52,4 +52,12 @@ class SelectStepViewModel @Inject constructor(
                 )
         )
     }
+
+    override fun doOnCancel() {
+        TODO("Not yet implemented")
+    }
+
+    override fun doOnOk() {
+        TODO("Not yet implemented")
+    }
 }

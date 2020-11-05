@@ -114,7 +114,7 @@
     <dialog
         android:id="@+id/name_item_dialog"
         android:name="by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment"
-        tools:layout="@layout/fragment_add_item">
+        tools:layout="@layout/dialog_add_item">
         <argument
             android:name="title"
             android:defaultValue="Select"
@@ -265,7 +265,7 @@
         android:id="@+id/convertIdeaIntoTaskDialogFragment"
         android:name="by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskDialogFragment"
         android:label="ConvertIdeaIntoTaskDialogFragment"
-        tools:layout="@layout/fragment_convert_idea_into_task">
+        tools:layout="@layout/dialog_convert_idea_into_task">
         <argument
             android:name="ideaId"
             android:defaultValue="0L"

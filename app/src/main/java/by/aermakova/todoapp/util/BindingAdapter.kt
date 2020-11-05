@@ -244,12 +244,36 @@ fun setChildOfViewFlipper(
                 else -> flipper.indexOfChild(flipper.findViewById(R.id.content))
             }
             if (it == Status.ERROR) {
-                flipper.showSnackMessage(it.message/*resources.getString(R.string.error_while_loading)*/)
+                flipper.showSnackMessage(it.message)
             }
         },
             {
                 it.printStackTrace()
                 flipper.showSnackMessage(resources.getString(R.string.error_while_loading))
+            }
+        ))
+    }
+}
+
+@BindingAdapter(
+    "app:show_errors",
+    "app:disposable"
+)
+fun setErrorMessages(
+    view: View,
+    status: Observable<Status>?,
+    disposable: CompositeDisposable?
+) {
+    if (status != null && disposable != null) {
+        val resources = view.context.resources
+        disposable.add(status.subscribe({
+            if (it == Status.ERROR) {
+                view.showSnackMessage(it.message)
+            }
+        },
+            {
+                it.printStackTrace()
+                view.showSnackMessage(resources.getString(R.string.error_while_loading))
             }
         ))
     }
