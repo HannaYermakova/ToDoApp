@@ -6,9 +6,13 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.*
-import by.aermakova.todoapp.data.remote.auth.*
-import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
+import by.aermakova.todoapp.data.remote.auth.AuthListener
+import by.aermakova.todoapp.data.remote.auth.LoginAuthListener
+import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
+import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListenerImpl
 import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
+import by.aermakova.todoapp.data.remote.auth.loginManager.createEmailLoginManager
+import by.aermakova.todoapp.data.remote.auth.loginManager.createLoginStatusListener
 import by.aermakova.todoapp.data.remote.sync.RemoteDatabaseSynchronization
 import by.aermakova.todoapp.ui.auth.LoginNavigation
 import by.aermakova.todoapp.util.Status
@@ -58,35 +62,12 @@ class LoginModule {
     }
 
     @Provides
-    fun provideFacebookLoginManager(loginStatusListener: LoginStatusListener) =
-        FacebookLoginManager(loginStatusListener, null)
+    fun provideFacebookLoginManager(activity: Activity, command: Subject<Status>) =
+        FacebookLoginManager(activity.resources.createLoginStatusListener(command), null)
 
     @Provides
-    fun provideEmailLoginManager(loginStatusListener: LoginStatusListener, activity: Activity) =
-        EmailLoginManager(
-            loginStatusListener,
-            activity.resources.getString(R.string.error_invalid_email_or_password)
-        )
-
-    @Provides
-    fun provideLoginStatusListener(activity: Activity, command: Subject<Status>) =
-        object : LoginStatusListener {
-            override fun onSuccess() {
-                command.onNext(Status.SUCCESS)
-            }
-
-            override fun onCancel() {
-                command.onNext(Status.ERROR.apply {
-                    message = activity.resources.getString(R.string.error_loading_cancel)
-                })
-            }
-
-            override fun onError(errorMessage: String?) {
-                command.onNext(Status.ERROR.apply {
-                    message = errorMessage ?: ""
-                })
-            }
-        }
+    fun provideEmailLoginManager(activity: Activity, command: Subject<Status>) =
+        activity.resources.createEmailLoginManager(command)
 
     @Provides
     fun provideLoginNavigation(activity: Activity): LoginNavigation {

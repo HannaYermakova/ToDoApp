@@ -11,6 +11,7 @@
         <item name="android:statusBarColor">@color/color_ripple</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowBackground">@drawable/background_image</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:background">@android:color/transparent</item>
     </style>

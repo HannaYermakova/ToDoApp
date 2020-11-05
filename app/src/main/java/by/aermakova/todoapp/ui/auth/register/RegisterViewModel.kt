@@ -1,30 +1,27 @@
 package by.aermakova.todoapp.ui.auth.register
 
-import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.data.remote.auth.EmailCredentials
 import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
-import io.reactivex.Observer
-import io.reactivex.subjects.BehaviorSubject
+import by.aermakova.todoapp.ui.auth.BaseAuthViewModel
+import by.aermakova.todoapp.util.Status
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(
-    private val emailLoginManager: EmailLoginManager
-) : BaseViewModel() {
+    private val emailLoginManager: EmailLoginManager,
+    private val statusListener: Subject<Status>
+) : BaseAuthViewModel() {
 
-    val registerWithEmailButton = { registerWithEmail() }
+    val registerWithEmailButton = { enterWithEmail(emailLoginManager.errorMessage) }
 
-    private val _emailText = BehaviorSubject.create<String>()
-    val emailText: Observer<String>
-        get() = _emailText
+    override val stateListener: Subject<Status>
+        get() = statusListener
 
-    private val _passwordText = BehaviorSubject.create<String>()
-    val passwordText: Observer<String>
-        get() = _passwordText
+    init {
+        startListenStatusChange()
+    }
 
-    private fun registerWithEmail() {
-        if (_emailText.value != null && _passwordText.value != null) {
-            val email = _emailText.value!!
-            val password = _passwordText.value!!
-            emailLoginManager.createAccount(email, password)
-        }
+    override fun enterWithEmailCredentials(it: EmailCredentials) {
+        emailLoginManager.createAccount(it)
     }
 }

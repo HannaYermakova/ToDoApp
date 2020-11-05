@@ -1,17 +1,22 @@
 package by.aermakova.todoapp.ui.auth.register
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.remote.auth.*
-import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
+import by.aermakova.todoapp.data.remote.auth.AuthListener
+import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
+import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListenerImpl
+import by.aermakova.todoapp.data.remote.auth.RegistrationAuthListener
+import by.aermakova.todoapp.data.remote.auth.loginManager.createEmailLoginManager
 import by.aermakova.todoapp.ui.auth.LoginNavigation
+import by.aermakova.todoapp.util.Status
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 
 @Module
 class RegisterModule {
@@ -32,24 +37,11 @@ class RegisterModule {
     }
 
     @Provides
-    fun provideEmailLoginManager(activity: Activity) =
-        EmailLoginManager(
-            object :
-                LoginStatusListener {
-                override fun onSuccess() {
-                    Log.d("RegisterModule", "onSuccess")
-                }
+    fun provideDisposable(): CompositeDisposable = CompositeDisposable()
 
-                override fun onCancel() {
-                    Log.d("RegisterModule", "onCancel")
-                }
-
-                override fun onError(errorMessage: String?) {
-                    Log.d("RegisterModule", "onError")
-                }
-            },
-            activity.resources.getString(R.string.error_loading_cancel)
-        )
+    @Provides
+    fun provideEmailLoginManager(activity: Activity, command: Subject<Status>) =
+        activity.resources.createEmailLoginManager(command)
 
     @Provides
     fun provideLoginNavigation(activity: Activity): LoginNavigation {
