@@ -87,7 +87,8 @@ data class TextModel(
 
 data class TaskTextModel(
     val textId: Long,
-    val text: String
+    val text: String,
+    val status: Boolean
 ) : CommonModel(textId, R.layout.item_task_text_line, BR.task)
 
 data class EmptyModel(
@@ -185,7 +186,8 @@ fun TaskEntity.toTextModel(clickAction: Function? = null): TextModel {
 fun TaskEntity.toTaskTextModel(): TaskTextModel {
     return TaskTextModel(
         taskId,
-        text
+        text,
+        taskStatusDone
     )
 }
 
@@ -219,7 +221,7 @@ fun StepEntity.toCommonGoalModel(
     )
 }
 
-fun IdeaEntity.toCommonModel(clickAction: Function): IdeaModel {
+fun IdeaEntity.toCommonModel(clickAction: Function? = null): IdeaModel {
     return IdeaModel(ideaId, ideaGoalId, ideaKeyResultId, text, clickAction)
 }
 

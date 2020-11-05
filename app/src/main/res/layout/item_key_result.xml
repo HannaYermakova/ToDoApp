@@ -46,7 +46,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/done_check_toggle"
                 app:layout_constraintEnd_toStartOf="@id/done_check_toggle"
                 app:layout_constraintTop_toTopOf="@id/done_check_toggle"
-                app:visible="@{keyResult.status}" />
+                app:visible="@{!keyResult.status}" />
 
             <ToggleButton
                 android:id="@+id/done_check_toggle"
@@ -62,7 +62,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@id/key_result_item"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:setAsDoneTemp="@{keyResult}"
-                app:visible="@{keyResult.status}" />
+                app:visible="@{!keyResult.status}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/steps_tasks_list"

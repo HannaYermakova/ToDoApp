@@ -25,9 +25,7 @@ class AddGoalViewModel @Inject constructor(
 
     val popBack = { mainFlowNavigation.popBack() }
 
-    val addKeyResult: (String) -> Unit = {
-        dialogNavigation.openItemDialog(it)
-    }
+    val addKeyResult: (String) -> Unit = { dialogNavigation.openItemDialog(it) }
 
     val saveGoal = { saveGoalToLocalDataBaseAndSyncToRemote() }
 

@@ -1,9 +1,6 @@
 package by.aermakova.todoapp.data.repository
 
-import by.aermakova.todoapp.data.db.dao.GoalDao
-import by.aermakova.todoapp.data.db.dao.KeyResultDao
-import by.aermakova.todoapp.data.db.dao.StepDao
-import by.aermakova.todoapp.data.db.dao.TaskDao
+import by.aermakova.todoapp.data.db.dao.*
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
@@ -17,7 +14,8 @@ class GoalRepository @Inject constructor(
     private val goalDao: GoalDao,
     private val keyResultDao: KeyResultDao,
     private val stepDao: StepDao,
-    private val taskDao: TaskDao
+    private val taskDao: TaskDao,
+    private val ideaDao: IdeaDao
 ) {
 
     fun saveGoalInLocalDataBase(goalEntity: GoalEntity): Long {
@@ -83,16 +81,26 @@ class GoalRepository @Inject constructor(
             .flatMap { goalKeyRes ->
                 val listOfKeyResults = arrayListOf<CommonModel>()
                 goalKeyRes.keyResults.forEach {
-                    getKeyResultWithInnerItems(it.keyResultId, action).subscribe { keyResultModel ->
-                        listOfKeyResults.add(keyResultModel)
-                    }
+                    getKeyResultWithInnerItems(it.keyResultId, action)
+                        .subscribe { keyResultModel ->
+                            listOfKeyResults.add(keyResultModel)
+                        }
                 }
                 taskDao.getTasksUnattachedToKeyResult(goalId)
                     .map { listTaskEntity ->
                         val list = arrayListOf<CommonModel>()
                         list.addAll(listTaskEntity.map { it.toTaskTextModel() })
                         list.addAll(listOfKeyResults)
-                        goalKeyRes.toCommonModel(list)
+                        list
+
+                    }.doAfterSuccess {list ->
+                        ideaDao.getIdeasByGoalId(goalId)
+                            .subscribe { ideas ->
+                                list.addAll(ideas.map { it.toCommonModel() })
+                            }
+                    }
+                    .map {
+                        goalKeyRes.toCommonModel(it)
                     }
 
             }

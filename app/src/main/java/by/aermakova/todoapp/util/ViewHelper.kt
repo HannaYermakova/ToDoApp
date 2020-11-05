@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.util
 
 import android.app.Activity
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.google.android.material.snackbar.Snackbar
@@ -31,5 +32,6 @@ fun Activity.hideKeyboard() {
     if (view == null) {
         view = View(this)
     }
+    Log.d("ViewHelper", "hide keyboard")
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

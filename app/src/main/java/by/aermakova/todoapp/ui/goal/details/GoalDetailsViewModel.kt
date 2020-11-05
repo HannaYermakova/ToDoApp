@@ -43,9 +43,7 @@ class GoalDetailsViewModel @Inject constructor(
                 .subscribe(
                     {
                         _goalModel.postValue(it)
-                        it.goalItemsList?.let { list ->
-                            _goalItemsList.onNext(list)
-                        }
+                        it.goalItemsList?.let { list -> _goalItemsList.onNext(list) }
                         _status.onNext(Status.SUCCESS)
                     },
                     {
