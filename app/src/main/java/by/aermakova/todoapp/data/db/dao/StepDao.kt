@@ -37,4 +37,7 @@ interface StepDao {
 
     @Query("SELECT * FROM steps_table WHERE step_key_result_id IN (:keyResIds)")
     fun getStepByKeyResultIds(keyResIds: List<Long>): Single<List<StepEntity>>
+
+    @Query("SELECT * FROM steps_table WHERE step_key_result_id =:keyResultId and step_status_done = 0")
+    fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>>
 }

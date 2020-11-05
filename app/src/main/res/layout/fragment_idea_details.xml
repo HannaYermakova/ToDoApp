@@ -118,7 +118,8 @@
                     android:layout_marginTop="@dimen/margin_normal"
                     android:text="@string/title_key_result"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/attach_to_goal" />
+                    app:layout_constraintTop_toBottomOf="@id/attach_to_goal"
+                    app:visible="@{viewModel.keyResVisible}" />
 
                 <TextView
                     android:id="@+id/attached_to_key_result"
@@ -129,7 +130,31 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/attached_to_key_result_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
+                    app:visible="@{viewModel.keyResVisible}"
                     tools:text="Key result" />
+
+                <TextView
+                    android:id="@+id/attached_to_step_text"
+                    style="@style/TextInstructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@string/title_step"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/attached_to_key_result"
+                    app:visible="@{viewModel.stepVisible}" />
+
+                <TextView
+                    android:id="@+id/attached_to_step"
+                    style="@style/TextRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.stepTitle}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/attached_to_step_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline2"
+                    app:visible="@{viewModel.stepVisible}"
+                    tools:text="Step" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline2"

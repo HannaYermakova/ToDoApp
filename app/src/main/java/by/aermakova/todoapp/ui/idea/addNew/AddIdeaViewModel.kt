@@ -5,10 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.ui.adapter.toCommonModel
+import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
+import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,6 +28,7 @@ class AddIdeaViewModel @Inject constructor(
     @Named("SelectGoal") private val selectGoalDialogNavigation: SelectGoalDialogNavigation,
     @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     private val goalInteractor: GoalInteractor,
+    private val stepInteractor: StepInteractor,
     private val ideaInteractor: IdeaInteractor
 ) : BaseViewModel() {
 
@@ -35,6 +42,7 @@ class AddIdeaViewModel @Inject constructor(
 
     private var tempGoalId: Long? = null
     private var tempKeyResultId: Long? = null
+    private var tempStepId: Long? = null
 
     val tempIdeaTitle: Observer<String>
         get() = _tempIdeaTitle
@@ -44,6 +52,14 @@ class AddIdeaViewModel @Inject constructor(
 
     val selectedKeyResObserver: LiveData<Long>?
         get() = selectKeyResDialogNavigation.getDialogResult()
+
+    private val _stepsList = BehaviorSubject.create<List<TextModel>>()
+    val stepsList: Observable<List<TextModel>>
+        get() = _stepsList
+
+    val stepSelected: (Long) -> Unit = {
+        addTempStep(it)
+    }
 
     private val _goalTitle = MutableLiveData<String>()
     val goalTitle: LiveData<String>
@@ -90,16 +106,30 @@ class AddIdeaViewModel @Inject constructor(
                     .map { entity -> entity.toCommonModel() }
                     .subscribe { keyResultKeyResults ->
                         _keyResultTitle.postValue(keyResultKeyResults.text)
+                        setSteps(keyResultId)
                     }
             )
         }
     }
 
+    private fun addTempStep(stepId: Long?) {
+        tempStepId = stepId
+    }
+
+    private fun setSteps(keyResultId: Long) {
+        disposable.add(
+            stepInteractor.getUndoneStepsByKeyResultId(keyResultId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { _stepsList.onNext(it.map { item -> item.toTextModel() }) },
+                    { it.printStackTrace() }
+                )
+        )
+    }
+
     private fun saveIdeaToLocalDataBaseAndSyncToRemote() {
-        if (!_tempIdeaTitle.value.isNullOrBlank()
-            && tempGoalId != null
-            && tempKeyResultId != null
-        ) {
+        if (!_tempIdeaTitle.value.isNullOrBlank() && tempGoalId != null) {
             disposable.add(
                 Single.create<Long> {
                     it.onSuccess(
@@ -107,7 +137,8 @@ class AddIdeaViewModel @Inject constructor(
                             .saveIdeaInLocalDatabase(
                                 _tempIdeaTitle.value!!,
                                 tempGoalId!!,
-                                tempKeyResultId!!
+                                tempKeyResultId,
+                                tempStepId
                             )
                     )
                 }.map {

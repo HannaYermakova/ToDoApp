@@ -43,6 +43,18 @@ class IdeaDetailsViewModel @Inject constructor(
     val keyResTitle: LiveData<String>
         get() = _keyResTitle
 
+    private val _keyResVisible = MutableLiveData<Boolean>()
+    val keyResVisible: LiveData<Boolean>
+        get() = _keyResVisible
+
+    private val _stepTitle = MutableLiveData<String>()
+    val stepTitle: LiveData<String>
+        get() = _stepTitle
+
+    private val _stepVisible = MutableLiveData<Boolean>(false)
+    val stepVisible: LiveData<Boolean>
+        get() = _stepVisible
+
     val convertIdeaToTaskObserver: LiveData<Boolean>?
         get() = convertIdeaDialogNavigator.getDialogResult()
 
@@ -60,12 +72,29 @@ class IdeaDetailsViewModel @Inject constructor(
                         )
                 }
                 .doOnNext {
-                    goalInteractor.getKeyResultsById(it.keyResultId)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { keyRes -> _keyResTitle.postValue(keyRes.text) },
-                            { error -> error.printStackTrace() }
-                        )
+                    it.keyResultId?.let { id ->
+                        goalInteractor.getKeyResultsById(id)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                { keyRes ->
+                                    _keyResVisible.postValue(true)
+                                    _keyResTitle.postValue(keyRes.text)
+                                },
+                                { error -> error.printStackTrace() }
+                            )
+                    }
+                }.doOnNext {
+                    it.stepId?.let { id ->
+                        stepInteractor.getStepById(id)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                { stepEntity ->
+                                    _stepVisible.postValue(true)
+                                    _stepTitle.postValue(stepEntity.text)
+                                },
+                                { error -> error.printStackTrace() }
+                            )
+                    }
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -81,21 +110,23 @@ class IdeaDetailsViewModel @Inject constructor(
     }
 
     private fun convertIdeaIntoStep() {
-        ideaModel.value?.let {
-            disposable.add(
-                stepInteractor.createStep(
-                    it.text,
-                    it.goalId,
-                    it.keyResultId
-                )
-                    .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { mainFlowNavigation.popBack() },
-                        { error -> error.printStackTrace() }
+        ideaModel.value?.let { ideaModel ->
+            ideaModel.keyResultId?.let {
+                disposable.add(
+                    stepInteractor.createStep(
+                        ideaModel.text,
+                        ideaModel.goalId,
+                        it
                     )
-            )
+                        .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            { mainFlowNavigation.popBack() },
+                            { error -> error.printStackTrace() }
+                        )
+                )
+            }
         }
     }
 

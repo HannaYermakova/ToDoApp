@@ -37,9 +37,9 @@
 
     <string name="add_new_goal_title">Set your new Goal</string>
     <string name="confirm_exit_message">Are you sure you want to log out?</string>
-    <string name="add_new_goal_instruction">Add new goal and specify several key results that belong to that goal</string>
-    <string name="add_key_results">Specify several key results\nthat belong to the Goal</string>
-    <string name="add_key_result">Specify key result</string>
+    <string name="add_new_goal_instruction">Add new Goal and specify several Key Results that belong to that Goal</string>
+    <string name="add_key_results">Specify several Key Results\nthat belong to the Goal</string>
+    <string name="add_key_result">Specify Key Result</string>
     <string name="key_results">Key results of the Goal:</string>
     <string name="enter_goal_hint">Name your Goal</string>
     <string name="all_goals_text">All Goals</string>
@@ -82,6 +82,7 @@
     <string name="enter_idea_hint">Describe your Idea</string>
     <string name="idea_attach_to_goal_text">Idea is attached to Goal:</string>
     <string name="idea_attach_to_key_result_text">Idea is attached to Key Result:</string>
+    <string name="idea_attach_to_step_text">Idea is attached to Step:</string>
     <string name="my_idea">My Idea</string>
 
     <string name="convert_idea_into_step">convert idea into step</string>
@@ -104,9 +105,9 @@
     <string name="filter_later_title">Tasks that should be done later</string>
     <string name="filter_someday">someday</string>
     <string name="filter_someday_title">Tasks that should be done someday</string>
-    <string name="filter_done">Show done tasks</string>
+    <string name="filter_done">Show Done Tasks</string>
     <string name="filter_done_title">Done tasks</string>
-    <string name="filter_all">Show all tasks</string>
+    <string name="filter_all">Show all Tasks</string>
     <string name="filter_all_title">All tasks</string>
-    <string name="filter_by">Show tasks that should be done</string>
+    <string name="filter_by">Show Tasks that should be done</string>
 </resources>

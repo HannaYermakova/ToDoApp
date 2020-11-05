@@ -21,7 +21,7 @@ abstract class BaseDialogFragment : DialogFragment(), HasSupportFragmentInjector
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        dialog!!.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         super.onViewCreated(view, savedInstanceState)
     }
 

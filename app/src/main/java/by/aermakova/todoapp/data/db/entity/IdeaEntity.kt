@@ -16,7 +16,10 @@ data class IdeaEntity(
     val ideaGoalId: Long,
 
     @ColumnInfo(name ="idea_key_result_id")
-    val ideaKeyResultId: Long,
+    val ideaKeyResultId: Long? = null,
+
+    @ColumnInfo(name ="idea_step_id")
+    val ideaStepId: Long? = null,
 
     val text: String
 )

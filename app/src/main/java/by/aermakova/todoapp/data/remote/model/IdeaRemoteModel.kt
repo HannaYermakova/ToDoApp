@@ -12,6 +12,8 @@ data class IdeaRemoteModel(
 
     var keyResultId: Long? = 0,
 
+    var stepId: Long? = 0,
+
     var text: String? = "",
 
 ) : BaseRemoteModel(ideaId.toString())
@@ -21,6 +23,7 @@ fun IdeaEntity.toRemote(): IdeaRemoteModel =
         ideaId,
         ideaGoalId,
         ideaKeyResultId,
+        ideaStepId,
         text
     )
 
@@ -28,13 +31,13 @@ fun IdeaRemoteModel.toLocal(): IdeaEntity {
     return if (
         ideaId != null &&
         goalId != null &&
-        keyResultId != null &&
         text != null
     )
         IdeaEntity(
             ideaId!!,
             goalId!!,
-            keyResultId!!,
+            keyResultId,
+            stepId,
             text!!
         )
     else throw Exception("Task can't be null!")

@@ -8,6 +8,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
+import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
@@ -27,6 +28,11 @@ class AddIdeaModule {
     @Named("SelectKeyResult")
     fun provideSelectKeyResDialogNavigation(controller: NavController): SelectKeyResultDialogNavigation =
         SelectKeyResultDialogNavigation(controller)
+
+    @Provides
+    @Named("SelectStep")
+    fun provideSelectStepDialogNavigation(controller: NavController): SelectStepDialogNavigation =
+        SelectStepDialogNavigation(controller)
 
     @Provides
     fun provideNavController(activity: Activity): NavController =

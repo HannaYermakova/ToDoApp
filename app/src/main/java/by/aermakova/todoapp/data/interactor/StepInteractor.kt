@@ -71,4 +71,8 @@ class StepInteractor(
     override fun saveItemsInLocalDatabase(list: List<StepRemoteModel>) {
         stepRepository.saveSteps(list.map { it.toLocal() })
     }
+
+    fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>> {
+        return stepRepository.getUndoneStepsByKeyResultId(keyResultId)
+    }
 }

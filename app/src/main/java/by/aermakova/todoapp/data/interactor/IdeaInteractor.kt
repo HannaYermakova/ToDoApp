@@ -18,13 +18,15 @@ class IdeaInteractor(
     fun saveIdeaInLocalDatabase(
         text: String,
         goalId: Long,
-        keyResultId: Long
+        keyResultId: Long?,
+        stepId: Long?
     ): Long {
         return ideaRepository.saveIdea(
             IdeaEntity(
                 text = text,
                 ideaGoalId = goalId,
-                ideaKeyResultId = keyResultId
+                ideaKeyResultId = keyResultId,
+                ideaStepId = stepId
             )
         )
     }

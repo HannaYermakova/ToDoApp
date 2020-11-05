@@ -71,7 +71,8 @@ data class StepInGoalModel(
 data class IdeaModel(
     val ideaId: Long,
     val goalId: Long,
-    val keyResultId: Long,
+    val keyResultId: Long?,
+    val stepId: Long?,
     val text: String,
     val action: Function? = null
 ) : CommonModel(ideaId, R.layout.item_idea, BR.idea, action)
@@ -155,7 +156,7 @@ fun KeyResultEntity.toTextModel(clickAction: Function? = null): TextModel {
     return TextModel(keyResultId, text, action = clickAction)
 }
 
-fun StepEntity.toTextModel(clickAction: Function): TextModel {
+fun StepEntity.toTextModel(clickAction: Function? = null): TextModel {
     return TextModel(stepId, text, action = clickAction)
 }
 
@@ -193,7 +194,7 @@ fun TaskEntity.toTaskTextModel(): TaskTextModel {
 
 fun StepEntity.toCommonModel(
     innerObjects: List<CommonModel>? = null,
-    clickAction: Function
+    clickAction: Function? = null
 ): StepModel {
     return StepModel(
         stepId,
@@ -222,7 +223,7 @@ fun StepEntity.toCommonGoalModel(
 }
 
 fun IdeaEntity.toCommonModel(clickAction: Function? = null): IdeaModel {
-    return IdeaModel(ideaId, ideaGoalId, ideaKeyResultId, text, clickAction)
+    return IdeaModel(ideaId, ideaGoalId, ideaKeyResultId, ideaStepId, text, clickAction)
 }
 
 fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: Function): List<GoalModel> {

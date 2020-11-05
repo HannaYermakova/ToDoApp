@@ -153,6 +153,33 @@
                 tools:text="Key Result Title" />
         </ViewSwitcher>
 
+        <TextView
+            android:id="@+id/attach_to_step_text"
+            style="@style/TextInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/idea_attach_to_step_text"
+            android:textAlignment="textStart"
+            app:visible="@{viewModel.keyResultIsSelected}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/key_result_switcher" />
+
+        <Spinner
+            android:id="@+id/select_goal_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:prompt="@string/select_step_text"
+            android:spinnerMode="dialog"
+            app:visible="@{viewModel.keyResultIsSelected}"
+            app:addSpinnerAdapter="@{viewModel.stepsList}"
+            app:disposable="@{viewModel.disposable}"
+            app:itemSelectedListener="@{viewModel.stepSelected}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attach_to_step_text" />
+
         <Button
             android:id="@+id/save_button"
             style="@style/AccentButtonStyle"

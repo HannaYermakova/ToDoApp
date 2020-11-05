@@ -33,11 +33,14 @@ class ConvertIdeaIntoTaskViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { idea ->
-                        taskCreator.setTaskProperties(
-                            idea.text,
-                            idea.ideaGoalId,
-                            idea.ideaKeyResultId
-                        )
+                        //TODO remove this check
+                        idea.ideaKeyResultId?.let {
+                            taskCreator.setTaskProperties(
+                                idea.text,
+                                idea.ideaGoalId,
+                                idea.ideaKeyResultId
+                            )
+                        }
                     },
                     { it.printStackTrace() }
                 )
