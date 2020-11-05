@@ -66,6 +66,7 @@
                 android:layout_marginTop="@dimen/margin_normal"
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.tasksList}"
+                app:divideSize="@{4}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

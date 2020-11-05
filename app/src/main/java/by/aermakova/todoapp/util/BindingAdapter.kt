@@ -264,7 +264,6 @@ fun bindCommonListToRecycler(
     items: Observable<List<CommonModel>>?,
     disposable: CompositeDisposable?
 ) {
-    commonAdapterSettings(recyclerView, 8, 8, 4)
     if (items != null && disposable != null) {
         disposable.add(
             items.subscribe(
@@ -274,12 +273,27 @@ fun bindCommonListToRecycler(
     }
 }
 
-@BindingAdapter("app:bindPlainList")
+@BindingAdapter(
+    "app:divideSize"
+)
+fun setListSettings(
+    recyclerView: RecyclerView,
+    divide: Int?
+) {
+    divide?.let {
+        commonAdapterSettings(recyclerView, RECYCLER_SIDE_MARGIN, RECYCLER_SIDE_MARGIN, it)
+    }
+}
+
+private const val RECYCLER_SIDE_MARGIN = 8
+
+@BindingAdapter("app:bindPlainList", "app:dividePlainSize")
 fun bindCommonPlainListToRecycler(
     recyclerView: RecyclerView,
-    items: List<CommonModel>?
+    items: List<CommonModel>?,
+    divide: Int?
 ) {
-    commonAdapterSettings(recyclerView, divide = 2)
+    divide?.let { commonAdapterSettings(recyclerView, divide = divide) }
     updateRecyclerView(items, recyclerView)
 }
 

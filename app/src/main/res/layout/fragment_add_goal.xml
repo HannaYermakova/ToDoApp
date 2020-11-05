@@ -99,6 +99,7 @@
                 android:layout_margin="@dimen/margin_normal"
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.tempKeyResultsList}"
+                app:divideSize="@{4}"
                 app:layout_constraintBottom_toTopOf="@id/save_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

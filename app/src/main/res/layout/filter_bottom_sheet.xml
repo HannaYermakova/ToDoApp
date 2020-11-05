@@ -29,6 +29,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             tools:listitem="@layout/item_text_line"
             android:id="@+id/recycler_view"
+            app:dividePlainSize="@{6}"
             app:bindPlainList="@{viewModel.filterItems}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

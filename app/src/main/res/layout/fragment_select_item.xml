@@ -18,5 +18,6 @@
         android:minWidth="@dimen/dialog_width"
         app:addDisposable="@{viewModel.disposable}"
         app:bindList="@{viewModel.itemList}"
+        app:divideSize="@{4}"
         tool:listitem="@layout/item_text_line" />
 </layout>

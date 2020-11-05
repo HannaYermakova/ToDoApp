@@ -30,6 +30,7 @@
             tools:listitem="@layout/item_text_line"
             android:id="@+id/recycler_view"
             app:bindPlainList="@{viewModel.sortItems}"
+            app:dividePlainSize="@{6}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.task.main
 
 import android.content.res.Resources
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.TaskInteractor

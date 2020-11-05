@@ -21,27 +21,27 @@ fun TaskFilterItem.filterTasksList(task: TaskEntity): Boolean {
     val deadline = task.finishDate
     deadline?.let {
         val today = Calendar.getInstance()
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = deadline
+        val finishDate = Calendar.getInstance()
+        finishDate.timeInMillis = deadline
 
         return when (this) {
             TaskFilterItem.TODAY -> {
-                !task.taskStatusDone && today.get(Calendar.DATE) == calendar.get(Calendar.DATE)
+                !task.taskStatusDone && today.get(Calendar.DATE) == finishDate.get(Calendar.DATE)
             }
             TaskFilterItem.TOMORROW -> {
-                !task.taskStatusDone && today.get(Calendar.DATE) + 1 == calendar.get(Calendar.DATE)
+                !task.taskStatusDone && today.get(Calendar.DATE) + 1 == finishDate.get(Calendar.DATE)
             }
             TaskFilterItem.THIS_WEEK -> {
-                !task.taskStatusDone && calendar.get(Calendar.DATE) - today.get(Calendar.DATE) < 7
+                !task.taskStatusDone && finishDate.get(Calendar.DATE) - today.get(Calendar.DATE) < 7
             }
             TaskFilterItem.NEXT_WEEK -> {
                 !task.taskStatusDone &&
-                        calendar.get(Calendar.DATE) - today.get(Calendar.DATE) in 7..13
+                        finishDate.get(Calendar.DATE) - today.get(Calendar.DATE) in 7..13
             }
             TaskFilterItem.SOMEDAY -> !task.taskStatusDone
             TaskFilterItem.DONE -> task.taskStatusDone
             TaskFilterItem.LATER -> {
-                !task.taskStatusDone && calendar.get(Calendar.DATE) - today.get(Calendar.DATE) > 13
+                !task.taskStatusDone && finishDate.get(Calendar.DATE) - today.get(Calendar.DATE) > 13
             }
             else -> true
         }
