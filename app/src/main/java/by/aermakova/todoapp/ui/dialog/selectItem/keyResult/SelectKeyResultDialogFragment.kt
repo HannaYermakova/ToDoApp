@@ -38,12 +38,14 @@ class SelectKeyResultViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    it.keyResults.map { entity ->
-                        entity.toTextModel { id ->
-                            dialogNavigation.setDialogResult(id)
-                            _dismissCommand.onNext(true)
+                    it.keyResults
+                        .filter { entity -> !entity.keyResultStatusDone }
+                        .map { entity ->
+                            entity.toTextModel { id ->
+                                dialogNavigation.setDialogResult(id)
+                                _dismissCommand.onNext(true)
+                            }
                         }
-                    }
                 }
                 .subscribe(
                     { _itemList.onNext(it) },

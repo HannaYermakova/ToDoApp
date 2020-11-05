@@ -38,12 +38,13 @@ class SelectStepViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    it.map { entity ->
-                        entity.toTextModel { id ->
-                            dialogNavigation.setDialogResult(id)
-                            _dismissCommand.onNext(true)
+                    it.filter { entity -> !entity.stepStatusDone }
+                        .map { entity ->
+                            entity.toTextModel { id ->
+                                dialogNavigation.setDialogResult(id)
+                                _dismissCommand.onNext(true)
+                            }
                         }
-                    }
                 }
                 .subscribe(
                     { _itemList.onNext(it) },

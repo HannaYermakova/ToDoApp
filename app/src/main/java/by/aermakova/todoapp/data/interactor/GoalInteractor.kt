@@ -64,6 +64,10 @@ class GoalInteractor(
         return goalRepository.getAllGoals()
     }
 
+    fun getAllUndoneGoals(): Observable<List<GoalEntity>> {
+        return goalRepository.getAllUndoneGoals()
+    }
+
     fun getGoalWithKeyResultsAndUnattachedTasks(
         goalId: Long,
         action: FunctionSelect

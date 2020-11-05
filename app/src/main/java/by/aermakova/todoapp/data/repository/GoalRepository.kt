@@ -38,6 +38,10 @@ class GoalRepository @Inject constructor(
         return goalDao.getAllGoals()
     }
 
+    fun getAllUndoneGoals(): Observable<List<GoalEntity>> {
+        return goalDao.getAllUndoneGoals()
+    }
+
     fun getKeyResultById(keyResultId: Long): Observable<KeyResultEntity> {
         return keyResultDao.getKeyResultById(keyResultId)
     }
@@ -93,7 +97,7 @@ class GoalRepository @Inject constructor(
                         list.addAll(listOfKeyResults)
                         list
 
-                    }.doAfterSuccess {list ->
+                    }.doAfterSuccess { list ->
                         ideaDao.getIdeasByGoalId(goalId)
                             .subscribe { ideas ->
                                 list.addAll(ideas.map { it.toCommonModel() })

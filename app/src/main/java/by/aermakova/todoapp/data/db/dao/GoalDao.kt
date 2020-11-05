@@ -1,7 +1,10 @@
 package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.*
-import by.aermakova.todoapp.data.db.entity.*
+import by.aermakova.todoapp.data.db.entity.GoalEntity
+import by.aermakova.todoapp.data.db.entity.GoalKeyResults
+import by.aermakova.todoapp.data.db.entity.KeyResultEntity
+import by.aermakova.todoapp.data.db.entity.KeyResultSteps
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -17,6 +20,9 @@ interface GoalDao {
 
     @Query("SELECT * FROM goals_table")
     fun getAllGoals(): Observable<List<GoalEntity>>
+
+    @Query("SELECT * FROM goals_table WHERE goal_status_done = 0")
+    fun getAllUndoneGoals(): Observable<List<GoalEntity>>
 
     @Query("SELECT * FROM goals_table WHERE goal_id =:goalId")
     fun getGoalById(goalId: Long): GoalEntity
@@ -98,6 +104,7 @@ interface GoalDao {
             deleteAllGoals(),
             deleteAllSteps(),
             deleteAllTasks(),
-            deleteAllIdeas())
+            deleteAllIdeas()
+        )
     }
 }

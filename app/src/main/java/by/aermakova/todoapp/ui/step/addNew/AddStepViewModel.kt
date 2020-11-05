@@ -59,7 +59,7 @@ class AddStepViewModel @Inject constructor(
 
     init {
         disposable.add(
-            goalInteractor.getAllGoals()
+            goalInteractor.getAllUndoneGoals()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
