@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.step.addNew
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -8,6 +9,7 @@ import by.aermakova.todoapp.ui.adapter.TextModel
 import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class AddStepViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     private val goalInteractor: GoalInteractor,
-    private val stepInteractor: StepInteractor
+    private val stepInteractor: StepInteractor,
+    private val errorMessage: String
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -105,6 +108,7 @@ class AddStepViewModel @Inject constructor(
             && tempGoalId != null
             && tempKeyResultId != null
         ) {
+            _status.onNext(Status.LOADING)
             disposable.add(
                 stepInteractor.createStep(
                     _tempStepTitle.value!!,
@@ -115,9 +119,14 @@ class AddStepViewModel @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { mainFlowNavigation.popBack() },
-                        { it.printStackTrace() }
+                        {
+                            _status.onNext(Status.ERROR)
+                            it.printStackTrace()
+                        }
                     )
             )
+        } else {
+            _status.onNext(Status.ERROR.apply { message = errorMessage })
         }
     }
 }

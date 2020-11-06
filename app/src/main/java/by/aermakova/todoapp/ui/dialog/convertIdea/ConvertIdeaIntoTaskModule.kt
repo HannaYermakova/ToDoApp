@@ -38,6 +38,10 @@ class ConvertIdeaIntoTaskModule {
     }
 
     @Provides
+    fun provideErrorMessage(activity: Activity): String =
+        activity.resources.getString(R.string.error_empty_field_task)
+
+    @Provides
     @IntoMap
     @ViewModelKey(ConvertIdeaIntoTaskViewModel::class)
     fun provideViewModel(viewModel: ConvertIdeaIntoTaskViewModel): ViewModel = viewModel

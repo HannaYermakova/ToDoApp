@@ -14,6 +14,7 @@ import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
@@ -29,7 +30,8 @@ class AddIdeaViewModel @Inject constructor(
     @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
-    private val ideaInteractor: IdeaInteractor
+    private val ideaInteractor: IdeaInteractor,
+    private val errorMessage: String
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -130,6 +132,7 @@ class AddIdeaViewModel @Inject constructor(
 
     private fun saveIdeaToLocalDataBaseAndSyncToRemote() {
         if (!_tempIdeaTitle.value.isNullOrBlank() && tempGoalId != null) {
+            _status.onNext(Status.LOADING)
             disposable.add(
                 Single.create<Long> {
                     it.onSuccess(
@@ -142,16 +145,20 @@ class AddIdeaViewModel @Inject constructor(
                             )
                     )
                 }.map {
-                    ideaInteractor.getIdeaById(it).subscribe { entity ->
-                        ideaInteractor.saveIdeaToRemote(entity)
-                    }
+                    ideaInteractor.getIdeaById(it)
+                        .subscribe { entity ->
+                            ideaInteractor.saveIdeaToRemote(entity)
+                        }
                 }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { mainFlowNavigation.popBack() },
-                        { it.printStackTrace() }
+                        {
+                            _status.onNext(Status.ERROR)
+                            it.printStackTrace()
+                        }
                     )
             )
-        }
+        } else _status.onNext(Status.ERROR.apply { message = errorMessage })
     }
 }

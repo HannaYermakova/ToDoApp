@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
+import by.aermakova.todoapp.util.Status
 import by.aermakova.todoapp.util.convertLongToDate
 import io.reactivex.Observer
 import io.reactivex.Single
@@ -15,7 +16,9 @@ class TaskCreator(
     private val pickDayDialogNavigation: PickDayDialogNavigator,
     private val taskInteractor: TaskInteractor,
     private val disposable: CompositeDisposable,
-    private val saveAndClose: Observer<Boolean>
+    private val saveAndClose: Observer<Boolean>,
+    private val statusObserver: Observer<Status>,
+    private val errorMessage: String
 ) {
 
     var tempTaskTitle: String = ""
@@ -26,7 +29,7 @@ class TaskCreator(
 
     var tempStepId: Long? = null
 
-    val scheduledTask = MutableLiveData<Boolean>()
+    val scheduledTask = MutableLiveData<Boolean>(false)
 
     val taskInterval = MutableLiveData<Interval>()
 
@@ -58,7 +61,8 @@ class TaskCreator(
         get() = pickDayDialogNavigation.getDialogResult()
 
     private fun saveTaskToLocalDataBaseAndSyncToRemote() {
-        if (!tempTaskTitle.isBlank() && scheduledTask.value != null) {
+        if (!tempTaskTitle.isBlank()) {
+            statusObserver.onNext(Status.LOADING)
             disposable.add(
                 Single.create<Long> {
                     it.onSuccess(
@@ -87,6 +91,8 @@ class TaskCreator(
                         { it.printStackTrace() }
                     )
             )
+        } else {
+            statusObserver.onNext(Status.ERROR.apply { message = errorMessage })
         }
     }
 

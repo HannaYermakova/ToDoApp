@@ -41,7 +41,7 @@ class RegisterModule {
 
     @Provides
     fun provideEmailLoginManager(activity: Activity, command: Subject<Status>) =
-        activity.resources.createEmailLoginManager(command)
+        activity.createEmailLoginManager(command)
 
     @Provides
     fun provideLoginNavigation(activity: Activity): LoginNavigation {

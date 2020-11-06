@@ -63,11 +63,11 @@ class LoginModule {
 
     @Provides
     fun provideFacebookLoginManager(activity: Activity, command: Subject<Status>) =
-        FacebookLoginManager(activity.resources.createLoginStatusListener(command), null)
+        FacebookLoginManager(activity.createLoginStatusListener(command), null)
 
     @Provides
     fun provideEmailLoginManager(activity: Activity, command: Subject<Status>) =
-        activity.resources.createEmailLoginManager(command)
+        activity.createEmailLoginManager(command)
 
     @Provides
     fun provideLoginNavigation(activity: Activity): LoginNavigation {

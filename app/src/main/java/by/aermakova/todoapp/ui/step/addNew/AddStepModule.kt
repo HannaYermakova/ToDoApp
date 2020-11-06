@@ -37,6 +37,11 @@ class AddStepModule {
         SelectKeyResultDialogNavigation(controller)
 
     @Provides
+    fun provideErrorMessage(activity: Activity): String {
+        return activity.getString(R.string.error_empty_field_step)
+    }
+
+    @Provides
     @IntoMap
     @ViewModelKey(AddStepViewModel::class)
     fun provideViewModel(viewModel: AddStepViewModel): ViewModel = viewModel

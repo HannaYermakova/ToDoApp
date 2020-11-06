@@ -23,7 +23,7 @@ class AddGoalModule {
 
     @Provides
     fun provideErrorMessage(activity: Activity): String =
-        activity.resources.getString(R.string.error_empty_field_goal)
+        activity.getString(R.string.error_empty_field_goal)
 
     @Provides
     fun provideGoalsNavigation(controller: NavController): MainFlowNavigation =

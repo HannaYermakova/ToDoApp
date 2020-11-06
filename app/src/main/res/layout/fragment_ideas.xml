@@ -62,18 +62,9 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
             android:id="@+id/placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_image"
-            app:paddingTop="@{null}">
-
-            <ProgressBar
-                style="@style/CustomProgressBar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            layout="@layout/placeholder_layout" />
 
     </ViewFlipper>
 </layout>

@@ -1,7 +1,7 @@
 package by.aermakova.todoapp.data.remote.auth.loginManager
 
+import android.app.Activity
 import android.content.Intent
-import android.content.res.Resources
 import android.util.Log
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.remote.auth.EmailCredentials
@@ -40,7 +40,7 @@ class EmailLoginManager(
 }
 
 
-fun Resources.createLoginStatusListener(command: Observer<Status>): LoginStatusListener {
+fun Activity.createLoginStatusListener(command: Observer<Status>): LoginStatusListener {
     return object :
         LoginStatusListener {
         override fun onSuccess() {
@@ -61,6 +61,6 @@ fun Resources.createLoginStatusListener(command: Observer<Status>): LoginStatusL
     }
 }
 
-fun Resources.createEmailLoginManager(command: Observer<Status>): EmailLoginManager{
+fun Activity.createEmailLoginManager(command: Observer<Status>): EmailLoginManager{
     return EmailLoginManager(createLoginStatusListener(command), getString(R.string.error_loading_cancel))
 }

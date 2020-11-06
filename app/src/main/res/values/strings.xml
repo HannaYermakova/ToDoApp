@@ -23,6 +23,9 @@
     <string name="error_loading_cancel">Loading has been canceled</string>
     <string name="error_empty_field">Field can\'t be empty</string>
     <string name="error_empty_field_goal">Define title and several Key Result for your Goal!</string>
+    <string name="error_empty_field_idea">Define title and attach Idea to the Goal!</string>
+    <string name="error_empty_field_step">Define title of Step and attach it to Goal and Key Result!</string>
+    <string name="error_empty_field_task">Define title of Task!</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>

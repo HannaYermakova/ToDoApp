@@ -51,6 +51,10 @@ class AddTaskModule {
     }
 
     @Provides
+    fun provideErrorMessage(activity: Activity): String =
+        activity.getString(R.string.error_empty_field_task)
+
+    @Provides
     @IntoMap
     @ViewModelKey(AddTaskViewModel::class)
     fun provideViewModel(viewModel: AddTaskViewModel): ViewModel = viewModel

@@ -30,14 +30,21 @@ class AddTaskViewModel @Inject constructor(
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
     private val taskInteractor: TaskInteractor,
+    private val errorMessage: String
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
 
     private val saveAndClose = BehaviorSubject.create<Boolean>()
 
-    val taskCreator =
-        TaskCreator(pickDayDialogNavigation, taskInteractor, disposable, saveAndClose)
+    val taskCreator = TaskCreator(
+        pickDayDialogNavigation,
+        taskInteractor,
+        disposable,
+        saveAndClose,
+        _status,
+        errorMessage
+    )
 
     private val _tempTaskTitle = BehaviorSubject.create<String>()
     val tempTaskTitle: Observer<String>
