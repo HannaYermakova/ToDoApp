@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.idea.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
@@ -9,7 +10,9 @@ import by.aermakova.todoapp.ui.adapter.IdeaModel
 import by.aermakova.todoapp.ui.adapter.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
+import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Status
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,10 +22,12 @@ import javax.inject.Named
 class IdeaDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
+    @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     private val ideaInteractor: IdeaInteractor,
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
-    private val ideaId: Long
+    private val ideaId: Long,
+    private val selectKeyResultTitle: String
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -57,6 +62,9 @@ class IdeaDetailsViewModel @Inject constructor(
 
     val convertIdeaToTaskObserver: LiveData<Boolean>?
         get() = convertIdeaDialogNavigator.getDialogResult()
+
+    val selectedKeyResObserver: LiveData<Long>?
+        get() = selectKeyResDialogNavigation.getDialogResult()
 
     init {
         disposable.add(
@@ -112,22 +120,26 @@ class IdeaDetailsViewModel @Inject constructor(
     private fun convertIdeaIntoStep() {
         ideaModel.value?.let { ideaModel ->
             ideaModel.keyResultId?.let {
-                disposable.add(
-                    stepInteractor.createStep(
-                        ideaModel.text,
-                        ideaModel.goalId,
-                        it
-                    )
-                        .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { mainFlowNavigation.popBack() },
-                            { error -> error.printStackTrace() }
-                        )
-                )
-            }
+                convertIdeaIntoStepWithKeyResult(ideaModel, it)
+            } ?: selectKeyResDialogNavigation.openItemDialog(selectKeyResultTitle, ideaModel.goalId)
         }
+    }
+
+    private fun convertIdeaIntoStepWithKeyResult(ideaModel: IdeaModel, keyResultId: Long) {
+        disposable.add(
+            stepInteractor.createStep(
+                ideaModel.text,
+                ideaModel.goalId,
+                keyResultId
+            )
+                .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { mainFlowNavigation.popBack() },
+                    { error -> error.printStackTrace() }
+                )
+        )
     }
 
     fun saveAndClose(value: Boolean?) {
@@ -143,6 +155,14 @@ class IdeaDetailsViewModel @Inject constructor(
                             { it.printStackTrace() }
                         )
                 )
+            }
+        }
+    }
+
+    fun addKeyResult(keyResultId: Long?) {
+        ideaModel.value?.let { ideaModel ->
+            keyResultId?.let {
+                convertIdeaIntoStepWithKeyResult(ideaModel, it)
             }
         }
     }

@@ -368,6 +368,12 @@ fun setLayoutMarginTop(view: View, value: Any?) {
     view.setPadding(0, statusBarHeight, 0, 0)
 }
 
+@BindingAdapter("app:paddingBottom")
+fun setLayoutMarginBottom(view: View, value: Any?) {
+    val navigationBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
+    view.setPadding(0, 0, 0, navigationBarHeight)
+}
+
 fun getElementPxHeight(resources: Resources, identifier: String): Int {
     val statusBarId: Int? =
         resources.getIdentifier(

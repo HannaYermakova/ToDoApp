@@ -17,5 +17,8 @@ class IdeaDetailsFragment : BaseFragment<IdeaDetailsViewModel, FragmentIdeaDetai
         viewModel.convertIdeaToTaskObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.saveAndClose(it)
         })
+        viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
+            viewModel.addKeyResult(it)
+        })
     }
 }

@@ -7,14 +7,14 @@
         android:title="@string/title_goals" />
 
     <item
-        android:id="@+id/navigation_tasks"
-        android:icon="@drawable/ic_tasks"
-        android:title="@string/title_tasks" />
-
-    <item
         android:id="@+id/navigation_steps"
         android:icon="@drawable/ic_steps"
         android:title="@string/title_steps" />
+
+    <item
+        android:id="@+id/navigation_tasks"
+        android:icon="@drawable/ic_tasks"
+        android:title="@string/title_tasks" />
 
     <item
         android:id="@+id/navigation_ideas"
