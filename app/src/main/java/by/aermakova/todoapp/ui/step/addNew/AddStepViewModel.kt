@@ -2,14 +2,13 @@ package by.aermakova.todoapp.ui.step.addNew
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
+import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Status
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,9 +17,10 @@ import javax.inject.Inject
 
 class AddStepViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
-    private val errorMessage: String
+    private val errorMessage: String,
+    val goalSelectUseCase: GoalSelectUseCase,
+    val keyResultSelectUseCase: KeyResultSelectUseCase
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -28,14 +28,6 @@ class AddStepViewModel @Inject constructor(
     private val _tempStepTitle = BehaviorSubject.create<String>()
     val tempStepTitle: Observer<String>
         get() = _tempStepTitle
-
-    private val _goalsList = BehaviorSubject.create<List<TextModel>>()
-    val goalsList: Observable<List<TextModel>>
-        get() = _goalsList
-
-    private val _keyResultsList = BehaviorSubject.create<List<TextModel>>()
-    val keyResultsList: Observable<List<TextModel>>
-        get() = _keyResultsList
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)
     val keyResultIsVisible: LiveData<Boolean>
@@ -60,15 +52,7 @@ class AddStepViewModel @Inject constructor(
     val saveStep = { saveStepToLocalDataBaseAndSyncToRemote() }
 
     init {
-        disposable.add(
-            goalInteractor.createGoalsList(_goalsList)
-        )
-    }
-
-    private fun setKeyResultList(goalId: Long) {
-        disposable.add(
-            goalInteractor.createKeyResultsList(goalId, _keyResultsList)
-        )
+        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable)
     }
 
     private fun addTempGoal(goalId: Long?) {
@@ -79,7 +63,7 @@ class AddStepViewModel @Inject constructor(
                         && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
             )
             if (goalId > ITEM_IS_NOT_SELECTED_ID) {
-                setKeyResultList(goalId)
+                keyResultSelectUseCase.setKeyResultList(disposable, goalId)
             }
         }
     }

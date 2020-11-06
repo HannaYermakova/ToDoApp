@@ -6,6 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
+import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
+import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import dagger.Module
@@ -14,6 +19,14 @@ import dagger.multibindings.IntoMap
 
 @Module
 class AddStepModule {
+
+    @Provides
+    fun provideGoalSelectUseCase(goalInteractor: GoalInteractor) =
+        GoalSelectUseCase(goalInteractor)
+
+    @Provides
+    fun provideKeyResultSelectUseCase(goalInteractor: GoalInteractor) =
+        KeyResultSelectUseCase(goalInteractor)
 
     @Provides
     fun provideNavController(activity: Activity): NavController =

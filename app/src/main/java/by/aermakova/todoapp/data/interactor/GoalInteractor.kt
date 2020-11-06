@@ -133,16 +133,6 @@ class GoalInteractor(
             )
     }
 
-    fun createGoalsList(goalsList: Observer<List<TextModel>>): Disposable {
-        return getAllUndoneGoals()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { goalsList.onNext(it.map { item -> item.toTextModel() }) },
-                { it.printStackTrace() }
-            )
-    }
-
     fun updateKeyResultsToRemote(
         listKeyResultEntities: List<KeyResultEntity>?,
         keyResIds: List<Long>

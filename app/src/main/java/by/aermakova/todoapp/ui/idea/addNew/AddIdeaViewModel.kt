@@ -2,15 +2,14 @@ package by.aermakova.todoapp.ui.idea.addNew
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
-import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
+import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
+import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Status
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,27 +20,16 @@ import javax.inject.Inject
 
 class AddIdeaViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val goalInteractor: GoalInteractor,
-    private val stepInteractor: StepInteractor,
     private val ideaInteractor: IdeaInteractor,
-    private val errorMessage: String
+    private val errorMessage: String,
+    val goalSelectUseCase: GoalSelectUseCase,
+    val keyResultSelectUseCase: KeyResultSelectUseCase,
+    val stepSelectUseCase: StepSelectUseCase
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
 
     val saveIdea = { saveIdeaToLocalDataBaseAndSyncToRemote() }
-
-    private val _goalsList = BehaviorSubject.create<List<TextModel>>()
-    val goalsList: Observable<List<TextModel>>
-        get() = _goalsList
-
-    private val _keyResultsList = BehaviorSubject.create<List<TextModel>>()
-    val keyResultsList: Observable<List<TextModel>>
-        get() = _keyResultsList
-
-    private val _stepsList = BehaviorSubject.create<List<TextModel>>()
-    val stepsList: Observable<List<TextModel>>
-        get() = _stepsList
 
     private val _tempIdeaTitle = BehaviorSubject.create<String>()
     val tempIdeaTitle: Observer<String>
@@ -66,9 +54,7 @@ class AddIdeaViewModel @Inject constructor(
     }
 
     init{
-        disposable.add(
-            goalInteractor.createGoalsList(_goalsList)
-        )
+        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable)
     }
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)
@@ -86,15 +72,9 @@ class AddIdeaViewModel @Inject constructor(
             } else it
             _keyResultIsVisible.postValue(tempGoalId != null)
             tempGoalId?.let { id ->
-                setKeyResultList(id)
+                keyResultSelectUseCase.setKeyResultList(disposable, id)
             }
         }
-    }
-
-    private fun setKeyResultList(goalId: Long) {
-        disposable.add(
-            goalInteractor.createKeyResultsList(goalId, _keyResultsList)
-        )
     }
 
     private fun addTempKeyResult(keyResultId: Long?) {
@@ -107,15 +87,9 @@ class AddIdeaViewModel @Inject constructor(
                         && tempGoalId != null
             )
             tempKeyResultId?.let { id ->
-                setStepsList(id)
+                stepSelectUseCase.setStepsList(id, disposable)
             }
         }
-    }
-
-    private fun setStepsList(keyResultId: Long) {
-        disposable.add(
-            stepInteractor.createStepsList(keyResultId, _stepsList)
-        )
     }
 
     private fun addTempStep(stepId: Long?) {
