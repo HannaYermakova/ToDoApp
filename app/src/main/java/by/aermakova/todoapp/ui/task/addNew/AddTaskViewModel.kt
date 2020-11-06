@@ -131,14 +131,7 @@ class AddTaskViewModel @Inject constructor(
 
     private fun setStepsList(keyResultId: Long) {
         disposable.add(
-            stepInteractor.getStepsByKeyResultId(keyResultId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { entity -> entity.map { it.toTextModel() } }
-                .subscribe(
-                    { _stepsList.onNext(it) },
-                    { it.printStackTrace() }
-                )
+            stepInteractor.createStepsList(keyResultId, _stepsList)
         )
     }
 

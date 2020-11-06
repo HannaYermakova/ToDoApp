@@ -16,6 +16,15 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="DoneMarkerStyle">
+        <item name="android:layout_width">@dimen/toggle_size</item>
+        <item name="android:layout_height">@dimen/toggle_size</item>
+        <item name="android:enabled">false</item>
+        <item name="android:text">@string/empty</item>
+        <item name="android:textOff">@string/empty</item>
+        <item name="android:textOn">@string/empty</item>
+    </style>
+
     <style name="CustomProgressBar">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:indeterminateDrawable">@drawable/spinner_ring</item>

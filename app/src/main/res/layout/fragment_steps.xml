@@ -14,14 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:disposable="@{viewModel.disposable}"
+        app:paddingTop="@{null}"
         app:show_child="@{viewModel.status}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_image"
-            app:paddingTop="@{null}">
+            android:background="@drawable/background_image">
 
             <TextView
                 android:id="@+id/all_steps_text"
@@ -41,12 +41,10 @@
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.stepsList}"
                 app:divideSize="@{4}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/all_steps_text"
-                app:layout_constraintVertical_bias="0.0"
+                app:paddingBottom="@{null}"
                 tools:listitem="@layout/item_step" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -78,37 +78,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/step_title" />
 
-            <ViewSwitcher
-                android:id="@+id/goal_switcher"
+            <Spinner
+                android:id="@+id/select_goal_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_small"
+                android:spinnerMode="dropdown"
+                app:addSpinnerAdapter="@{viewModel.goalsList}"
+                app:addTitle="@{@string/select_goal_text}"
+                app:disposable="@{viewModel.disposable}"
+                app:itemSelectedListener="@{viewModel.goalSelected}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/attach_to_goal_text"
-                app:showView="@{viewModel.goalIsSelected}">
-
-                <Button
-                    android:id="@+id/attach_to_goal_button"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/select_button_bg"
-                    android:elevation="@dimen/elevation_button"
-                    android:text="@string/select"
-                    android:textColor="@color/color_grey_light"
-                    app:addTitle="@{@string/select_goal_text}"
-                    app:openDialog="@{viewModel.selectGoal}" />
-
-                <TextView
-                    android:id="@+id/attached_goal_title"
-                    style="@style/TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@{viewModel.goalTitle}"
-                    tools:text="Goal Title" />
-            </ViewSwitcher>
+                app:layout_constraintTop_toBottomOf="@id/attach_to_goal_text" />
 
             <TextView
                 android:id="@+id/attach_to_key_result_text"
@@ -121,44 +104,23 @@
                 android:textAlignment="textStart"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/goal_switcher"
-                app:visible="@{viewModel.goalIsSelected}"
+                app:layout_constraintTop_toBottomOf="@id/select_goal_spinner"
+                app:visible="@{viewModel.keyResultIsVisible}"
                 tools:visibility="visible" />
 
-            <ViewSwitcher
-                android:id="@+id/key_result_switcher"
+            <Spinner
+                android:id="@+id/select_key_result_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_small"
-                android:visibility="gone"
+                android:layout_margin="@dimen/margin_normal"
+                android:spinnerMode="dropdown"
+                app:addSpinnerAdapter="@{viewModel.keyResultsList}"
+                app:addTitle="@{@string/select_key_result_text}"
+                app:disposable="@{viewModel.disposable}"
+                app:itemSelectedListener="@{viewModel.keyResultSelected}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attach_to_key_result_text"
-                app:showView="@{viewModel.keyResultIsSelected}"
-                app:visible="@{viewModel.goalIsSelected}"
-                tools:visibility="visible">
-
-                <Button
-                    android:id="@+id/attach_to_key_result_button"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/select_button_bg"
-                    android:elevation="@dimen/elevation_button"
-                    android:text="@string/select"
-                    android:textColor="@color/color_grey_light"
-                    app:addTitle="@{@string/select_key_result_text}"
-                    app:openDialog="@{viewModel.selectKeyResult}" />
-
-                <TextView
-                    android:id="@+id/attached_key_result_title"
-                    style="@style/TextRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@{viewModel.keyResultTitle}"
-                    tools:text="Key Result Title" />
-            </ViewSwitcher>
+                app:visible="@{viewModel.keyResultIsVisible}" />
 
             <TextView
                 android:id="@+id/attach_to_step_text"
@@ -170,23 +132,22 @@
                 android:text="@string/idea_attach_to_step_text"
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/key_result_switcher"
-                app:visible="@{viewModel.keyResultIsSelected}" />
+                app:layout_constraintTop_toBottomOf="@id/select_key_result_spinner"
+                app:visible="@{viewModel.stepsIsVisible}" />
 
             <Spinner
-                android:id="@+id/select_goal_spinner"
+                android:id="@+id/select_step_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
-                android:prompt="@string/select_step_text"
-                android:spinnerMode="dialog"
+                android:spinnerMode="dropdown"
                 app:addSpinnerAdapter="@{viewModel.stepsList}"
                 app:addTitle="@{@string/select_step_text}"
                 app:disposable="@{viewModel.disposable}"
                 app:itemSelectedListener="@{viewModel.stepSelected}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attach_to_step_text"
-                app:visible="@{viewModel.keyResultIsSelected}" />
+                app:visible="@{viewModel.stepsIsVisible}" />
 
             <Button
                 android:id="@+id/save_button"

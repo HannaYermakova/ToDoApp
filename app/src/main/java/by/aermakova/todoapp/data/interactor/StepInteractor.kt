@@ -7,10 +7,14 @@ import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.StepRepository
+import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.ui.adapter.toTextModel
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class StepInteractor(
     private val stepRepository: StepRepository,
@@ -74,5 +78,16 @@ class StepInteractor(
 
     fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>> {
         return stepRepository.getUndoneStepsByKeyResultId(keyResultId)
+    }
+
+    fun createStepsList(keyResultId: Long, stepsList : Observer<List<TextModel>>): Disposable {
+       return getStepsByKeyResultId(keyResultId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { entity -> entity.map { it.toTextModel() } }
+            .subscribe(
+                { stepsList.onNext(it) },
+                { it.printStackTrace() }
+            )
     }
 }

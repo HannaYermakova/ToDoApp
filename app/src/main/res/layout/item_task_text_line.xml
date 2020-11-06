@@ -26,17 +26,10 @@
 
             <ToggleButton
                 android:id="@+id/mark_task_image"
-                android:layout_width="@dimen/toggle_size"
-                android:layout_height="@dimen/toggle_size"
-                android:layout_marginEnd="@dimen/margin_small"
+                style="@style/DoneMarkerStyle"
                 android:background="@drawable/done_star"
                 android:backgroundTint="@color/colorAccent"
-                android:enabled="false"
-                android:src="@drawable/done_check"
-                android:text="@string/empty"
-                android:textOff="@string/empty"
-                android:textOn="@string/empty"
-                app:visible="@{!task.status}" />
+                android:checked="@{task.status}" />
 
             <TextView
                 android:id="@+id/key_result_item"
