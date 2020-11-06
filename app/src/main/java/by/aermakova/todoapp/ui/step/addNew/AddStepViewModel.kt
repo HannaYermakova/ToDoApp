@@ -1,12 +1,10 @@
 package by.aermakova.todoapp.ui.step.addNew
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.ui.adapter.TextModel
-import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
@@ -63,30 +61,13 @@ class AddStepViewModel @Inject constructor(
 
     init {
         disposable.add(
-            goalInteractor.getAllUndoneGoals()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { _goalsList.onNext(it.map { item -> item.toTextModel() }) },
-                    { it.printStackTrace() }
-                )
+            goalInteractor.createGoalsList(_goalsList)
         )
     }
 
     private fun setKeyResultList(goalId: Long) {
         disposable.add(
-            goalInteractor.getGoalKeyResultsById(goalId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    it.keyResults.map { entity ->
-                        entity.toTextModel()
-                    }
-                }
-                .subscribe(
-                    { _keyResultsList.onNext(it) },
-                    { it.printStackTrace() }
-                )
+            goalInteractor.createKeyResultsList(goalId, _keyResultsList)
         )
     }
 

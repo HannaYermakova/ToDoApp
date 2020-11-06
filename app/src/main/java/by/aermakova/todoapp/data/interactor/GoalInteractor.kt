@@ -11,9 +11,14 @@ import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.repository.TaskRepository
 import by.aermakova.todoapp.ui.adapter.FunctionSelect
 import by.aermakova.todoapp.ui.adapter.GoalModel
+import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.ui.adapter.toTextModel
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class GoalInteractor(
     private val goalRepository: GoalRepository,
@@ -113,6 +118,31 @@ class GoalInteractor(
         return goalRepository.getKeyResultByIds(keyResIds)
     }
 
+    fun createKeyResultsList(goalId: Long, _keyResultsList: Observer<List<TextModel>>): Disposable {
+        return getGoalKeyResultsById(goalId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                it.keyResults.map { entity ->
+                    entity.toTextModel()
+                }
+            }
+            .subscribe(
+                { _keyResultsList.onNext(it) },
+                { it.printStackTrace() }
+            )
+    }
+
+    fun createGoalsList(goalsList: Observer<List<TextModel>>): Disposable {
+        return getAllUndoneGoals()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { goalsList.onNext(it.map { item -> item.toTextModel() }) },
+                { it.printStackTrace() }
+            )
+    }
+
     fun updateKeyResultsToRemote(
         listKeyResultEntities: List<KeyResultEntity>?,
         keyResIds: List<Long>
@@ -139,5 +169,5 @@ class GoalInteractor(
         goalRepository.saveGoalsInLocalDataBase(list.map { it.toLocal() })
     }
 
-    fun removeAllFromLocalDatabase()= goalRepository.removeAll()
+    fun removeAllFromLocalDatabase() = goalRepository.removeAll()
 }

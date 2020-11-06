@@ -2,31 +2,27 @@ package by.aermakova.todoapp.ui.task.addNew
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.ui.adapter.toCommonModel
+import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
-import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
-import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
-import javax.inject.Named
+
 
 class AddTaskViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    @Named("SelectGoal") private val selectGoalDialogNavigation: SelectGoalDialogNavigation,
-    @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
-    @Named("SelectStep") private val selectStepDialogNavigation: SelectStepDialogNavigation,
-    @Named("PickDate") private val pickDayDialogNavigation: PickDayDialogNavigator,
+    private val pickDayDialogNavigation: PickDayDialogNavigator,
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
     private val taskInteractor: TaskInteractor,
@@ -37,6 +33,22 @@ class AddTaskViewModel @Inject constructor(
 
     private val saveAndClose = BehaviorSubject.create<Boolean>()
 
+    private val _goalsList = BehaviorSubject.create<List<TextModel>>()
+    val goalsList: Observable<List<TextModel>>
+        get() = _goalsList
+
+    private val _keyResultsList = BehaviorSubject.create<List<TextModel>>()
+    val keyResultsList: Observable<List<TextModel>>
+        get() = _keyResultsList
+
+    private val _stepsList = BehaviorSubject.create<List<TextModel>>()
+    val stepsList: Observable<List<TextModel>>
+        get() = _stepsList
+
+    private val _tempTaskTitle = BehaviorSubject.create<String>()
+    val tempTaskTitle: Observer<String>
+        get() = _tempTaskTitle
+
     val taskCreator = TaskCreator(
         pickDayDialogNavigation,
         taskInteractor,
@@ -46,11 +58,11 @@ class AddTaskViewModel @Inject constructor(
         errorMessage
     )
 
-    private val _tempTaskTitle = BehaviorSubject.create<String>()
-    val tempTaskTitle: Observer<String>
-        get() = _tempTaskTitle
-
     init {
+        disposable.add(
+            goalInteractor.createGoalsList(_goalsList)
+        )
+
         disposable.add(
             _tempTaskTitle
                 .subscribe { taskCreator.tempTaskTitle = it }
@@ -60,32 +72,17 @@ class AddTaskViewModel @Inject constructor(
         )
     }
 
-    val selectGoal: (String) -> Unit = { selectGoalDialogNavigation.openItemDialog(it) }
-
-    val selectKeyResult: (String) -> Unit =
-        { title ->
-            taskCreator.tempGoalId?.let {
-                selectKeyResDialogNavigation.openItemDialog(
-                    title,
-                    it
-                )
-            }
-        }
-
-    val selectStep: (String) -> Unit = { title ->
-        taskCreator.tempKeyResultId?.let {
-            selectStepDialogNavigation.openItemDialog(title, it)
-        }
+    val goalSelected: (Long) -> Unit = {
+        addTempGoal(it)
     }
 
-    val selectedGoalObserver: LiveData<Long>?
-        get() = selectGoalDialogNavigation.getDialogResult()
+    val keyResultSelected: (Long) -> Unit = {
+        addTempKeyResult(it)
+    }
 
-    val selectedKeyResObserver: LiveData<Long>?
-        get() = selectKeyResDialogNavigation.getDialogResult()
-
-    val selectedStepObserver: LiveData<Long>?
-        get() = selectStepDialogNavigation.getDialogResult()
+    val stepSelected: (Long) -> Unit = {
+        addTempStep(it)
+    }
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)
     val keyResultIsVisible: LiveData<Boolean>
@@ -95,64 +92,61 @@ class AddTaskViewModel @Inject constructor(
     val stepsIsVisible: LiveData<Boolean>
         get() = _stepsIsVisible
 
-    private val _stepsIsSelected = MutableLiveData<Boolean>(false)
-    val stepsIsSelected: LiveData<Boolean>
-        get() = _stepsIsSelected
-
     private val _goalTitle = MutableLiveData<String>()
     val goalTitle: LiveData<String>
         get() = _goalTitle
 
-    private val _keyResultTitle = MutableLiveData<String>()
-    val keyResultTitle: LiveData<String>
-        get() = _keyResultTitle
-
-    private val _stepTitle = MutableLiveData<String>()
-    val stepTitle: LiveData<String>
-        get() = _stepTitle
-
-    fun addTempGoal(goalId: Long?) {
+    private fun addTempGoal(goalId: Long?) {
         goalId?.let {
-            taskCreator.tempGoalId = goalId
+            taskCreator.tempGoalId = if (it == ITEM_IS_NOT_SELECTED_ID) {
+                null
+            } else it
             _keyResultIsVisible.postValue(taskCreator.tempGoalId != null)
-            disposable.add(
-                goalInteractor.getGoalKeyResultsById(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { goalKeyResults ->
-                        _goalTitle.postValue(goalKeyResults.goal.text)
-                    }
-            )
+            taskCreator.tempGoalId?.let { id ->
+                setKeyResultList(id)
+            }
         }
     }
 
-    fun addTempKeyResult(keyResultId: Long?) {
+    private fun setKeyResultList(goalId: Long) {
+        disposable.add(
+            goalInteractor.createKeyResultsList(goalId, _keyResultsList)
+        )
+    }
+
+    private fun addTempKeyResult(keyResultId: Long?) {
         keyResultId?.let {
-            taskCreator.tempKeyResultId = keyResultId
-            _stepsIsVisible.postValue(taskCreator.tempKeyResultId != null)
-            disposable.add(
-                goalInteractor.getKeyResultsById(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map { entity -> entity.toCommonModel() }
-                    .subscribe { keyResultKeyResults ->
-                        _keyResultTitle.postValue(keyResultKeyResults.text)
-                    }
+            taskCreator.tempKeyResultId =
+                if (it == ITEM_IS_NOT_SELECTED_ID) null
+                else it
+            _stepsIsVisible.postValue(
+                taskCreator.tempKeyResultId != null
+                        && taskCreator.tempGoalId != null
             )
+            taskCreator.tempKeyResultId?.let { id ->
+                setStepsList(id)
+            }
         }
     }
 
-    fun addTempStep(stepId: Long?) {
+    private fun setStepsList(keyResultId: Long) {
+        disposable.add(
+            stepInteractor.getStepsByKeyResultId(keyResultId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { entity -> entity.map { it.toTextModel() } }
+                .subscribe(
+                    { _stepsList.onNext(it) },
+                    { it.printStackTrace() }
+                )
+        )
+    }
+
+    private fun addTempStep(stepId: Long?) {
         stepId?.let {
-            taskCreator.tempStepId = stepId
-            _stepsIsSelected.postValue(taskCreator.tempStepId != null)
-            disposable.add(
-                stepInteractor.getStepById(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map { entity -> entity.toCommonModel {} }
-                    .subscribe { step -> _stepTitle.postValue(step.text) }
-            )
+            taskCreator.tempStepId = if (stepId == ITEM_IS_NOT_SELECTED_ID) {
+                null
+            } else stepId
         }
     }
 }

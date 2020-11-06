@@ -13,17 +13,6 @@ class AddTaskFragment : BaseFragment<AddTaskViewModel, DialogAddItemBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.selectedGoalObserver?.observe(viewLifecycleOwner, Observer {
-            viewModel.addTempGoal(it)
-        })
-
-        viewModel.selectedKeyResObserver?.observe(viewLifecycleOwner, Observer {
-            viewModel.addTempKeyResult(it)
-        })
-
-        viewModel.selectedStepObserver?.observe(viewLifecycleOwner, Observer {
-            viewModel.addTempStep(it)
-        })
 
         viewModel.taskCreator.selectedFinishDateObserver?.observe(viewLifecycleOwner, Observer {
             viewModel.taskCreator.checkAndSetFinishTime(it)

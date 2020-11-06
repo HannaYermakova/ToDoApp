@@ -53,10 +53,10 @@
     <string name="enter_task_hint">Name Task</string>
     <string name="task_attach_to_goal_text">Task is attached to Goal:</string>
     <string name="select_goal_text">Select the Goal</string>
-    <string name="task_attach_to_key_result_text">Task is attached to Key Result:</string>
-    <string name="select_key_result_text">Select the Key Result:</string>
-    <string name="attach_to_step_text">Task is attached to Step:</string>
-    <string name="select_step_text">Select the Step:</string>
+    <string name="task_attach_to_key_result_text">Task is attached to Key Result</string>
+    <string name="select_key_result_text">Select the Key Result</string>
+    <string name="attach_to_step_text">Task is attached to Step</string>
+    <string name="select_step_text">Select the Step</string>
     <string name="scheduled_task_text">Scheduled Task</string>
     <string name="set_finish_time_task_text">Set deadline for the Task</string>
     <string name="repeat_text">Repeat:</string>

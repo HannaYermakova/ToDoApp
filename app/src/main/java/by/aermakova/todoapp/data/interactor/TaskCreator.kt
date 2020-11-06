@@ -68,7 +68,7 @@ class TaskCreator(
                     it.onSuccess(
                         taskInteractor.saveTaskInLocalDatabase(
                             tempTaskTitle,
-                            tempGoalId,
+                            tempGoalId ,
                             tempKeyResultId,
                             tempStepId,
                             finishDate = if (deadlinedTask.value!!) {
