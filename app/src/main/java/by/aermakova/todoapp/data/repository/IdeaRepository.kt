@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.repository
 import by.aermakova.todoapp.data.db.dao.IdeaDao
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class IdeaRepository @Inject constructor(
@@ -24,5 +25,9 @@ class IdeaRepository @Inject constructor(
 
     fun saveIdeas(ideaEntities: List<IdeaEntity>) {
         ideaDao.insertAllIdeas(ideaEntities)
+    }
+
+    fun getIdeaByStepId(stepId: Long): Single<List<IdeaEntity>> {
+        return ideaDao.getIdeasByStepId(stepId)
     }
 }

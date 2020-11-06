@@ -26,4 +26,7 @@ interface IdeaDao {
 
     @Query("SELECT * FROM ideas_table WHERE idea_goal_id =:goalId")
     fun getIdeasByGoalId(goalId: Long): Single<List<IdeaEntity>>
+
+    @Query("SELECT * FROM ideas_table WHERE idea_step_id =:stepId")
+    fun getIdeasByStepId(stepId: Long): Single<List<IdeaEntity>>
 }

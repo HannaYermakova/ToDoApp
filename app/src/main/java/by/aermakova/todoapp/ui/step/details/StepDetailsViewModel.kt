@@ -3,6 +3,7 @@ package by.aermakova.todoapp.ui.step.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.ui.adapter.CommonModel
@@ -22,6 +23,7 @@ class StepDetailsViewModel @Inject constructor(
     private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
     private val tasksInteractor: TaskInteractor,
+    private val ideasInteractor: IdeaInteractor,
     private val stepId: Long
 ) : BaseViewModel() {
 
@@ -42,6 +44,10 @@ class StepDetailsViewModel @Inject constructor(
     private val _stepTasks = MutableLiveData<List<CommonModel>>()
     val stepTasks: LiveData<List<CommonModel>>
         get() = _stepTasks
+
+    private val _stepIdeas = MutableLiveData<List<CommonModel>>()
+    val stepIdeas: LiveData<List<CommonModel>>
+        get() = _stepIdeas
 
     val markAsDoneToggle = MutableLiveData<Boolean>(false)
 
@@ -92,6 +98,7 @@ class StepDetailsViewModel @Inject constructor(
                 .doOnSuccess { setGoalTitle(it) }
                 .doOnSuccess { setKeyResultTitle(it) }
                 .doOnSuccess { setTasksList(it) }
+                .doOnSuccess { setIdeasList(it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -130,6 +137,15 @@ class StepDetailsViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { tasks -> _stepTasks.postValue(tasks) },
+                { error -> error.printStackTrace() }
+            )
+    }
+
+    private fun setIdeasList(step: StepModel): Disposable {
+        return ideasInteractor.getIdeasByStepId(step.stepId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { ideas -> _stepIdeas.postValue(ideas) },
                 { error -> error.printStackTrace() }
             )
     }

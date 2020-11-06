@@ -7,8 +7,11 @@ import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.IdeaRepository
+import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.ui.adapter.toTextModel
 import io.reactivex.Observable
 import io.reactivex.Observer
+import io.reactivex.Single
 
 class IdeaInteractor(
     private val ideaRepository: IdeaRepository,
@@ -54,5 +57,9 @@ class IdeaInteractor(
 
     override fun saveItemsInLocalDatabase(list: List<IdeaRemoteModel>) {
         ideaRepository.saveIdeas(list.map { it.toLocal() })
+    }
+
+    fun getIdeasByStepId(stepId: Long): Single<List<TextModel>> {
+       return ideaRepository.getIdeaByStepId(stepId).map { list -> list.map { it.toTextModel() } }
     }
 }

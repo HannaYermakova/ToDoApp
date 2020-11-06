@@ -184,6 +184,14 @@ fun TaskEntity.toTextModel(clickAction: Function? = null): TextModel {
     )
 }
 
+fun IdeaEntity.toTextModel(clickAction: Function? = null): TextModel {
+    return TextModel(
+        ideaId,
+        text,
+        clickAction
+    )
+}
+
 fun TaskEntity.toTaskTextModel(): TaskTextModel {
     return TaskTextModel(
         taskId,
