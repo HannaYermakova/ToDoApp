@@ -194,7 +194,12 @@ fun setSpinnerListener(
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            val item = parent?.selectedItem as TextModel
+            val pos = if (position == 0) {
+                return
+            } else {
+                position - 1
+            }
+            val item = spinner.getItemAtPosition(pos) as TextModel
             listener?.invoke(item.textId)
         }
     }
@@ -202,23 +207,32 @@ fun setSpinnerListener(
 
 @BindingAdapter(
     "app:addSpinnerAdapter",
-    "app:disposable"
+    "app:disposable",
+    "app:addTitle"
 )
 fun editSpinner(
     spinner: Spinner,
     itemsList: Observable<List<TextModel>>?,
-    disposable: CompositeDisposable?
+    disposable: CompositeDisposable?,
+    title: String?
 ) {
 
     if (itemsList != null && disposable != null) {
         disposable.add(itemsList.subscribe(
             { list ->
-                ArrayAdapter<TextModel>(
+                val arrayList = arrayListOf<TextModel>()
+                arrayList.add(
+                    TextModel(
+                        ITEM_IS_NOT_SELECTED_ID,
+                        title ?: spinner.context.getString(R.string.select_item)
+                    )
+                )
+                arrayList.addAll(list)
+                SpinnerOptionalAdapter(
                     spinner.context,
-                    R.layout.simple_spinner_item,
-                    list
+                    title ?: spinner.context.getString(R.string.select_item),
+                    arrayList
                 ).also { adapter ->
-                    adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
                     spinner.adapter = adapter
                 }
             },
@@ -226,6 +240,8 @@ fun editSpinner(
         ))
     }
 }
+
+const val ITEM_IS_NOT_SELECTED_ID = -1L
 
 @BindingAdapter(
     "app:show_child",
@@ -370,7 +386,8 @@ fun setLayoutMarginTop(view: View, value: Any?) {
 
 @BindingAdapter("app:paddingBottom")
 fun setLayoutMarginBottom(view: View, value: Any?) {
-    val navigationBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
+    val navigationBarHeight =
+        getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
     view.setPadding(0, 0, 0, navigationBarHeight)
 }
 

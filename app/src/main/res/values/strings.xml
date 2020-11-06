@@ -52,7 +52,7 @@
     <string name="add_new_task_title">Add new Task</string>
     <string name="enter_task_hint">Name Task</string>
     <string name="task_attach_to_goal_text">Task is attached to Goal:</string>
-    <string name="select_goal_text">Select the Goal:</string>
+    <string name="select_goal_text">Select the Goal</string>
     <string name="task_attach_to_key_result_text">Task is attached to Key Result:</string>
     <string name="select_key_result_text">Select the Key Result:</string>
     <string name="attach_to_step_text">Task is attached to Step:</string>
@@ -114,4 +114,5 @@
     <string name="filter_all">Show all Tasks</string>
     <string name="filter_all_title">All tasks</string>
     <string name="filter_by">Show Tasks that should be done</string>
+    <string name="select_item">Select item</string>
 </resources>

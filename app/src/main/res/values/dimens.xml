@@ -27,4 +27,5 @@
     <dimen name="card_stroke">0.5dp</dimen>
     <dimen name="margin_status_bar">72dp</dimen>
     <dimen name="image_button_size">24dp</dimen>
+    <dimen name="spacing_smaller">4dp</dimen>
 </resources>

@@ -14,6 +14,7 @@ import by.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -131,7 +132,9 @@ class AddIdeaViewModel @Inject constructor(
     }
 
     private fun saveIdeaToLocalDataBaseAndSyncToRemote() {
-        if (!_tempIdeaTitle.value.isNullOrBlank() && tempGoalId != null) {
+        if (!_tempIdeaTitle.value.isNullOrBlank()
+            && tempGoalId != null && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
+        ) {
             _status.onNext(Status.LOADING)
             disposable.add(
                 Single.create<Long> {

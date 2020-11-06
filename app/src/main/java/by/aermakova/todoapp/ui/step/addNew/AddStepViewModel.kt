@@ -9,6 +9,7 @@ import by.aermakova.todoapp.ui.adapter.TextModel
 import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -92,8 +93,13 @@ class AddStepViewModel @Inject constructor(
     private fun addTempGoal(goalId: Long?) {
         goalId?.let {
             tempGoalId = goalId
-            _keyResultIsVisible.postValue(tempGoalId != null)
-            setKeyResultList(goalId)
+            _keyResultIsVisible.postValue(
+                tempGoalId != null
+                        && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
+            )
+            if (goalId > ITEM_IS_NOT_SELECTED_ID) {
+                setKeyResultList(goalId)
+            }
         }
     }
 
@@ -105,8 +111,8 @@ class AddStepViewModel @Inject constructor(
 
     private fun saveStepToLocalDataBaseAndSyncToRemote() {
         if (!_tempStepTitle.value.isNullOrBlank()
-            && tempGoalId != null
-            && tempKeyResultId != null
+            && tempGoalId != null && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
+            && tempKeyResultId != null && tempKeyResultId!! > ITEM_IS_NOT_SELECTED_ID
         ) {
             _status.onNext(Status.LOADING)
             disposable.add(

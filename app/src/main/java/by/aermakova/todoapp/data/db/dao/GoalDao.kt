@@ -25,9 +25,6 @@ interface GoalDao {
     fun getAllUndoneGoals(): Observable<List<GoalEntity>>
 
     @Query("SELECT * FROM goals_table WHERE goal_id =:goalId")
-    fun getGoalById(goalId: Long): GoalEntity
-
-    @Query("SELECT * FROM goals_table WHERE goal_id =:goalId")
     fun getObsGoalById(goalId: Long): Observable<GoalEntity>
 
     @Transaction

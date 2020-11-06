@@ -181,6 +181,7 @@
                 android:prompt="@string/select_step_text"
                 android:spinnerMode="dialog"
                 app:addSpinnerAdapter="@{viewModel.stepsList}"
+                app:addTitle="@{@string/select_step_text}"
                 app:disposable="@{viewModel.disposable}"
                 app:itemSelectedListener="@{viewModel.stepSelected}"
                 app:layout_constraintStart_toStartOf="parent"

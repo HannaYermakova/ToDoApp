@@ -93,16 +93,16 @@
         <item name="android:fontFamily">@font/proxima_nova_bold</item>
     </style>
 
-    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+    <style name="spinnerItemStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
         <item name="android:textColor">@color/color_grey</item>
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
-    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/proxima_nova_thin</item>
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:textSize">@dimen/regular_text_size</item>
+        <item name="android:textColor">@color/color_blue</item>
+        <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
 </resources>
