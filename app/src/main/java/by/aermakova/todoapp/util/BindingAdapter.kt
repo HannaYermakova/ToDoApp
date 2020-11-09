@@ -122,7 +122,10 @@ fun setVisibility(view: View, visible: Boolean?) {
     }
 }
 
-@BindingAdapter("app:visibleSaveGoalButton", "app:visibleSaveKeyResButton")
+@BindingAdapter(
+    "app:visibleSaveGoalButton",
+    "app:visibleSaveKeyResButton"
+)
 fun setSaveGoalButtonVisibility(
     view: View,
     visibleSaveGoalButton: Boolean?,

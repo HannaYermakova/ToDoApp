@@ -2,11 +2,12 @@ package by.aermakova.todoapp.ui.idea.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
@@ -22,8 +23,9 @@ class IdeaDetailsViewModel @Inject constructor(
     @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
     @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     private val ideaInteractor: IdeaInteractor,
-    private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
+    private val findGoal: FindGoalUseCase,
+    private val findStep: FindStepUseCase,
     private val ideaId: Long,
     private val selectKeyResultTitle: String
 ) : BaseViewModel() {
@@ -70,37 +72,20 @@ class IdeaDetailsViewModel @Inject constructor(
                 .getIdeaById(ideaId)
                 .map { it.toCommonModel { } }
                 .doOnNext {
-                    goalInteractor.getGoalById(it.goalId)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { goal -> _goalTitle.postValue(goal.text) },
-                            { error -> error.printStackTrace() }
-                        )
+                    findGoal.useGoalById(it.goalId, { goal ->
+                        _goalTitle.postValue(goal.text)
+                    })
                 }
                 .doOnNext {
-                    it.keyResultId?.let { id ->
-                        goalInteractor.getKeyResultsById(id)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                { keyRes ->
-                                    _keyResVisible.postValue(true)
-                                    _keyResTitle.postValue(keyRes.text)
-                                },
-                                { error -> error.printStackTrace() }
-                            )
-                    }
+                    findGoal.useKeyResultById(it.keyResultId, { keyRes ->
+                        _keyResVisible.postValue(true)
+                        _keyResTitle.postValue(keyRes.text)
+                    })
                 }.doOnNext {
-                    it.stepId?.let { id ->
-                        stepInteractor.getStepById(id)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                { stepEntity ->
-                                    _stepVisible.postValue(true)
-                                    _stepTitle.postValue(stepEntity.text)
-                                },
-                                { error -> error.printStackTrace() }
-                            )
-                    }
+                    findStep.useStepById(it.stepId, { stepEntity ->
+                        _stepVisible.postValue(true)
+                        _stepTitle.postValue(stepEntity.text)
+                    })
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

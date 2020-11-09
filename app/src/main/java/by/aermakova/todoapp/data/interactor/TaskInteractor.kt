@@ -74,8 +74,8 @@ class TaskInteractor(
         }
     }
 
-    fun getTaskByStepId(stepId: Long): Single<List<TextModel>> {
-        return taskRepository.getTaskByStepId(stepId).map { list -> list.map { it.toTextModel() } }
+    fun getTaskByStepId(stepId: Long): Single<List<TaskEntity>> {
+        return taskRepository.getTaskByStepId(stepId)
     }
 
     fun markStepsTasksAsDone(status: Boolean, stepId: Long): Disposable {

@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
@@ -17,6 +19,10 @@ import dagger.multibindings.IntoMap
 
 @Module
 class GoalDetailsModule {
+
+    @Provides
+    fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =
+        FindGoalUseCase(goalInteractor)
 
     @Provides
     fun provideArgs(fragment: GoalDetailsFragment): Long {

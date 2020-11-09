@@ -59,7 +59,7 @@ class IdeaInteractor(
         ideaRepository.saveIdeas(list.map { it.toLocal() })
     }
 
-    fun getIdeasByStepId(stepId: Long): Single<List<TextModel>> {
-       return ideaRepository.getIdeaByStepId(stepId).map { list -> list.map { it.toTextModel() } }
+    fun getIdeasByStepId(stepId: Long): Single<List<IdeaEntity>> {
+       return ideaRepository.getIdeaByStepId(stepId)
     }
 }

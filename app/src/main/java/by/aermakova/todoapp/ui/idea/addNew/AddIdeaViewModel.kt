@@ -98,7 +98,8 @@ class AddIdeaViewModel @Inject constructor(
 
     private fun saveIdeaToLocalDataBaseAndSyncToRemote() {
         if (!_tempIdeaTitle.value.isNullOrBlank()
-            && tempGoalId != null && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
+            && tempGoalId != null
+            && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
         ) {
             _status.onNext(Status.LOADING)
             disposable.add(

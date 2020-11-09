@@ -7,6 +7,12 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.FindIdeaUseCase
+import by.aermakova.todoapp.data.useCase.FindTaskUseCase
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import dagger.Module
@@ -15,6 +21,18 @@ import dagger.multibindings.IntoMap
 
 @Module
 class StepDetailsModule {
+
+    @Provides
+    fun provideFindIdeaUseCase(ideaInteractor: IdeaInteractor) =
+        FindIdeaUseCase(ideaInteractor)
+
+    @Provides
+    fun provideFindTaskUseCase(taskInteractor: TaskInteractor) =
+        FindTaskUseCase(taskInteractor)
+
+    @Provides
+    fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =
+        FindGoalUseCase(goalInteractor)
 
     @Provides
     fun provideArgs(fragment: StepDetailsFragment): Long {

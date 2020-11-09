@@ -2,13 +2,14 @@ package by.aermakova.todoapp.ui.step.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.StepModel
 import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.FindIdeaUseCase
+import by.aermakova.todoapp.data.useCase.FindTaskUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status
@@ -20,10 +21,11 @@ import javax.inject.Inject
 
 class StepDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val goalInteractor: GoalInteractor,
     private val stepInteractor: StepInteractor,
     private val tasksInteractor: TaskInteractor,
-    private val ideasInteractor: IdeaInteractor,
+    private val findGoal: FindGoalUseCase,
+    private val findTask: FindTaskUseCase,
+    private val findIdea: FindIdeaUseCase,
     private val stepId: Long
 ) : BaseViewModel() {
 
@@ -97,8 +99,8 @@ class StepDetailsViewModel @Inject constructor(
                 .map { it.toCommonModel { } }
                 .doOnSuccess { setGoalTitle(it) }
                 .doOnSuccess { setKeyResultTitle(it) }
-                .doOnSuccess { setTasksList(it) }
-                .doOnSuccess { setIdeasList(it) }
+                .doOnSuccess { setTasksListAsText(it) }
+                .doOnSuccess { setIdeasListAsText(it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -114,39 +116,23 @@ class StepDetailsViewModel @Inject constructor(
         )
     }
 
-    private fun setGoalTitle(step: StepModel): Disposable {
-        return goalInteractor.getGoalById(step.goalId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { _goalTitle.postValue(it.text) },
-                { error -> error.printStackTrace() }
-            )
-    }
+    private fun setGoalTitle(step: StepModel) =
+        findGoal.useGoalById(step.goalId, {
+            _goalTitle.postValue(it.text)
+        })
 
-    private fun setKeyResultTitle(step: StepModel): Disposable {
-        return goalInteractor.getKeyResultsById(step.keyResultId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { keyRes -> _keyResTitle.postValue(keyRes.text) },
-                { error -> error.printStackTrace() }
-            )
-    }
+    private fun setKeyResultTitle(step: StepModel) =
+        findGoal.useKeyResultById(step.keyResultId, {
+            _keyResTitle.postValue(it.text)
+        })
 
-    private fun setTasksList(it: StepModel): Disposable {
-        return tasksInteractor.getTaskByStepId(it.stepId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { tasks -> _stepTasks.postValue(tasks) },
-                { error -> error.printStackTrace() }
-            )
-    }
+    private fun setTasksListAsText(step: StepModel) =
+        findTask.useTasksListByStepId(step.stepId, {
+            _stepTasks.postValue(it)
+        })
 
-    private fun setIdeasList(step: StepModel): Disposable {
-        return ideasInteractor.getIdeasByStepId(step.stepId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { ideas -> _stepIdeas.postValue(ideas) },
-                { error -> error.printStackTrace() }
-            )
-    }
+    private fun setIdeasListAsText(step: StepModel) =
+        findIdea.useIdeasListByStepId(step.stepId, { ideas ->
+            _stepIdeas.postValue(ideas)
+        })
 }

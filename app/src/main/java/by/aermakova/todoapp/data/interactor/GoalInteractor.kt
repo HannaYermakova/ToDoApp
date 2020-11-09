@@ -90,13 +90,9 @@ class GoalInteractor(
         return true
     }
 
-    fun getKeyResultsById(keyResultId: Long): Observable<KeyResultEntity> {
-        return goalRepository.getKeyResultById(keyResultId)
-    }
+    fun getKeyResultsById(keyResultId: Long) = goalRepository.getKeyResultById(keyResultId)
 
-    fun getGoalById(goalId: Long): Observable<GoalEntity> {
-        return goalRepository.getGoalById(goalId)
-    }
+    fun getGoalById(goalId: Long) = goalRepository.getGoalById(goalId)
 
     fun updateGoalToRemote(goal: GoalEntity?) {
         goal?.let {

@@ -3,6 +3,7 @@ package by.aermakova.todoapp.ui.step.addNew
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -10,17 +11,14 @@ import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class AddStepViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val stepInteractor: StepInteractor,
-    private val errorMessage: String,
     val goalSelectUseCase: GoalSelectUseCase,
-    val keyResultSelectUseCase: KeyResultSelectUseCase
+    val keyResultSelectUseCase: KeyResultSelectUseCase,
+    private val createStepUseCase: CreateStepUseCase
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -75,29 +73,14 @@ class AddStepViewModel @Inject constructor(
     }
 
     private fun saveStepToLocalDataBaseAndSyncToRemote() {
-        if (!_tempStepTitle.value.isNullOrBlank()
-            && tempGoalId != null && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
-            && tempKeyResultId != null && tempKeyResultId!! > ITEM_IS_NOT_SELECTED_ID
-        ) {
-            _status.onNext(Status.LOADING)
-            disposable.add(
-                stepInteractor.createStep(
-                    _tempStepTitle.value!!,
-                    tempGoalId!!,
-                    tempKeyResultId!!
-                )
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { mainFlowNavigation.popBack() },
-                        {
-                            _status.onNext(Status.ERROR)
-                            it.printStackTrace()
-                        }
-                    )
-            )
-        } else {
-            _status.onNext(Status.ERROR.apply { message = errorMessage })
-        }
+        _status.onNext(Status.LOADING)
+        createStepUseCase.saveStepToLocalDataBaseAndSyncToRemote(
+            disposable,
+            _tempStepTitle.value,
+            tempGoalId,
+            tempKeyResultId,
+            { mainFlowNavigation.popBack() },
+            { errorMessage -> _status.onNext(Status.ERROR.apply { message = errorMessage }) }
+        )
     }
 }

@@ -7,6 +7,10 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
@@ -18,6 +22,14 @@ import javax.inject.Named
 
 @Module
 class IdeaDetailsModule {
+
+    @Provides
+    fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =
+        FindGoalUseCase(goalInteractor)
+
+    @Provides
+    fun provideFindStepUseCase(stepInteractor: StepInteractor) =
+        FindStepUseCase(stepInteractor)
 
     @Provides
     fun provideArgs(fragment: IdeaDetailsFragment): Long {
