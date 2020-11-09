@@ -1,8 +1,8 @@
 package by.aermakova.todoapp.ui.idea.main
 
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.toCommonModel
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status

@@ -2,9 +2,9 @@ package by.aermakova.todoapp.ui.goal.main
 
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.toCommonModelGoalList
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.toCommonModelGoalList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation

@@ -2,7 +2,6 @@ package by.aermakova.todoapp.data.db.entity
 
 import androidx.room.*
 import by.aermakova.todoapp.data.db.database.GOALS_TABLE_NAME
-import by.aermakova.todoapp.ui.adapter.*
 
 @Entity(tableName = GOALS_TABLE_NAME)
 data class GoalEntity(
@@ -52,27 +51,3 @@ data class StepTasks(
     )
     val tasks: List<TaskEntity>
 )
-
-fun StepTasks.toCommonModel(innerObjects: List<CommonModel>? = null): StepInGoalModel {
-    return with(step) {
-        StepInGoalModel(
-            stepId,
-            stepKeyResultId,
-            stepGoalId,
-            stepStatusDone,
-            text,
-            innerObjects
-        )
-    }
-}
-
-fun KeyResultTasks.toCommonModel(): KeyResultModel {
-    return with(keyResult) {
-        KeyResultModel(
-            keyResultId,
-            keyResultGoalId,
-            keyResultStatusDone,
-            text,
-            tasks.map { it.toCommonModel {} })
-    }
-}

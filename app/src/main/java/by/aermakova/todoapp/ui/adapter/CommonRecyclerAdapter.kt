@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.util.provideClickToParent
 
 class CommonRecyclerAdapter :

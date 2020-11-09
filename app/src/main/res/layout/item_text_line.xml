@@ -7,7 +7,7 @@
 
         <variable
             name="text"
-            type="by.aermakova.todoapp.ui.adapter.TextModel" />
+            type="by.aermakova.todoapp.data.model.TextModel" />
     </data>
 
     <TextView

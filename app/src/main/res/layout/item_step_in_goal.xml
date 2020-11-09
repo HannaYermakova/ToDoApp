@@ -7,7 +7,7 @@
 
         <variable
             name="step"
-            type="by.aermakova.todoapp.ui.adapter.StepInGoalModel" />
+            type="by.aermakova.todoapp.data.model.StepInGoalModel" />
     </data>
 
     <androidx.cardview.widget.CardView

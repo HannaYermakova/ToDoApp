@@ -1,6 +1,6 @@
 package by.aermakova.todoapp.ui.dialog.selectItem
 
-import by.aermakova.todoapp.ui.adapter.CommonModel
+import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.ui.base.BaseDialogVieModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

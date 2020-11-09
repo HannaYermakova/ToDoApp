@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.Interval
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.EmptyModel
+import by.aermakova.todoapp.data.model.KeyResultModel
+import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.remote.auth.loginManager.AppLoginManager
 import by.aermakova.todoapp.ui.adapter.*
 import io.reactivex.Observable

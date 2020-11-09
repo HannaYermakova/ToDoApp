@@ -4,8 +4,7 @@ import by.aermakova.todoapp.data.db.dao.*
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
-import by.aermakova.todoapp.data.db.entity.toCommonModel
-import by.aermakova.todoapp.ui.adapter.*
+import by.aermakova.todoapp.data.model.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject

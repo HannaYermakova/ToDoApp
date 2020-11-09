@@ -2,17 +2,15 @@ package by.aermakova.todoapp.ui.idea.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.db.entity.toCommonModel
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.ui.adapter.IdeaModel
-import by.aermakova.todoapp.ui.adapter.toCommonModel
+import by.aermakova.todoapp.data.model.IdeaModel
+import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import by.aermakova.todoapp.util.Status
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

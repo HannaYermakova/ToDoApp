@@ -7,7 +7,7 @@
 
         <variable
             name="goalModel"
-            type="by.aermakova.todoapp.ui.adapter.GoalModel" />
+            type="by.aermakova.todoapp.data.model.GoalModel" />
     </data>
 
     <androidx.cardview.widget.CardView

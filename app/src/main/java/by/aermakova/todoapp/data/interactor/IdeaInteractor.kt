@@ -1,14 +1,14 @@
 package by.aermakova.todoapp.data.interactor
 
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
+import by.aermakova.todoapp.data.model.TextModel
+import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.IdeaRemoteModel
 import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.IdeaRepository
-import by.aermakova.todoapp.ui.adapter.TextModel
-import by.aermakova.todoapp.ui.adapter.toTextModel
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single

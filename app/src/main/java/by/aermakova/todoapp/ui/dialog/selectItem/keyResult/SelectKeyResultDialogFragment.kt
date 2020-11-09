@@ -3,7 +3,7 @@ package by.aermakova.todoapp.ui.dialog.selectItem.keyResult
 import android.os.Bundle
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.ui.adapter.toTextModel
+import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemDialogFragment
 import by.aermakova.todoapp.ui.dialog.selectItem.SelectItemViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -7,7 +7,7 @@
 
         <variable
             name="idea"
-            type="by.aermakova.todoapp.ui.adapter.IdeaModel" />
+            type="by.aermakova.todoapp.data.model.IdeaModel" />
     </data>
 
     <androidx.cardview.widget.CardView

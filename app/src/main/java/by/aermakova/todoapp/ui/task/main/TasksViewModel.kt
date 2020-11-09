@@ -1,16 +1,15 @@
 package by.aermakova.todoapp.ui.task.main
 
 import android.content.res.Resources
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.TextModel
+import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.databinding.FilterBottomSheetBinding
 import by.aermakova.todoapp.databinding.SortBottomSheetBinding
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.TextModel
-import by.aermakova.todoapp.ui.adapter.toCommonModel
-import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.*

@@ -3,9 +3,9 @@ package by.aermakova.todoapp.ui.goal.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.FunctionSelect
-import by.aermakova.todoapp.ui.adapter.GoalModel
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionSelect
+import by.aermakova.todoapp.data.model.GoalModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status

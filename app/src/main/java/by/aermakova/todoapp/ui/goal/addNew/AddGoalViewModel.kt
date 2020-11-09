@@ -2,8 +2,8 @@ package by.aermakova.todoapp.ui.goal.addNew
 
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.toCommonModelStringList
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.toCommonModelStringList
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation

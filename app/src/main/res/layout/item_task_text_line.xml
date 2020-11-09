@@ -7,7 +7,7 @@
 
         <variable
             name="task"
-            type="by.aermakova.todoapp.ui.adapter.TaskTextModel" />
+            type="by.aermakova.todoapp.data.model.TaskTextModel" />
     </data>
 
     <androidx.cardview.widget.CardView

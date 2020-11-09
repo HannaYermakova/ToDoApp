@@ -6,9 +6,9 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.ui.adapter.CommonModel
-import by.aermakova.todoapp.ui.adapter.StepModel
-import by.aermakova.todoapp.ui.adapter.toCommonModel
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.StepModel
+import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status

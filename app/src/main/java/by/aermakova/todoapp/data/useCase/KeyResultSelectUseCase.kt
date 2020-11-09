@@ -1,7 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.data.model.TextModel
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject

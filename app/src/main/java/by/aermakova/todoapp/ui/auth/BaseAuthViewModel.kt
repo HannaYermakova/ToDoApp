@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.auth
 
-import android.util.Log
 import by.aermakova.todoapp.data.remote.auth.EmailCredentials
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.util.Status

@@ -1,14 +1,12 @@
 package by.aermakova.todoapp.data.di.module
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import by.aermakova.todoapp.data.db.database.GOALS_DATABASE_NAME
 import by.aermakova.todoapp.data.db.database.GoalsDataBase
 import by.aermakova.todoapp.data.di.scope.ApplicationScope
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module(includes = [RepositoryModule::class])
 class GoalsDataBaseModule {

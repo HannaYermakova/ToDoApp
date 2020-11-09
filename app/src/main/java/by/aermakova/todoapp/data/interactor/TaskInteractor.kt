@@ -2,14 +2,14 @@ package by.aermakova.todoapp.data.interactor
 
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.db.entity.TaskEntity
+import by.aermakova.todoapp.data.model.TextModel
+import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
 import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.TaskRepository
-import by.aermakova.todoapp.ui.adapter.TextModel
-import by.aermakova.todoapp.ui.adapter.toTextModel
 import by.aermakova.todoapp.util.TaskFilterItem
 import by.aermakova.todoapp.util.TaskSortItem
 import io.reactivex.Observable

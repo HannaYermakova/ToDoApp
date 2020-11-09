@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.ui.adapter.TextModel
+import by.aermakova.todoapp.data.model.TextModel
 
 
 class SpinnerOptionalAdapter(
