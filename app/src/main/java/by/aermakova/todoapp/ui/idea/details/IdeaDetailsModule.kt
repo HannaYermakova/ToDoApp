@@ -9,6 +9,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
@@ -22,6 +23,12 @@ import javax.inject.Named
 
 @Module
 class IdeaDetailsModule {
+
+    @Provides
+    fun provideCreateStepUseCase(
+        stepInteractor: StepInteractor,
+        errorMessage: String, ) =
+        CreateStepUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =

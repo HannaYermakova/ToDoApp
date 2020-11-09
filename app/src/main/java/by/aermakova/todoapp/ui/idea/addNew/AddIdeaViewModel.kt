@@ -2,7 +2,7 @@ package by.aermakova.todoapp.ui.idea.addNew
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.useCase.CreateIdeaUseCase
 import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.data.useCase.StepSelectUseCase
@@ -11,17 +11,13 @@ import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observer
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 
 class AddIdeaViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val ideaInteractor: IdeaInteractor,
-    private val errorMessage: String,
+    private val createIdeaUseCase: CreateIdeaUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
     val stepSelectUseCase: StepSelectUseCase
@@ -53,7 +49,7 @@ class AddIdeaViewModel @Inject constructor(
         addTempStep(it)
     }
 
-    init{
+    init {
         goalSelectUseCase.addCreationOfGoalListToDisposable(disposable)
     }
 
@@ -97,37 +93,15 @@ class AddIdeaViewModel @Inject constructor(
     }
 
     private fun saveIdeaToLocalDataBaseAndSyncToRemote() {
-        if (!_tempIdeaTitle.value.isNullOrBlank()
-            && tempGoalId != null
-            && tempGoalId!! > ITEM_IS_NOT_SELECTED_ID
-        ) {
-            _status.onNext(Status.LOADING)
-            disposable.add(
-                Single.create<Long> {
-                    it.onSuccess(
-                        ideaInteractor
-                            .saveIdeaInLocalDatabase(
-                                _tempIdeaTitle.value!!,
-                                tempGoalId!!,
-                                tempKeyResultId,
-                                tempStepId
-                            )
-                    )
-                }.map {
-                    ideaInteractor.getIdeaById(it)
-                        .subscribe { entity ->
-                            ideaInteractor.saveIdeaToRemote(entity)
-                        }
-                }.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        { mainFlowNavigation.popBack() },
-                        {
-                            _status.onNext(Status.ERROR)
-                            it.printStackTrace()
-                        }
-                    )
-            )
-        } else _status.onNext(Status.ERROR.apply { message = errorMessage })
+        _status.onNext(Status.LOADING)
+        createIdeaUseCase.saveIdeaToLocalDataBaseAndSyncToRemote(
+            disposable,
+            _tempIdeaTitle.value,
+            tempGoalId,
+            tempKeyResultId,
+            tempStepId,
+            { mainFlowNavigation.popBack() },
+            { _status.onNext(Status.ERROR.apply { message = it }) }
+        )
     }
 }

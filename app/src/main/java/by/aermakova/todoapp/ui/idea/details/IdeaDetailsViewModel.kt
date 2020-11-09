@@ -3,9 +3,9 @@ package by.aermakova.todoapp.ui.idea.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
-import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -18,14 +18,15 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Named
 
+
 class IdeaDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
     @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     private val ideaInteractor: IdeaInteractor,
-    private val stepInteractor: StepInteractor,
     private val findGoal: FindGoalUseCase,
     private val findStep: FindStepUseCase,
+    private val createStepUseCase: CreateStepUseCase,
     private val ideaId: Long,
     private val selectKeyResultTitle: String
 ) : BaseViewModel() {
@@ -109,19 +110,12 @@ class IdeaDetailsViewModel @Inject constructor(
     }
 
     private fun convertIdeaIntoStepWithKeyResult(ideaModel: IdeaModel, keyResultId: Long) {
-        disposable.add(
-            stepInteractor.createStep(
-                ideaModel.text,
-                ideaModel.goalId,
-                keyResultId
-            )
-                .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { mainFlowNavigation.popBack() },
-                    { error -> error.printStackTrace() }
-                )
+        createStepUseCase.saveStepToLocalDataBaseAndSyncToRemote(
+            disposable,
+            ideaModel.text,
+            ideaModel.goalId,
+            keyResultId,
+            { mainFlowNavigation.popBack() }
         )
     }
 

@@ -7,6 +7,7 @@ import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.FunctionSelect
 import by.aermakova.todoapp.data.model.GoalModel
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.LoadAllGoalsUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class GoalDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     private val goalInteractor: GoalInteractor,
+    private val loadAllGoalsUseCase: LoadAllGoalsUseCase,
     private val findGoalUseCase: FindGoalUseCase,
     private val goalId: Long
 ) : BaseViewModel() {
@@ -84,23 +86,15 @@ class GoalDetailsViewModel @Inject constructor(
 
     private fun saveUpdatedGoal() {
         _status.onNext(Status.LOADING)
-        disposable.add(
-            Single.create<Boolean> {
-                it.onSuccess(goalInteractor.updateGoal(true, goalId))
-            }
-                .map { updateGoalToRemote() }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                        _status.onNext(Status.SUCCESS)
-                        mainFlowNavigation.popBack()
-                    },
-                    {
-                        _status.onNext(Status.ERROR)
-                        it.printStackTrace()
-                    }
-                )
+        loadAllGoalsUseCase.saveUpdatedGoal(
+            goalId,
+            disposable,
+            { updateGoalToRemote() },
+            {
+                _status.onNext(Status.SUCCESS)
+                mainFlowNavigation.popBack()
+            },
+            { _status.onNext(Status.ERROR.apply { message = it }) }
         )
     }
 
@@ -136,7 +130,7 @@ class GoalDetailsViewModel @Inject constructor(
     }
 
     private fun updateGoalToRemote(): Disposable? {
-      return findGoalUseCase.useGoalById(goalId, {
+        return findGoalUseCase.useGoalById(goalId, {
             goalInteractor.updateGoalToRemote(it)
         })
     }

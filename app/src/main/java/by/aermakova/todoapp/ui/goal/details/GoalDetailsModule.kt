@@ -9,6 +9,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.LoadAllGoalsUseCase
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
@@ -19,6 +20,17 @@ import dagger.multibindings.IntoMap
 
 @Module
 class GoalDetailsModule {
+
+    @Provides
+    fun provideLoadAllGoalsUseCase(
+        goalInteractor: GoalInteractor,
+        errorMessage: String
+    ) =
+        LoadAllGoalsUseCase(goalInteractor, errorMessage)
+
+    @Provides
+    fun provideErrorMessage(activity: Activity) =
+        activity.getString(R.string.error_while_loading)
 
     @Provides
     fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =

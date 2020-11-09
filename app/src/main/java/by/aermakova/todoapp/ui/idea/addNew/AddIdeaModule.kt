@@ -7,10 +7,9 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
-import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
-import by.aermakova.todoapp.data.useCase.StepSelectUseCase
+import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
@@ -19,6 +18,20 @@ import dagger.multibindings.IntoMap
 
 @Module
 class AddIdeaModule {
+
+    @Provides
+    fun provideCreateStepUseCase(
+        stepInteractor: StepInteractor,
+        errorMessage: String
+    ) =
+        CreateStepUseCase(stepInteractor, errorMessage)
+
+    @Provides
+    fun provideCreateIdeaUseCase(
+        ideaInteractor: IdeaInteractor,
+        errorMessage: String
+    ) =
+        CreateIdeaUseCase(ideaInteractor, errorMessage)
 
     @Provides
     fun provideGoalSelectUseCase(goalInteractor: GoalInteractor) =

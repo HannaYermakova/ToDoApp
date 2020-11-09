@@ -17,7 +17,7 @@ class CreateStepUseCase(
         tempGoalId: Long?,
         tempKeyResultId: Long?,
         successAction: () -> Unit,
-        errorAction: ((String) -> Unit)?
+        errorAction: ((String) -> Unit)? = null
     ) {
         if (!tempStepTitle.isNullOrBlank()
             && tempGoalId != null && tempGoalId > ITEM_IS_NOT_SELECTED_ID
