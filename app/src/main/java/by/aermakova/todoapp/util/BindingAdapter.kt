@@ -17,7 +17,8 @@ import by.aermakova.todoapp.data.model.EmptyModel
 import by.aermakova.todoapp.data.model.KeyResultModel
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.remote.auth.loginManager.AppLoginManager
-import by.aermakova.todoapp.ui.adapter.*
+import by.aermakova.todoapp.ui.adapter.CommonRecyclerAdapter
+import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
@@ -267,12 +268,12 @@ fun setChildOfViewFlipper(
                 else -> flipper.indexOfChild(flipper.findViewById(R.id.content))
             }
             if (it == Status.ERROR) {
-                flipper.showSnackMessage(it.message)
+                flipper.showToastMessage(it.message)
             }
         },
             {
                 it.printStackTrace()
-                flipper.showSnackMessage(resources.getString(R.string.error_while_loading))
+                flipper.showToastMessage(resources.getString(R.string.error_while_loading))
             }
         ))
     }
@@ -291,12 +292,12 @@ fun setErrorMessages(
         val resources = view.context.resources
         disposable.add(status.subscribe({
             if (it == Status.ERROR) {
-                view.showSnackMessage(it.message)
+                view.showToastMessage(it.message)
             }
         },
             {
                 it.printStackTrace()
-                view.showSnackMessage(resources.getString(R.string.error_while_loading))
+                view.showToastMessage(resources.getString(R.string.error_while_loading))
             }
         ))
     }

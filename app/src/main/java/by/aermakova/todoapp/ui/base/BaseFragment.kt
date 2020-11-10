@@ -57,6 +57,11 @@ abstract class BaseFragment<VM : ViewModel, Binding : ViewDataBinding> :
         super.onResume()
     }
 
+    override fun onStop() {
+        requireActivity().hideKeyboard()
+        super.onStop()
+    }
+
     private fun bindViewModel(binding: Binding, viewModel: VM) {
         binding.setVariable(bindingViewModelId, viewModel)
     }

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 
 
 fun provideClickToParent(child: View?) {
@@ -21,8 +21,8 @@ fun provideClickToParent(child: View?) {
     }
 }
 
-fun View.showSnackMessage(message: String) {
-    Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
+fun View.showToastMessage(message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
 
 fun Activity.hideKeyboard() {
