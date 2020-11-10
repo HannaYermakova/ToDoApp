@@ -8,7 +8,8 @@ import by.aermakova.todoapp.util.dpToPx
 class MarginItemDecorator(
     private val leftMargin: Int = 0,
     private val rightMargin: Int = 0,
-    private val divide: Int = 0
+    private val divide: Int = 0,
+    private val linear: Boolean = true
 ) :
     RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
@@ -23,7 +24,7 @@ class MarginItemDecorator(
             left = leftMargin.dpToPx()
             right = rightMargin.dpToPx()
             bottom = if (parent.adapter != null && position == parent.adapter!!.itemCount) 0 else divide.dpToPx()
-            top = if (position == 0) 0 else divide.dpToPx()
+            top = if (linear && position == 0) 0 else divide.dpToPx()
         }
     }
 }

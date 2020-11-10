@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="by.aermakova.todoapp.util.LayoutManagerType" />
         <variable
             name="viewModel"
             type="by.aermakova.todoapp.ui.step.main.StepsViewModel" />
@@ -41,6 +41,7 @@
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.stepsList}"
                 app:divideSize="@{4}"
+                app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/all_steps_text"

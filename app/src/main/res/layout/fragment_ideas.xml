@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="by.aermakova.todoapp.util.LayoutManagerType" />
         <variable
             name="viewModel"
             type="by.aermakova.todoapp.ui.idea.main.IdeaViewModel" />
@@ -41,6 +41,7 @@
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.ideasList}"
                 app:divideSize="@{4}"
+                app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

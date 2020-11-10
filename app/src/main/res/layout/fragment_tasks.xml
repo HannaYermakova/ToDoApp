@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="by.aermakova.todoapp.util.LayoutManagerType" />
         <variable
             name="viewModel"
             type="by.aermakova.todoapp.ui.task.main.TasksViewModel" />
@@ -68,6 +68,7 @@
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.tasksList}"
                 app:divideSize="@{4}"
+                app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

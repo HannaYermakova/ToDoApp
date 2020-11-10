@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
@@ -42,6 +43,8 @@ class CommonRecyclerAdapter :
                     }
                 }
             }
+
+            (binding.root as? CardView)
         }
     }
 

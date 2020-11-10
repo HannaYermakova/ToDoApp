@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.R
@@ -322,20 +323,34 @@ fun bindCommonListToRecycler(
 }
 
 @BindingAdapter(
-    "app:divideSize"
+    "app:divideSize",
+    "app:layoutType"
 )
 fun setListSettings(
     recyclerView: RecyclerView,
-    divide: Int?
+    divide: Int?,
+    layoutManager: LayoutManagerType?
 ) {
     divide?.let {
-        commonAdapterSettings(recyclerView, RECYCLER_SIDE_MARGIN, RECYCLER_SIDE_MARGIN, it)
+        val sideMargin = when (layoutManager) {
+            null -> RECYCLER_SIDE_MARGIN
+            LayoutManagerType.GRID -> it
+            else -> RECYCLER_SIDE_MARGIN
+        }
+        commonAdapterSettings(
+            recyclerView,
+            sideMargin,
+            sideMargin,
+            it,
+            layoutManager
+        )
     }
 }
 
-private const val RECYCLER_SIDE_MARGIN = 8
-
-@BindingAdapter("app:bindPlainList", "app:dividePlainSize")
+@BindingAdapter(
+    "app:bindPlainList",
+    "app:dividePlainSize"
+)
 fun bindCommonPlainListToRecycler(
     recyclerView: RecyclerView,
     items: List<CommonModel>?,
@@ -358,22 +373,35 @@ fun commonAdapterSettings(
     recyclerView: RecyclerView,
     leftMargin: Int = 0,
     rightMargin: Int = 0,
-    divide: Int = 0
+    divide: Int = 0,
+    layoutType: LayoutManagerType? = null
 ) {
     with(recyclerView) {
         adapter = CommonRecyclerAdapter()
-
-        if (itemDecorationCount > 0) {
+        if (itemDecorationCount > 0
+            && layoutType != null
+            && layoutType == LayoutManagerType.LINEAR_VERTICAL
+        ) {
             removeItemDecorationAt(0)
         }
         addItemDecoration(
             MarginItemDecorator(
                 leftMargin = leftMargin,
                 rightMargin = rightMargin,
-                divide = divide
+                divide = divide,
+                linear = layoutType != null && layoutType == LayoutManagerType.LINEAR_VERTICAL
             )
         )
-        val manager = LinearLayoutManager(context)
+        val manager = when (layoutType) {
+            null -> LinearLayoutManager(context)
+            LayoutManagerType.GRID -> GridLayoutManager(
+                context,
+                2,
+                GridLayoutManager.VERTICAL,
+                false
+            )
+            else -> LinearLayoutManager(context)
+        }
         layoutManager = manager
     }
 }
@@ -413,3 +441,4 @@ private const val ATTRIBUTE_NAME_STATUS_BAR = "status_bar_height"
 private const val ATTRIBUTE_NAME_NAVIGATION_BAR = "navigation_bar_height"
 private const val ATTRIBUTE_DIMEN = "dimen"
 private const val ATTRIBUTE_DEF_PACKAGE = "android"
+private const val RECYCLER_SIDE_MARGIN = 8

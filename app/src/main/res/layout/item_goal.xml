@@ -10,7 +10,7 @@
             type="by.aermakova.todoapp.data.model.GoalModel" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <by.aermakova.todoapp.util.CustomCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/elevation_button"
@@ -26,14 +26,17 @@
             <TextView
                 android:id="@+id/goal_title"
                 style="@style/TextAccent"
-                android:textColor="@color/color_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
                 android:text="@{goalModel.text}"
+                android:textAlignment="center"
+                android:textColor="@color/color_blue"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/status_icon"
+                app:layout_constraintTop_toBottomOf="@+id/status_icon"
                 tools:text="Native Android development " />
 
             <ImageView
@@ -43,10 +46,12 @@
                 android:layout_height="@dimen/image_regular"
                 android:background="@drawable/ic_goals"
                 app:imageColor="@{goalModel.status}"
+                app:layout_constraintBottom_toTopOf="@+id/goal_title"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </by.aermakova.todoapp.util.CustomCardView>
 </layout>

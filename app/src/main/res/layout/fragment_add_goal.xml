@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="by.aermakova.todoapp.util.LayoutManagerType" />
+
         <variable
             name="viewModel"
             type="by.aermakova.todoapp.ui.goal.addNew.AddGoalViewModel" />
@@ -105,6 +107,7 @@
                     app:addDisposable="@{viewModel.disposable}"
                     app:bindList="@{viewModel.tempKeyResultsList}"
                     app:divideSize="@{4}"
+                    app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                     app:layout_constraintBottom_toTopOf="@id/save_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
