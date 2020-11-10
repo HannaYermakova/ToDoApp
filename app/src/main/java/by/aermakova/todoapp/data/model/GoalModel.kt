@@ -9,12 +9,14 @@ data class GoalModel(
     val status: Boolean,
     val text: String,
     val goalItemsList: List<CommonModel>? = null,
-    val action: Function? = null
-) : CommonModel(goalId, R.layout.item_goal, BR.goalModel, action)
+    val action: Function? = null,
+    val longAction: Function? = null
+) : CommonModel(goalId, R.layout.item_goal, BR.goalModel, action, longAction)
 
 fun GoalKeyResults.toCommonModel(
     goalItemsList: List<CommonModel>? = null,
-    action: Function? = null
+    action: Function? = null,
+    longClickAction: Function? = null
 ): GoalModel {
     return with(goal) {
         GoalModel(
@@ -22,13 +24,14 @@ fun GoalKeyResults.toCommonModel(
             goalStatusDone,
             text,
             goalItemsList,
-            action
+            action,
+            longClickAction
         )
     }
 }
 
-fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: Function): List<GoalModel> {
+fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: Function, longClickAction: Function? = null): List<GoalModel> {
     return map {
-        it.toCommonModel(action = clickAction)
+        it.toCommonModel(action = clickAction, longClickAction = longClickAction)
     }
 }

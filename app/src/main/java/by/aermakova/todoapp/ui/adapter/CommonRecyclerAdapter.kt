@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
@@ -41,6 +42,16 @@ class CommonRecyclerAdapter :
                     } else {
                         provideClickToParent(it)
                     }
+                }
+                setOnLongClickListener {
+                    val func = model.longClickAction
+                    if (func != null) {
+                        Log.d("A_CommonRecyclerAdapter", "long click")
+                        func.invoke(model.id)
+                    } else {
+                        provideClickToParent(it)
+                    }
+                    true
                 }
             }
 

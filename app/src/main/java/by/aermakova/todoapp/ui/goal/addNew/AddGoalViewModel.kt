@@ -46,7 +46,7 @@ class AddGoalViewModel @Inject constructor(
     }
 
     init {
-        compositeDisposable.add(
+        disposable.add(
             _tempKeyResult
                 .subscribe(
                     { _tempKeyResultsList.onNext(it.toCommonModelStringList()) },

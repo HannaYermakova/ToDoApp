@@ -8,12 +8,12 @@ import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val compositeDisposable = CompositeDisposable()
+    private val _disposable = CompositeDisposable()
     val disposable: CompositeDisposable
-        get() = compositeDisposable
+        get() = _disposable
 
     override fun onCleared() {
-        compositeDisposable.clear()
+        _disposable.clear()
         super.onCleared()
     }
 

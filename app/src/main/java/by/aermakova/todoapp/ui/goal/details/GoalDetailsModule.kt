@@ -10,9 +10,7 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.LoadAllGoalsUseCase
-import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
-import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
 import dagger.Provides
@@ -49,9 +47,6 @@ class GoalDetailsModule {
     fun provideGoalsNavigation(controller: NavController): MainFlowNavigation =
         GoalsNavigation(controller)
 
-    @Provides
-    fun provideDialogNavigation(controller: NavController): DialogNavigation<String> =
-        AddItemDialogNavigation(controller)
 
     @Provides
     @IntoMap

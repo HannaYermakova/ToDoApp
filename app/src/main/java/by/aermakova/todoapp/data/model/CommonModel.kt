@@ -7,5 +7,6 @@ open class CommonModel(
     val id: Long,
     val layout: Int,
     val variableId: Int,
-    val clickAction: Function? = null
+    val clickAction: Function? = null,
+    val longClickAction: Function? = null
 )
