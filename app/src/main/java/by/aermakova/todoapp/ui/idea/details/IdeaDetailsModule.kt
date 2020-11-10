@@ -8,10 +8,12 @@ import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
+import by.aermakova.todoapp.data.useCase.LoadIdeaDetailsUseCase
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
@@ -25,9 +27,29 @@ import javax.inject.Named
 class IdeaDetailsModule {
 
     @Provides
+    fun provideLoadIdeaDetailsUseCase(
+        ideaInteractor: IdeaInteractor,
+        findGoal: FindGoalUseCase,
+        findStep: FindStepUseCase,
+        @Named("ErrorMessage") errorMessage: String
+    ) =
+        LoadIdeaDetailsUseCase(
+            ideaInteractor,
+            findGoal,
+            findStep,
+            errorMessage
+        )
+
+    @Provides
+    @Named("ErrorMessage")
+    fun provideErrorMessage(activity: Activity): String =
+        activity.getString(R.string.error_while_loading)
+
+    @Provides
     fun provideCreateStepUseCase(
         stepInteractor: StepInteractor,
-        errorMessage: String, ) =
+        @Named("ErrorMessage") errorMessage: String
+    ) =
         CreateStepUseCase(stepInteractor, errorMessage)
 
     @Provides
@@ -63,6 +85,7 @@ class IdeaDetailsModule {
         SelectKeyResultDialogNavigation(controller)
 
     @Provides
+    @Named("SelectKeyResultTitle")
     fun provideSelectKeyResultTitle(activity: Activity): String =
         activity.getString(R.string.select_key_result_text)
 

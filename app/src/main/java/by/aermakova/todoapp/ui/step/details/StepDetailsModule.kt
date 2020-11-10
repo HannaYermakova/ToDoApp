@@ -9,10 +9,12 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindIdeaUseCase
 import by.aermakova.todoapp.data.useCase.FindTaskUseCase
+import by.aermakova.todoapp.data.useCase.LoadStepUseCase
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import dagger.Module
@@ -21,6 +23,30 @@ import dagger.multibindings.IntoMap
 
 @Module
 class StepDetailsModule {
+
+    @Provides
+    fun provideLoadStepUserCase(
+        stepInteractor: StepInteractor,
+        tasksInteractor: TaskInteractor,
+        findGoal: FindGoalUseCase,
+        findTask: FindTaskUseCase,
+        findIdea: FindIdeaUseCase,
+        stepId: Long,
+        errorMessage: String
+    ) =
+        LoadStepUseCase(
+            stepInteractor,
+            tasksInteractor,
+            findGoal,
+            findTask,
+            findIdea,
+            stepId,
+            errorMessage
+        )
+
+    @Provides
+    fun provideErrorMessage(activity: Activity) =
+        activity.getString(R.string.error_while_loading)
 
     @Provides
     fun provideFindIdeaUseCase(ideaInteractor: IdeaInteractor) =

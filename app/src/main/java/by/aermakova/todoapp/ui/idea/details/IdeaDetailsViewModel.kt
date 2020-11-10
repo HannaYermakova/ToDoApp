@@ -2,33 +2,26 @@ package by.aermakova.todoapp.ui.idea.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.IdeaModel
-import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
-import by.aermakova.todoapp.data.useCase.FindGoalUseCase
-import by.aermakova.todoapp.data.useCase.FindStepUseCase
+import by.aermakova.todoapp.data.useCase.LoadIdeaDetailsUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import by.aermakova.todoapp.util.Status
 import javax.inject.Inject
 import javax.inject.Named
 
 
 class IdeaDetailsViewModel @Inject constructor(
+    private val ideaId: Long,
     private val mainFlowNavigation: MainFlowNavigation,
+    private val loadIdeaDetails: LoadIdeaDetailsUseCase,
+    private val createStepUseCase: CreateStepUseCase,
     @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
     @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
-    private val ideaInteractor: IdeaInteractor,
-    private val findGoal: FindGoalUseCase,
-    private val findStep: FindStepUseCase,
-    private val createStepUseCase: CreateStepUseCase,
-    private val ideaId: Long,
-    private val selectKeyResultTitle: String
+    @Named("SelectKeyResultTitle") private val selectKeyResultTitle: String
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -68,32 +61,24 @@ class IdeaDetailsViewModel @Inject constructor(
         get() = selectKeyResDialogNavigation.getDialogResult()
 
     init {
-        disposable.add(
-            ideaInteractor
-                .getIdeaById(ideaId)
-                .map { it.toCommonModel { } }
-                .doOnNext {
-                    findGoal.useGoalById(it.goalId, { goal ->
-                        _goalTitle.postValue(goal.text)
-                    })
-                }
-                .doOnNext {
-                    findGoal.useKeyResultById(it.keyResultId, { keyRes ->
-                        _keyResVisible.postValue(true)
-                        _keyResTitle.postValue(keyRes.text)
-                    })
-                }.doOnNext {
-                    findStep.useStepById(it.stepId, { stepEntity ->
-                        _stepVisible.postValue(true)
-                        _stepTitle.postValue(stepEntity.text)
-                    })
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { _ideaModel.postValue(it) },
-                    { it.printStackTrace() }
-                )
+        _status.onNext(Status.LOADING)
+        loadIdeaDetails.loadIdeaDetailsById(
+            ideaId,
+            disposable,
+            { _goalTitle.postValue(it) },
+            {
+                _keyResVisible.postValue(true)
+                _keyResTitle.postValue(it)
+            },
+            {
+                _stepVisible.postValue(true)
+                _stepTitle.postValue(it)
+            },
+            {
+                _status.onNext(Status.SUCCESS)
+                _ideaModel.postValue(it)
+            },
+            { _status.onNext(Status.ERROR.apply { message = it }) }
         )
     }
 
@@ -122,16 +107,11 @@ class IdeaDetailsViewModel @Inject constructor(
     fun saveAndClose(value: Boolean?) {
         value?.let {
             if (value) {
-                disposable.add(
-                    Single.create<Boolean> { it.onSuccess(true) }
-                        .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            { mainFlowNavigation.popBack() },
-                            { it.printStackTrace() }
-                        )
-                )
+                _status.onNext(Status.LOADING)
+                loadIdeaDetails.saveIdeaDetails(ideaId,
+                    disposable,
+                    { mainFlowNavigation.popBack() },
+                    { _status.onNext(Status.ERROR.apply { message = it }) })
             }
         }
     }

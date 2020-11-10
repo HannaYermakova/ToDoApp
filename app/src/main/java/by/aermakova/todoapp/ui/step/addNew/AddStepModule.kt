@@ -23,7 +23,8 @@ class AddStepModule {
     @Provides
     fun provideCreateStepUseCase(
         stepInteractor: StepInteractor,
-        errorMessage: String, ) =
+        errorMessage: String
+    ) =
         CreateStepUseCase(stepInteractor, errorMessage)
 
     @Provides
