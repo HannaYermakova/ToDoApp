@@ -26,7 +26,7 @@ class GoalsModule {
 
     @Provides
     @Named("AddItemDialog")
-    fun provideAddItemDialogNavigation(controller: NavController): DialogNavigation<String> =
+    fun provideAddItemDialogNavigation(controller: NavController): AddItemDialogNavigation =
         AddItemDialogNavigation(controller)
 
     @Provides

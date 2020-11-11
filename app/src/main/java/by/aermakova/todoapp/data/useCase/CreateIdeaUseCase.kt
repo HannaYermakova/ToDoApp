@@ -44,7 +44,7 @@ class CreateIdeaUseCase(
                 }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { successAction.hashCode() },
+                        { successAction.invoke() },
                         {
                             errorAction?.invoke(errorMessage)
                             it.printStackTrace()

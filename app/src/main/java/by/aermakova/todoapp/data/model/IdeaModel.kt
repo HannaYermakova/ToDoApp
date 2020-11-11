@@ -10,9 +10,9 @@ data class IdeaModel(
     val keyResultId: Long?,
     val stepId: Long?,
     val text: String,
-    val action: Function? = null
+    val action: FunctionLong? = null
 ) : CommonModel(ideaId, R.layout.item_idea, BR.idea, action)
 
-fun IdeaEntity.toCommonModel(clickAction: Function? = null): IdeaModel {
+fun IdeaEntity.toCommonModel(clickAction: FunctionLong? = null): IdeaModel {
     return IdeaModel(ideaId, ideaGoalId, ideaKeyResultId, ideaStepId, text, clickAction)
 }

@@ -13,9 +13,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_white_milk"
         android:background="@drawable/card_background"
+        android:backgroundTint="@color/color_white_milk"
         app:cardCornerRadius="@dimen/card_corner_radius"
+        app:itemId="@{task.taskId}"
+        app:onClickItem="@{task.action}"
         tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,8 +62,8 @@
                 style="@style/TextInstructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/status_text"
                 android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/status_text"
                 app:layout_constraintStart_toStartOf="@id/guideline2"
                 app:layout_constraintTop_toBottomOf="@id/deadline_text" />
 

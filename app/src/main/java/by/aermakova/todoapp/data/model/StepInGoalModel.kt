@@ -12,12 +12,12 @@ data class StepInGoalModel(
     val status: Boolean,
     val text: String,
     val stepItemsList: List<CommonModel>? = null,
-    val action: Function? = null
+    val action: FunctionLong? = null
 ) : CommonModel(stepId, R.layout.item_step_in_goal, BR.step, action)
 
 fun StepEntity.toCommonGoalModel(
     innerObjects: List<CommonModel>? = null,
-    clickAction: Function
+    clickAction: FunctionLong
 ): StepInGoalModel {
     return StepInGoalModel(
         stepId,

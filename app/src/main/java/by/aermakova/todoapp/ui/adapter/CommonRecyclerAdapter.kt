@@ -1,66 +1,37 @@
 package by.aermakova.todoapp.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.data.model.CommonModel
-import by.aermakova.todoapp.util.provideClickToParent
 
-class CommonRecyclerAdapter :
-    RecyclerView.Adapter<CommonRecyclerAdapter.ViewHolder>() {
 
-    private val listOfItems = arrayListOf<CommonModel>()
+class CommonRecyclerAdapter : RecyclerView.Adapter<CommonRecyclerAdapter.ViewHolder>() {
+
+    private val asyncListDiffer: AsyncListDiffer<CommonModel> =
+        AsyncListDiffer(this, DIFF_CALLBACK)
 
     fun update(items: List<CommonModel>) {
-        val diffResult = DiffUtil.calculateDiff(CommonItemDiffUtil(listOfItems, items))
-        setData(items)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    private fun setData(items: List<CommonModel>) {
-        listOfItems.clear()
-        listOfItems.addAll(items)
+        asyncListDiffer.submitList(items)
     }
 
     class ViewHolder(private val binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(model: CommonModel) {
-            try { binding.setVariable(model.variableId, model) }
-            catch (e: Exception) {print("The model is not attached to this layout") }
-
-            with(binding.root) {
-                setOnClickListener {
-                    val func = model.clickAction
-                    if (func != null) {
-                        func.invoke(model.id)
-                    } else {
-                        provideClickToParent(it)
-                    }
-                }
-                setOnLongClickListener {
-                    val func = model.longClickAction
-                    if (func != null) {
-                        Log.d("A_CommonRecyclerAdapter", "long click")
-                        func.invoke(model.id)
-                    } else {
-                        provideClickToParent(it)
-                    }
-                    true
-                }
+            try {
+                binding.setVariable(model.variableId, model)
+            } catch (e: Exception) {
+                print("The model is not attached to this layout")
             }
-
-            (binding.root as? CardView)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return listOfItems[position].layout
+        return asyncListDiffer.currentList[position].layout
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -70,28 +41,26 @@ class CommonRecyclerAdapter :
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = listOfItems.size
+    override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model = listOfItems[position]
+        val model = asyncListDiffer.currentList[position]
         holder.bind(model)
     }
-}
 
-class CommonItemDiffUtil(
-    private val oldList: List<CommonModel>,
-    private val newList: List<CommonModel>
-) :
-    DiffUtil.Callback() {
+    companion object {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<CommonModel> =
+            object : DiffUtil.ItemCallback<CommonModel>() {
+                override fun areItemsTheSame(oldItem: CommonModel, newItem: CommonModel): Boolean {
+                    return oldItem == newItem
+                }
 
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-        oldList[oldItemPosition] == newList[newItemPosition]
-
-    override fun getOldListSize() = oldList.size
-
-    override fun getNewListSize() = newList.size
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+                override fun areContentsTheSame(
+                    oldItem: CommonModel,
+                    newItem: CommonModel
+                ): Boolean {
+                    return oldItem == newItem
+                }
+            }
     }
 }

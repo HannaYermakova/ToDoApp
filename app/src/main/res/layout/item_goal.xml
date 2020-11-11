@@ -16,6 +16,8 @@
         android:elevation="@dimen/elevation_button"
         app:cardBackgroundColor="@color/color_white_milk"
         app:cardCornerRadius="@dimen/card_corner_radius"
+        app:itemId="@{goalModel.goalId}"
+        app:onClickItem="@{goalModel.action}"
         tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout

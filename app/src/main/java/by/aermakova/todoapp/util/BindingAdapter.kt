@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.Interval
-import by.aermakova.todoapp.data.model.CommonModel
-import by.aermakova.todoapp.data.model.EmptyModel
-import by.aermakova.todoapp.data.model.KeyResultModel
-import by.aermakova.todoapp.data.model.TextModel
+import by.aermakova.todoapp.data.model.*
 import by.aermakova.todoapp.data.remote.auth.loginManager.AppLoginManager
 import by.aermakova.todoapp.ui.adapter.CommonRecyclerAdapter
 import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
@@ -143,6 +140,18 @@ fun setSaveGoalButtonVisibility(
 fun clickListener(view: View, listener: (() -> Unit)?) {
     view.setOnClickListener {
         listener?.invoke()
+    }
+}
+
+@BindingAdapter(
+    "app:onClickItem",
+    "app:itemId"
+)
+fun clickItemListener(view: View, listener: FunctionLong?, itemId: Long?) {
+    view.setOnClickListener {
+        itemId?.let {
+            listener?.invoke(it)
+        }
     }
 }
 

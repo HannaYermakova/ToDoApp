@@ -15,10 +15,10 @@ data class TaskModel(
     val startTime: Long,
     val scheduledTask: Boolean,
     val interval: Int?,
-    val action: Function? = null
+    val action: FunctionLong? = null
 ) : CommonModel(taskId, R.layout.item_task, BR.task, action)
 
-fun TaskEntity.toCommonModel(clickAction: Function? = null): TaskModel {
+fun TaskEntity.toCommonModel(clickAction: FunctionLong? = null): TaskModel {
     return TaskModel(
         taskId,
         taskStatusDone,
