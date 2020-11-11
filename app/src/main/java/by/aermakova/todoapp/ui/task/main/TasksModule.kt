@@ -7,8 +7,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.databinding.FilterBottomSheetBinding
-import by.aermakova.todoapp.databinding.SortBottomSheetBinding
+import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
+import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -20,10 +20,10 @@ import dagger.multibindings.IntoMap
 class TasksModule {
 
     @Provides
-    fun provideFilterBottomSheetBinding(fragment: TasksFragment): FilterBottomSheetBinding {
-        val bind: FilterBottomSheetBinding = DataBindingUtil.inflate(
+    fun provideFilterBottomSheetBinding(fragment: TasksFragment): BottomSheetFilterTaskBinding {
+        val bind: BottomSheetFilterTaskBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,
-            R.layout.filter_bottom_sheet,
+            R.layout.bottom_sheet_filter_task,
             null,
             false
         )
@@ -32,10 +32,10 @@ class TasksModule {
     }
 
     @Provides
-    fun provideSortBottomSheetBinding(fragment: TasksFragment): SortBottomSheetBinding {
-        val bind: SortBottomSheetBinding = DataBindingUtil.inflate(
+    fun provideSortBottomSheetBinding(fragment: TasksFragment): BottomSheetSortTaskBinding {
+        val bind: BottomSheetSortTaskBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,
-            R.layout.sort_bottom_sheet,
+            R.layout.bottom_sheet_sort_task,
             null,
             false
         )

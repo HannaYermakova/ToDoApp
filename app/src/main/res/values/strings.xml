@@ -33,10 +33,16 @@
     <string name="title_ideas">Ideas</string>
 
     <string name="title_goal">Goal</string>
+
     <string name="title_task">Task</string>
     <string name="title_step">Step</string>
     <string name="title_key_result">Key Result</string>
     <string name="title_idea">Idea</string>
+
+    <string name="title_add_task">Add Task</string>
+    <string name="title_add_step">Add Step</string>
+    <string name="title_add_key_result">Add Key Result</string>
+    <string name="title_add_idea">Add Idea</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
     <string name="confirm_exit_message">Are you sure you want to log out?</string>

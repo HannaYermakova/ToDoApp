@@ -4,6 +4,7 @@ import android.content.res.Resources
 import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.*
+import by.aermakova.todoapp.util.GoalsActionItem
 import by.aermakova.todoapp.util.TaskFilterItem
 import by.aermakova.todoapp.util.TaskSortItem
 
@@ -48,6 +49,17 @@ fun TaskSortItem.toTextModel(
         listId.toLong(),
         res.getString(listId),
         selected = selected,
+        action = clickAction
+    )
+}
+
+fun GoalsActionItem.toTextModel(
+    res: Resources,
+    clickAction: FunctionLong
+): TextModel {
+    return TextModel(
+        listId.toLong(),
+        res.getString(listId),
         action = clickAction
     )
 }

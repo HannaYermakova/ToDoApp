@@ -129,5 +129,8 @@ class GoalRepository @Inject constructor(
         return goalDao.getKeyResultsByIds(keyResIds)
     }
 
+    fun addNewKeyResult(keyResultEntity: KeyResultEntity): Long =
+        keyResultDao.insertKeyResult(keyResultEntity)
+
     fun removeAll() = goalDao.deleteAll()
 }

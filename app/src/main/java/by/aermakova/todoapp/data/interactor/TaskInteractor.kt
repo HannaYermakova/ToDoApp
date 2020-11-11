@@ -60,8 +60,8 @@ class TaskInteractor(
         return TaskFilterItem.values().asList()
     }
 
-    fun getSortItems(): List<TaskSortItem> {
-        return TaskSortItem.values().asList()
+    fun getSortItems(): Array<TaskSortItem> {
+        return TaskSortItem.values()
     }
 
     fun updateTask(status: Boolean, taskId: Long) {

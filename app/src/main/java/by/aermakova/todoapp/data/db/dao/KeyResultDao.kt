@@ -5,14 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
-import io.reactivex.Flowable
 import io.reactivex.Observable
 
 @Dao
 interface KeyResultDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertKeyResult(keyResult: KeyResultEntity)
+    fun insertKeyResult(keyResult: KeyResultEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllKeyResults(keyResults: List<KeyResultEntity>)

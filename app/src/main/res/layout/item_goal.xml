@@ -18,6 +18,8 @@
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:itemId="@{goalModel.goalId}"
         app:onClickItem="@{goalModel.action}"
+        app:itemLongId="@{goalModel.goalId}"
+        app:onLongClickItem="@{goalModel.longAction}"
         tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout

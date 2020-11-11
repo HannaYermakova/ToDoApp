@@ -8,8 +8,8 @@ import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.model.toTextModel
-import by.aermakova.todoapp.databinding.FilterBottomSheetBinding
-import by.aermakova.todoapp.databinding.SortBottomSheetBinding
+import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
+import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.*
@@ -24,8 +24,8 @@ class TasksViewModel @Inject constructor(
     private val navigation: MainFlowNavigation,
     private val taskInteractor: TaskInteractor,
     private val resources: Resources,
-    private val filterBind: FilterBottomSheetBinding,
-    private val sortBind: SortBottomSheetBinding,
+    private val filterBind: BottomSheetFilterTaskBinding,
+    private val sortBind: BottomSheetSortTaskBinding,
     private val dialog: BottomSheetDialog
 ) : BaseViewModel() {
 

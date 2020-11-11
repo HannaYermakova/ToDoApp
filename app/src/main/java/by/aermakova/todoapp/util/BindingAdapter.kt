@@ -156,6 +156,20 @@ fun clickItemListener(view: View, listener: FunctionLong?, itemId: Long?) {
 }
 
 @BindingAdapter(
+    "app:onLongClickItem",
+    "app:itemLongId"
+)
+fun longClickItemListener(view: View, listener: FunctionLong?, itemId: Long?) {
+    view.setOnLongClickListener {
+        itemId?.let {
+            listener?.invoke(it)
+            true
+        }
+        false
+    }
+}
+
+@BindingAdapter(
     "app:onLoginClick",
     "app:addLoginMethod"
 )
@@ -388,8 +402,8 @@ fun commonAdapterSettings(
     with(recyclerView) {
         adapter = CommonRecyclerAdapter()
         if (itemDecorationCount > 0
-            && layoutType != null
-            && layoutType == LayoutManagerType.LINEAR_VERTICAL
+            && ((layoutType != null && layoutType == LayoutManagerType.LINEAR_VERTICAL)
+                    || layoutType == null)
         ) {
             removeItemDecorationAt(0)
         }

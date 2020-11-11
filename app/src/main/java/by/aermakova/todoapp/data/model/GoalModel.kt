@@ -30,7 +30,10 @@ fun GoalKeyResults.toCommonModel(
     }
 }
 
-fun List<GoalKeyResults>.toCommonModelGoalList(clickAction: FunctionLong, longClickAction: FunctionLong? = null): List<GoalModel> {
+fun List<GoalKeyResults>.toCommonModelGoalList(
+    clickAction: FunctionLong,
+    longClickAction: FunctionLong? = null
+): List<GoalModel> {
     return map {
         it.toCommonModel(action = clickAction, longClickAction = longClickAction)
     }
