@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -14,12 +15,19 @@ import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
+import by.aermakova.todoapp.ui.task.details.TaskDetailsFragment
+import by.aermakova.todoapp.ui.task.details.TaskDetailsFragmentArgs
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module
 class AddTaskModule {
+
+    @Provides
+    fun provideArgs(fragment: AddTaskFragment): Long {
+        return fragment.navArgs<AddTaskFragmentArgs>().value.id
+    }
 
     @Provides
     fun provideGoalSelectUseCase(goalInteractor: GoalInteractor) =

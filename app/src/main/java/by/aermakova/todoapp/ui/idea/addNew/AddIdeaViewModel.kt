@@ -101,7 +101,7 @@ class AddIdeaViewModel @Inject constructor(
             tempKeyResultId,
             tempStepId,
             { mainFlowNavigation.popBack() },
-            { _status.onNext(Status.ERROR.apply { message = it }) }
+            error
         )
     }
 }

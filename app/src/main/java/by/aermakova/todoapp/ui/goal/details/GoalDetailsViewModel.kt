@@ -93,8 +93,7 @@ class GoalDetailsViewModel @Inject constructor(
             {
                 _status.onNext(Status.SUCCESS)
                 mainFlowNavigation.popBack()
-            },
-            { _status.onNext(Status.ERROR.apply { message = it }) }
+            }, error
         )
     }
 

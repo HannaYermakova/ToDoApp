@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.interactor
 
-import android.util.Log
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
@@ -158,16 +157,19 @@ class GoalInteractor(
 
     fun removeAllFromLocalDatabase() = goalRepository.removeAll()
 
-    fun addKeyResultToGoalInLocal(goalId: Long, keyResultTitle: String):Long {
-      return  goalRepository.addNewKeyResult(
-          KeyResultEntity(
-              keyResultGoalId = goalId,
-              text = keyResultTitle
-          )
-      )
+    fun addKeyResultToGoalInLocal(goalId: Long, keyResultTitle: String): Long {
+        return goalRepository.addNewKeyResult(
+            KeyResultEntity(
+                keyResultGoalId = goalId,
+                text = keyResultTitle
+            )
+        )
     }
 
     fun addKeyResultToGoalInRemote(keyResultEntity: KeyResultEntity) {
         keyResRemoteDatabase.saveData(keyResultEntity.toRemote())
     }
+
+    fun checkGoalDone(goalId: Long) =
+        goalRepository.checkGoalDone(goalId)
 }

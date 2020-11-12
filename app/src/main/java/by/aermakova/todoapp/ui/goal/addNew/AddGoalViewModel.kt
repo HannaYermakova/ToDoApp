@@ -61,7 +61,7 @@ class AddGoalViewModel @Inject constructor(
             _tempGoalTitle.value,
             tempKeyResults,
             { mainFlowNavigation.popBack() },
-            { errorMessage -> _status.onNext(Status.ERROR.apply { message = errorMessage }) }
+            error
         )
     }
 }

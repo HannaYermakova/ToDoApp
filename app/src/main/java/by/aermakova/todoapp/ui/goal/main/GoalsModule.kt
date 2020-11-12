@@ -10,12 +10,14 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
+import by.aermakova.todoapp.data.useCase.AddTaskToGoalUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.GoalsActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
@@ -26,6 +28,24 @@ import javax.inject.Named
 
 @Module
 class GoalsModule {
+
+    @Provides
+    fun provideAddTaskToGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @Named("TasksNavigation") tasksNavigation: MainFlowNavigation,
+        @Named("AchievedGoalTask") errorAchievedGoalTask: String
+    ): AddTaskToGoalUseCase {
+        return AddTaskToGoalUseCase(
+            goalInteractor,
+            tasksNavigation,
+            errorAchievedGoalTask
+        )
+    }
+
+    @Provides
+    @Named("TasksNavigation")
+    fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
+        TasksNavigation(controller)
 
     @Provides
     fun provideFilterBottomSheetBinding(fragment: GoalsFragment): BottomSheetGoalActionBinding {
@@ -51,6 +71,11 @@ class GoalsModule {
             activity.resources.getString(R.string.add_key_result),
             activity.resources.getString(R.string.error_adding_key_result)
         )
+
+    @Provides
+    @Named("AchievedGoalTask")
+    fun provideErrorAchievedGoalTask(activity: Activity) =
+        activity.getString(R.string.error_adding_task)
 
     @Provides
     fun provideBottomSheetDialog(activity: Activity): BottomSheetDialog =
@@ -80,6 +105,7 @@ class GoalsModule {
         ConfirmDialogNavigation(controller)
 
     @Provides
+    @Named("GoalsNavigation")
     fun provideGoalsNavigation(controller: NavController): MainFlowNavigation {
         return GoalsNavigation(controller)
     }

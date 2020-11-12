@@ -65,4 +65,8 @@ class SpinnerOptionalAdapter(
     override fun getCount(): Int {
         return super.getCount() + 1
     }
+
+    override fun getPosition(item: TextModel?): Int {
+        return super.getPosition(item) + 1
+    }
 }

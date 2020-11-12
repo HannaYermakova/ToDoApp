@@ -79,7 +79,7 @@ class AddStepViewModel @Inject constructor(
             tempGoalId,
             tempKeyResultId,
             { mainFlowNavigation.popBack() },
-            { errorMessage -> _status.onNext(Status.ERROR.apply { message = errorMessage }) }
+            error
         )
     }
 }

@@ -226,6 +226,7 @@ fun setSpinnerListener(
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            Log.d("A_BindingAdapter", "item selected $position")
             val pos = if (position == 0) {
                 return
             } else {
@@ -239,12 +240,14 @@ fun setSpinnerListener(
 
 @BindingAdapter(
     "app:addSpinnerAdapter",
+    "app:addSelectedItem",
     "app:disposable",
     "app:addTitle"
 )
 fun editSpinner(
     spinner: Spinner,
     itemsList: Observable<List<TextModel>>?,
+    selectedItem: Observable<TextModel>?,
     disposable: CompositeDisposable?,
     title: String?
 ) {
@@ -266,6 +269,13 @@ fun editSpinner(
                     arrayList
                 ).also { adapter ->
                     spinner.adapter = adapter
+                    selectedItem?.let {
+                        selectedItem.subscribe({ model ->
+                            Log.d("A_BindingAdapter", "model $model")
+                                spinner.setSelection(adapter.getPosition(model)) },
+                            { it.printStackTrace() }
+                        )
+                    }
                 }
             },
             { it.printStackTrace() }

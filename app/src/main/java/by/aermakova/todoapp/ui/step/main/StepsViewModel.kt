@@ -28,7 +28,7 @@ class StepsViewModel @Inject constructor(
                 _status.onNext(Status.SUCCESS)
                 _stepsList.onNext(it)
             },
-            { _status.onNext(Status.ERROR.apply { message = it }) }
+            error
         )
     }
 }

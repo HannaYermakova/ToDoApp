@@ -155,7 +155,12 @@
         android:id="@+id/addTaskFragment"
         android:name="by.aermakova.todoapp.ui.task.addNew.AddTaskFragment"
         android:label="AddTaskFragment"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
     <action
         android:id="@+id/action_global_select_item_dialog"
         app:destination="@id/select_goal_dialog"

@@ -29,7 +29,7 @@ class IdeaViewModel @Inject constructor(
                 _status.onNext(Status.SUCCESS)
                 _ideasList.onNext(it)
             },
-            { _status.onNext(Status.ERROR.apply { message = it }) }
+            error
         )
     }
 }

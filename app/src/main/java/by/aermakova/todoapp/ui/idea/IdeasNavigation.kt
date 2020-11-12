@@ -11,6 +11,10 @@ class IdeasNavigation(private val controller: NavController) : MainFlowNavigatio
         controller.navigate(R.id.action_mainFlowFragment_to_addIdeaFragment)
     }
 
+    override fun navigateToAddNewElementFragment(goalId: Long) {
+        //TODO("Not yet implemented")
+    }
+
     override fun navigateToShowDetailsFragment(id: Long) {
         controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToIdeaDetailsFragment(id))
     }

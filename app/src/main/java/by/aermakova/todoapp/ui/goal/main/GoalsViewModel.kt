@@ -10,6 +10,7 @@ import by.aermakova.todoapp.data.model.toCommonModelGoalList
 import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
+import by.aermakova.todoapp.data.useCase.AddTaskToGoalUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
@@ -29,7 +30,8 @@ const val INIT_SELECTED_GOAL_ID = -1L
 
 class GoalsViewModel @Inject constructor(
     private val goalActionItems: Array<GoalsActionItem>,
-    private val navigation: MainFlowNavigation,
+    @Named("GoalsNavigation") private val navigation: MainFlowNavigation,
+    private val addTaskToGoalUseCase: AddTaskToGoalUseCase,
     @Named("ConfirmDialog") private val dialogNavigation: DialogNavigation<Boolean>,
     val addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
     private val goalActionBind: BottomSheetGoalActionBinding,
@@ -72,7 +74,11 @@ class GoalsViewModel @Inject constructor(
                 selectedGoalId
             )
             GoalsActionItem.ADD_STEP_TO_GOAL -> Log.d("A_GoalsViewModel", "ADD_STEP_TO_GOAL")
-            GoalsActionItem.ADD_TASK_TO_GOAL -> Log.d("A_GoalsViewModel", "ADD_TASK_TO_GOAL")
+            GoalsActionItem.ADD_TASK_TO_GOAL -> addTaskToGoalUseCase.checkGoalAndOpenDialog(
+                disposable,
+                selectedGoalId,
+                error
+            )
             GoalsActionItem.ADD_IDEA_TO_GOAL -> Log.d("A_GoalsViewModel", "ADD_IDEA_TO_GOAL")
         }
         selectedGoalId = INIT_SELECTED_GOAL_ID
@@ -81,8 +87,8 @@ class GoalsViewModel @Inject constructor(
     fun addKeyResultToSelectedGoal(keyResultTitle: String) {
         addKeyResultToGoalUseCase.addKeyResult(
             keyResultTitle,
-            disposable
-        ) { _status.onNext(Status.ERROR.apply { message = it }) }
+            disposable, error
+        )
     }
 
     private fun confirmExit(message: String) {

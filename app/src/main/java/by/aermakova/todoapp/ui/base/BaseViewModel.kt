@@ -8,6 +8,8 @@ import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseViewModel : ViewModel() {
 
+    val error: (String) -> Unit = { _status.onNext(Status.ERROR.apply { message = it }) }
+
     private val _disposable = CompositeDisposable()
     val disposable: CompositeDisposable
         get() = _disposable

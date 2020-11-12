@@ -11,6 +11,10 @@ class StepsNavigation(private val controller: NavController) : MainFlowNavigatio
         controller.navigate(R.id.action_mainFlowFragment_to_addStepFragment)
     }
 
+    override fun navigateToAddNewElementFragment(goalId: Long) {
+        //TODO
+    }
+
     override fun navigateToShowDetailsFragment(id: Long) {
         controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToStepDetailsFragment(id))
     }

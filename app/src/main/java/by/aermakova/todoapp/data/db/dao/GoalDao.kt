@@ -104,4 +104,7 @@ interface GoalDao {
             deleteAllIdeas()
         )
     }
+
+    @Query("SELECT goal_status_done FROM goals_table WHERE goal_id =:goalId")
+    fun checkGoalDone(goalId: Long): Single<Boolean>
 }

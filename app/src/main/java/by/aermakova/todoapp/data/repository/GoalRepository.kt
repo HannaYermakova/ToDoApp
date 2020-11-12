@@ -133,4 +133,7 @@ class GoalRepository @Inject constructor(
         keyResultDao.insertKeyResult(keyResultEntity)
 
     fun removeAll() = goalDao.deleteAll()
+
+    fun checkGoalDone(goalId: Long) =
+        goalDao.checkGoalDone(goalId)
 }

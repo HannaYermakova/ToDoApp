@@ -11,6 +11,14 @@ class GoalsNavigation(private val controller: NavController) : MainFlowNavigatio
         controller.navigate(R.id.action_mainFlowFragment_to_addGoalFragment)
     }
 
+    override fun navigateToAddNewElementFragment(goalId: Long) {
+        try {
+            controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToAddTaskFragment(goalId))
+        } catch (e: Exception){
+           e.printStackTrace()
+        }
+    }
+
     override fun navigateToShowDetailsFragment(id: Long){
         controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToGoalDetailsFragment(id))
     }
