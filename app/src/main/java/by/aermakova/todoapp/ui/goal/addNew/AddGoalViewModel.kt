@@ -61,7 +61,7 @@ class AddGoalViewModel @Inject constructor(
             _tempGoalTitle.value,
             tempKeyResults,
             { mainFlowNavigation.popBack() },
-            error
+            errorAction
         )
     }
 }

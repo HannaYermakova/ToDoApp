@@ -17,7 +17,7 @@ class GoalsFragment : BaseFragment<GoalsViewModel, FragmentGoalsBinding>() {
             if (it) viewModel.exit()
         })
 
-        viewModel.addKeyResultToGoalUseCase.keyResultObserver?.observe(
+        viewModel.keyResultObserver?.observe(
             viewLifecycleOwner,
             Observer {
                 viewModel.addKeyResultToSelectedGoal(it)

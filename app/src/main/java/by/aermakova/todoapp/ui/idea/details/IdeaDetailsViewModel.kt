@@ -78,7 +78,7 @@ class IdeaDetailsViewModel @Inject constructor(
                 _status.onNext(Status.SUCCESS)
                 _ideaModel.postValue(it)
             },
-            error
+            errorAction
         )
     }
 
@@ -111,7 +111,7 @@ class IdeaDetailsViewModel @Inject constructor(
                 loadIdeaDetails.saveIdeaDetails(ideaId,
                     disposable,
                     { mainFlowNavigation.popBack() },
-                    error)
+                    errorAction)
             }
         }
     }

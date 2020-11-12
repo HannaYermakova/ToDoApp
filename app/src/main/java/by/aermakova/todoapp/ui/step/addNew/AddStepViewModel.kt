@@ -80,7 +80,7 @@ class AddStepViewModel @Inject constructor(
             tempGoalId,
             tempKeyResultId,
             { mainFlowNavigation.popBack() },
-            error
+            errorAction
         )
     }
 }

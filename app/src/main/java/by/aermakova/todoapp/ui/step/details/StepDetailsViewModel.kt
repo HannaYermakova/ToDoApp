@@ -53,7 +53,7 @@ class StepDetailsViewModel @Inject constructor(
                 _status.onNext(Status.SUCCESS)
                 mainFlowNavigation.popBack()
             },
-            error
+            errorAction
         )
 
     }
@@ -70,7 +70,7 @@ class StepDetailsViewModel @Inject constructor(
                 _status.onNext(Status.SUCCESS)
                 _stepModel.postValue(it)
             },
-            error
+            errorAction
         )
     }
 }

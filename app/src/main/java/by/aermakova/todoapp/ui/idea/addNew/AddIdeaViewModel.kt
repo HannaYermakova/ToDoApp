@@ -102,7 +102,7 @@ class AddIdeaViewModel @Inject constructor(
             tempKeyResultId,
             tempStepId,
             { mainFlowNavigation.popBack() },
-            error
+            errorAction
         )
     }
 }

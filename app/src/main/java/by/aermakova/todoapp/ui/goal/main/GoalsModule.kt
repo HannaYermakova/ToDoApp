@@ -11,6 +11,7 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.AddItemToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
+import by.aermakova.todoapp.data.useCase.GoalBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
@@ -30,6 +31,25 @@ import javax.inject.Named
 
 @Module
 class GoalsModule {
+
+    @Provides
+    fun provideGoalBottomSheetMenuUseCase(
+        @Named("AddTaskUseCase") addTaskToGoalUseCase: AddItemToGoalUseCase<TasksNavigation>,
+        @Named("AddStepUseCase") addStepToGoalUseCase: AddItemToGoalUseCase<StepsNavigation>,
+        @Named("AddIdeaUseCase") addIdeaToGoalUseCase: AddItemToGoalUseCase<IdeasNavigation>,
+        addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
+        goalActionBind: BottomSheetGoalActionBinding,
+        dialog: BottomSheetDialog
+
+    ) =
+        GoalBottomSheetMenuUseCase(
+            addTaskToGoalUseCase,
+            addStepToGoalUseCase,
+            addIdeaToGoalUseCase,
+            addKeyResultToGoalUseCase,
+            goalActionBind,
+            dialog,
+        )
 
     @Provides
     @Named("AddIdeaUseCase")
