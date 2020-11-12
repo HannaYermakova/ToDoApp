@@ -9,14 +9,16 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.useCase.AddItemToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
-import by.aermakova.todoapp.data.useCase.AddTaskToGoalUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
+import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.GoalsActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,12 +32,41 @@ import javax.inject.Named
 class GoalsModule {
 
     @Provides
+    @Named("AddIdeaUseCase")
+    fun provideAddIdeaToGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @Named("IdeasNavigation") ideasNavigation: IdeasNavigation,
+        @Named("AchievedGoalIdea") errorAchievedGoalIdea: String
+    ): AddItemToGoalUseCase<IdeasNavigation> {
+        return AddItemToGoalUseCase(
+            goalInteractor,
+            ideasNavigation,
+            errorAchievedGoalIdea
+        )
+    }
+
+    @Provides
+    @Named("AddStepUseCase")
+    fun provideAddStepToGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @Named("StepsNavigation") stepsNavigation: StepsNavigation,
+        @Named("AchievedGoalStep") errorAchievedGoalStep: String
+    ): AddItemToGoalUseCase<StepsNavigation> {
+        return AddItemToGoalUseCase(
+            goalInteractor,
+            stepsNavigation,
+            errorAchievedGoalStep
+        )
+    }
+
+    @Provides
+    @Named("AddTaskUseCase")
     fun provideAddTaskToGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("TasksNavigation") tasksNavigation: MainFlowNavigation,
+        @Named("TasksNavigation") tasksNavigation: TasksNavigation,
         @Named("AchievedGoalTask") errorAchievedGoalTask: String
-    ): AddTaskToGoalUseCase {
-        return AddTaskToGoalUseCase(
+    ): AddItemToGoalUseCase<TasksNavigation> {
+        return AddItemToGoalUseCase(
             goalInteractor,
             tasksNavigation,
             errorAchievedGoalTask
@@ -44,8 +75,18 @@ class GoalsModule {
 
     @Provides
     @Named("TasksNavigation")
-    fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
+    fun provideTasksNavigation(controller: NavController): TasksNavigation =
         TasksNavigation(controller)
+
+    @Provides
+    @Named("StepsNavigation")
+    fun provideStepsNavigation(controller: NavController): StepsNavigation =
+        StepsNavigation(controller)
+
+    @Provides
+    @Named("IdeasNavigation")
+    fun provideIdeasNavigation(controller: NavController): IdeasNavigation =
+        IdeasNavigation(controller)
 
     @Provides
     fun provideFilterBottomSheetBinding(fragment: GoalsFragment): BottomSheetGoalActionBinding {
@@ -76,6 +117,16 @@ class GoalsModule {
     @Named("AchievedGoalTask")
     fun provideErrorAchievedGoalTask(activity: Activity) =
         activity.getString(R.string.error_adding_task)
+
+    @Provides
+    @Named("AchievedGoalStep")
+    fun provideErrorAchievedGoalStep(activity: Activity) =
+        activity.getString(R.string.error_adding_step)
+
+    @Provides
+    @Named("AchievedGoalIdea")
+    fun provideErrorAchievedGoalIdea(activity: Activity) =
+        activity.getString(R.string.error_adding_idea)
 
     @Provides
     fun provideBottomSheetDialog(activity: Activity): BottomSheetDialog =

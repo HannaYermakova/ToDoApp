@@ -12,11 +12,23 @@ class StepsNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToAddNewElementFragment(goalId: Long) {
-        //TODO
+        try {
+            controller.navigate(
+                MainFlowFragmentDirections.actionMainFlowFragmentToAddStepFragment(
+                    goalId
+                )
+            )
+        } catch (exception: IllegalArgumentException) {
+            exception.printStackTrace()
+        }
     }
 
     override fun navigateToShowDetailsFragment(id: Long) {
-        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToStepDetailsFragment(id))
+        controller.navigate(
+            MainFlowFragmentDirections.actionMainFlowFragmentToStepDetailsFragment(
+                id
+            )
+        )
     }
 
     override fun popBack() {

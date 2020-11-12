@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.ui.task.addNew
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.TaskCreator
@@ -10,7 +9,6 @@ import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import io.reactivex.Observer
@@ -26,7 +24,7 @@ class AddTaskViewModel @Inject constructor(
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
     val stepSelectUseCase: StepSelectUseCase,
-    private val goalId: Long
+    goalId: Long
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -72,7 +70,6 @@ class AddTaskViewModel @Inject constructor(
         get() = _goalTitle
 
     private fun addTempGoal(goalId: Long?) {
-        Log.d("A_AddTaskViewModel", "addTempGoal $goalId")
         goalId?.let {
             taskCreator.tempGoalId = if (it == ITEM_IS_NOT_SELECTED_ID) {
                 null

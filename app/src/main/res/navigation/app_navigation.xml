@@ -155,7 +155,7 @@
         android:id="@+id/addTaskFragment"
         android:name="by.aermakova.todoapp.ui.task.addNew.AddTaskFragment"
         android:label="AddTaskFragment"
-        tools:layout="@layout/fragment_add_task" >
+        tools:layout="@layout/fragment_add_task">
         <argument
             android:name="id"
             android:defaultValue="-1L"
@@ -240,12 +240,22 @@
         android:id="@+id/addStepFragment"
         android:name="by.aermakova.todoapp.ui.step.addNew.AddStepFragment"
         android:label="AddStepFragment"
-        tools:layout="@layout/fragment_add_step" />
+        tools:layout="@layout/fragment_add_step">
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/addIdeaFragment"
         android:name="by.aermakova.todoapp.ui.idea.addNew.AddIdeaFragment"
         android:label="AddIdeaFragment"
-        tools:layout="@layout/fragment_add_idea" />
+        tools:layout="@layout/fragment_add_idea">
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/stepDetailsFragment"
         android:name="by.aermakova.todoapp.ui.step.details.StepDetailsFragment"

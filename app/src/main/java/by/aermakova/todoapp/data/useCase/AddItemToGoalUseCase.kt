@@ -6,9 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class AddTaskToGoalUseCase(
+class AddItemToGoalUseCase<Navigator : MainFlowNavigation>(
     private val goalInteractor: GoalInteractor,
-    private val tasksNavigation: MainFlowNavigation,
+    private val navigation: Navigator,
     private val errorMessage: String
 ) {
 
@@ -24,7 +24,7 @@ class AddTaskToGoalUseCase(
                 .subscribe(
                     {
                         if (!it) {
-                            tasksNavigation.navigateToAddNewElementFragment(goalId)
+                            navigation.navigateToAddNewElementFragment(goalId)
                         } else {
                             errorAction.invoke(errorMessage)
                         }

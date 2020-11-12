@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.ui.goal.main
 
 import android.content.res.Resources
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -9,13 +8,16 @@ import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toCommonModelGoalList
 import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
+import by.aermakova.todoapp.data.useCase.AddItemToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
-import by.aermakova.todoapp.data.useCase.AddTaskToGoalUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
+import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.ui.step.StepsNavigation
+import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.GoalsActionItem
 import by.aermakova.todoapp.util.Status
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -31,8 +33,11 @@ const val INIT_SELECTED_GOAL_ID = -1L
 class GoalsViewModel @Inject constructor(
     private val goalActionItems: Array<GoalsActionItem>,
     @Named("GoalsNavigation") private val navigation: MainFlowNavigation,
-    private val addTaskToGoalUseCase: AddTaskToGoalUseCase,
     @Named("ConfirmDialog") private val dialogNavigation: DialogNavigation<Boolean>,
+
+    @Named("AddTaskUseCase") private val addTaskToGoalUseCase: AddItemToGoalUseCase<TasksNavigation>,
+    @Named("AddStepUseCase") private val addStepToGoalUseCase: AddItemToGoalUseCase<StepsNavigation>,
+    @Named("AddIdeaUseCase") private val addIdeaToGoalUseCase: AddItemToGoalUseCase<IdeasNavigation>,
     val addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
     private val goalActionBind: BottomSheetGoalActionBinding,
     private val dialog: BottomSheetDialog,
@@ -73,13 +78,21 @@ class GoalsViewModel @Inject constructor(
             GoalsActionItem.ADD_KEY_RESULT_TO_GOAL -> addKeyResultToGoalUseCase.openDialog(
                 selectedGoalId
             )
-            GoalsActionItem.ADD_STEP_TO_GOAL -> Log.d("A_GoalsViewModel", "ADD_STEP_TO_GOAL")
+            GoalsActionItem.ADD_STEP_TO_GOAL -> addStepToGoalUseCase.checkGoalAndOpenDialog(
+                disposable,
+                selectedGoalId,
+                error
+            )
             GoalsActionItem.ADD_TASK_TO_GOAL -> addTaskToGoalUseCase.checkGoalAndOpenDialog(
                 disposable,
                 selectedGoalId,
                 error
             )
-            GoalsActionItem.ADD_IDEA_TO_GOAL -> Log.d("A_GoalsViewModel", "ADD_IDEA_TO_GOAL")
+            GoalsActionItem.ADD_IDEA_TO_GOAL -> addIdeaToGoalUseCase.checkGoalAndOpenDialog(
+                disposable,
+                selectedGoalId,
+                error
+            )
         }
         selectedGoalId = INIT_SELECTED_GOAL_ID
     }

@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
@@ -19,6 +20,11 @@ import dagger.multibindings.IntoMap
 
 @Module
 class AddStepModule {
+
+    @Provides
+    fun provideArgs(fragment: AddStepFragment): Long {
+        return fragment.navArgs<AddStepFragmentArgs>().value.id
+    }
 
     @Provides
     fun provideCreateStepUseCase(

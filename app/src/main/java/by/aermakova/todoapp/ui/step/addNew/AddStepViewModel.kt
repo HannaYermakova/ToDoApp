@@ -17,7 +17,8 @@ class AddStepViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
-    private val createStepUseCase: CreateStepUseCase
+    private val createStepUseCase: CreateStepUseCase,
+    goalId: Long
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -49,7 +50,7 @@ class AddStepViewModel @Inject constructor(
     val saveStep = { saveStepToLocalDataBaseAndSyncToRemote() }
 
     init {
-        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable)
+        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable, goalId)
     }
 
     private fun addTempGoal(goalId: Long?) {

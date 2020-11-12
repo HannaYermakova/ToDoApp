@@ -20,7 +20,8 @@ class AddIdeaViewModel @Inject constructor(
     private val createIdeaUseCase: CreateIdeaUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
-    val stepSelectUseCase: StepSelectUseCase
+    val stepSelectUseCase: StepSelectUseCase,
+    goalId: Long
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -50,7 +51,7 @@ class AddIdeaViewModel @Inject constructor(
     }
 
     init {
-        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable)
+        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable, goalId)
     }
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)

@@ -12,11 +12,21 @@ class IdeasNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToAddNewElementFragment(goalId: Long) {
-        //TODO("Not yet implemented")
+        try {
+            controller.navigate(
+                MainFlowFragmentDirections.actionMainFlowFragmentToAddIdeaFragment(goalId)
+            )
+        } catch (exception: IllegalArgumentException) {
+            exception.printStackTrace()
+        }
     }
 
     override fun navigateToShowDetailsFragment(id: Long) {
-        controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToIdeaDetailsFragment(id))
+        controller.navigate(
+            MainFlowFragmentDirections.actionMainFlowFragmentToIdeaDetailsFragment(
+                id
+            )
+        )
     }
 
     override fun popBack() {
