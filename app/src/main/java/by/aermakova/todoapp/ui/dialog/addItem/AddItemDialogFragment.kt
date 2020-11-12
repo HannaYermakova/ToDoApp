@@ -9,6 +9,7 @@ import by.aermakova.todoapp.databinding.DialogAddItemBinding
 import by.aermakova.todoapp.ui.base.BaseDialogFragment
 import javax.inject.Inject
 
+
 class AddItemDialogFragment : BaseDialogFragment() {
 
     @Inject
@@ -30,7 +31,7 @@ class AddItemDialogFragment : BaseDialogFragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_add_item, null, false)
         binding.lifecycleOwner = this
         return activity?.let {
-            AlertDialog.Builder(it)
+            AlertDialog.Builder(it, R.style.FullHeightDialog)
                 .setView(binding.root)
                 .create()
         } ?: throw IllegalStateException("Activity cannot be null")

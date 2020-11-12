@@ -26,6 +26,7 @@
     <string name="error_empty_field_idea">Define title and attach Idea to the Goal!</string>
     <string name="error_empty_field_step">Define title of Step and attach it to Goal and Key Result!</string>
     <string name="error_empty_field_task">Define title of Task!</string>
+    <string name="error_adding_key_result">You can\'t add Key Result to Achieved Goal!</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>

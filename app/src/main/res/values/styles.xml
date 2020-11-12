@@ -16,6 +16,17 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="FullHeightDialog" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowSoftInputMode">stateUnchanged</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
     <style name="DoneMarkerStyle">
         <item name="android:layout_width">@dimen/toggle_size</item>
         <item name="android:layout_height">@dimen/toggle_size</item>
@@ -50,16 +61,18 @@
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
-    <style name="AccentButtonStyle">
+    <style name="ButtonStyle">
+        <item name="android:layout_margin">@dimen/margin_small</item>
         <item name="android:layout_width">@dimen/button_width</item>
         <item name="android:layout_height">@dimen/button_height</item>
+    </style>
+
+    <style name="AccentButtonStyle" parent="ButtonStyle">
         <item name="android:textColor">@color/color_white</item>
         <item name="android:background">@drawable/accent_button_bg</item>
     </style>
 
-    <style name="RegularButtonStyle">
-        <item name="android:layout_width">@dimen/button_width</item>
-        <item name="android:layout_height">@dimen/button_height</item>
+    <style name="RegularButtonStyle" parent="ButtonStyle">
         <item name="android:textColor">@color/color_blue</item>
         <item name="android:background">@drawable/regular_button_bg</item>
     </style>

@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.base
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
@@ -11,6 +12,7 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+
 
 abstract class BaseDialogFragment : DialogFragment(), HasSupportFragmentInjector {
 

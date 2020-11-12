@@ -51,8 +51,7 @@ class GoalsViewModel @Inject constructor(
         dialog.show()
     }
 
-    val actionItems: LiveData<List<CommonModel>>
-        get() = getLiveListOfGoalActionsItems()
+    val actionItems: LiveData<List<CommonModel>> = getLiveListOfGoalActionsItems()
 
     private fun getLiveListOfGoalActionsItems(): LiveData<List<CommonModel>> {
         val liveList = MutableLiveData<List<CommonModel>>()
@@ -80,7 +79,10 @@ class GoalsViewModel @Inject constructor(
     }
 
     fun addKeyResultToSelectedGoal(keyResultTitle: String) {
-        addKeyResultToGoalUseCase.addKeyResult(keyResultTitle, disposable)
+        addKeyResultToGoalUseCase.addKeyResult(
+            keyResultTitle,
+            disposable
+        ) { _status.onNext(Status.ERROR.apply { message = it }) }
     }
 
     private fun confirmExit(message: String) {

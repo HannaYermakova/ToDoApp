@@ -40,10 +40,17 @@ class GoalsModule {
     }
 
     @Provides
-    fun provideAddKeyResultToGoalUseCase(goalInteractor: GoalInteractor,
-                                         @Named("AddItemDialog") dialogNavigation: AddItemDialogNavigation,
-                                         activity: Activity) =
-        AddKeyResultToGoalUseCase(goalInteractor, dialogNavigation, activity.resources.getString(R.string.add_key_result))
+    fun provideAddKeyResultToGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @Named("AddItemDialog") dialogNavigation: AddItemDialogNavigation,
+        activity: Activity
+    ) =
+        AddKeyResultToGoalUseCase(
+            goalInteractor,
+            dialogNavigation,
+            activity.resources.getString(R.string.add_key_result),
+            activity.resources.getString(R.string.error_adding_key_result)
+        )
 
     @Provides
     fun provideBottomSheetDialog(activity: Activity): BottomSheetDialog =
