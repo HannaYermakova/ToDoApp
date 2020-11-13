@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.*
-import by.aermakova.todoapp.data.db.entity.KeyResultSteps
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.db.entity.StepTasks
 import io.reactivex.Observable
@@ -40,4 +39,10 @@ interface StepDao {
 
     @Query("SELECT * FROM steps_table WHERE step_key_result_id =:keyResultId and step_status_done = 0")
     fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>>
+
+    @Query("DELETE FROM steps_table WHERE step_goal_id =:goalId")
+    fun deleteStepByGoalId(goalId: Long)
+
+    @Query("SELECT step_id FROM steps_table WHERE step_goal_id =:goalId")
+    fun getAllStepsIdByGoalId(goalId: Long): Single<List<Long>>
 }

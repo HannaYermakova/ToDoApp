@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.interactor
 
 import by.aermakova.todoapp.data.db.entity.StepEntity
+import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.StepRemoteModel
 import by.aermakova.todoapp.data.remote.model.toLocal
@@ -15,7 +16,7 @@ import io.reactivex.disposables.Disposable
 class StepInteractor(
     private val stepRepository: StepRepository,
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
-) : RemoteSync<StepRemoteModel> {
+) : RemoteSync<StepRemoteModel>, DeleteGoalItems {
 
     fun getStepsByKeyResultId(keyResultId: Long): Observable<List<StepEntity>> {
         return stepRepository.getStepsByKeyResultId(keyResultId)
@@ -75,4 +76,14 @@ class StepInteractor(
     fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>> {
         return stepRepository.getUndoneStepsByKeyResultId(keyResultId)
     }
+
+/*    fun deleteGoalsStepsById(goalId: Long) =
+        stepRepository.getAllStepsIdByGoalId(goalId).map { ids ->
+            ids.map { stepRemoteDatabase.removeData(it) }
+        }*/
+
+    override fun deleteGoalsItemsById(goalId: Long) =
+        stepRepository.getAllStepsIdByGoalId(goalId).map { ids ->
+            ids.map { stepRemoteDatabase.removeData(it) }
+        }
 }

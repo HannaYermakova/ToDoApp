@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.repository
 
 import by.aermakova.todoapp.data.db.dao.*
+import by.aermakova.todoapp.data.db.database.GoalsDataBase
 import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
@@ -14,7 +15,8 @@ class GoalRepository @Inject constructor(
     private val keyResultDao: KeyResultDao,
     private val stepDao: StepDao,
     private val taskDao: TaskDao,
-    private val ideaDao: IdeaDao
+    private val ideaDao: IdeaDao,
+    private val database: GoalsDataBase
 ) {
 
     fun saveGoalInLocalDataBase(goalEntity: GoalEntity): Long {
@@ -136,4 +138,18 @@ class GoalRepository @Inject constructor(
 
     fun checkGoalDone(goalId: Long) =
         goalDao.checkGoalDone(goalId)
+
+    fun deleteGoalAndAllItsItems(goalId: Long) {
+        database.runInTransaction {
+            goalDao.deleteGoalById(goalId)
+            keyResultDao.deleteKeyResultByGoalId(goalId)
+            stepDao.deleteStepByGoalId(goalId)
+            taskDao.deleteTaskByGoalId(goalId)
+            ideaDao.deleteIdeaByGoalId(goalId)
+        }
+    }
+
+    fun getAllKeyResultsIdByGoalId(goalId: Long): Single<List<Long>> {
+        return goalDao.getAllKeyResultsIdByGoalId(goalId)
+    }
 }

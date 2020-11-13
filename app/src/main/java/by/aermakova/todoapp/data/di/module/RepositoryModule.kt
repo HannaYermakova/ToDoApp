@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.di.module
 
 import by.aermakova.todoapp.data.db.dao.*
+import by.aermakova.todoapp.data.db.database.GoalsDataBase
 import by.aermakova.todoapp.data.di.scope.ApplicationScope
 import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.StepRepository
@@ -18,9 +19,10 @@ class RepositoryModule {
         keyResultDao: KeyResultDao,
         taskDao: TaskDao,
         stepDao: StepDao,
-        ideaDao: IdeaDao
+        ideaDao: IdeaDao,
+        database: GoalsDataBase
     ): GoalRepository =
-        GoalRepository(goalDao, keyResultDao, stepDao, taskDao, ideaDao)
+        GoalRepository(goalDao, keyResultDao, stepDao, taskDao, ideaDao, database)
 
     @ApplicationScope
     @Provides

@@ -21,4 +21,7 @@ interface KeyResultDao {
 
     @Query("SELECT * FROM key_results_table")
     fun getAllIKeyResults(): Observable<List<KeyResultEntity>>
+
+    @Query("DELETE FROM key_results_table WHERE key_result_goal_id =:goalId")
+    fun deleteKeyResultByGoalId(goalId: Long)
 }

@@ -8,9 +8,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.*
 import by.aermakova.todoapp.data.useCase.AddItemToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
+import by.aermakova.todoapp.data.useCase.DeleteGoalUseCase
 import by.aermakova.todoapp.data.useCase.GoalBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
@@ -37,19 +38,41 @@ class GoalsModule {
         @Named("AddTaskUseCase") addTaskToGoalUseCase: AddItemToGoalUseCase<TasksNavigation>,
         @Named("AddStepUseCase") addStepToGoalUseCase: AddItemToGoalUseCase<StepsNavigation>,
         @Named("AddIdeaUseCase") addIdeaToGoalUseCase: AddItemToGoalUseCase<IdeasNavigation>,
+        deleteGoalUseCase: DeleteGoalUseCase,
         addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
         goalActionBind: BottomSheetGoalActionBinding,
-        dialog: BottomSheetDialog
-
+        dialog: BottomSheetDialog,
+        goalActionItems: Array<GoalsActionItem>,
+        resources: Resources
     ) =
         GoalBottomSheetMenuUseCase(
             addTaskToGoalUseCase,
             addStepToGoalUseCase,
             addIdeaToGoalUseCase,
+            deleteGoalUseCase,
             addKeyResultToGoalUseCase,
             goalActionBind,
             dialog,
+            goalActionItems,
+            resources
         )
+
+    @Provides
+    fun provideDeleteGoalUseCase(
+        goalInteractor: GoalInteractor,
+        keyResultInteractor: KeyResultInteractor,
+        stepInteractor: StepInteractor,
+        taskInteractor: TaskInteractor,
+        ideaInteractor: IdeaInteractor,
+        @Named("DeleteGoal") errorDeleteGoalMessage: String
+    ) = DeleteGoalUseCase(
+        goalInteractor,
+        keyResultInteractor,
+        stepInteractor,
+        taskInteractor,
+        ideaInteractor,
+        errorDeleteGoalMessage
+    )
 
     @Provides
     @Named("AddIdeaUseCase")
@@ -147,6 +170,11 @@ class GoalsModule {
     @Named("AchievedGoalIdea")
     fun provideErrorAchievedGoalIdea(activity: Activity) =
         activity.getString(R.string.error_adding_idea)
+
+    @Provides
+    @Named("DeleteGoal")
+    fun provideErrorDeleteGoal(activity: Activity) =
+        activity.getString(R.string.error_delete_goal)
 
     @Provides
     fun provideBottomSheetDialog(activity: Activity): BottomSheetDialog =

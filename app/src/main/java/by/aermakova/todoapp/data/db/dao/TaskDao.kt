@@ -40,4 +40,10 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks_table WHERE task_key_result_id IN (:keyResIds)")
     fun getTasksByKeyResultsIds(keyResIds: List<Long>): Single<List<TaskEntity>>
+
+    @Query("DELETE FROM tasks_table WHERE task_goal_id =:goalId")
+    fun deleteTaskByGoalId(goalId: Long)
+
+    @Query("SELECT task_id FROM tasks_table WHERE task_goal_id = :goalId")
+    fun getAllTasksIdByGoalId(goalId: Long): Single<List<Long>>
 }

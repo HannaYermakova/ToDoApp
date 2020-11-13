@@ -37,4 +37,8 @@ class TaskRepository @Inject constructor(
     fun saveTasks(taskEntities: List<TaskEntity>) {
         taskDao.insertAllTasks(taskEntities)
     }
+
+    fun getAllTasksIdByGoalId(goalId: Long): Single<List<Long>> {
+        return taskDao.getAllTasksIdByGoalId(goalId)
+    }
 }

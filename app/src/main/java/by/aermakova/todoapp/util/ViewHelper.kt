@@ -1,11 +1,9 @@
 package by.aermakova.todoapp.util
 
 import android.app.Activity
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-
 
 fun provideClickToParent(child: View?) {
     val parent = child?.parent as? View
@@ -32,6 +30,5 @@ fun Activity.hideKeyboard() {
     if (view == null) {
         view = View(this)
     }
-    Log.d("ViewHelper", "hide keyboard")
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

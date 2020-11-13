@@ -5,8 +5,9 @@ import by.aermakova.todoapp.data.remote.model.BaseRemoteModel
 import com.google.firebase.database.*
 import io.reactivex.Observer
 
-abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
-    private val databaseReference: DatabaseReference
+class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
+    private val databaseReference: DatabaseReference,
+    private val valueType: Class<Type>
 ) : RemoteDatabase<Type> {
 
     companion object {
@@ -40,8 +41,8 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
         })
     }
 
-    override fun removeData(id: String) {
-        val query = createQuery(id)
+    override fun removeData(id: Long) {
+        val query = createQuery(id.toString())
         query?.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
@@ -79,5 +80,12 @@ abstract class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
         }
     }
 
-    abstract fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<Type>
+    private fun convertDataSnapshotToList(iterable: Iterable<DataSnapshot>): List<Type> {
+        val list = arrayListOf<Type>()
+        for (snapshot in iterable) {
+            val model = snapshot.getValue(valueType)
+            model?.let { list.add(it) }
+        }
+        return list
+    }
 }

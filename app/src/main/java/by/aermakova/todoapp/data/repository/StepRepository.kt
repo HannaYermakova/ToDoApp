@@ -46,4 +46,7 @@ class StepRepository @Inject constructor(
     fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>> {
         return stepDao.getUndoneStepsByKeyResultId(keyResultId)
     }
+
+    fun getAllStepsIdByGoalId(goalId: Long): Single<List<Long>> =
+        stepDao.getAllStepsIdByGoalId(goalId)
 }

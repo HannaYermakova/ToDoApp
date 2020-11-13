@@ -107,4 +107,10 @@ interface GoalDao {
 
     @Query("SELECT goal_status_done FROM goals_table WHERE goal_id =:goalId")
     fun checkGoalDone(goalId: Long): Single<Boolean>
+
+    @Query("DELETE FROM goals_table WHERE goal_id =:goalId")
+    fun deleteGoalById(goalId: Long)
+
+    @Query("SELECT key_result_id FROM key_results_table WHERE key_result_goal_id =:goalId")
+    fun getAllKeyResultsIdByGoalId(goalId: Long): Single<List<Long>>
 }

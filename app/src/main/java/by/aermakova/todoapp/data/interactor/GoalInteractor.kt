@@ -7,6 +7,7 @@ import by.aermakova.todoapp.data.model.FunctionSelect
 import by.aermakova.todoapp.data.model.GoalModel
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toTextModel
+import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.*
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
@@ -172,4 +173,14 @@ class GoalInteractor(
 
     fun checkGoalDone(goalId: Long) =
         goalRepository.checkGoalDone(goalId)
+
+    fun deleteGoalAndAllItsItemsLocal(goalId: Long):Single<Boolean> {
+        goalRepository.deleteGoalAndAllItsItems(goalId)
+        return Single.just(true)
+    }
+
+    fun deleteGoalByIdRemote(goalId: Long):Single<Boolean> {
+        goalsRemoteDatabase.removeData(goalId)
+        return Single.just(true)
+    }
 }

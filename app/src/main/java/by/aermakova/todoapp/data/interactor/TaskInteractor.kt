@@ -4,6 +4,7 @@ import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toTextModel
+import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.TaskRemoteModel
 import by.aermakova.todoapp.data.remote.model.toLocal
@@ -20,7 +21,7 @@ import io.reactivex.disposables.Disposable
 class TaskInteractor(
     private val taskRepository: TaskRepository,
     private val taskRemoteDatabase: RemoteDatabase<TaskRemoteModel>
-): RemoteSync<TaskRemoteModel> {
+): RemoteSync<TaskRemoteModel>, DeleteGoalItems {
 
     fun saveTaskInLocalDatabase(
         text: String,
@@ -96,4 +97,14 @@ class TaskInteractor(
     override fun saveItemsInLocalDatabase(list: List<TaskRemoteModel>) {
         taskRepository.saveTasks(list.map { it.toLocal() })
     }
+
+/*    fun deleteGoalsTasksById(goalId: Long) =
+        taskRepository.getAllTasksIdByGoalId(goalId).map { ids ->
+            ids.map { taskRemoteDatabase.removeData(it) }
+        }*/
+
+    override fun deleteGoalsItemsById(goalId: Long) =
+        taskRepository.getAllTasksIdByGoalId(goalId).map { ids ->
+            ids.map { taskRemoteDatabase.removeData(it) }
+        }
 }

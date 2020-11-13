@@ -30,6 +30,7 @@
     <string name="error_adding_task">You can\'t add Task to Achieved Goal!</string>
     <string name="error_adding_step">You can\'t add Step to Achieved Goal!</string>
     <string name="error_adding_idea">You can\'t add Idea to Achieved Goal!</string>
+    <string name="error_delete_goal">Error while deleting Goal</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>
@@ -47,6 +48,8 @@
     <string name="title_add_step">Add Step</string>
     <string name="title_add_key_result">Add Key Result</string>
     <string name="title_add_idea">Add Idea</string>
+    <string name="title_edit_goal">Edit Goal</string>
+    <string name="title_delete_goal">Delete Goal</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
     <string name="confirm_exit_message">Are you sure you want to log out?</string>
