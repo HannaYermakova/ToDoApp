@@ -12,6 +12,8 @@ interface MainFlowNavigation {
 
     fun navigateToAddNewElementFragment(goalId: Long = -1L)
 
+    fun navigateToEditElementFragment(id: Long)
+
     fun navigateToShowDetailsFragment(id: Long)
 
     fun popBack()

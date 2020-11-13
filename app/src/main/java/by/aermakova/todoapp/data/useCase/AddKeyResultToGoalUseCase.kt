@@ -3,7 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,17 +16,15 @@ class AddKeyResultToGoalUseCase(
     private val errorMessage: String
 ) {
 
-    private var goalId = INIT_SELECTED_GOAL_ID
-
     val keyResultObserver: LiveData<String>?
         get() = dialogNavigation.getDialogResult()
 
-    fun openDialog(goalId: Long) {
-        this.goalId = goalId
+    fun openDialog() {
         dialogNavigation.openItemDialog(addKeyResultDialogTitle)
     }
 
     fun addKeyResult(
+        goalId: Long,
         keyResultTitle: String,
         disposable: CompositeDisposable,
         errorAction: (String) -> Unit
@@ -53,11 +51,8 @@ class AddKeyResultToGoalUseCase(
                 }
                 .flatMap { goalInteractor.getKeyResultsById(it) }
                 .subscribe(
-                    {
-                        goalInteractor.addKeyResultToGoalInRemote(it)
-                        goalId = INIT_SELECTED_GOAL_ID
-                    },
-                    { it.printStackTrace() }
+                    { goalInteractor.addKeyResultToGoalInRemote(it) },
+                    { it.handleError(errorMessage, errorAction) }
                 )
         )
     }

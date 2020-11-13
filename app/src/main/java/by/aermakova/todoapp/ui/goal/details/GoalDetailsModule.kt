@@ -31,8 +31,8 @@ class GoalDetailsModule {
         activity.getString(R.string.error_while_loading)
 
     @Provides
-    fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =
-        FindGoalUseCase(goalInteractor)
+    fun provideFindGoalUseCase(goalInteractor: GoalInteractor, errorMessage: String) =
+        FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
     fun provideArgs(fragment: GoalDetailsFragment): Long {

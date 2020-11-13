@@ -7,7 +7,6 @@ import by.aermakova.todoapp.data.model.FunctionSelect
 import by.aermakova.todoapp.data.model.GoalModel
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toTextModel
-import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.data.remote.RemoteDatabase
 import by.aermakova.todoapp.data.remote.model.*
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
@@ -50,9 +49,8 @@ class GoalInteractor(
         return goalId
     }
 
-    fun getGoalKeyResultsById(goalId: Long): Single<GoalKeyResults> {
-        return goalRepository.getGoalWithKeyResultsById(goalId)
-    }
+    fun getGoalKeyResultsById(goalId: Long) =
+        goalRepository.getGoalWithKeyResultsById(goalId)
 
     fun saveGoalAndKeyResultsToRemote(goalKeyResults: GoalKeyResults) {
         goalsRemoteDatabase.saveData(goalKeyResults.goal.toRemote())
@@ -81,8 +79,8 @@ class GoalInteractor(
         return goalRepository.getGoalWithInnerItems(goalId, action)
     }
 
-    fun updateGoal(status: Boolean, goalId: Long): Boolean {
-        goalRepository.updateGoal(status, goalId)
+    fun updateGoalStatus(status: Boolean, goalId: Long): Boolean {
+        goalRepository.updateGoalStatus(status, goalId)
         return true
     }
 
@@ -174,13 +172,21 @@ class GoalInteractor(
     fun checkGoalDone(goalId: Long) =
         goalRepository.checkGoalDone(goalId)
 
-    fun deleteGoalAndAllItsItemsLocal(goalId: Long):Single<Boolean> {
+    fun deleteGoalAndAllItsItemsLocal(goalId: Long): Single<Boolean> {
         goalRepository.deleteGoalAndAllItsItems(goalId)
         return Single.just(true)
     }
 
-    fun deleteGoalByIdRemote(goalId: Long):Single<Boolean> {
+    fun deleteGoalByIdRemote(goalId: Long): Single<Boolean> {
         goalsRemoteDatabase.removeData(goalId)
         return Single.just(true)
+    }
+
+    fun updateGoalTextLocal(newGoalTitle: String, goalId: Long): Boolean {
+        return goalRepository.updateGoalText(newGoalTitle, goalId)
+    }
+
+    fun updateGoalTextRemote(updatedGoalEntity: GoalEntity) {
+        goalsRemoteDatabase.updateData(updatedGoalEntity.toRemote())
     }
 }

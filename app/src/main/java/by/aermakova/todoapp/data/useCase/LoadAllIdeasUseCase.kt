@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -45,9 +46,6 @@ fun <Model> Observable<List<Model>>.observeList(
                     successAction.invoke(it)
                 }
             },
-            {
-                errorAction?.invoke(errorMessage)
-                it.printStackTrace()
-            }
+            { it.handleError(errorMessage, errorAction) }
         )
 }

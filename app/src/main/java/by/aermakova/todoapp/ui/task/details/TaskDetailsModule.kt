@@ -16,13 +16,22 @@ import by.aermakova.todoapp.ui.task.TasksNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Named
 
 @Module
 class TaskDetailsModule {
 
     @Provides
-    fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =
-        FindGoalUseCase(goalInteractor)
+    fun provideFindGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @Named("FindGoal") errorMessage: String
+    ) =
+        FindGoalUseCase(goalInteractor, errorMessage)
+
+    @Provides
+    @Named("FindGoal")
+    fun provideFindGoalErrorMessage(activity: Activity) =
+        activity.getString(R.string.error_find_goal)
 
     @Provides
     fun provideFindStepUseCase(stepInteractor: StepInteractor) =

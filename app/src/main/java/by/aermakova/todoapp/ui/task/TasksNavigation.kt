@@ -20,6 +20,10 @@ class TasksNavigation(private val controller: NavController) : MainFlowNavigatio
         }
     }
 
+    override fun navigateToEditElementFragment(id: Long) {
+
+    }
+
     override fun navigateToShowDetailsFragment(id: Long) {
         controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToTaskDetailsFragment(id))
     }

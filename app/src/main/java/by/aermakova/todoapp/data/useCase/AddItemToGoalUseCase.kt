@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,7 +30,7 @@ class AddItemToGoalUseCase<Navigator : MainFlowNavigation>(
                             errorAction.invoke(errorMessage)
                         }
                     },
-                    { it.printStackTrace() }
+                    { it.handleError(errorMessage, errorAction) }
                 )
         )
     }

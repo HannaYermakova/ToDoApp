@@ -22,7 +22,7 @@ class LoadAllGoalsUseCase(
     ) {
         disposable.add(
             Single.create<Boolean> {
-                it.onSuccess(goalInteractor.updateGoal(true, goalId))
+                it.onSuccess(goalInteractor.updateGoalStatus(true, goalId))
             }
                 .map { mapAction.invoke() }
                 .subscribeOn(Schedulers.io())

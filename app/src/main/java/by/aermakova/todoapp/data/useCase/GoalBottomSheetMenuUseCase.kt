@@ -59,6 +59,7 @@ class GoalBottomSheetMenuUseCase(
         errorAction: (String) -> Unit
     ) {
         addKeyResultToGoalUseCase.addKeyResult(
+            selectedGoalId,
             keyResultTitle,
             disposable,
             errorAction
@@ -72,9 +73,7 @@ class GoalBottomSheetMenuUseCase(
     ) {
         dialog.dismiss()
         when (action) {
-            GoalsActionItem.ADD_KEY_RESULT_TO_GOAL -> addKeyResultToGoalUseCase.openDialog(
-                selectedGoalId
-            )
+            GoalsActionItem.ADD_KEY_RESULT_TO_GOAL -> addKeyResultToGoalUseCase.openDialog()
             GoalsActionItem.ADD_STEP_TO_GOAL -> addStepToGoalUseCase.checkGoalAndOpenDialog(
                 disposable,
                 selectedGoalId,

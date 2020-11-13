@@ -103,6 +103,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/mainFlowFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainFlowFragment_to_editGoalFragment"
+            app:destination="@id/editGoalFragment" />
     </fragment>
 
     <fragment
@@ -306,4 +309,14 @@
     <action
         android:id="@+id/action_global_confirmDialogFragment"
         app:destination="@id/confirmDialogFragment" />
+
+    <fragment
+        android:id="@+id/editGoalFragment"
+        android:name="by.aermakova.todoapp.ui.goal.edit.EditGoalFragment"
+        android:label="EditGoalFragment" >
+        <argument
+            android:name="goalId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 </navigation>

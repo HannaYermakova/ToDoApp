@@ -2,8 +2,14 @@ package by.aermakova.todoapp.data.di.module
 
 import by.aermakova.todoapp.ui.app.AppActivity
 import by.aermakova.todoapp.ui.app.AppModule
+import by.aermakova.todoapp.ui.auth.login.LoginFragment
+import by.aermakova.todoapp.ui.auth.login.LoginModule
+import by.aermakova.todoapp.ui.auth.register.RegisterFragment
+import by.aermakova.todoapp.ui.auth.register.RegisterModule
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemModule
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogFragment
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmModule
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskDialogFragment
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskModule
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogFragment
@@ -16,6 +22,8 @@ import by.aermakova.todoapp.ui.goal.addNew.AddGoalFragment
 import by.aermakova.todoapp.ui.goal.addNew.AddGoalModule
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsFragment
 import by.aermakova.todoapp.ui.goal.details.GoalDetailsModule
+import by.aermakova.todoapp.ui.goal.edit.EditGoalFragment
+import by.aermakova.todoapp.ui.goal.edit.EditGoalModule
 import by.aermakova.todoapp.ui.goal.main.GoalsFragment
 import by.aermakova.todoapp.ui.goal.main.GoalsModule
 import by.aermakova.todoapp.ui.idea.addNew.AddIdeaFragment
@@ -24,14 +32,8 @@ import by.aermakova.todoapp.ui.idea.details.IdeaDetailsFragment
 import by.aermakova.todoapp.ui.idea.details.IdeaDetailsModule
 import by.aermakova.todoapp.ui.idea.main.IdeaFragment
 import by.aermakova.todoapp.ui.idea.main.IdeaModule
-import by.aermakova.todoapp.ui.auth.login.LoginFragment
-import by.aermakova.todoapp.ui.auth.login.LoginModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
 import by.aermakova.todoapp.ui.main.MainFlowModule
-import by.aermakova.todoapp.ui.auth.register.RegisterFragment
-import by.aermakova.todoapp.ui.auth.register.RegisterModule
-import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogFragment
-import by.aermakova.todoapp.ui.dialog.confirm.ConfirmModule
 import by.aermakova.todoapp.ui.splash.SplashActivity
 import by.aermakova.todoapp.ui.splash.SplashModule
 import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
@@ -123,4 +125,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [ConvertIdeaIntoTaskModule::class])
     abstract fun provideConvertIdeaFragment(): ConvertIdeaIntoTaskDialogFragment
+
+    @ContributesAndroidInjector(modules = [EditGoalModule::class])
+    abstract fun provideEditGoalFragment(): EditGoalFragment
 }

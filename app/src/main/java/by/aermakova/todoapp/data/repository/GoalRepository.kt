@@ -47,9 +47,8 @@ class GoalRepository @Inject constructor(
         return keyResultDao.getKeyResultById(keyResultId)
     }
 
-    fun getGoalWithKeyResultsById(id: Long): Single<GoalKeyResults> {
-        return goalDao.getGoalWithKeyResultsById(id)
-    }
+    fun getGoalWithKeyResultsById(id: Long) =
+        goalDao.getGoalWithKeyResultsById(id)
 
     private fun getStepWithTasks(stepId: List<Long>): Single<List<StepInGoalModel>> {
         return stepDao.getStepsWithTasksById(stepId)
@@ -115,8 +114,8 @@ class GoalRepository @Inject constructor(
         return goalDao.getObsGoalById(goalId)
     }
 
-    fun updateGoal(status: Boolean, goalId: Long) {
-        goalDao.updateAllGoalItems(status, goalId)
+    fun updateGoalStatus(status: Boolean, goalId: Long) {
+        goalDao.updateAllGoalItemsStatus(status, goalId)
     }
 
     fun getKeyResultsByGoalId(goalId: Long): Single<List<KeyResultEntity>> {
@@ -151,5 +150,9 @@ class GoalRepository @Inject constructor(
 
     fun getAllKeyResultsIdByGoalId(goalId: Long): Single<List<Long>> {
         return goalDao.getAllKeyResultsIdByGoalId(goalId)
+    }
+
+    fun updateGoalText(newGoalText: String, goalId: Long): Boolean {
+        return goalDao.updateGoalText(newGoalText, goalId) > 0
     }
 }

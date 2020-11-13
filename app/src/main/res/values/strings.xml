@@ -31,6 +31,8 @@
     <string name="error_adding_step">You can\'t add Step to Achieved Goal!</string>
     <string name="error_adding_idea">You can\'t add Idea to Achieved Goal!</string>
     <string name="error_delete_goal">Error while deleting Goal</string>
+    <string name="error_find_goal">Error while finding Goal</string>
+    <string name="error_change_goal_text">Error while changing Goal title</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>
@@ -52,9 +54,11 @@
     <string name="title_delete_goal">Delete Goal</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
+    <string name="edit_goal_title">Edit your Goal</string>
     <string name="confirm_exit_message">Are you sure you want to log out?</string>
     <string name="add_new_goal_instruction">Add new Goal and specify several Key Results that belong to that Goal</string>
-    <string name="add_key_results">Specify several Key Results\nthat belong to the Goal</string>
+    <string name="specify_key_results">Specify several Key Results\nthat belong to the Goal</string>
+    <string name="add_key_results">Add Key Results to the Goal</string>
     <string name="add_key_result">Specify Key Result</string>
     <string name="key_results">Key results of the Goal:</string>
     <string name="enter_goal_hint">Name your Goal</string>

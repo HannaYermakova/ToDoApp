@@ -40,42 +40,45 @@ interface GoalDao {
     fun getKeyResultWithStepsById(keyRes: Long): Single<KeyResultSteps>
 
     @Query("UPDATE goals_table SET goal_status_done = :status WHERE goal_id = :goalId")
-    fun updateGoal(status: Boolean, goalId: Long)
+    fun updateGoalStatus(status: Boolean, goalId: Long)
+
+    @Query("UPDATE goals_table SET text = :newGoalText WHERE goal_id = :goalId")
+    fun updateGoalText(newGoalText: String, goalId: Long) : Int
 
     @Query("UPDATE tasks_table SET task_status_done = :status WHERE task_goal_id = :goalId")
-    fun updateTasksInGoal(status: Boolean, goalId: Long)
+    fun updateTasksInGoalStatus(status: Boolean, goalId: Long)
 
     @Query("UPDATE tasks_table SET task_status_done = :status WHERE task_key_result_id  IN (:keyResultIds)")
-    fun updateTasksInKeyResult(status: Boolean, keyResultIds: List<Long>)
+    fun updateTasksInKeyResultStatus(status: Boolean, keyResultIds: List<Long>)
 
     @Query("UPDATE key_results_table SET key_result_status_done = :status WHERE key_result_goal_id = :goalId")
-    fun updateKeyResultsInGoal(status: Boolean, goalId: Long)
+    fun updateKeyResultsStatusInGoal(status: Boolean, goalId: Long)
 
     @Query("UPDATE key_results_table SET key_result_status_done = :status WHERE key_result_id IN (:keyResultIds)")
-    fun updateKeyResults(status: Boolean, keyResultIds: List<Long>)
+    fun updateKeyResultsStatus(status: Boolean, keyResultIds: List<Long>)
 
     @Query("UPDATE steps_table SET step_status_done = :status WHERE step_goal_id = :goalId")
-    fun updateStepsInGoal(status: Boolean, goalId: Long)
+    fun updateStepsInGoalStatus(status: Boolean, goalId: Long)
 
     @Query("UPDATE steps_table SET step_status_done = :status WHERE step_key_result_id IN (:keyResultIds)")
-    fun updateStepsInKeyResult(status: Boolean, keyResultIds: List<Long>)
+    fun updateStepsInKeyResultStatus(status: Boolean, keyResultIds: List<Long>)
 
     @Query("SELECT * FROM key_results_table WHERE key_result_goal_id =:goalId ")
     fun getKeyResultByGoalId(goalId: Long): Single<List<KeyResultEntity>>
 
     @Transaction
-    fun updateAllGoalItems(status: Boolean, goalId: Long) {
-        updateGoal(status, goalId)
-        updateTasksInGoal(status, goalId)
-        updateKeyResultsInGoal(status, goalId)
-        updateStepsInGoal(status, goalId)
+    fun updateAllGoalItemsStatus(status: Boolean, goalId: Long) {
+        updateGoalStatus(status, goalId)
+        updateTasksInGoalStatus(status, goalId)
+        updateKeyResultsStatusInGoal(status, goalId)
+        updateStepsInGoalStatus(status, goalId)
     }
 
     @Transaction
     fun updateKeyResultsInGoal(status: Boolean, keyResultIds: List<Long>) {
-        updateKeyResults(status, keyResultIds)
-        updateTasksInKeyResult(status, keyResultIds)
-        updateStepsInKeyResult(status, keyResultIds)
+        updateKeyResultsStatus(status, keyResultIds)
+        updateTasksInKeyResultStatus(status, keyResultIds)
+        updateStepsInKeyResultStatus(status, keyResultIds)
     }
 
     @Query("SELECT * FROM key_results_table WHERE key_result_id IN (:keyResultIds)")

@@ -57,8 +57,8 @@ class StepDetailsModule {
         FindTaskUseCase(taskInteractor)
 
     @Provides
-    fun provideFindGoalUseCase(goalInteractor: GoalInteractor) =
-        FindGoalUseCase(goalInteractor)
+    fun provideFindGoalUseCase(goalInteractor: GoalInteractor, errorMessage: String) =
+        FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
     fun provideArgs(fragment: StepDetailsFragment): Long {
