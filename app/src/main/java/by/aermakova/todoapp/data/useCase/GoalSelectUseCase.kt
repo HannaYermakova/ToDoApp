@@ -3,7 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toTextModel
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
+import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +25,7 @@ class GoalSelectUseCase(
 
     fun addCreationOfGoalListToDisposable(
         disposable: CompositeDisposable,
-        selectedGoalId: Long = INIT_SELECTED_GOAL_ID
+        selectedGoalId: Long = INIT_SELECTED_ITEM_ID
     ) {
         disposable.add(
             goalInteractor.getAllUndoneGoals()
@@ -34,7 +34,7 @@ class GoalSelectUseCase(
                 .subscribe(
                     {
                         _goalsList.onNext(it.map { item ->
-                            if (selectedGoalId > INIT_SELECTED_GOAL_ID) {
+                            if (selectedGoalId > INIT_SELECTED_ITEM_ID) {
                                 if (item.goalId == selectedGoalId) {
                                     _selectedGoal.onNext(item.toTextModel())
                                 }

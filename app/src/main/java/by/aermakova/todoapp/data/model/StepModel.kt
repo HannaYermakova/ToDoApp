@@ -11,12 +11,14 @@ data class StepModel(
     val status: Boolean,
     val text: String,
     val stepItemsList: List<CommonModel>? = null,
-    val action: FunctionLong? = null
-) : CommonModel(stepId, R.layout.item_step, BR.step, action)
+    val action: FunctionLong? = null,
+    val longAction: FunctionLong? = null
+) : CommonModel(stepId, R.layout.item_step, BR.step, action, longAction)
 
 fun StepEntity.toCommonModel(
     innerObjects: List<CommonModel>? = null,
-    clickAction: FunctionLong? = null
+    clickAction: FunctionLong? = null,
+    longAction: FunctionLong? = null
 ): StepModel {
     return StepModel(
         stepId,
@@ -25,6 +27,7 @@ fun StepEntity.toCommonModel(
         stepStatusDone,
         text,
         innerObjects,
-        clickAction
+        clickAction,
+        longAction
     )
 }

@@ -177,6 +177,11 @@ class GoalInteractor(
         return Single.just(true)
     }
 
+    fun deleteStepAndAllItsItemsLocal(stepId: Long): Single<Boolean> {
+        goalRepository.deleteStepAndAllItsItems(stepId)
+        return Single.just(true)
+    }
+
     fun deleteGoalByIdRemote(goalId: Long): Single<Boolean> {
         goalsRemoteDatabase.removeData(goalId)
         return Single.just(true)

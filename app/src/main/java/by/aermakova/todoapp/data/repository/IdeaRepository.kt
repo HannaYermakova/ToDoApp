@@ -33,4 +33,7 @@ class IdeaRepository @Inject constructor(
 
     fun getAllIdeasIdByGoalId(goalId: Long): Single<List<Long>> =
         ideaDao.getAllIdeasIdsByGoalId(goalId)
+
+    fun getAllIdeasIdByStepId(stepId: Long): Single<List<Long>> =
+        ideaDao.getAllIdeasIdsByStepId(stepId)
 }

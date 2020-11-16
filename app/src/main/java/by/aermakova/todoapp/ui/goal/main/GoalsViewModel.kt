@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 import javax.inject.Named
 
-const val INIT_SELECTED_GOAL_ID = -1L
+const val INIT_SELECTED_ITEM_ID = -1L
 
 class GoalsViewModel @Inject constructor(
     @Named("GoalsNavigation") private val navigation: MainFlowNavigation,

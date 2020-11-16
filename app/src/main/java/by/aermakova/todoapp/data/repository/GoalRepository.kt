@@ -148,6 +148,14 @@ class GoalRepository @Inject constructor(
         }
     }
 
+    fun deleteStepAndAllItsItems(stepId: Long) {
+        database.runInTransaction {
+            stepDao.deleteStepById(stepId)
+            taskDao.deleteTaskByStepId(stepId)
+            ideaDao.deleteIdeaByStepId(stepId)
+        }
+    }
+
     fun getAllKeyResultsIdByGoalId(goalId: Long): Single<List<Long>> {
         return goalDao.getAllKeyResultsIdByGoalId(goalId)
     }

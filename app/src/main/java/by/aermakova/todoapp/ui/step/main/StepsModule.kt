@@ -1,30 +1,103 @@
 package by.aermakova.todoapp.ui.step.main
 
 import android.app.Activity
+import android.content.res.Resources
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.DeleteStepUseCase
 import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
+import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
+import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
+import by.aermakova.todoapp.util.StepsActionItem
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Named
 
 @Module
 class StepsModule {
 
     @Provides
+    fun provideGoalBottomSheetMenuUseCase(
+        deleteStepUseCase: DeleteStepUseCase,
+        stepActionBind: BottomSheetStepActionBinding,
+        dialog: BottomSheetDialog,
+        stepActionItems: Array<StepsActionItem>,
+        resources: Resources
+    ) =
+        StepBottomSheetMenuUseCase(
+            deleteStepUseCase,
+            stepActionBind,
+            dialog,
+            stepActionItems,
+            resources
+        )
+
+    @Provides
+    fun provideResources(activity: Activity): Resources =
+        activity.resources
+
+    @Provides
+    fun provideBottomSheetDialog(activity: Activity): BottomSheetDialog =
+        BottomSheetDialog(activity)
+
+    @Provides
+    fun provideStepsActionItem(): Array<StepsActionItem> {
+        return StepsActionItem.values()
+    }
+
+    @Provides
+    fun provideBottomSheetStepActionBinding(fragment: StepsFragment): BottomSheetStepActionBinding {
+        val bind: BottomSheetStepActionBinding = DataBindingUtil.inflate(
+            fragment.layoutInflater,
+            R.layout.bottom_sheet_step_action,
+            null,
+            false
+        )
+        bind.lifecycleOwner = fragment
+        return bind
+    }
+
+    @Provides
+    fun provideDeleteStepUseCase(
+        goalInteractor: GoalInteractor,
+        stepInteractor: StepInteractor,
+        taskInteractor: TaskInteractor,
+        ideaInteractor: IdeaInteractor,
+        @Named("DeleteStep") errorMessage: String
+    ) = DeleteStepUseCase(
+        goalInteractor,
+        stepInteractor,
+        taskInteractor,
+        ideaInteractor,
+        errorMessage
+    )
+
+    @Provides
+    @Named("DeleteStep")
+    fun provideErrorDeleteStepMessage(activity: Activity) =
+        activity.getString(R.string.error_delete_step)
+
+    @Provides
     fun provideLoadAllStepsUseCase(
         stepInteractor: StepInteractor,
-        errorMessage: String
+        @Named("LoadSteps") errorMessage: String
     ) =
         LoadAllStepsUseCase(stepInteractor, errorMessage)
 
     @Provides
+    @Named("LoadSteps")
     fun provideErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_loading)
 

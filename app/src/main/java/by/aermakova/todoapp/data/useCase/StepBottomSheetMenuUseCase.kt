@@ -1,0 +1,64 @@
+package by.aermakova.todoapp.data.useCase
+
+import android.content.res.Resources
+import androidx.lifecycle.LiveData
+import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
+import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
+import by.aermakova.todoapp.ui.step.main.StepsViewModel
+import by.aermakova.todoapp.util.StepsActionItem
+import by.aermakova.todoapp.util.getLiveListOfActionsItems
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import io.reactivex.disposables.CompositeDisposable
+
+class StepBottomSheetMenuUseCase(
+    private val deleteStepUseCase: DeleteStepUseCase,
+    private val stepActionBind: BottomSheetStepActionBinding,
+    private val dialog: BottomSheetDialog,
+    private val stepActionItems: Array<StepsActionItem>,
+    private val resources: Resources
+) {
+
+    private var selectedStepId = INIT_SELECTED_ITEM_ID
+
+    fun openBottomSheetActions(id: Long, viewModel: StepsViewModel) {
+        stepActionBind.viewModel = viewModel
+        selectedStepId = id
+        dialog.setContentView(stepActionBind.root)
+        dialog.show()
+    }
+
+    fun getLiveListOfStepActionsItems(
+        disposable: CompositeDisposable,
+        errorAction: (String) -> Unit
+    ): LiveData<List<CommonModel>> {
+        return stepActionItems.getLiveListOfActionsItems(
+            disposable,
+            errorAction,
+            resources,
+            { item, disp, error -> stepAction(item, disp, error) }
+        )
+    }
+
+    private fun stepAction(
+        action: StepsActionItem,
+        disposable: CompositeDisposable,
+        errorAction: (String) -> Unit
+    ) {
+        dialog.dismiss()
+        when (action) {
+            StepsActionItem.ADD_TASK_TO_STEP -> {
+            }
+            StepsActionItem.ADD_IDEA_TO_STEP -> {
+            }
+            StepsActionItem.EDIT_STEP -> {
+            }
+            StepsActionItem.DELETE_STEP -> deleteStepUseCase.deleteById(
+                selectedStepId,
+                disposable,
+                errorAction
+            )
+        }
+        selectedStepId = INIT_SELECTED_ITEM_ID
+    }
+}

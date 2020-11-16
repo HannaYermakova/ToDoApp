@@ -45,4 +45,7 @@ interface StepDao {
 
     @Query("SELECT step_id FROM steps_table WHERE step_goal_id =:goalId")
     fun getAllStepsIdByGoalId(goalId: Long): Single<List<Long>>
+
+    @Query("DELETE FROM steps_table WHERE step_id =:stepId")
+    fun deleteStepById(stepId: Long)
 }

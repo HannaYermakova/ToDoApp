@@ -17,7 +17,9 @@
         app:cardBackgroundColor="@color/color_white_milk"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:itemId="@{step.stepId}"
+        app:itemLongId="@{step.stepId}"
         app:onClickItem="@{step.action}"
+        app:onLongClickItem="@{step.longAction}"
         tools:layout_margin="@dimen/margin_small">
 
         <androidx.constraintlayout.widget.ConstraintLayout

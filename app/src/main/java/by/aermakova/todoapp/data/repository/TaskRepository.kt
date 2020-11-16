@@ -41,4 +41,8 @@ class TaskRepository @Inject constructor(
     fun getAllTasksIdByGoalId(goalId: Long): Single<List<Long>> {
         return taskDao.getAllTasksIdByGoalId(goalId)
     }
+
+    fun getAllTasksIdByStepId(stepId: Long): Single<List<Long>> {
+        return taskDao.getAllTasksIdByStepId(stepId)
+    }
 }

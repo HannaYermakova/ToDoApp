@@ -77,13 +77,13 @@ class StepInteractor(
         return stepRepository.getUndoneStepsByKeyResultId(keyResultId)
     }
 
-/*    fun deleteGoalsStepsById(goalId: Long) =
-        stepRepository.getAllStepsIdByGoalId(goalId).map { ids ->
-            ids.map { stepRemoteDatabase.removeData(it) }
-        }*/
-
     override fun deleteGoalsItemsById(goalId: Long) =
         stepRepository.getAllStepsIdByGoalId(goalId).map { ids ->
             ids.map { stepRemoteDatabase.removeData(it) }
         }
+
+    fun deleteStepByIdRemote(stepId: Long): Single<Boolean> {
+        stepRemoteDatabase.removeData(stepId)
+        return Single.just(true)
+    }
 }

@@ -1,19 +1,19 @@
 package by.aermakova.todoapp.data.useCase
 
 import android.content.res.Resources
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.goal.main.GoalsViewModel
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
+import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.GoalsActionItem
+import by.aermakova.todoapp.util.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Named
@@ -31,12 +31,18 @@ class GoalBottomSheetMenuUseCase(
     private val mainFlowNavigation: MainFlowNavigation
 ) {
 
-    private var selectedGoalId = INIT_SELECTED_GOAL_ID
+    private var selectedGoalId = INIT_SELECTED_ITEM_ID
 
     fun getLiveListOfGoalActionsItems(
         disposable: CompositeDisposable,
         errorAction: (String) -> Unit
     ): LiveData<List<CommonModel>> {
+        goalActionItems.getLiveListOfActionsItems(
+            disposable,
+            errorAction,
+            resources,
+            { item, disp, error -> goalAction(item, disp, error) }
+        )
         val liveList = MutableLiveData<List<CommonModel>>()
         val list = goalActionItems
             .map { action ->
@@ -98,7 +104,7 @@ class GoalBottomSheetMenuUseCase(
                 errorAction
             )
         }
-        selectedGoalId = INIT_SELECTED_GOAL_ID
+        selectedGoalId = INIT_SELECTED_ITEM_ID
     }
 
 }

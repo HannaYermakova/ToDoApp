@@ -37,4 +37,10 @@ interface IdeaDao {
 
     @Query("SELECT idea_id FROM ideas_table WHERE idea_goal_id =:goalId")
     fun getAllIdeasIdsByGoalId(goalId: Long): Single<List<Long>>
+
+    @Query("SELECT idea_id FROM ideas_table WHERE idea_step_id =:stepId")
+    fun getAllIdeasIdsByStepId(stepId: Long): Single<List<Long>>
+
+    @Query("SELECT idea_id FROM ideas_table WHERE idea_step_id =:stepId")
+    fun deleteIdeaByStepId(stepId: Long):Int
 }

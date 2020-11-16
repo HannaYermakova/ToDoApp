@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.data.repository
 
 import by.aermakova.todoapp.data.db.dao.StepDao
-import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import io.reactivex.Observable
 import io.reactivex.Single

@@ -34,6 +34,8 @@
     <string name="error_find_goal">Error while finding Goal</string>
     <string name="error_change_goal_text">Error while changing Goal title</string>
 
+    <string name="error_delete_step">Error while deleting Step</string>
+
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>
     <string name="title_steps">Steps</string>
@@ -52,6 +54,9 @@
     <string name="title_add_idea">Add Idea</string>
     <string name="title_edit_goal">Edit Goal</string>
     <string name="title_delete_goal">Delete Goal</string>
+
+    <string name="title_edit_step">Edit Step</string>
+    <string name="title_delete_step">Delete Step</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
     <string name="edit_goal_title">Edit your Goal</string>

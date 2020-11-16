@@ -6,6 +6,9 @@ import io.reactivex.Single
 interface DeleteGoalItems {
 
     fun deleteGoalsItemsById(goalId: Long): Single<List<Unit>>
+}
 
-    fun deleteGoalByIdRemote(goalId: Long) {}
+interface DeleteStepItems {
+
+    fun deleteStepItemsById(stepId: Long): Single<List<Unit>>
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toCommonModelStringList
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
+import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -18,7 +18,7 @@ class AddNewKeyResultsToGoalUseCase(
     private val addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase
 ) {
 
-    private var goalId = INIT_SELECTED_GOAL_ID
+    private var goalId = INIT_SELECTED_ITEM_ID
 
     val addKeyResult: (String) -> Unit =
         { dialogNavigation.openItemDialog(addKeyResultDialogTitle) }

@@ -46,4 +46,10 @@ interface TaskDao {
 
     @Query("SELECT task_id FROM tasks_table WHERE task_goal_id = :goalId")
     fun getAllTasksIdByGoalId(goalId: Long): Single<List<Long>>
+
+    @Query("SELECT task_id FROM tasks_table WHERE task_step_id = :stepId")
+    fun getAllTasksIdByStepId(stepId: Long): Single<List<Long>>
+
+    @Query("DELETE FROM tasks_table WHERE task_step_id =:stepId")
+    fun deleteTaskByStepId(stepId: Long)
 }
