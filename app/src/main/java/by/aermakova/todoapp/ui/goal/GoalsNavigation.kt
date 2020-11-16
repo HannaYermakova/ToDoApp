@@ -1,7 +1,7 @@
 package by.aermakova.todoapp.ui.goal
 
-import android.util.Log
 import androidx.navigation.NavController
+import by.aermakova.todoapp.AppNavigationDirections
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -26,11 +26,7 @@ class GoalsNavigation(private val controller: NavController) : MainFlowNavigatio
 
     override fun navigateToEditElementFragment(id: Long) {
         try {
-            controller.navigate(
-                MainFlowFragmentDirections.actionMainFlowFragmentToEditGoalFragment(
-                    id
-                )
-            )
+            controller.navigate(AppNavigationDirections.actionGlobalEditGoalFragment(id))
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -29,6 +29,8 @@ class GoalDetailsViewModel @Inject constructor(
 
     private val _markedKeyResultIds = arrayListOf<Long>()
 
+    val openEditFragment = { mainFlowNavigation.navigateToEditElementFragment(goalId) }
+
     private val keyResultMarkedAsDone: FunctionSelect = { keyResultId, select ->
         if (select) {
             _markedKeyResultIds.add(keyResultId)
