@@ -57,13 +57,6 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
         <action
-            android:id="@+id/action_mainFlowFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-        <action
             android:id="@+id/action_mainFlowFragment_to_taskDetailsFragment"
             app:destination="@id/taskDetailsFragment"
             app:enterAnim="@anim/fragment_fade_enter"
@@ -334,5 +327,5 @@
     </fragment>
     <action
         android:id="@+id/action_global_editGoalFragment"
-        app:destination="@id/editGoalFragment" />
+        app:destination="@id/editGoalFragment" /><action android:id="@+id/action_global_addTaskFragment" app:destination="@id/addTaskFragment"/>
 </navigation>

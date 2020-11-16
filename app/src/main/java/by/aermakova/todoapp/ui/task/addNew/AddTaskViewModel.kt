@@ -1,9 +1,12 @@
 package by.aermakova.todoapp.ui.task.addNew
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.data.useCase.StepSelectUseCase
@@ -11,6 +14,7 @@ import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
+import by.aermakova.todoapp.util.Item
 import io.reactivex.Observer
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -18,13 +22,15 @@ import javax.inject.Inject
 
 class AddTaskViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
-    private val pickDayDialogNavigation: PickDayDialogNavigator,
-    private val taskInteractor: TaskInteractor,
-    private val errorMessage: String,
+    private val findStepUseCase: FindStepUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
     val stepSelectUseCase: StepSelectUseCase,
-    goalId: Long
+    taskInteractor: TaskInteractor,
+    pickDayDialogNavigation: PickDayDialogNavigator,
+    errorMessage: String,
+    itemId: Long,
+    code: Int?
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -104,8 +110,23 @@ class AddTaskViewModel @Inject constructor(
         }
     }
 
+    private val findStep: (StepEntity) -> Unit = {
+        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable, it.stepGoalId)
+        keyResultSelectUseCase.addSelectedKeyResult(disposable, it.stepKeyResultId)
+        stepSelectUseCase.addSelectedKeyResult(disposable, it.stepId)
+    }
+
     init {
-        goalSelectUseCase.addCreationOfGoalListToDisposable(disposable, goalId)
+        code?.let {
+            when (it) {
+                Item.GOAL.code -> goalSelectUseCase.addCreationOfGoalListToDisposable(
+                    disposable,
+                    itemId
+                )
+                Item.STEP.code -> findStepUseCase.findStepById(itemId, findStep, errorAction)
+                else -> Log.d("A_AddTaskViewModel", "Code of Item: $it")
+            }
+        }
         disposable.add(
             _tempTaskTitle
                 .subscribe { taskCreator.tempTaskTitle = it }

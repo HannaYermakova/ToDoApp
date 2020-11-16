@@ -9,6 +9,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.data.useCase.StepSelectUseCase
@@ -21,6 +22,13 @@ import dagger.multibindings.IntoMap
 
 @Module
 class AddTaskModule {
+
+    @Provides
+    fun provideFindStepUseCase(
+        stepInteractor: StepInteractor,
+        errorMessage: String
+    ) =
+        FindStepUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideArgs(fragment: AddTaskFragment): Long {
