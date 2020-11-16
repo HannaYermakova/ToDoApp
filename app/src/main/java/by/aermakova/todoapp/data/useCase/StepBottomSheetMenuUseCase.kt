@@ -6,12 +6,14 @@ import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.main.StepsViewModel
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.StepsActionItem
 import by.aermakova.todoapp.util.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
+
 
 class StepBottomSheetMenuUseCase(
     private val addIdeaUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
@@ -20,7 +22,8 @@ class StepBottomSheetMenuUseCase(
     private val stepActionBind: BottomSheetStepActionBinding,
     private val dialog: BottomSheetDialog,
     private val stepActionItems: Array<StepsActionItem>,
-    private val resources: Resources
+    private val resources: Resources,
+    private val mainFlowNavigation: MainFlowNavigation
 ) {
 
     private var selectedStepId = INIT_SELECTED_ITEM_ID
@@ -61,8 +64,9 @@ class StepBottomSheetMenuUseCase(
                 selectedStepId,
                 errorAction
             )
-            StepsActionItem.EDIT_STEP -> {
-            }
+            StepsActionItem.EDIT_STEP -> mainFlowNavigation.navigateToEditElementFragment(
+                selectedStepId
+            )
             StepsActionItem.DELETE_STEP -> deleteStepUseCase.deleteById(
                 selectedStepId,
                 disposable,

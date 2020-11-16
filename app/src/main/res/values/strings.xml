@@ -104,6 +104,7 @@
     <string name="mark_goal_done_text">Mark the Goal is Achieved</string>
 
     <string name="add_new_step_title">Add new Step</string>
+    <string name="edit_step_title">Edit your Step</string>
     <string name="enter_step_hint">Name Step</string>
     <string name="step_attach_to_goal_text">Step is attached to Goal:</string>
     <string name="step_attach_to_key_result_text">Step is attached to Key Result:</string>

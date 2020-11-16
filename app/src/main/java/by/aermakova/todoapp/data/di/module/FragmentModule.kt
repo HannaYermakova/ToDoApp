@@ -40,6 +40,9 @@ import by.aermakova.todoapp.ui.step.addNew.AddStepFragment
 import by.aermakova.todoapp.ui.step.addNew.AddStepModule
 import by.aermakova.todoapp.ui.step.details.StepDetailsFragment
 import by.aermakova.todoapp.ui.step.details.StepDetailsModule
+import by.aermakova.todoapp.ui.step.edit.EditStepFragment
+import by.aermakova.todoapp.ui.step.edit.EditStepModule
+import by.aermakova.todoapp.ui.step.edit.EditStepViewModel
 import by.aermakova.todoapp.ui.step.main.StepsFragment
 import by.aermakova.todoapp.ui.step.main.StepsModule
 import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment
@@ -128,4 +131,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [EditGoalModule::class])
     abstract fun provideEditGoalFragment(): EditGoalFragment
+
+    @ContributesAndroidInjector(modules = [EditStepModule::class])
+    abstract fun provideEditStepFragment(): EditStepFragment
 }

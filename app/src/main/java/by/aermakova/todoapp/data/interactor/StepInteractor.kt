@@ -90,4 +90,8 @@ class StepInteractor(
     override fun checkIsDone(id: Long): Single<Boolean> {
         return stepRepository.checkStepIsDone(id)
     }
+
+    fun updateStepTextLocal(newText: String, stepId: Long): Boolean {
+        return stepRepository.updateStepText(newText, stepId)
+    }
 }

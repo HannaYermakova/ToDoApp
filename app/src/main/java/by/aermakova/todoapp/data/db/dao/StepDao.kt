@@ -51,4 +51,7 @@ interface StepDao {
 
     @Query("SELECT step_status_done FROM steps_table WHERE step_id =:id")
     fun checkStepIsDone(id: Long): Single<Boolean>
+
+    @Query("UPDATE steps_table SET text = :newText WHERE step_id = :stepId")
+    fun updateStepText(newText: String, stepId: Long): Int
 }

@@ -70,7 +70,8 @@ class StepsModule {
         stepActionBind: BottomSheetStepActionBinding,
         dialog: BottomSheetDialog,
         stepActionItems: Array<StepsActionItem>,
-        resources: Resources
+        resources: Resources,
+        mainFlowNavigation: MainFlowNavigation
     ) =
         StepBottomSheetMenuUseCase(
             addIdeaToStepUseCase,
@@ -79,7 +80,8 @@ class StepsModule {
             stepActionBind,
             dialog,
             stepActionItems,
-            resources
+            resources,
+            mainFlowNavigation
         )
 
     @Provides

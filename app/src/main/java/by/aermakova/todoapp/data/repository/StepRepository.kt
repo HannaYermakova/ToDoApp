@@ -52,4 +52,8 @@ class StepRepository @Inject constructor(
     fun checkStepIsDone(id: Long): Single<Boolean> {
         return stepDao.checkStepIsDone(id)
     }
+
+    fun updateStepText(newText: String, stepId: Long): Boolean {
+        return stepDao.updateStepText(newText, stepId) > 0
+    }
 }
