@@ -21,8 +21,13 @@ import dagger.multibindings.IntoMap
 class AddIdeaModule {
 
     @Provides
-    fun provideArgs(fragment: AddIdeaFragment): Long {
+    fun provideArgsId(fragment: AddIdeaFragment): Long {
         return fragment.navArgs<AddIdeaFragmentArgs>().value.id
+    }
+
+    @Provides
+    fun provideArgsItem(fragment: AddIdeaFragment): Int {
+        return fragment.navArgs<AddIdeaFragmentArgs>().value.code
     }
 
     @Provides
@@ -38,6 +43,13 @@ class AddIdeaModule {
         errorMessage: String
     ) =
         CreateIdeaUseCase(ideaInteractor, errorMessage)
+
+    @Provides
+    fun provideFindStepUseCase(
+        stepInteractor: StepInteractor,
+        errorMessage: String
+    ) =
+        FindStepUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideGoalSelectUseCase(goalInteractor: GoalInteractor) =

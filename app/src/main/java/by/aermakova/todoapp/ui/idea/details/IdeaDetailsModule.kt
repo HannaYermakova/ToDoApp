@@ -60,8 +60,8 @@ class IdeaDetailsModule {
         FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
-    fun provideFindStepUseCase(stepInteractor: StepInteractor) =
-        FindStepUseCase(stepInteractor)
+    fun provideFindStepUseCase(stepInteractor: StepInteractor, @Named("ErrorMessage") errorMessage: String) =
+        FindStepUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideArgs(fragment: IdeaDetailsFragment): Long {

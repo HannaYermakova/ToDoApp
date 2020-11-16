@@ -160,6 +160,10 @@
             android:name="id"
             android:defaultValue="-1L"
             app:argType="long" />
+        <argument
+            android:name="code"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
     <action
         android:id="@+id/action_global_select_item_dialog"
@@ -245,6 +249,11 @@
             android:name="id"
             android:defaultValue="-1L"
             app:argType="long" />
+        <argument
+            android:name="code"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/addIdeaFragment"
@@ -255,6 +264,10 @@
             android:name="id"
             android:defaultValue="-1L"
             app:argType="long" />
+        <argument
+            android:name="code"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/stepDetailsFragment"
@@ -275,6 +288,8 @@
             android:name="ideaId"
             android:defaultValue="0L"
             app:argType="long" />
+
+
     </fragment>
     <dialog
         android:id="@+id/convertIdeaIntoTaskDialogFragment"

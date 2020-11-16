@@ -4,7 +4,6 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
-import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.goal.main.GoalsViewModel
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
@@ -19,9 +18,9 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Named
 
 class GoalBottomSheetMenuUseCase(
-    @Named("AddTaskUseCase") private val addTaskToGoalUseCase: AddItemToGoalUseCase<TasksNavigation>,
-    @Named("AddStepUseCase") private val addStepToGoalUseCase: AddItemToGoalUseCase<StepsNavigation>,
-    @Named("AddIdeaUseCase") private val addIdeaToGoalUseCase: AddItemToGoalUseCase<IdeasNavigation>,
+    @Named("AddTaskUseCase") private val addTaskToGoalUseCase: AddItemToParentItemUseCase<TasksNavigation>,
+    @Named("AddStepUseCase") private val addStepToGoalUseCase: AddItemToParentItemUseCase<StepsNavigation>,
+    @Named("AddIdeaUseCase") private val addIdeaToGoalUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
     private val deleteGoalUseCase: DeleteGoalUseCase,
     val addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
     private val goalActionBind: BottomSheetGoalActionBinding,

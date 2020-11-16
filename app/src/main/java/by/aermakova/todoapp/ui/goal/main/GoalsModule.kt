@@ -9,7 +9,7 @@ import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.interactor.*
-import by.aermakova.todoapp.data.useCase.AddItemToGoalUseCase
+import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
 import by.aermakova.todoapp.data.useCase.DeleteGoalUseCase
 import by.aermakova.todoapp.data.useCase.GoalBottomSheetMenuUseCase
@@ -23,6 +23,7 @@ import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.GoalsActionItem
+import by.aermakova.todoapp.util.Item
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
@@ -35,9 +36,9 @@ class GoalsModule {
 
     @Provides
     fun provideGoalBottomSheetMenuUseCase(
-        @Named("AddTaskUseCase") addTaskToGoalUseCase: AddItemToGoalUseCase<TasksNavigation>,
-        @Named("AddStepUseCase") addStepToGoalUseCase: AddItemToGoalUseCase<StepsNavigation>,
-        @Named("AddIdeaUseCase") addIdeaToGoalUseCase: AddItemToGoalUseCase<IdeasNavigation>,
+        @Named("AddTaskUseCase") addTaskToGoalUseCase: AddItemToParentItemUseCase<TasksNavigation>,
+        @Named("AddStepUseCase") addStepToGoalUseCase: AddItemToParentItemUseCase<StepsNavigation>,
+        @Named("AddIdeaUseCase") addIdeaToGoalUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
         @Named("GoalsNavigation") mainFlowNavigation: MainFlowNavigation,
         deleteGoalUseCase: DeleteGoalUseCase,
         addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
@@ -82,9 +83,10 @@ class GoalsModule {
         goalInteractor: GoalInteractor,
         @Named("IdeasNavigation") ideasNavigation: IdeasNavigation,
         @Named("AchievedGoalIdea") errorAchievedGoalIdea: String
-    ): AddItemToGoalUseCase<IdeasNavigation> {
-        return AddItemToGoalUseCase(
+    ): AddItemToParentItemUseCase<IdeasNavigation> {
+        return AddItemToParentItemUseCase(
             goalInteractor,
+            Item.GOAL,
             ideasNavigation,
             errorAchievedGoalIdea
         )
@@ -96,9 +98,10 @@ class GoalsModule {
         goalInteractor: GoalInteractor,
         @Named("StepsNavigation") stepsNavigation: StepsNavigation,
         @Named("AchievedGoalStep") errorAchievedGoalStep: String
-    ): AddItemToGoalUseCase<StepsNavigation> {
-        return AddItemToGoalUseCase(
+    ): AddItemToParentItemUseCase<StepsNavigation> {
+        return AddItemToParentItemUseCase(
             goalInteractor,
+            Item.GOAL,
             stepsNavigation,
             errorAchievedGoalStep
         )
@@ -110,9 +113,10 @@ class GoalsModule {
         goalInteractor: GoalInteractor,
         @Named("TasksNavigation") tasksNavigation: TasksNavigation,
         @Named("AchievedGoalTask") errorAchievedGoalTask: String
-    ): AddItemToGoalUseCase<TasksNavigation> {
-        return AddItemToGoalUseCase(
+    ): AddItemToParentItemUseCase<TasksNavigation> {
+        return AddItemToParentItemUseCase(
             goalInteractor,
+            Item.GOAL,
             tasksNavigation,
             errorAchievedGoalTask
         )

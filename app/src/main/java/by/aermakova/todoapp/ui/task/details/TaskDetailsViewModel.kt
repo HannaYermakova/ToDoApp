@@ -2,7 +2,6 @@ package by.aermakova.todoapp.ui.task.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.TaskModel
 import by.aermakova.todoapp.data.model.toCommonModel
@@ -87,9 +86,9 @@ class TaskDetailsViewModel @Inject constructor(
                     })
                 }
                 .doOnSuccess { task ->
-                    findStep.useStepById(task.stepId, {
+                    findStep.useStepByIdInUiThread(task.stepId, {
                         _stepTitle.postValue(it.text)
-                    })
+                    }, errorAction)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -15,8 +15,6 @@ import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.ui.task.details.TaskDetailsFragment
-import by.aermakova.todoapp.ui.task.details.TaskDetailsFragmentArgs
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -27,6 +25,11 @@ class AddTaskModule {
     @Provides
     fun provideArgs(fragment: AddTaskFragment): Long {
         return fragment.navArgs<AddTaskFragmentArgs>().value.id
+    }
+
+    @Provides
+    fun provideArgsItem(fragment: AddTaskFragment): Int {
+        return fragment.navArgs<AddTaskFragmentArgs>().value.code
     }
 
     @Provides

@@ -48,4 +48,8 @@ class StepRepository @Inject constructor(
 
     fun getAllStepsIdByGoalId(goalId: Long): Single<List<Long>> =
         stepDao.getAllStepsIdByGoalId(goalId)
+
+    fun checkStepIsDone(id: Long): Single<Boolean> {
+        return stepDao.checkStepIsDone(id)
+    }
 }

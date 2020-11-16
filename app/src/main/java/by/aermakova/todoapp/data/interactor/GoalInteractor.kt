@@ -20,6 +20,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
+interface CheckItemIsDone {
+    fun checkIsDone(id: Long): Single<Boolean>
+}
+
 class GoalInteractor(
     private val goalRepository: GoalRepository,
     private val stepRepository: StepRepository,
@@ -28,7 +32,7 @@ class GoalInteractor(
     private val keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>,
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>,
     private val taskRemoteDatabase: RemoteDatabase<TaskRemoteModel>
-) : RemoteSync<GoalRemoteModel> {
+) : RemoteSync<GoalRemoteModel>, CheckItemIsDone {
 
     fun saveGoalAndKeyResToLocal(
         goalTitle: String,
@@ -62,10 +66,6 @@ class GoalInteractor(
 
     fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>> {
         return goalRepository.getAllGoalsWithKeyResults()
-    }
-
-    fun getAllGoals(): Observable<List<GoalEntity>> {
-        return goalRepository.getAllGoals()
     }
 
     fun getAllUndoneGoals(): Observable<List<GoalEntity>> {
@@ -169,7 +169,7 @@ class GoalInteractor(
         keyResRemoteDatabase.saveData(keyResultEntity.toRemote())
     }
 
-    fun checkGoalDone(goalId: Long) =
+    override fun checkIsDone(goalId: Long) =
         goalRepository.checkGoalDone(goalId)
 
     fun deleteGoalAndAllItsItemsLocal(goalId: Long): Single<Boolean> {

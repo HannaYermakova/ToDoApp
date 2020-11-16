@@ -17,6 +17,10 @@ class StepSelectUseCase(
     val stepsList: Observable<List<TextModel>>
         get() = _stepsList
 
+    private val _selectedStep = BehaviorSubject.create<TextModel>()
+    val selectedStep: Observable<TextModel>
+        get() = _selectedStep
+
     fun setStepsList(keyResultId: Long, disposable: CompositeDisposable) {
         disposable.add(stepInteractor.getStepsByKeyResultId(keyResultId)
             .subscribeOn(Schedulers.io())
@@ -26,5 +30,20 @@ class StepSelectUseCase(
                 { _stepsList.onNext(it) },
                 { it.printStackTrace() }
             ))
+    }
+
+    fun addSelectedKeyResult(
+        disposable: CompositeDisposable,
+        stepId: Long
+    ) {
+        disposable.add(
+            stepInteractor.getStepById(stepId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { _selectedStep.onNext(it.toTextModel()) },
+                    { it.printStackTrace() }
+                )
+        )
     }
 }

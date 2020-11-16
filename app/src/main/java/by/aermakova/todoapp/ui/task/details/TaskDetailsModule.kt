@@ -34,8 +34,16 @@ class TaskDetailsModule {
         activity.getString(R.string.error_find_goal)
 
     @Provides
-    fun provideFindStepUseCase(stepInteractor: StepInteractor) =
-        FindStepUseCase(stepInteractor)
+    @Named("FindStep")
+    fun provideFindStepErrorMessage(activity: Activity) =
+        activity.getString(R.string.error_find_step)
+
+    @Provides
+    fun provideFindStepUseCase(
+        stepInteractor: StepInteractor,
+        @Named("FindStep") errorMessage: String
+    ) =
+        FindStepUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideArgs(fragment: TaskDetailsFragment): Long {

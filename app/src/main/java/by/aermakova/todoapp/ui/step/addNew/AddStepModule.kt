@@ -27,6 +27,11 @@ class AddStepModule {
     }
 
     @Provides
+    fun provideArgsItem(fragment: AddStepFragment): Int {
+        return fragment.navArgs<AddStepFragmentArgs>().value.code
+    }
+
+    @Provides
     fun provideCreateStepUseCase(
         stepInteractor: StepInteractor,
         errorMessage: String

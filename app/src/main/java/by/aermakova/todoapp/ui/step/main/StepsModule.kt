@@ -12,12 +12,15 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.DeleteStepUseCase
 import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
 import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
+import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
+import by.aermakova.todoapp.util.Item
 import by.aermakova.todoapp.util.StepsActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
@@ -29,7 +32,23 @@ import javax.inject.Named
 class StepsModule {
 
     @Provides
+    @Named("AddIdeaUseCase")
+    fun provideAddIdeaToGoalUseCase(
+        stepInteractor: StepInteractor,
+        @Named("IdeasNavigation") ideasNavigation: IdeasNavigation,
+        @Named("StepIsDoneIdea") errorStepIsDoneIdea: String
+    ): AddItemToParentItemUseCase<IdeasNavigation> {
+        return AddItemToParentItemUseCase(
+            stepInteractor,
+            Item.STEP,
+            ideasNavigation,
+            errorStepIsDoneIdea
+        )
+    }
+
+    @Provides
     fun provideGoalBottomSheetMenuUseCase(
+        @Named("AddIdeaUseCase") addIdeaToStepUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
         deleteStepUseCase: DeleteStepUseCase,
         stepActionBind: BottomSheetStepActionBinding,
         dialog: BottomSheetDialog,
@@ -37,6 +56,7 @@ class StepsModule {
         resources: Resources
     ) =
         StepBottomSheetMenuUseCase(
+            addIdeaToStepUseCase,
             deleteStepUseCase,
             stepActionBind,
             dialog,
@@ -102,12 +122,22 @@ class StepsModule {
         activity.getString(R.string.error_while_loading)
 
     @Provides
+    @Named("StepIsDoneIdea")
+    fun provideStepIsDoneIdeaErrorMessage(activity: Activity) =
+        activity.getString(R.string.error_adding_idea_to_step)
+
+    @Provides
     fun provideNavController(activity: Activity): NavController =
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
     fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
         StepsNavigation(controller)
+
+    @Provides
+    @Named("IdeasNavigation")
+    fun provideIdeasNavigation(controller: NavController): IdeasNavigation =
+        IdeasNavigation(controller)
 
     @Provides
     @IntoMap

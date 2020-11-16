@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
+import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.step.main.StepsViewModel
 import by.aermakova.todoapp.util.StepsActionItem
 import by.aermakova.todoapp.util.getLiveListOfActionsItems
@@ -12,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 
 class StepBottomSheetMenuUseCase(
+    private val addItemUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
     private val deleteStepUseCase: DeleteStepUseCase,
     private val stepActionBind: BottomSheetStepActionBinding,
     private val dialog: BottomSheetDialog,
@@ -49,8 +51,11 @@ class StepBottomSheetMenuUseCase(
         when (action) {
             StepsActionItem.ADD_TASK_TO_STEP -> {
             }
-            StepsActionItem.ADD_IDEA_TO_STEP -> {
-            }
+            StepsActionItem.ADD_IDEA_TO_STEP -> addItemUseCase.checkGoalAndOpenDialog(
+                disposable,
+                selectedStepId,
+                errorAction
+            )
             StepsActionItem.EDIT_STEP -> {
             }
             StepsActionItem.DELETE_STEP -> deleteStepUseCase.deleteById(

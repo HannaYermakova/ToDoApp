@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Item
 import java.lang.IllegalArgumentException
 
 class TasksNavigation(private val controller: NavController) : MainFlowNavigation {
@@ -12,9 +13,9 @@ class TasksNavigation(private val controller: NavController) : MainFlowNavigatio
         controller.navigate(R.id.action_mainFlowFragment_to_addTaskFragment)
     }
 
-    override fun navigateToAddNewElementFragment(goalId: Long) {
+    override fun navigateToAddNewElementFragment(itemId: Long, item: Item) {
         try {
-            controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToAddTaskFragment(goalId))
+            controller.navigate(MainFlowFragmentDirections.actionMainFlowFragmentToAddTaskFragment(itemId, item.code))
         } catch (exception : IllegalArgumentException){
             exception.printStackTrace()
         }

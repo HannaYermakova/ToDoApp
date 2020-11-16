@@ -35,6 +35,9 @@
     <string name="error_change_goal_text">Error while changing Goal title</string>
 
     <string name="error_delete_step">Error while deleting Step</string>
+    <string name="error_adding_idea_to_step">You can\'t add Idea to Done Step!</string>
+    <string name="error_find_step">Error while finding Step!</string>
+    <string name="error_find_idea">Error while finding Idea!</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>

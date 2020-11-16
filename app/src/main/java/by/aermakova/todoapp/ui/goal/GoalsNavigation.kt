@@ -5,6 +5,7 @@ import by.aermakova.todoapp.AppNavigationDirections
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Item
 
 class GoalsNavigation(private val controller: NavController) : MainFlowNavigation {
 
@@ -12,11 +13,11 @@ class GoalsNavigation(private val controller: NavController) : MainFlowNavigatio
         controller.navigate(R.id.action_mainFlowFragment_to_addGoalFragment)
     }
 
-    override fun navigateToAddNewElementFragment(goalId: Long) {
+    override fun navigateToAddNewElementFragment(itemId: Long, item: Item) {
         try {
             controller.navigate(
                 MainFlowFragmentDirections.actionMainFlowFragmentToAddTaskFragment(
-                    goalId
+                    itemId, item.code
                 )
             )
         } catch (e: Exception) {

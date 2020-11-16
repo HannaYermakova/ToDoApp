@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -39,18 +40,15 @@ class LoadIdeaDetailsUseCase(
                         successKeyResultLoad.invoke(keyRes.text)
                     })
                 }.doOnNext {
-                    findStep.useStepById(it.stepId, { stepEntity ->
+                    findStep.useStepByIdInUiThread(it.stepId, { stepEntity ->
                         successStepLoad.invoke(stepEntity.text)
-                    })
+                    }, errorAction)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { successIdeaLoad.invoke(it) },
-                    {
-                        errorAction.invoke(errorMessage)
-                        it.printStackTrace()
-                    }
+                    { it.handleError(errorMessage, errorAction) }
                 )
         )
     }
@@ -59,7 +57,7 @@ class LoadIdeaDetailsUseCase(
         ideaId: Long,
         disposable: CompositeDisposable,
         successAction: () -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: (String) -> Unit
     ) {
         disposable.add(
             Single.create<Boolean> { it.onSuccess(true) }
@@ -68,10 +66,7 @@ class LoadIdeaDetailsUseCase(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { successAction.invoke() },
-                    {
-                        errorAction?.invoke(errorMessage)
-                        it.printStackTrace()
-                    }
+                    { it.handleError(errorMessage, errorAction) }
                 )
         )
     }

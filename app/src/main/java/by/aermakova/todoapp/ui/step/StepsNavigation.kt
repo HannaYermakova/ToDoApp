@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Item
 
 class StepsNavigation(private val controller: NavController) : MainFlowNavigation {
 
@@ -11,11 +12,11 @@ class StepsNavigation(private val controller: NavController) : MainFlowNavigatio
         controller.navigate(R.id.action_mainFlowFragment_to_addStepFragment)
     }
 
-    override fun navigateToAddNewElementFragment(goalId: Long) {
+    override fun navigateToAddNewElementFragment(itemId: Long, item: Item) {
         try {
             controller.navigate(
                 MainFlowFragmentDirections.actionMainFlowFragmentToAddStepFragment(
-                    goalId
+                    itemId, item.code
                 )
             )
         } catch (exception: IllegalArgumentException) {

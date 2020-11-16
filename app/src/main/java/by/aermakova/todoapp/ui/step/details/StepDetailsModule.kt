@@ -20,6 +20,7 @@ import by.aermakova.todoapp.ui.step.StepsNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Named
 
 @Module
 class StepDetailsModule {
@@ -32,7 +33,7 @@ class StepDetailsModule {
         findTask: FindTaskUseCase,
         findIdea: FindIdeaUseCase,
         stepId: Long,
-        errorMessage: String
+        @Named("LoadingError") errorMessage: String
     ) =
         LoadStepUseCase(
             stepInteractor,
@@ -45,11 +46,14 @@ class StepDetailsModule {
         )
 
     @Provides
-    fun provideErrorMessage(activity: Activity) =
+    @Named("LoadingError")
+    fun provideLoadErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_loading)
 
     @Provides
-    fun provideFindIdeaUseCase(ideaInteractor: IdeaInteractor) =
+    fun provideFindIdeaUseCase(
+        ideaInteractor: IdeaInteractor
+    ) =
         FindIdeaUseCase(ideaInteractor)
 
     @Provides
@@ -57,7 +61,10 @@ class StepDetailsModule {
         FindTaskUseCase(taskInteractor)
 
     @Provides
-    fun provideFindGoalUseCase(goalInteractor: GoalInteractor, errorMessage: String) =
+    fun provideFindGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @Named("LoadingError") errorMessage: String
+    ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides

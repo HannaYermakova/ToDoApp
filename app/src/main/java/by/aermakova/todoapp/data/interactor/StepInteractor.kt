@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable
 class StepInteractor(
     private val stepRepository: StepRepository,
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
-) : RemoteSync<StepRemoteModel>, DeleteGoalItems {
+) : RemoteSync<StepRemoteModel>, DeleteGoalItems, CheckItemIsDone {
 
     fun getStepsByKeyResultId(keyResultId: Long): Observable<List<StepEntity>> {
         return stepRepository.getStepsByKeyResultId(keyResultId)
@@ -85,5 +85,9 @@ class StepInteractor(
     fun deleteStepByIdRemote(stepId: Long): Single<Boolean> {
         stepRemoteDatabase.removeData(stepId)
         return Single.just(true)
+    }
+
+    override fun checkIsDone(id: Long): Single<Boolean> {
+        return stepRepository.checkStepIsDone(id)
     }
 }

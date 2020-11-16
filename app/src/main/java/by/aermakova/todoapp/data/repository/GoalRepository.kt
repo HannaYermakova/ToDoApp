@@ -35,10 +35,6 @@ class GoalRepository @Inject constructor(
         return goalDao.getAllGoalsWithKeyResults()
     }
 
-    fun getAllGoals(): Observable<List<GoalEntity>> {
-        return goalDao.getAllGoals()
-    }
-
     fun getAllUndoneGoals(): Observable<List<GoalEntity>> {
         return goalDao.getAllUndoneGoals()
     }
