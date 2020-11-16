@@ -83,9 +83,8 @@ class GoalsViewModel @Inject constructor(
                     {
                         _goalsList.onNext(
                             it.toCommonModelGoalList(
-                                { id ->
-                                    navigation.navigateToShowDetailsFragment(id)
-                                }, openBottomSheetGoalsActions
+                                { navigation.navigateToShowDetailsFragment(it)},
+                                openBottomSheetGoalsActions
                             )
                         )
                         _status.onNext(Status.SUCCESS)

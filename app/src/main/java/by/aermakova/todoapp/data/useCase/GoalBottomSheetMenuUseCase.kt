@@ -10,6 +10,7 @@ import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.goal.main.GoalsViewModel
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.GoalsActionItem
@@ -26,7 +27,8 @@ class GoalBottomSheetMenuUseCase(
     private val goalActionBind: BottomSheetGoalActionBinding,
     private val dialog: BottomSheetDialog,
     private val goalActionItems: Array<GoalsActionItem>,
-    private val resources: Resources
+    private val resources: Resources,
+    private val mainFlowNavigation: MainFlowNavigation
 ) {
 
     private var selectedGoalId = INIT_SELECTED_GOAL_ID
@@ -62,7 +64,7 @@ class GoalBottomSheetMenuUseCase(
             selectedGoalId,
             keyResultTitle,
             disposable,
-            errorAction
+            errorAction = errorAction
         )
     }
 
@@ -89,7 +91,7 @@ class GoalBottomSheetMenuUseCase(
                 selectedGoalId,
                 errorAction
             )
-            GoalsActionItem.EDIT_GOAL -> Log.d("A_GoalBottomSheetMen", "Edit Goal")
+            GoalsActionItem.EDIT_GOAL -> mainFlowNavigation.navigateToEditElementFragment(selectedGoalId)
             GoalsActionItem.DELETE_GOAL -> deleteGoalUseCase.deleteGoalById(
                 selectedGoalId,
                 disposable,

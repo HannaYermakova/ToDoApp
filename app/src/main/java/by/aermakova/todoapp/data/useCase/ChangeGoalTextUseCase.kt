@@ -31,17 +31,18 @@ class ChangeGoalTextUseCase(
     fun saveChanges(
         goalId: Long,
         disposable: CompositeDisposable,
+        saveSuccess: Observer<Boolean>,
         errorAction: (String) -> Unit
     ) {
         val newText = _newGoalTitle.value
-        Log.d("A_ChangeGoalTextUseCase", "Old title: ${_existingGoalTitle.value}")
-        Log.d("A_ChangeGoalTextUseCase", "New title: $newText")
         if (newText != null
             && _existingGoalTitle.value != newText
             && !newText.isNullOrBlank()
         ) {
             disposable.add(
-                Single.just(goalInteractor.updateGoalTextLocal(newText, goalId))
+                Single.create<Boolean> {
+                    it.onSuccess(goalInteractor.updateGoalTextLocal(newText, goalId))
+                }
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                         {
@@ -49,13 +50,22 @@ class ChangeGoalTextUseCase(
                                 .subscribe(
                                     {
                                         goalInteractor.updateGoalTextRemote(it)
+                                        saveSuccess.onNext(true)
                                     },
-                                    { it.handleError(errorMessage, errorAction) }
+                                    {
+                                        it.handleError(errorMessage, errorAction)
+                                        saveSuccess.onNext(false)
+                                    }
                                 )
                         },
-                        { it.handleError(errorMessage, errorAction) }
+                        {
+                            it.handleError(errorMessage, errorAction)
+                            saveSuccess.onNext(false)
+                        }
                     )
             )
+        } else {
+            saveSuccess.onNext(true)
         }
     }
 }

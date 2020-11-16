@@ -1,13 +1,13 @@
 package by.aermakova.todoapp.data.useCase
 
 import androidx.lifecycle.LiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toCommonModelStringList
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_GOAL_ID
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
@@ -44,6 +44,7 @@ class AddNewKeyResultsToGoalUseCase(
     ) {
         this.goalId = goalId
         allKeyResults.addAll(existingKeyResults)
+        _allKeyResultsList.onNext(allKeyResults.toCommonModelStringList())
         disposable.add(
             _tempKeyResult
                 .subscribe(
@@ -59,9 +60,16 @@ class AddNewKeyResultsToGoalUseCase(
         _tempKeyResult.onNext(allKeyResults)
     }
 
-    fun saveChanges(disposable: CompositeDisposable, errorAction: (String) -> Unit) {
+    fun saveChanges(
+        disposable: CompositeDisposable,
+        saveSuccess: Observer<Boolean>,
+        errorAction: (String) -> Unit
+    ) {
         newKeyResults.forEach {
-            addKeyResultToGoalUseCase.addKeyResult(goalId, it, disposable, errorAction)
+            addKeyResultToGoalUseCase.addKeyResult(goalId, it, disposable, saveSuccess, errorAction)
+        }
+        if (newKeyResults.isEmpty()) {
+            saveSuccess.onNext(false)
         }
     }
 }

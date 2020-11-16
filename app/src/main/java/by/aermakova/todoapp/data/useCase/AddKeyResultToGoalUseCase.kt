@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.util.handleError
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -27,6 +28,7 @@ class AddKeyResultToGoalUseCase(
         goalId: Long,
         keyResultTitle: String,
         disposable: CompositeDisposable,
+        saveSuccess: Observer<Boolean>? = null,
         errorAction: (String) -> Unit
     ) {
         val command = BehaviorSubject.create<Boolean>()
@@ -51,7 +53,10 @@ class AddKeyResultToGoalUseCase(
                 }
                 .flatMap { goalInteractor.getKeyResultsById(it) }
                 .subscribe(
-                    { goalInteractor.addKeyResultToGoalInRemote(it) },
+                    {
+                        goalInteractor.addKeyResultToGoalInRemote(it)
+                        saveSuccess?.onNext(true)
+                    },
                     { it.handleError(errorMessage, errorAction) }
                 )
         )

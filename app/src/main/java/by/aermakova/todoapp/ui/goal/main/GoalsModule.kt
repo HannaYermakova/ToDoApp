@@ -38,6 +38,7 @@ class GoalsModule {
         @Named("AddTaskUseCase") addTaskToGoalUseCase: AddItemToGoalUseCase<TasksNavigation>,
         @Named("AddStepUseCase") addStepToGoalUseCase: AddItemToGoalUseCase<StepsNavigation>,
         @Named("AddIdeaUseCase") addIdeaToGoalUseCase: AddItemToGoalUseCase<IdeasNavigation>,
+        @Named("GoalsNavigation") mainFlowNavigation: MainFlowNavigation,
         deleteGoalUseCase: DeleteGoalUseCase,
         addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
         goalActionBind: BottomSheetGoalActionBinding,
@@ -54,7 +55,8 @@ class GoalsModule {
             goalActionBind,
             dialog,
             goalActionItems,
-            resources
+            resources,
+            mainFlowNavigation
         )
 
     @Provides
