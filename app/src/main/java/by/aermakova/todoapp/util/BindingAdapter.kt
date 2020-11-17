@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,12 +70,25 @@ fun setDate(textView: TextView, finishTime: Long?) {
 fun setIntervalListener(radioGroup: RadioGroup, interval: MutableLiveData<Interval>?) {
     interval?.let {
         it.postValue(
-            when (radioGroup.id) {
+            when (radioGroup.checkedRadioButtonId) {
                 R.id.daily_radio_button -> Interval.DAILY
                 R.id.weekly_radio_button -> Interval.WEEKLY
                 else -> Interval.MONTHLY
             }
         )
+    }
+}
+
+@BindingAdapter("app:interval")
+fun setInterval(radioGroup: RadioGroup, interval: Int?) {
+    interval?.let {
+        val selectedButton =
+            when (it) {
+                Interval.DAILY.code -> radioGroup.findViewById(R.id.daily_radio_button)
+                Interval.WEEKLY.code -> radioGroup.findViewById(R.id.weekly_radio_button)
+                else -> radioGroup.findViewById<RadioButton>(R.id.monthly_radio_button)
+            }
+        selectedButton.isChecked = true
     }
 }
 
@@ -101,7 +115,6 @@ fun switchView(view: ViewSwitcher, visible: Boolean?) {
 fun toggleListenerKeyResult(toggleButton: ToggleButton, model: KeyResultModel?) {
     toggleButton.setOnCheckedChangeListener { _, _ ->
         model?.let {
-            Log.d("A_BindingAdapter", "$model")
             model.action?.invoke(model.keyResultId, toggleButton.isChecked)
         }
     }
@@ -198,7 +211,7 @@ fun openDialog(button: View, listener: ((String) -> Unit)?, title: String?) {
 }
 
 @BindingAdapter("app:tempTitle")
-fun editTextListener(
+fun editTitleListener(
     editText: EditText,
     tempTitle: Observer<String>?
 ) {
@@ -215,6 +228,35 @@ fun editTextListener(
     })
 }
 
+@BindingAdapter("app:tempText")
+fun editTextListener(
+    editText: EditText,
+    tempTitle: MutableLiveData<String>?
+) {
+    editText.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            tempTitle?.postValue(editText.text.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    })
+}
+
+@BindingAdapter("convertLongToDate")
+fun editTextListener(
+    textView: TextView,
+    dateText: LiveData<Long>?
+) {
+    dateText?.let {
+        textView.text = it.value?.let { date -> convertLongToDate(date) }
+            ?: textView.context.resources.getString(R.string.pick_day)
+    }
+}
+
 @BindingAdapter("app:itemSelectedListener")
 fun setSpinnerListener(
     spinner: Spinner,
@@ -226,7 +268,6 @@ fun setSpinnerListener(
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            Log.d("A_BindingAdapter", "item selected $position")
             val pos = if (position == 0) {
                 return
             } else {
@@ -271,8 +312,8 @@ fun editSpinner(
                     spinner.adapter = adapter
                     selectedItem?.let {
                         selectedItem.subscribe({ model ->
-                            Log.d("A_BindingAdapter", "model $model")
-                                spinner.setSelection(adapter.getPosition(model)) },
+                            spinner.setSelection(adapter.getPosition(model))
+                        },
                             { it.printStackTrace() }
                         )
                     }

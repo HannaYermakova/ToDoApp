@@ -18,6 +18,8 @@
     <string name="pick_day">Pick day</string>
     <string name="empty" />
     <string name="error_while_loading">Error while loading</string>
+    <string name="error_while_setting_task_fields">Error while setting task fields</string>
+    <string name="error_while_updating_task">Error while updating task</string>
     <string name="error_while_login">Error while login</string>
     <string name="error_invalid_email_or_password">Invalid email or password</string>
     <string name="error_loading_cancel">Loading has been canceled</string>
@@ -81,6 +83,7 @@
     <string name="all_ideas_text">All Ideas</string>
 
     <string name="add_new_task_title">Add new Task</string>
+    <string name="edit_task_title">Edit your Task</string>
     <string name="enter_task_hint">Name Task</string>
     <string name="task_attach_to_goal_text">Task is attached to Goal:</string>
     <string name="select_goal_text">Select the Goal</string>

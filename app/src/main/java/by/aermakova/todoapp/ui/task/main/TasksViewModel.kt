@@ -32,7 +32,7 @@ class TasksViewModel @Inject constructor(
     private val taskBottomSheetMenuUseCase: TaskBottomSheetMenuUseCase
 ) : BaseViewModel() {
 
-    val addNewElement = { navigation.navigateToAddNewElementFragment() }
+    val addNewElement = { navigation.navigateToAddNewElementFragment(item = Item.GOAL) }
 
     val actionItems: LiveData<List<CommonModel>> =
         taskBottomSheetMenuUseCase.getLiveListOfStepActionsItems(disposable, errorAction)
@@ -106,7 +106,7 @@ class TasksViewModel @Inject constructor(
     }
 
     private fun loadTasks() {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         disposable.add(
             taskInteractor.getAllTasks()
                 .concatMapSingle { list ->

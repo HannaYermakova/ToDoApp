@@ -332,10 +332,10 @@
         android:id="@+id/action_global_addTaskFragment"
         app:destination="@id/addTaskFragment" />
     <fragment
-        tools:layout="@layout/fragment_edit_step"
         android:id="@+id/editStepFragment"
         android:name="by.aermakova.todoapp.ui.step.edit.EditStepFragment"
-        android:label="EditStepFragment" >
+        android:label="EditStepFragment"
+        tools:layout="@layout/fragment_edit_step">
         <argument
             android:name="stepId"
             android:defaultValue="-1L"
@@ -344,4 +344,17 @@
     <action
         android:id="@+id/action_global_editStepFragment"
         app:destination="@id/editStepFragment" />
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="by.aermakova.todoapp.ui.task.edit.EditTaskFragment"
+        android:label="EditTaskFragment"
+        tools:layout="@layout/fragment_edit_task">
+        <argument
+            android:name="taskId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_editTaskFragment"
+        app:destination="@id/editTaskFragment" />
 </navigation>

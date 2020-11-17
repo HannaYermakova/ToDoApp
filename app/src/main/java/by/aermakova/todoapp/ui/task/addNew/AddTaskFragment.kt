@@ -3,10 +3,10 @@ package by.aermakova.todoapp.ui.task.addNew
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import by.aermakova.todoapp.R
-import by.aermakova.todoapp.databinding.DialogAddItemBinding
+import by.aermakova.todoapp.databinding.FragmentAddTaskBinding
 import by.aermakova.todoapp.ui.base.BaseFragment
 
-class AddTaskFragment : BaseFragment<AddTaskViewModel, DialogAddItemBinding>() {
+class AddTaskFragment : BaseFragment<AddTaskViewModel, FragmentAddTaskBinding>() {
 
     override val layout: Int
         get() = R.layout.fragment_add_task

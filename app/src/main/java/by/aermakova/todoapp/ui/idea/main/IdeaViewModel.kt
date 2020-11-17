@@ -21,7 +21,7 @@ class IdeaViewModel @Inject constructor(
     val addNewElement = { mainFlowNavigation.navigateToAddNewElementFragment() }
 
     init {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         loadAllIdeasUseCase.loadIdeas(
             disposable,
             { mainFlowNavigation.navigateToShowDetailsFragment(it) },

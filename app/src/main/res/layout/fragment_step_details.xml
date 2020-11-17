@@ -59,7 +59,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/title"
-                app:onClick="@{viewModel.openEditFragment}" />
+                app:onClick="@{viewModel.openEditFragment}"
+                app:visible="@{!viewModel.stepModel.status}" />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -269,9 +270,9 @@
                         android:layout_margin="@dimen/margin_normal"
                         android:elevation="@dimen/elevation_button"
                         android:text="@string/save_button"
-                        app:layout_constraintTop_toBottomOf="@+id/mark_as_done_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mark_as_done_text"
                         app:onClick="@{viewModel.markAsDone}"
                         app:visible="@{viewModel.markAsDoneToggle}" />
 

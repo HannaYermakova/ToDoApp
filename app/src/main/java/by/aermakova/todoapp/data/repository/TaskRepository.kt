@@ -49,4 +49,7 @@ class TaskRepository @Inject constructor(
     fun deleteTask(taskId: Long): Boolean {
         return taskDao.deleteTaskById(taskId) > 0
     }
+
+    fun updateTaskText(newText: String, itemId: Long) =
+        taskDao.updateTaskText(newText, itemId) > 0
 }

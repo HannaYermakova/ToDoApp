@@ -48,6 +48,8 @@ import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment
 import by.aermakova.todoapp.ui.task.addNew.AddTaskModule
 import by.aermakova.todoapp.ui.task.details.TaskDetailsFragment
 import by.aermakova.todoapp.ui.task.details.TaskDetailsModule
+import by.aermakova.todoapp.ui.task.edit.EditTaskFragment
+import by.aermakova.todoapp.ui.task.edit.EditTaskModule
 import by.aermakova.todoapp.ui.task.main.TasksFragment
 import by.aermakova.todoapp.ui.task.main.TasksModule
 import dagger.Module
@@ -133,4 +135,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [EditStepModule::class])
     abstract fun provideEditStepFragment(): EditStepFragment
+
+    @ContributesAndroidInjector(modules = [EditTaskModule::class])
+    abstract fun provideEditTaskFragment(): EditTaskFragment
 }

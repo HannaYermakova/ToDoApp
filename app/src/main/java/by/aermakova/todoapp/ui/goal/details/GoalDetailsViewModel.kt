@@ -41,7 +41,7 @@ class GoalDetailsViewModel @Inject constructor(
     }
 
     init {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         disposable.add(
             goalInteractor.getGoalWithKeyResultsAndUnattachedTasks(goalId, keyResultMarkedAsDone)
                 .subscribeOn(Schedulers.io())
@@ -87,7 +87,7 @@ class GoalDetailsViewModel @Inject constructor(
     }
 
     private fun saveUpdatedGoal() {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         loadAllGoalsUseCase.saveUpdatedGoal(
             goalId,
             disposable,
@@ -100,7 +100,7 @@ class GoalDetailsViewModel @Inject constructor(
     }
 
     private fun saveUpdatedKeyResults() {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         disposable.add(
             Single.create<Boolean> {
                 it.onSuccess(goalInteractor.updateKeyResults(true, _markedKeyResultIds))

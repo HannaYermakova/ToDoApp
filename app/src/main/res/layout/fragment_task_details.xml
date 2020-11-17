@@ -22,8 +22,8 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
             android:background="@drawable/back_button_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +43,20 @@
             app:layout_constraintStart_toEndOf="@id/back_button"
             app:layout_constraintTop_toTopOf="@id/back_button"
             tools:text="My Super Task" />
+
+        <ImageButton
+            android:id="@+id/edit_button"
+            android:layout_width="@dimen/image_button_size"
+            android:layout_height="@dimen/image_button_size"
+            android:layout_margin="@dimen/margin_normal"
+            android:background="@drawable/ic_baseline_edit_24"
+            android:backgroundTint="@color/color_blue"
+            android:stateListAnimator="@drawable/lift_on_touch"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title"
+            app:onClick="@{viewModel.openEditFragment}"
+            app:visible="@{!viewModel.taskModel.status}" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/time_card"

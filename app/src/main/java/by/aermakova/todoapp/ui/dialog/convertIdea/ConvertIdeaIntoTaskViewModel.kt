@@ -13,10 +13,10 @@ import javax.inject.Named
 class ConvertIdeaIntoTaskViewModel @Inject constructor(
     @Named("PickDate") private val pickDayDialogNavigation: PickDayDialogNavigator,
     @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
-    private val taskInteractor: TaskInteractor,
-    private val ideaInteractor: IdeaInteractor,
-    private val ideaId: Long,
-    private val errorMessage: String
+    taskInteractor: TaskInteractor,
+    ideaInteractor: IdeaInteractor,
+    ideaId: Long,
+    errorMessage: String
 ) : BaseDialogVieModel() {
 
     private val saveAndClose = BehaviorSubject.create<Boolean>()

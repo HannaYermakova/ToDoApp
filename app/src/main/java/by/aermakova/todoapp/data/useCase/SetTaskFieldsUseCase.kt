@@ -1,30 +1,22 @@
-package by.aermakova.todoapp.ui.task.details
+package by.aermakova.todoapp.data.useCase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.TaskModel
 import by.aermakova.todoapp.data.model.toCommonModel
-import by.aermakova.todoapp.data.useCase.FindGoalUseCase
-import by.aermakova.todoapp.data.useCase.FindStepUseCase
-import by.aermakova.todoapp.ui.base.BaseViewModel
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import io.reactivex.Single
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class TaskDetailsViewModel @Inject constructor(
-    private val navigation: MainFlowNavigation,
+class SetTaskFieldsUseCase(
     private val taskInteractor: TaskInteractor,
     private val findGoal: FindGoalUseCase,
     private val findStep: FindStepUseCase,
-    private val taskId: Long
-) : BaseViewModel() {
-
-    val popBack = { navigation.popBack() }
-
-    val openEditFragment = { navigation.navigateToEditElementFragment(taskId) }
+    private val errorMessage: String
+) {
 
     private val _taskModel = MutableLiveData<TaskModel>()
     val taskModel: LiveData<TaskModel>
@@ -34,61 +26,54 @@ class TaskDetailsViewModel @Inject constructor(
     val goalTitle: LiveData<String>
         get() = _goalTitle
 
+    private val _goalIsVisible = MutableLiveData<Boolean>()
+    val goalIsVisible: LiveData<Boolean>
+        get() = _goalIsVisible
+
     private val _keyResTitle = MutableLiveData<String>()
     val keyResTitle: LiveData<String>
         get() = _keyResTitle
+
+    private val _keyResIsVisible = MutableLiveData<Boolean>()
+    val keyResIsVisible: LiveData<Boolean>
+        get() = _keyResIsVisible
 
     private val _stepTitle = MutableLiveData<String>()
     val stepTitle: LiveData<String>
         get() = _stepTitle
 
-    val markAsDoneToggle = MutableLiveData<Boolean>(false)
+    private val _stepIsVisible = MutableLiveData<Boolean>()
+    val stepIsVisible: LiveData<Boolean>
+        get() = _stepIsVisible
 
-    val markAsDone = { markTaskAsDone() }
-
-    private fun markTaskAsDone() {
-        val taskId = taskModel.value!!.taskId
-        val status = markAsDoneToggle.value!!
-        disposable.add(
-            Single.create<Boolean> {
-                taskInteractor.updateTask(status, taskId)
-                it.onSuccess(true)
-            }.map {
-                taskInteractor
-                    .getTaskById(taskId)
-                    .subscribe({ entity ->
-                        taskInteractor.updateTaskToRemote(entity)
-                    },
-                        { it.printStackTrace() })
-            }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { navigation.popBack() },
-                    { it.printStackTrace() }
-                )
-        )
-    }
-
-    init {
+    fun setTaskFields(
+        taskId: Long,
+        disposable: CompositeDisposable,
+        successAction: (TaskEntity) -> Unit,
+        errorAction: (String) -> Unit
+    ) {
         disposable.add(
             taskInteractor
                 .getTaskById(taskId)
                 .map {
+                    successAction.invoke(it)
                     it.toCommonModel { }
                 }
                 .doOnSuccess { task ->
                     findGoal.useGoalById(task.goalId, { goal ->
+                        _goalIsVisible.postValue(true)
                         _goalTitle.postValue(goal.text)
                     })
                 }
                 .doOnSuccess { task ->
                     findGoal.useKeyResultById(task.keyResultId, { keyRes ->
+                        _keyResIsVisible.postValue(true)
                         _keyResTitle.postValue(keyRes.text)
                     })
                 }
                 .doOnSuccess { task ->
                     findStep.useStepByIdInUiThread(task.stepId, {
+                        _stepIsVisible.postValue(true)
                         _stepTitle.postValue(it.text)
                     }, errorAction)
                 }
@@ -96,7 +81,7 @@ class TaskDetailsViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { _taskModel.postValue(it) },
-                    { it.printStackTrace() }
+                    { it.handleError(errorMessage, errorAction) }
                 )
         )
     }

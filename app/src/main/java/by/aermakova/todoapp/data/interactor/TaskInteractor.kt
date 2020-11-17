@@ -44,6 +44,32 @@ class TaskInteractor(
         )
     }
 
+    fun updateTaskInLocalDatabase(
+        taskId: Long,
+        text: String,
+        goalId: Long?,
+        keyResultId: Long?,
+        stepId: Long?,
+        startDate: Long,
+        finishDate: Long?,
+        scheduledTask: Boolean,
+        interval: Int?
+    ): Long {
+        return taskRepository.saveTask(
+            TaskEntity(
+                taskId = taskId,
+                text = text,
+                taskGoalId = goalId,
+                taskKeyResultId = keyResultId,
+                taskStepId = stepId,
+                startTime = startDate,
+                finishDate = finishDate,
+                scheduledTask = scheduledTask,
+                interval = interval
+            )
+        )
+    }
+
     fun getTaskById(taskId: Long): Single<TaskEntity> = taskRepository.getTaskById(taskId)
 
     fun saveTaskToRemote(taskEntity: TaskEntity?) {
@@ -113,6 +139,9 @@ class TaskInteractor(
     }
 
     fun deleteTaskByIdLocal(taskId: Long): Single<Boolean> {
-       return Single.just(taskRepository.deleteTask(taskId))
+        return Single.just(taskRepository.deleteTask(taskId))
     }
+
+    fun updateTextLocal(newText: String, itemId: Long) =
+        taskRepository.updateTaskText(newText, itemId)
 }

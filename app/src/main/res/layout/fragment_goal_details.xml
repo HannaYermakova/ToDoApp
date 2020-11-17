@@ -61,7 +61,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/title"
-                app:onClick="@{viewModel.openEditFragment}" />
+                app:onClick="@{viewModel.openEditFragment}"
+                app:visible="@{!viewModel.goalModel.status}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/goal_items_list"

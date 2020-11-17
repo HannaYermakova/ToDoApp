@@ -61,7 +61,7 @@ class IdeaDetailsViewModel @Inject constructor(
         get() = selectKeyResDialogNavigation.getDialogResult()
 
     init {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         loadIdeaDetails.loadIdeaDetailsById(
             ideaId,
             disposable,
@@ -107,7 +107,7 @@ class IdeaDetailsViewModel @Inject constructor(
     fun saveAndClose(value: Boolean?) {
         value?.let {
             if (value) {
-                _status.onNext(Status.LOADING)
+                loadingAction.invoke()
                 loadIdeaDetails.saveIdeaDetails(ideaId,
                     disposable,
                     { mainFlowNavigation.popBack() },

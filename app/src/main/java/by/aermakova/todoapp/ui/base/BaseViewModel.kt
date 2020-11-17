@@ -10,6 +10,10 @@ abstract class BaseViewModel : ViewModel() {
 
     val errorAction: (String) -> Unit = { _status.onNext(Status.ERROR.apply { message = it }) }
 
+    val loadingAction: () -> Unit = { _status.onNext(Status.LOADING) }
+
+    val successAction: () -> Unit = { _status.onNext(Status.SUCCESS) }
+
     private val _disposable = CompositeDisposable()
     val disposable: CompositeDisposable
         get() = _disposable

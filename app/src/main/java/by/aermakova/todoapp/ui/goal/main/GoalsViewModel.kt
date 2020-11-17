@@ -74,7 +74,7 @@ class GoalsViewModel @Inject constructor(
         get() = dialogNavigation.getDialogResult()
 
     init {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         disposable.add(
             goalInteractor.getAllGoalsWithKeyResults()
                 .subscribeOn(Schedulers.io())

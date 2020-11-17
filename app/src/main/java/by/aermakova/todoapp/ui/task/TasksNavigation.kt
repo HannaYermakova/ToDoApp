@@ -20,7 +20,11 @@ class TasksNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToEditElementFragment(id: Long) {
-
+        try {
+            controller.navigate(MainFlowFragmentDirections.actionGlobalEditTaskFragment(id))
+        } catch (exception : IllegalArgumentException){
+            exception.printStackTrace()
+        }
     }
 
     override fun navigateToShowDetailsFragment(id: Long) {

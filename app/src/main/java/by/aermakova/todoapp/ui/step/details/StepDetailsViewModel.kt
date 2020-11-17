@@ -47,7 +47,7 @@ class StepDetailsViewModel @Inject constructor(
     private fun markStepAsDone() {
         val stepId = stepModel.value!!.stepId
         val status = markAsDoneToggle.value!!
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         loadStepUseCase.markStepAsDone(
             disposable,
             stepId,
@@ -62,7 +62,7 @@ class StepDetailsViewModel @Inject constructor(
     }
 
     init {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         loadStepUseCase.loadStep(
             disposable,
             { _goalTitle.postValue(it) },

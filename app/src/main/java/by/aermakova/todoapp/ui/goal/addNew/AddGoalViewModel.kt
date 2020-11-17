@@ -55,7 +55,7 @@ class AddGoalViewModel @Inject constructor(
     }
 
     private fun saveGoalToLocalDataBaseAndSyncToRemote() {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         createGoalUseCase.saveGoalToLocalDataBaseAndSyncToRemote(
             disposable,
             _tempGoalTitle.value,

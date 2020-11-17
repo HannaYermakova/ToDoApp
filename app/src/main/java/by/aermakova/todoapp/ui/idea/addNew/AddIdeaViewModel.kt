@@ -111,7 +111,7 @@ class AddIdeaViewModel @Inject constructor(
     }
 
     private fun saveIdeaToLocalDataBaseAndSyncToRemote() {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         createIdeaUseCase.saveIdeaToLocalDataBaseAndSyncToRemote(
             disposable,
             _tempIdeaTitle.value,

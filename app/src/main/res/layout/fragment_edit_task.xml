@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.aermakova.todoapp.ui.task.edit.EditTaskViewModel" />
+    </data>
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:disposable="@{viewModel.disposable}"
+        app:show_child="@{viewModel.status}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_image"
+            android:fitsSystemWindows="true"
+            app:paddingTopAndBottom="@{null}">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:background="@drawable/back_button_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:onClick="@{viewModel.popBack}"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_task_title"
+                app:layout_constraintBottom_toBottomOf="@+id/back_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/back_button" />
+
+            <EditText
+                android:id="@+id/goal_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:hint="@string/enter_task_hint"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="5"
+                android:text="@{viewModel.setTaskFieldsUseCase.taskModel.text}"
+                android:theme="@style/CustomEditTextStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:tempText="@{viewModel.editTaskUseCase.newTitle}" />
+
+
+            <TextView
+                android:id="@+id/attach_to_goal_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/task_attach_to_goal_text"
+                android:textAlignment="textStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_title"
+                app:visible="@{viewModel.setTaskFieldsUseCase.goalIsVisible}" />
+
+            <TextView
+                android:id="@+id/select_goal_spinner"
+                style="@style/TextRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_small"
+                android:spinnerMode="dropdown"
+                android:text="@{viewModel.setTaskFieldsUseCase.goalTitle}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attach_to_goal_text"
+                app:visible="@{viewModel.setTaskFieldsUseCase.goalIsVisible}"
+                tools:text="@string/edit_task_title" />
+
+            <TextView
+                android:id="@+id/attach_to_key_result_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/task_attach_to_key_result_text"
+                android:textAlignment="textStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/select_goal_spinner"
+                app:visible="@{viewModel.setTaskFieldsUseCase.keyResIsVisible}" />
+
+            <TextView
+                android:id="@+id/select_key_result_spinner"
+                style="@style/TextRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:spinnerMode="dropdown"
+                android:text="@{viewModel.setTaskFieldsUseCase.keyResTitle}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attach_to_key_result_text"
+                app:visible="@{viewModel.setTaskFieldsUseCase.keyResIsVisible}"
+                tools:text="@string/edit_task_title" />
+
+            <TextView
+                android:id="@+id/attach_to_step_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/attach_to_step_text"
+                android:textAlignment="textStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/select_key_result_spinner"
+                app:visible="@{viewModel.setTaskFieldsUseCase.stepIsVisible}" />
+
+            <TextView
+                android:id="@+id/select_step_spinner"
+                style="@style/TextRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:spinnerMode="dropdown"
+                android:text="@{viewModel.setTaskFieldsUseCase.stepTitle}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attach_to_step_text"
+                app:visible="@{viewModel.setTaskFieldsUseCase.stepIsVisible}"
+                tools:text="@string/edit_task_title" />
+
+            <TextView
+                android:id="@+id/scheduled_task_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/scheduled_task_text"
+                android:textAlignment="textStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/select_step_spinner" />
+
+            <ToggleButton
+                android:id="@+id/scheduled_task_toggle"
+                android:layout_width="@dimen/toggle_size"
+                android:layout_height="@dimen/toggle_size"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:background="@drawable/done_check"
+                android:checked="@{viewModel.setTaskFieldsUseCase.taskModel.scheduledTask}"
+                android:src="@drawable/done_check"
+                android:text="@string/empty"
+                android:textOff="@string/empty"
+                android:textOn="@string/empty"
+                app:checkedListener="@{viewModel.editTaskUseCase.scheduled}"
+                app:layout_constraintBaseline_toBaselineOf="@id/scheduled_task_text"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/repeated_interval_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scheduled_task_toggle"
+                app:visible="@{viewModel.editTaskUseCase.scheduled}">
+
+                <TextView
+                    android:id="@+id/repeated_text"
+                    style="@style/TextInstructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:text="@string/repeat_text"
+                    android:textAlignment="textStart" />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@id/daily_radio_button"
+                    android:orientation="horizontal"
+                    app:interval="@{viewModel.setTaskFieldsUseCase.taskModel.interval}"
+                    app:intervalListener="@{viewModel.editTaskUseCase.taskInterval}">
+
+                    <RadioButton
+                        android:id="@+id/daily_radio_button"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:text="@string/daily_text" />
+
+                    <RadioButton
+                        android:id="@+id/weekly_radio_button"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:text="@string/weekly_text" />
+
+                    <RadioButton
+                        android:id="@+id/monthly_radio_button"
+                        style="@style/CustomRadioButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:text="@string/monthly_text" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/set_finish_time_task_text"
+                style="@style/TextInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/set_finish_time_task_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeated_interval_selection" />
+
+            <ToggleButton
+                android:id="@+id/task_with_deadline_toggle"
+                android:layout_width="@dimen/toggle_size"
+                android:layout_height="@dimen/toggle_size"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:background="@drawable/done_check"
+                android:checked="@{viewModel.setTaskFieldsUseCase.taskModel.hasDeadline}"
+                android:src="@drawable/done_check"
+                android:text="@string/empty"
+                android:textOff="@string/empty"
+                android:textOn="@string/empty"
+                app:checkedListener="@{viewModel.editTaskUseCase.finishDateIsSelected}"
+                app:layout_constraintBaseline_toBaselineOf="@id/set_finish_time_task_text"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/deadline_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_with_deadline_toggle"
+                app:visible="@{viewModel.editTaskUseCase.finishDateIsSelected}">
+
+                <ImageButton
+                    android:id="@+id/set_deadline_button"
+                    android:layout_width="@dimen/image_button_size"
+                    android:layout_height="@dimen/image_button_size"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@drawable/ic_baseline_calendar_today_24"
+                    android:backgroundTint="@color/color_blue"
+                    android:elevation="@dimen/elevation_button"
+                    android:stateListAnimator="@drawable/lift_on_touch"
+                    app:onClick="@{viewModel.editTaskUseCase.pickFinishDay}" />
+
+                <TextView
+                    android:id="@+id/deadline_title"
+                    style="@style/TextRegular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:text="@{viewModel.setTaskFieldsUseCase.taskModel.finishTimeText}"
+                    app:convertLongToDate="@{viewModel.editTaskUseCase.taskFinishTime}"
+                    tools:text="@string/pick_day" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save_button"
+                style="@style/AccentButtonStyle"
+                android:layout_margin="@dimen/margin_normal"
+                android:elevation="@dimen/elevation_button"
+                android:text="@string/save_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:onClick="@{viewModel.saveTask}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/placeholder"
+            layout="@layout/placeholder_layout" />
+    </ViewFlipper>
+</layout>

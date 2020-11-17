@@ -73,7 +73,7 @@ class AddStepViewModel @Inject constructor(
     }
 
     private fun saveStepToLocalDataBaseAndSyncToRemote() {
-        _status.onNext(Status.LOADING)
+        loadingAction.invoke()
         createStepUseCase.saveStepToLocalDataBaseAndSyncToRemote(
             disposable,
             _tempStepTitle.value,
