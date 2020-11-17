@@ -7,6 +7,7 @@ import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.remote.DeleteStepItems
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -34,21 +35,11 @@ class DeleteStepUseCase(
                     stepInteractor.deleteStepByIdRemote(stepId)
                         .compose { goalInteractor.deleteStepAndAllItsItemsLocal(stepId) }
                         .subscribe(
-                            {
-                                Log.d(
-                                    "A_DeleteGoalUseCase",
-                                    "Goal and all its items hab been deleted"
-                                )
-                            },
-                            {
-                                it.printStackTrace()
-                                errorAction.invoke(errorMessage)
-                            }
+                            { Log.d("A_DeleteStepUseCase", "Step has been deleted") },
+                            { it.handleError(errorMessage, errorAction) }
                         )
                 }
             }
-
-
         )
     }
 

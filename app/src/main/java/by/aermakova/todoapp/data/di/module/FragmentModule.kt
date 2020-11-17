@@ -42,7 +42,6 @@ import by.aermakova.todoapp.ui.step.details.StepDetailsFragment
 import by.aermakova.todoapp.ui.step.details.StepDetailsModule
 import by.aermakova.todoapp.ui.step.edit.EditStepFragment
 import by.aermakova.todoapp.ui.step.edit.EditStepModule
-import by.aermakova.todoapp.ui.step.edit.EditStepViewModel
 import by.aermakova.todoapp.ui.step.main.StepsFragment
 import by.aermakova.todoapp.ui.step.main.StepsModule
 import by.aermakova.todoapp.ui.task.addNew.AddTaskFragment

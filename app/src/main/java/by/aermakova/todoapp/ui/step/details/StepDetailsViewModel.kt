@@ -13,9 +13,12 @@ import javax.inject.Inject
 class StepDetailsViewModel @Inject constructor(
     private val mainFlowNavigation: MainFlowNavigation,
     private val loadStepUseCase: LoadStepUseCase,
-) : BaseViewModel() {
+    private val stepId: Long
+    ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
+
+    val openEditFragment = {mainFlowNavigation.navigateToEditElementFragment(stepId)}
 
     private val _stepModel = MutableLiveData<StepModel>()
     val stepModel: LiveData<StepModel>

@@ -7,19 +7,73 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
+import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
+import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
+import by.aermakova.todoapp.util.TasksActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Named
 
 @Module
 class TasksModule {
 
     @Provides
+    fun provideTaskBottomSheetMenuUseCase(
+        deleteTaskUseCase: DeleteTaskUseCase,
+        @Named("TaskAction") taskActionBind: BottomSheetTaskActionBinding,
+        dialog: BottomSheetDialog,
+        taskActionItems: Array<TasksActionItem>,
+        resources: Resources,
+        mainFlowNavigation: MainFlowNavigation
+    ) = TaskBottomSheetMenuUseCase(
+        deleteTaskUseCase,
+        taskActionBind,
+        dialog,
+        taskActionItems,
+        resources,
+        mainFlowNavigation
+    )
+
+    @Provides
+    fun provideDeleteTaskUseCase(
+        taskInteractor: TaskInteractor,
+        @Named("ErrorDeleteTask") errorMessage: String
+    ) = DeleteTaskUseCase(
+        taskInteractor,
+        errorMessage
+    )
+
+    @Provides
+    @Named("ErrorDeleteTask")
+    fun provideErrorDeleteTaskMessage(activity: Activity) =
+        activity.getString(R.string.error_delete_task)
+
+    @Provides
+    @Named("TaskAction")
+    fun provideBottomSheetTaskActionBinding(fragment: TasksFragment): BottomSheetTaskActionBinding {
+        val bind: BottomSheetTaskActionBinding = DataBindingUtil.inflate(
+            fragment.layoutInflater,
+            R.layout.bottom_sheet_task_action,
+            null,
+            false
+        )
+        bind.lifecycleOwner = fragment
+        return bind
+    }
+
+    @Provides
+    fun provideTasksActionItem(): Array<TasksActionItem> = TasksActionItem.values()
+
+    @Provides
+    @Named("FilterTask")
     fun provideFilterBottomSheetBinding(fragment: TasksFragment): BottomSheetFilterTaskBinding {
         val bind: BottomSheetFilterTaskBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,
@@ -32,6 +86,7 @@ class TasksModule {
     }
 
     @Provides
+    @Named("SortTask")
     fun provideSortBottomSheetBinding(fragment: TasksFragment): BottomSheetSortTaskBinding {
         val bind: BottomSheetSortTaskBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,

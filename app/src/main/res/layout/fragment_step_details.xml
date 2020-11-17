@@ -48,6 +48,19 @@
                 app:layout_constraintTop_toTopOf="@id/back_button"
                 tools:text="Step to Goal" />
 
+            <ImageButton
+                android:id="@+id/edit_button"
+                android:layout_width="@dimen/image_button_size"
+                android:layout_height="@dimen/image_button_size"
+                android:layout_margin="@dimen/margin_normal"
+                android:background="@drawable/ic_baseline_edit_24"
+                android:backgroundTint="@color/color_blue"
+                android:stateListAnimator="@drawable/lift_on_touch"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                app:onClick="@{viewModel.openEditFragment}" />
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

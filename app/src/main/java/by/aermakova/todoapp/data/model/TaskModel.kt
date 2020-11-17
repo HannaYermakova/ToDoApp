@@ -15,10 +15,14 @@ data class TaskModel(
     val startTime: Long,
     val scheduledTask: Boolean,
     val interval: Int?,
-    val action: FunctionLong? = null
-) : CommonModel(taskId, R.layout.item_task, BR.task, action)
+    val action: FunctionLong? = null,
+    val longClick: FunctionLong? = null
+) : CommonModel(taskId, R.layout.item_task, BR.task, action, longClick)
 
-fun TaskEntity.toCommonModel(clickAction: FunctionLong? = null): TaskModel {
+fun TaskEntity.toCommonModel(
+    clickAction: FunctionLong? = null,
+    longClick: FunctionLong? = null
+): TaskModel {
     return TaskModel(
         taskId,
         taskStatusDone,
@@ -30,6 +34,7 @@ fun TaskEntity.toCommonModel(clickAction: FunctionLong? = null): TaskModel {
         startTime,
         scheduledTask,
         interval,
-        clickAction
+        clickAction,
+        longClick
     )
 }

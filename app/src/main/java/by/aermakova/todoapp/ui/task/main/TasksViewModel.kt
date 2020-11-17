@@ -8,6 +8,7 @@ import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.model.toTextModel
+import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -19,17 +20,22 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
+import javax.inject.Named
 
 class TasksViewModel @Inject constructor(
+    @Named("FilterTask") private val filterBind: BottomSheetFilterTaskBinding,
+    @Named("SortTask") private val sortBind: BottomSheetSortTaskBinding,
     private val navigation: MainFlowNavigation,
     private val taskInteractor: TaskInteractor,
     private val resources: Resources,
-    private val filterBind: BottomSheetFilterTaskBinding,
-    private val sortBind: BottomSheetSortTaskBinding,
-    private val dialog: BottomSheetDialog
+    private val dialog: BottomSheetDialog,
+    private val taskBottomSheetMenuUseCase: TaskBottomSheetMenuUseCase
 ) : BaseViewModel() {
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
+
+    val actionItems: LiveData<List<CommonModel>> =
+        taskBottomSheetMenuUseCase.getLiveListOfStepActionsItems(disposable, errorAction)
 
     val openFilterDialog = {
         initFilterList()
@@ -104,11 +110,16 @@ class TasksViewModel @Inject constructor(
         disposable.add(
             taskInteractor.getAllTasks()
                 .concatMapSingle { list ->
-                    Observable.fromIterable(list).filter {_currentFilter.filterTasksList(it) }
+                    Observable.fromIterable(list).filter { _currentFilter.filterTasksList(it) }
                         .toSortedList(_currentSortCondition.createTasksComparator())
                 }
                 .map { list ->
-                    list.map { it.toCommonModel { id -> navigation.navigateToShowDetailsFragment(id) } }
+                    list.map {
+                        it.toCommonModel(
+                            { id -> navigation.navigateToShowDetailsFragment(id) },
+                            { id -> taskBottomSheetMenuUseCase.openBottomSheetActions(id, this) }
+                        )
+                    }
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

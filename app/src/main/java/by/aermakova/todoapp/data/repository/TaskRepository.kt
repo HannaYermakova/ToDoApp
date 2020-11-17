@@ -45,4 +45,8 @@ class TaskRepository @Inject constructor(
     fun getAllTasksIdByStepId(stepId: Long): Single<List<Long>> {
         return taskDao.getAllTasksIdByStepId(stepId)
     }
+
+    fun deleteTask(taskId: Long): Boolean {
+        return taskDao.deleteTaskById(taskId) > 0
+    }
 }

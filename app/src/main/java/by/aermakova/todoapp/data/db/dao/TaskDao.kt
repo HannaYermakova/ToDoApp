@@ -52,4 +52,7 @@ interface TaskDao {
 
     @Query("DELETE FROM tasks_table WHERE task_step_id =:stepId")
     fun deleteTaskByStepId(stepId: Long)
+
+    @Query("DELETE FROM tasks_table WHERE task_id =:taskId")
+    fun deleteTaskById(taskId: Long):Int
 }

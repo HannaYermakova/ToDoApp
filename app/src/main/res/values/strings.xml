@@ -40,6 +40,8 @@
     <string name="error_find_step">Error while finding Step!</string>
     <string name="error_find_idea">Error while finding Idea!</string>
 
+    <string name="error_delete_task">Error while deleting Task</string>
+
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>
     <string name="title_steps">Steps</string>
@@ -61,6 +63,9 @@
 
     <string name="title_edit_step">Edit Step</string>
     <string name="title_delete_step">Delete Step</string>
+
+    <string name="title_edit_task">Edit Task</string>
+    <string name="title_delete_task">Delete Task</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
     <string name="edit_goal_title">Edit your Goal</string>

@@ -106,4 +106,13 @@ class TaskInteractor(
         taskRepository.getAllTasksIdByStepId(stepId).map { ids ->
             ids.map { taskRemoteDatabase.removeData(it) }
         }
+
+    fun deleteTaskByIdRemote(taskId: Long): Single<Boolean> {
+        taskRemoteDatabase.removeData(taskId)
+        return Single.just(true)
+    }
+
+    fun deleteTaskByIdLocal(taskId: Long): Single<Boolean> {
+       return Single.just(taskRepository.deleteTask(taskId))
+    }
 }

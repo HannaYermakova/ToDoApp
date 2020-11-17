@@ -12,3 +12,8 @@ interface DeleteStepItems {
 
     fun deleteStepItemsById(stepId: Long): Single<List<Unit>>
 }
+
+interface DeleteTaskItems {
+
+    fun deleteTaskItemsById(stepId: Long): Single<List<Unit>>
+}
