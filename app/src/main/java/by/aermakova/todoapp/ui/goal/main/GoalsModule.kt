@@ -29,7 +29,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
 
 
 @Module
@@ -68,7 +67,7 @@ class GoalsModule {
         stepInteractor: StepInteractor,
         taskInteractor: TaskInteractor,
         ideaInteractor: IdeaInteractor,
-        @Named("DeleteGoal") errorDeleteGoalMessage: String
+        @ErrorDeleteGoal errorDeleteGoalMessage: String
     ) = DeleteGoalUseCase(
         goalInteractor,
         keyResultInteractor,
@@ -83,7 +82,7 @@ class GoalsModule {
     fun provideAddIdeaToGoalUseCase(
         goalInteractor: GoalInteractor,
         @NavigationIdeas ideasNavigation: IdeasNavigation,
-        @Named("AchievedGoalIdea") errorAchievedGoalIdea: String
+        @ErrorGoalIsDoneIdea errorAchievedGoalIdea: String
     ): AddItemToParentItemUseCase<IdeasNavigation> {
         return AddItemToParentItemUseCase(
             goalInteractor,
@@ -98,7 +97,7 @@ class GoalsModule {
     fun provideAddStepToGoalUseCase(
         goalInteractor: GoalInteractor,
         @NavigationSteps stepsNavigation: StepsNavigation,
-        @Named("AchievedGoalStep") errorAchievedGoalStep: String
+        @ErrorGoalIsDoneStep errorAchievedGoalStep: String
     ): AddItemToParentItemUseCase<StepsNavigation> {
         return AddItemToParentItemUseCase(
             goalInteractor,
@@ -113,7 +112,7 @@ class GoalsModule {
     fun provideAddTaskToGoalUseCase(
         goalInteractor: GoalInteractor,
         @NavigationTasks tasksNavigation: TasksNavigation,
-        @Named("AchievedGoalTask") errorAchievedGoalTask: String
+        @ErrorGoalIsDoneTask errorAchievedGoalTask: String
     ): AddItemToParentItemUseCase<TasksNavigation> {
         return AddItemToParentItemUseCase(
             goalInteractor,
@@ -153,7 +152,7 @@ class GoalsModule {
     @Provides
     fun provideAddKeyResultToGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("AddItemDialog") dialogNavigation: AddItemDialogNavigation,
+        @DialogAddItem dialogNavigation: AddItemDialogNavigation,
         activity: Activity
     ) =
         AddKeyResultToGoalUseCase(
@@ -164,22 +163,22 @@ class GoalsModule {
         )
 
     @Provides
-    @Named("AchievedGoalTask")
+    @ErrorGoalIsDoneTask
     fun provideErrorAchievedGoalTask(activity: Activity) =
         activity.getString(R.string.error_adding_task)
 
     @Provides
-    @Named("AchievedGoalStep")
+    @ErrorGoalIsDoneStep
     fun provideErrorAchievedGoalStep(activity: Activity) =
         activity.getString(R.string.error_adding_step)
 
     @Provides
-    @Named("AchievedGoalIdea")
+    @ErrorGoalIsDoneIdea
     fun provideErrorAchievedGoalIdea(activity: Activity) =
         activity.getString(R.string.error_adding_idea)
 
     @Provides
-    @Named("DeleteGoal")
+    @ErrorDeleteGoal
     fun provideErrorDeleteGoal(activity: Activity) =
         activity.getString(R.string.error_delete_goal)
 
@@ -201,12 +200,12 @@ class GoalsModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
-    @Named("AddItemDialog")
+    @DialogAddItem
     fun provideAddItemDialogNavigation(controller: NavController): AddItemDialogNavigation =
         AddItemDialogNavigation(controller)
 
     @Provides
-    @Named("ConfirmDialog")
+    @DialogConfirm
     fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
         ConfirmDialogNavigation(controller)
 

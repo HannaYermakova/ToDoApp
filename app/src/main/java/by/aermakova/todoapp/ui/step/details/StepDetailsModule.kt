@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.ErrorWhileLoading
 import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
@@ -34,7 +35,7 @@ class StepDetailsModule {
         findTask: FindTaskUseCase,
         findIdea: FindIdeaUseCase,
         stepId: Long,
-        @Named("LoadingError") errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         LoadStepUseCase(
             stepInteractor,
@@ -47,7 +48,7 @@ class StepDetailsModule {
         )
 
     @Provides
-    @Named("LoadingError")
+    @ErrorWhileLoading
     fun provideLoadErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_loading)
 
@@ -64,7 +65,7 @@ class StepDetailsModule {
     @Provides
     fun provideFindGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("LoadingError") errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 

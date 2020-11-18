@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.ErrorWhileLoading
 import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.useCase.ChangeStepTextUseCase
@@ -23,7 +24,7 @@ class EditStepModule {
     @Provides
     fun provideChangeStepTextUseCase(
         stepInteractor: StepInteractor,
-        errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         ChangeStepTextUseCase(
             stepInteractor, errorMessage
@@ -32,13 +33,14 @@ class EditStepModule {
     @Provides
     fun provideFindStepUseCase(
         stepInteractor: StepInteractor,
-        errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         FindStepUseCase(
             stepInteractor, errorMessage
         )
 
     @Provides
+    @ErrorWhileLoading
     fun provideErrorMessage(activity: Activity): String =
         activity.getString(R.string.error_while_loading)
 

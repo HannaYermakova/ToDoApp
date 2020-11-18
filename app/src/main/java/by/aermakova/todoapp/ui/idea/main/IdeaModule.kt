@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.ErrorWhileLoading
 import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.useCase.LoadAllIdeasUseCase
@@ -19,10 +20,14 @@ import dagger.multibindings.IntoMap
 class IdeaModule {
 
     @Provides
-    fun provideLoadAllIdeasUseCase(ideaInteractor: IdeaInteractor, errorMessage: String) =
+    fun provideLoadAllIdeasUseCase(
+        ideaInteractor: IdeaInteractor,
+        @ErrorWhileLoading errorMessage: String
+    ) =
         LoadAllIdeasUseCase(ideaInteractor, errorMessage)
 
     @Provides
+    @ErrorWhileLoading
     fun provideErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_loading)
 

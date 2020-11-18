@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.di.scope.NavigationGoals
+import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddNewKeyResultsToGoalUseCase
@@ -19,16 +19,16 @@ import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
+
 
 @Module
 class EditGoalModule {
 
     @Provides
     fun provideAddNewKeyResultsToGoalUseCase(
-        @Named("AddItemDialog") dialogNavigation: AddItemDialogNavigation,
-        @Named("AddKeyResult") addKeyResultDialogTitle: String,
-        @Named("ErrorAddKeyResult") errorMessage: String,
+        @DialogAddItem dialogNavigation: AddItemDialogNavigation,
+        @TitleAddKeyResult addKeyResultDialogTitle: String,
+        @ErrorAddKeyResult errorMessage: String,
         addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase
     ) =
         AddNewKeyResultsToGoalUseCase(
@@ -41,9 +41,9 @@ class EditGoalModule {
     @Provides
     fun provideAddKeyResultToGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("AddItemDialog") dialogNavigation: AddItemDialogNavigation,
-        @Named("AddKeyResult") addKeyResultDialogTitle: String,
-        @Named("ErrorAddKeyResult") errorMessage: String,
+        @DialogAddItem dialogNavigation: AddItemDialogNavigation,
+        @TitleAddKeyResult addKeyResultDialogTitle: String,
+        @ErrorAddKeyResult errorMessage: String,
     ) =
         AddKeyResultToGoalUseCase(
             goalInteractor,
@@ -55,14 +55,14 @@ class EditGoalModule {
     @Provides
     fun provideFindGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("FindGoal") errorMessage: String
+        @ErrorFindGoal errorMessage: String
     ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
     fun provideChangeGoalTextUseCase(
         goalInteractor: GoalInteractor,
-        @Named("ChangeText") errorMessage: String
+        @ErrorChangeTitleGoal errorMessage: String
     ) = ChangeGoalTextUseCase(
         goalInteractor, errorMessage
     )
@@ -73,27 +73,27 @@ class EditGoalModule {
     }
 
     @Provides
-    @Named("AddItemDialog")
+    @DialogAddItem
     fun provideAddItemDialogNavigation(controller: NavController): AddItemDialogNavigation =
         AddItemDialogNavigation(controller)
 
     @Provides
-    @Named("ErrorAddKeyResult")
+    @ErrorAddKeyResult
     fun provideAddKeyResultErrorMessage(activity: Activity) =
         activity.getString(R.string.error_adding_key_result)
 
     @Provides
-    @Named("AddKeyResult")
+    @TitleAddKeyResult
     fun provideAddKeyResultTitle(activity: Activity) =
         activity.getString(R.string.add_key_result)
 
     @Provides
-    @Named("FindGoal")
+    @ErrorFindGoal
     fun provideFindGoalErrorMessage(activity: Activity) =
         activity.getString(R.string.error_find_goal)
 
     @Provides
-    @Named("ChangeText")
+    @ErrorChangeTitleGoal
     fun provideErrorMessageChangeText(activity: Activity) =
         activity.getString(R.string.error_change_goal_text)
 

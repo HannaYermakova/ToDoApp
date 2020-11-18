@@ -27,7 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
+
 
 @Module
 class StepsModule {
@@ -37,7 +37,7 @@ class StepsModule {
     fun provideAddIdeaToGoalUseCase(
         stepInteractor: StepInteractor,
         @NavigationIdeas ideasNavigation: IdeasNavigation,
-        @Named("StepIsDoneIdea") errorStepIsDoneIdea: String
+        @ErrorStepIsDoneIdea errorStepIsDoneIdea: String
     ): AddItemToParentItemUseCase<IdeasNavigation> {
         return AddItemToParentItemUseCase(
             stepInteractor,
@@ -52,7 +52,7 @@ class StepsModule {
     fun provideAddTaskToGoalUseCase(
         stepInteractor: StepInteractor,
         @NavigationTasks tasksNavigation: TasksNavigation,
-        @Named("StepIsDoneTask") errorStepIsDoneTask: String
+        @ErrorStepIsDoneTask errorStepIsDoneTask: String
     ): AddItemToParentItemUseCase<TasksNavigation> {
         return AddItemToParentItemUseCase(
             stepInteractor,
@@ -115,7 +115,7 @@ class StepsModule {
         stepInteractor: StepInteractor,
         taskInteractor: TaskInteractor,
         ideaInteractor: IdeaInteractor,
-        @Named("DeleteStep") errorMessage: String
+        @ErrorDeleteStep errorMessage: String
     ) = DeleteStepUseCase(
         goalInteractor,
         stepInteractor,
@@ -125,29 +125,29 @@ class StepsModule {
     )
 
     @Provides
-    @Named("DeleteStep")
+    @ErrorDeleteStep
     fun provideErrorDeleteStepMessage(activity: Activity) =
         activity.getString(R.string.error_delete_step)
 
     @Provides
     fun provideLoadAllStepsUseCase(
         stepInteractor: StepInteractor,
-        @Named("LoadSteps") errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         LoadAllStepsUseCase(stepInteractor, errorMessage)
 
     @Provides
-    @Named("LoadSteps")
+    @ErrorWhileLoading
     fun provideErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_loading)
 
     @Provides
-    @Named("StepIsDoneIdea")
+    @ErrorStepIsDoneIdea
     fun provideStepIsDoneIdeaErrorMessage(activity: Activity) =
         activity.getString(R.string.error_adding_idea_to_step)
 
     @Provides
-    @Named("StepIsDoneTask")
+    @ErrorStepIsDoneTask
     fun provideStepIsDoneTaskErrorMessage(activity: Activity) =
         activity.getString(R.string.error_adding_task_to_step)
 

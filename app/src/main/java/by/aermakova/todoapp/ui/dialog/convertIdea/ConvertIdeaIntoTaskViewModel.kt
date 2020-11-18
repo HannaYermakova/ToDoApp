@@ -1,5 +1,7 @@
 package by.aermakova.todoapp.ui.dialog.convertIdea
 
+import by.aermakova.todoapp.data.di.scope.DialogPickDate
+import by.aermakova.todoapp.data.di.scope.NavigationConvertIdea
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
@@ -11,8 +13,8 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ConvertIdeaIntoTaskViewModel @Inject constructor(
-    @Named("PickDate") private val pickDayDialogNavigation: PickDayDialogNavigator,
-    @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
+    @DialogPickDate private val pickDayDialogNavigation: PickDayDialogNavigator,
+    @NavigationConvertIdea private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
     taskInteractor: TaskInteractor,
     ideaInteractor: IdeaInteractor,
     ideaId: Long,

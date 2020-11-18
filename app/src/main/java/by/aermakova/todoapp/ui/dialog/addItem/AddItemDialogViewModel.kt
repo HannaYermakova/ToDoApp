@@ -1,5 +1,7 @@
 package by.aermakova.todoapp.ui.dialog.addItem
 
+import by.aermakova.todoapp.data.di.scope.ErrorEmptyField
+import by.aermakova.todoapp.data.di.scope.TitleDialogAddItem
 import by.aermakova.todoapp.ui.base.BaseDialogVieModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.util.Status
@@ -9,8 +11,8 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class AddItemDialogViewModel @Inject constructor(
-    @Named("DialogTitle") val title: String,
-    @Named("ErrorMessage") val errorMessage: String,
+    @TitleDialogAddItem val title: String,
+    @ErrorEmptyField val errorMessage: String,
     private val router: DialogNavigation<String>
 ) : BaseDialogVieModel() {
 

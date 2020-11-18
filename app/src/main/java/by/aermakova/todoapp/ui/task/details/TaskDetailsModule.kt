@@ -7,17 +7,18 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.ErrorFindGoal
+import by.aermakova.todoapp.data.di.scope.ErrorFindStep
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
+
 
 @Module
 class TaskDetailsModule {
@@ -25,24 +26,24 @@ class TaskDetailsModule {
     @Provides
     fun provideFindGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("FindGoal") errorMessage: String
+        @ErrorFindGoal errorMessage: String
     ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
-    @Named("FindGoal")
+    @ErrorFindGoal
     fun provideFindGoalErrorMessage(activity: Activity) =
         activity.getString(R.string.error_find_goal)
 
     @Provides
-    @Named("FindStep")
+    @ErrorFindStep
     fun provideFindStepErrorMessage(activity: Activity) =
         activity.getString(R.string.error_find_step)
 
     @Provides
     fun provideFindStepUseCase(
         stepInteractor: StepInteractor,
-        @Named("FindStep") errorMessage: String
+        @ErrorFindStep errorMessage: String
     ) =
         FindStepUseCase(stepInteractor, errorMessage)
 

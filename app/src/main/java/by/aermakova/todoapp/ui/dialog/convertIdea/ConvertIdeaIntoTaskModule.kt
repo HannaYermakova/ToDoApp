@@ -7,11 +7,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.DialogPickDate
+import by.aermakova.todoapp.data.di.scope.NavigationConvertIdea
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
+
 
 @Module
 class ConvertIdeaIntoTaskModule {
@@ -26,16 +28,13 @@ class ConvertIdeaIntoTaskModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
-    @Named("ConvertIdea")
-    fun provideConvertDialogNavigation(controller: NavController): ConvertIdeaDialogNavigator {
-        return ConvertIdeaDialogNavigator(controller)
-    }
+    @NavigationConvertIdea
+    fun provideConvertDialogNavigation(controller: NavController) =
+        ConvertIdeaDialogNavigator(controller)
 
     @Provides
-    @Named("PickDate")
-    fun provideDialogNavigation(controller: NavController): PickDayDialogNavigator {
-        return PickDayDialogNavigator(controller)
-    }
+    @DialogPickDate
+    fun provideDialogNavigation(controller: NavController) = PickDayDialogNavigator(controller)
 
     @Provides
     fun provideErrorMessage(activity: Activity): String =

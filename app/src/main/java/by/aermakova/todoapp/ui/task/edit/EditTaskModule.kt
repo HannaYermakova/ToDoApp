@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.di.scope.NavigationSteps
+import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
@@ -16,12 +16,10 @@ import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.data.useCase.SetTaskFieldsUseCase
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
 
 @Module
 class EditTaskModule {
@@ -35,7 +33,7 @@ class EditTaskModule {
     fun provideEditTaskUseCase(
         taskInteractor: TaskInteractor,
         pickDayDialogNavigation: PickDayDialogNavigator,
-        @Named("EditTaskError") errorMessage: String
+        @ErrorEditTask errorMessage: String
     ) = EditTaskUseCase(taskInteractor, pickDayDialogNavigation, errorMessage)
 
     @Provides
@@ -43,14 +41,14 @@ class EditTaskModule {
         taskInteractor: TaskInteractor,
         findGoalUseCase: FindGoalUseCase,
         findStepUseCase: FindStepUseCase,
-        @Named("SetTaskFieldsError") errorMessage: String
+        @ErrorSetTaskFields errorMessage: String
     ) =
         SetTaskFieldsUseCase(taskInteractor, findGoalUseCase, findStepUseCase, errorMessage)
 
     @Provides
     fun provideFindStepUseCase(
         stepInteractor: StepInteractor,
-        @Named("FindStep") errorMessage: String
+        @ErrorFindStep errorMessage: String
     ) =
         FindStepUseCase(
             stepInteractor, errorMessage
@@ -64,27 +62,27 @@ class EditTaskModule {
     @Provides
     fun provideFindGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("FindGoal") errorMessage: String
+        @ErrorFindGoal errorMessage: String
     ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
-    @Named("EditTaskError")
+    @ErrorEditTask
     fun provideEditTaskErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_updating_task)
 
     @Provides
-    @Named("SetTaskFieldsError")
+    @ErrorSetTaskFields
     fun provideSetTaskFieldsErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_setting_task_fields)
 
     @Provides
-    @Named("FindGoal")
+    @ErrorFindGoal
     fun provideFindGoalErrorMessage(activity: Activity) =
         activity.getString(R.string.error_find_goal)
 
     @Provides
-    @Named("FindStep")
+    @ErrorFindStep
     fun provideFindStepErrorMessage(activity: Activity) =
         activity.getString(R.string.error_find_step)
 

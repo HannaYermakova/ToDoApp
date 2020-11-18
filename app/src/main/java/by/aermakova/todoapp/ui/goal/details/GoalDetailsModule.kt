@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.ErrorWhileLoading
 import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
@@ -23,18 +24,19 @@ class GoalDetailsModule {
     @Provides
     fun provideLoadAllGoalsUseCase(
         goalInteractor: GoalInteractor,
-        errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         LoadAllGoalsUseCase(goalInteractor, errorMessage)
 
     @Provides
+    @ErrorWhileLoading
     fun provideErrorMessage(activity: Activity) =
         activity.getString(R.string.error_while_loading)
 
     @Provides
     fun provideFindGoalUseCase(
         goalInteractor: GoalInteractor,
-        errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 

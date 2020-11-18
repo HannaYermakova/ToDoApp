@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.goal.main
 
 import androidx.lifecycle.LiveData
+import by.aermakova.todoapp.data.di.scope.DialogConfirm
 import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.CommonModel
@@ -17,13 +18,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
-import javax.inject.Named
 
 const val INIT_SELECTED_ITEM_ID = -1L
 
 class GoalsViewModel @Inject constructor(
     @NavigationGoals private val navigation: MainFlowNavigation,
-    @Named("ConfirmDialog") private val dialogNavigation: DialogNavigation<Boolean>,
+    @DialogConfirm private val dialogNavigation: DialogNavigation<Boolean>,
     private val goalBottomSheetMenuUseCase: GoalBottomSheetMenuUseCase,
     private val goalInteractor: GoalInteractor
 ) : BaseViewModel() {
@@ -84,7 +84,7 @@ class GoalsViewModel @Inject constructor(
                     {
                         _goalsList.onNext(
                             it.toCommonModelGoalList(
-                                { navigation.navigateToShowDetailsFragment(it)},
+                                { navigation.navigateToShowDetailsFragment(it) },
                                 openBottomSheetGoalsActions
                             )
                         )

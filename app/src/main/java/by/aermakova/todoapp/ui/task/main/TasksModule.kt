@@ -7,21 +7,20 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.di.scope.NavigationTasks
+import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
 import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.TasksActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import javax.inject.Named
+
 
 @Module
 class TasksModule {
@@ -29,7 +28,7 @@ class TasksModule {
     @Provides
     fun provideTaskBottomSheetMenuUseCase(
         deleteTaskUseCase: DeleteTaskUseCase,
-        @Named("TaskAction") taskActionBind: BottomSheetTaskActionBinding,
+        @TaskActionMenu taskActionBind: BottomSheetTaskActionBinding,
         dialog: BottomSheetDialog,
         taskActionItems: Array<TasksActionItem>,
         resources: Resources,
@@ -46,19 +45,19 @@ class TasksModule {
     @Provides
     fun provideDeleteTaskUseCase(
         taskInteractor: TaskInteractor,
-        @Named("ErrorDeleteTask") errorMessage: String
+        @ErrorDeleteTask errorMessage: String
     ) = DeleteTaskUseCase(
         taskInteractor,
         errorMessage
     )
 
     @Provides
-    @Named("ErrorDeleteTask")
+    @ErrorDeleteTask
     fun provideErrorDeleteTaskMessage(activity: Activity) =
         activity.getString(R.string.error_delete_task)
 
     @Provides
-    @Named("TaskAction")
+    @TaskActionMenu
     fun provideBottomSheetTaskActionBinding(fragment: TasksFragment): BottomSheetTaskActionBinding {
         val bind: BottomSheetTaskActionBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,
@@ -74,7 +73,7 @@ class TasksModule {
     fun provideTasksActionItem(): Array<TasksActionItem> = TasksActionItem.values()
 
     @Provides
-    @Named("FilterTask")
+    @FilterTaskMenu
     fun provideFilterBottomSheetBinding(fragment: TasksFragment): BottomSheetFilterTaskBinding {
         val bind: BottomSheetFilterTaskBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,
@@ -87,7 +86,7 @@ class TasksModule {
     }
 
     @Provides
-    @Named("SortTask")
+    @SortTaskMenu
     fun provideSortBottomSheetBinding(fragment: TasksFragment): BottomSheetSortTaskBinding {
         val bind: BottomSheetSortTaskBinding = DataBindingUtil.inflate(
             fragment.layoutInflater,

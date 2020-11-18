@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.di.scope.NavigationIdeas
+import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
@@ -32,7 +32,7 @@ class IdeaDetailsModule {
         ideaInteractor: IdeaInteractor,
         findGoal: FindGoalUseCase,
         findStep: FindStepUseCase,
-        @Named("ErrorMessage") errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         LoadIdeaDetailsUseCase(
             ideaInteractor,
@@ -42,26 +42,29 @@ class IdeaDetailsModule {
         )
 
     @Provides
-    @Named("ErrorMessage")
+    @ErrorWhileLoading
     fun provideErrorMessage(activity: Activity): String =
         activity.getString(R.string.error_while_loading)
 
     @Provides
     fun provideCreateStepUseCase(
         stepInteractor: StepInteractor,
-        @Named("ErrorMessage") errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         CreateStepUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideFindGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("ErrorMessage") errorMessage: String
+        @ErrorWhileLoading errorMessage: String
     ) =
         FindGoalUseCase(goalInteractor, errorMessage)
 
     @Provides
-    fun provideFindStepUseCase(stepInteractor: StepInteractor, @Named("ErrorMessage") errorMessage: String) =
+    fun provideFindStepUseCase(
+        stepInteractor: StepInteractor,
+        @ErrorWhileLoading errorMessage: String
+    ) =
         FindStepUseCase(stepInteractor, errorMessage)
 
     @Provides
@@ -79,18 +82,17 @@ class IdeaDetailsModule {
         IdeasNavigation(controller)
 
     @Provides
-    @Named("ConvertIdea")
-    fun provideConvertDialogNavigation(controller: NavController): ConvertIdeaDialogNavigator {
-        return ConvertIdeaDialogNavigator(controller)
-    }
+    @DialogConvertIdea
+    fun provideConvertDialogNavigation(controller: NavController) =
+        ConvertIdeaDialogNavigator(controller)
 
     @Provides
-    @Named("SelectKeyResult")
-    fun provideSelectKeyResDialogNavigation(controller: NavController): SelectKeyResultDialogNavigation =
+    @DialogSelectKeyResult
+    fun provideSelectKeyResDialogNavigation(controller: NavController) =
         SelectKeyResultDialogNavigation(controller)
 
     @Provides
-    @Named("SelectKeyResultTitle")
+    @TitleSelectKeyResult
     fun provideSelectKeyResultTitle(activity: Activity): String =
         activity.getString(R.string.select_key_result_text)
 

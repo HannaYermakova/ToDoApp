@@ -2,7 +2,10 @@ package by.aermakova.todoapp.ui.idea.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.DialogConvertIdea
+import by.aermakova.todoapp.data.di.scope.DialogSelectKeyResult
 import by.aermakova.todoapp.data.di.scope.NavigationIdeas
+import by.aermakova.todoapp.data.di.scope.TitleSelectKeyResult
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.LoadIdeaDetailsUseCase
@@ -12,17 +15,16 @@ import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialog
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status
 import javax.inject.Inject
-import javax.inject.Named
 
 
 class IdeaDetailsViewModel @Inject constructor(
-    private val ideaId: Long,
     @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
+    @DialogConvertIdea private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
+    @DialogSelectKeyResult private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
+    @TitleSelectKeyResult private val selectKeyResultTitle: String,
     private val loadIdeaDetails: LoadIdeaDetailsUseCase,
     private val createStepUseCase: CreateStepUseCase,
-    @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
-    @Named("SelectKeyResult") private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
-    @Named("SelectKeyResultTitle") private val selectKeyResultTitle: String
+    private val ideaId: Long
 ) : BaseViewModel() {
 
     val popBack = { mainFlowNavigation.popBack() }
@@ -109,10 +111,12 @@ class IdeaDetailsViewModel @Inject constructor(
         value?.let {
             if (value) {
                 loadingAction.invoke()
-                loadIdeaDetails.saveIdeaDetails(ideaId,
+                loadIdeaDetails.saveIdeaDetails(
+                    ideaId,
                     disposable,
                     { mainFlowNavigation.popBack() },
-                    errorAction)
+                    errorAction
+                )
             }
         }
     }

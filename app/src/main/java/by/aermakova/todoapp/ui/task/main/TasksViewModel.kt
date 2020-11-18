@@ -3,7 +3,9 @@ package by.aermakova.todoapp.ui.task.main
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.FilterTaskMenu
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
+import by.aermakova.todoapp.data.di.scope.SortTaskMenu
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.TextModel
@@ -21,11 +23,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
-import javax.inject.Named
+
 
 class TasksViewModel @Inject constructor(
-    @Named("FilterTask") private val filterBind: BottomSheetFilterTaskBinding,
-    @Named("SortTask") private val sortBind: BottomSheetSortTaskBinding,
+    @FilterTaskMenu private val filterBind: BottomSheetFilterTaskBinding,
+    @SortTaskMenu private val sortBind: BottomSheetSortTaskBinding,
     @NavigationTasks private val navigation: TasksNavigation,
     private val taskInteractor: TaskInteractor,
     private val resources: Resources,
