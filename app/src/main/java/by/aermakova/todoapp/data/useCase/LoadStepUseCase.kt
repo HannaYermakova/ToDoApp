@@ -67,17 +67,8 @@ class LoadStepUseCase(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {
-                        successAction.invoke()
-
-                        /*  _status.onNext(Status.SUCCESS)
-                          mainFlowNavigation.popBack()*/
-                    },
-                    {
-                        errorAction.invoke(errorMessage)
-                        /* _status.onNext(Status.ERROR)
-                         it.printStackTrace()*/
-                    }
+                    {successAction.invoke() },
+                    {errorAction.invoke(errorMessage) }
                 )
         )
     }

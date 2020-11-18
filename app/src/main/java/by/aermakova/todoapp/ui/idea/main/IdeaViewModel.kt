@@ -27,7 +27,7 @@ class IdeaViewModel @Inject constructor(
             disposable,
             { mainFlowNavigation.navigateToShowDetailsFragment(it) },
             {
-                _status.onNext(Status.SUCCESS)
+                successAction.invoke()
                 _ideasList.onNext(it)
             },
             errorAction

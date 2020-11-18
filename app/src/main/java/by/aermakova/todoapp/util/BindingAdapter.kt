@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.aermakova.todoapp.R
@@ -380,12 +381,14 @@ fun setErrorMessages(
 
 @BindingAdapter(
     "app:bindList",
-    "app:addDisposable"
+    "app:addDisposable",
+    "app:itemSwipeAction"
 )
 fun bindCommonListToRecycler(
     recyclerView: RecyclerView,
     items: Observable<List<CommonModel>>?,
-    disposable: CompositeDisposable?
+    disposable: CompositeDisposable?,
+    action: FunctionLong?
 ) {
     if (items != null && disposable != null) {
         disposable.add(
@@ -393,6 +396,18 @@ fun bindCommonListToRecycler(
                 { updateRecyclerView(it, recyclerView) },
                 { it.printStackTrace() })
         )
+    }
+
+    action?.let {
+        val touchCallback = object : ItemSwipeHelperCallback(recyclerView.context) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                action.invoke(
+                    recyclerView.adapter?.getItemId(viewHolder.absoluteAdapterPosition)
+                        ?: throw Exception("Adapter is not attached to recycler view")
+                )
+            }
+        }
+        ItemTouchHelper(touchCallback).attachToRecyclerView(recyclerView)
     }
 }
 
@@ -405,6 +420,7 @@ fun setListSettings(
     divide: Int?,
     layoutManager: LayoutManagerType?
 ) {
+    Log.d("A_BindingAdapter", "setListSettings")
     divide?.let {
         val sideMargin = when (layoutManager) {
             null -> RECYCLER_SIDE_MARGIN

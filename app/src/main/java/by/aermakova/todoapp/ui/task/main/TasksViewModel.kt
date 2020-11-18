@@ -129,12 +129,9 @@ class TasksViewModel @Inject constructor(
                 .subscribe(
                     {
                         _tasksList.onNext(it)
-                        _status.onNext(Status.SUCCESS)
+                        successAction.invoke()
                     },
-                    {
-                        it.printStackTrace()
-                        _status.onNext(Status.ERROR)
-                    }
+                    { it.handleError(errorAction = errorAction) }
                 )
         )
     }

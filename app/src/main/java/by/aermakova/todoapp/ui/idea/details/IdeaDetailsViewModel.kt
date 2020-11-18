@@ -78,7 +78,7 @@ class IdeaDetailsViewModel @Inject constructor(
                 _stepTitle.postValue(it)
             },
             {
-                _status.onNext(Status.SUCCESS)
+                successAction.invoke()
                 _ideaModel.postValue(it)
             },
             errorAction

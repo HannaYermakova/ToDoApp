@@ -34,6 +34,10 @@ class CommonRecyclerAdapter : RecyclerView.Adapter<CommonRecyclerAdapter.ViewHol
         return asyncListDiffer.currentList[position].layout
     }
 
+    override fun getItemId(position: Int): Long {
+        return asyncListDiffer.currentList[position].id
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding =

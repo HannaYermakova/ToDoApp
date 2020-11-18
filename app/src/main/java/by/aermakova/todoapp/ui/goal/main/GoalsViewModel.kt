@@ -88,7 +88,7 @@ class GoalsViewModel @Inject constructor(
                                 openBottomSheetGoalsActions
                             )
                         )
-                        _status.onNext(Status.SUCCESS)
+                        successAction.invoke()
                     },
                     {
                         it.printStackTrace()

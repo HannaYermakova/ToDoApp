@@ -108,6 +108,7 @@
                     android:layout_margin="@dimen/margin_normal"
                     app:addDisposable="@{viewModel.disposable}"
                     app:bindList="@{viewModel.addNewKeyResultsToGoalUseCase.allKeyResultsList}"
+                    app:itemSwipeAction="@{null}"
                     app:divideSize="@{4}"
                     app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                     app:layout_constraintBottom_toTopOf="@id/save_button"

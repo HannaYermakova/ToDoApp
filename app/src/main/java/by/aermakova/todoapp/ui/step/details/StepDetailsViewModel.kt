@@ -54,7 +54,7 @@ class StepDetailsViewModel @Inject constructor(
             stepId,
             status,
             {
-                _status.onNext(Status.SUCCESS)
+                successAction.invoke()
                 mainFlowNavigation.popBack()
             },
             errorAction
@@ -71,7 +71,7 @@ class StepDetailsViewModel @Inject constructor(
             { _stepTasks.postValue(it) },
             { _stepIdeas.postValue(it) },
             {
-                _status.onNext(Status.SUCCESS)
+                successAction.invoke()
                 _stepModel.postValue(it)
             },
             errorAction

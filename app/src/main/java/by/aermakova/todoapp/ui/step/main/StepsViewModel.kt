@@ -3,11 +3,11 @@ package by.aermakova.todoapp.ui.step.main
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
 import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.step.StepsNavigation
-import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -29,6 +29,14 @@ class StepsViewModel @Inject constructor(
     val stepsList: Observable<List<CommonModel>>
         get() = _stepsList.hide()
 
+    val deleteAction: FunctionLong = {
+        stepBottomSheetMenuUseCase.deleteStepUseCase.deleteById(
+            it,
+            disposable,
+            errorAction
+        )
+    }
+
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
     init {
@@ -37,7 +45,7 @@ class StepsViewModel @Inject constructor(
             { navigation.navigateToShowDetailsFragment(it) },
             openBottomSheetActions,
             {
-                _status.onNext(Status.SUCCESS)
+                successAction.invoke()
                 _stepsList.onNext(it)
             },
             errorAction

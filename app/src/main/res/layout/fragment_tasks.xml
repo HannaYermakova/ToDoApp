@@ -69,6 +69,7 @@
                 android:layout_marginTop="@dimen/margin_normal"
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.tasksList}"
+                app:itemSwipeAction="@{null}"
                 app:divideSize="@{4}"
                 app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                 app:layout_constraintBottom_toBottomOf="parent"

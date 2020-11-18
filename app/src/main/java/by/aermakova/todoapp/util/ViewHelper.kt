@@ -1,6 +1,8 @@
 package by.aermakova.todoapp.util
 
 import android.app.Activity
+import android.content.Context
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -31,4 +33,17 @@ fun Activity.hideKeyboard() {
         view = View(this)
     }
     imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun getAttributeColor(
+    context: Context,
+    attributeId: Int
+): Int {
+    val typedValue = TypedValue()
+    context.theme.resolveAttribute(attributeId, typedValue, true)
+    val colorRes = typedValue.resourceId
+    return context.resources.getColor(
+        colorRes,
+        context.theme
+    )
 }

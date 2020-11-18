@@ -72,6 +72,7 @@
                 app:addDisposable="@{viewModel.disposable}"
                 app:bindList="@{viewModel.goalItemsList}"
                 app:divideSize="@{4}"
+                app:itemSwipeAction="@{null}"
                 app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

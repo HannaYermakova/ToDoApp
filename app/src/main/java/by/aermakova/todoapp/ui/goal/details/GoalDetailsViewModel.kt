@@ -51,7 +51,7 @@ class GoalDetailsViewModel @Inject constructor(
                     {
                         _goalModel.postValue(it)
                         it.goalItemsList?.let { list -> _goalItemsList.onNext(list) }
-                        _status.onNext(Status.SUCCESS)
+                        successAction.invoke()
                     },
                     {
                         _status.onNext(Status.ERROR)
@@ -94,7 +94,7 @@ class GoalDetailsViewModel @Inject constructor(
             disposable,
             { updateGoalToRemote() },
             {
-                _status.onNext(Status.SUCCESS)
+                successAction.invoke()
                 mainFlowNavigation.popBack()
             }, errorAction
         )
@@ -111,7 +111,7 @@ class GoalDetailsViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        _status.onNext(Status.SUCCESS)
+                        successAction.invoke()
                         mainFlowNavigation.popBack()
                     },
                     {
