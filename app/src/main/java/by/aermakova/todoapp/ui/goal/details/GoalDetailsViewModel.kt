@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.goal.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.FunctionSelect
@@ -20,7 +21,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class GoalDetailsViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationGoals private val mainFlowNavigation: MainFlowNavigation,
     private val goalInteractor: GoalInteractor,
     private val loadAllGoalsUseCase: LoadAllGoalsUseCase,
     private val findGoalUseCase: FindGoalUseCase,

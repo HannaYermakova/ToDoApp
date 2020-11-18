@@ -7,10 +7,10 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.useCase.ChangeStepTextUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import dagger.Module
 import dagger.Provides
@@ -48,7 +48,8 @@ class EditStepModule {
     }
 
     @Provides
-    fun provideStepNavigation(controller: NavController): MainFlowNavigation =
+    @NavigationSteps
+    fun provideStepNavigation(controller: NavController) =
         StepsNavigation(controller)
 
     @Provides

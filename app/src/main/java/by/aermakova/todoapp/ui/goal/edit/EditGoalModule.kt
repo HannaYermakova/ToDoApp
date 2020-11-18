@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddNewKeyResultsToGoalUseCase
@@ -97,6 +98,7 @@ class EditGoalModule {
         activity.getString(R.string.error_change_goal_text)
 
     @Provides
+    @NavigationGoals
     fun provideGoalNavigation(controller: NavController): MainFlowNavigation =
         GoalsNavigation(controller)
 

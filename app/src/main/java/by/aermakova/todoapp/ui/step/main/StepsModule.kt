@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
@@ -18,7 +19,6 @@ import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
 import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.Item
@@ -33,10 +33,10 @@ import javax.inject.Named
 class StepsModule {
 
     @Provides
-    @Named("AddIdeaUseCase")
+    @AddIdeaUseCase
     fun provideAddIdeaToGoalUseCase(
         stepInteractor: StepInteractor,
-        @Named("IdeasNavigation") ideasNavigation: IdeasNavigation,
+        @NavigationIdeas ideasNavigation: IdeasNavigation,
         @Named("StepIsDoneIdea") errorStepIsDoneIdea: String
     ): AddItemToParentItemUseCase<IdeasNavigation> {
         return AddItemToParentItemUseCase(
@@ -48,10 +48,10 @@ class StepsModule {
     }
 
     @Provides
-    @Named("AddTaskUseCase")
+    @AddTaskUseCase
     fun provideAddTaskToGoalUseCase(
         stepInteractor: StepInteractor,
-        @Named("TasksNavigation") tasksNavigation: TasksNavigation,
+        @NavigationTasks tasksNavigation: TasksNavigation,
         @Named("StepIsDoneTask") errorStepIsDoneTask: String
     ): AddItemToParentItemUseCase<TasksNavigation> {
         return AddItemToParentItemUseCase(
@@ -64,14 +64,14 @@ class StepsModule {
 
     @Provides
     fun provideGoalBottomSheetMenuUseCase(
-        @Named("AddIdeaUseCase") addIdeaToStepUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
-        @Named("AddTaskUseCase") addTaskToStepUseCase: AddItemToParentItemUseCase<TasksNavigation>,
+        @AddIdeaUseCase addIdeaToStepUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
+        @AddTaskUseCase addTaskToStepUseCase: AddItemToParentItemUseCase<TasksNavigation>,
         deleteStepUseCase: DeleteStepUseCase,
         stepActionBind: BottomSheetStepActionBinding,
         dialog: BottomSheetDialog,
         stepActionItems: Array<StepsActionItem>,
         resources: Resources,
-        mainFlowNavigation: MainFlowNavigation
+        @NavigationSteps mainFlowNavigation: StepsNavigation
     ) =
         StepBottomSheetMenuUseCase(
             addIdeaToStepUseCase,
@@ -156,17 +156,18 @@ class StepsModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
-    fun provideStepsNavigation(controller: NavController): MainFlowNavigation =
+    @NavigationSteps
+    fun provideStepsNavigation(controller: NavController) =
         StepsNavigation(controller)
 
     @Provides
-    @Named("IdeasNavigation")
-    fun provideIdeasNavigation(controller: NavController): IdeasNavigation =
+    @NavigationIdeas
+    fun provideIdeasNavigation(controller: NavController) =
         IdeasNavigation(controller)
 
     @Provides
-    @Named("TasksNavigation")
-    fun provideTasksNavigation(controller: NavController): TasksNavigation =
+    @NavigationTasks
+    fun provideTasksNavigation(controller: NavController) =
         TasksNavigation(controller)
 
     @Provides

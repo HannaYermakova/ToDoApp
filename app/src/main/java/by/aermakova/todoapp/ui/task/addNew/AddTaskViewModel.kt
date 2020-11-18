@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.StepEntity
+import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
@@ -12,7 +13,7 @@ import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Item
 import io.reactivex.Observer
@@ -21,7 +22,7 @@ import javax.inject.Inject
 
 
 class AddTaskViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationTasks private val mainFlowNavigation: TasksNavigation,
     private val findStepUseCase: FindStepUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,

@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.useCase.LoadAllIdeasUseCase
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
@@ -30,7 +31,8 @@ class IdeaModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
-    fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
+    @NavigationIdeas
+    fun provideIdeasNavigation(controller: NavController): MainFlowNavigation =
         IdeasNavigation(controller)
 
     @Provides

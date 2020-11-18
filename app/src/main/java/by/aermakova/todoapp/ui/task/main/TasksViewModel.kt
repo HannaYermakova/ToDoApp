@@ -3,6 +3,7 @@ package by.aermakova.todoapp.ui.task.main
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.TextModel
@@ -12,7 +13,7 @@ import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.Observable
@@ -25,7 +26,7 @@ import javax.inject.Named
 class TasksViewModel @Inject constructor(
     @Named("FilterTask") private val filterBind: BottomSheetFilterTaskBinding,
     @Named("SortTask") private val sortBind: BottomSheetSortTaskBinding,
-    private val navigation: MainFlowNavigation,
+    @NavigationTasks private val navigation: TasksNavigation,
     private val taskInteractor: TaskInteractor,
     private val resources: Resources,
     private val dialog: BottomSheetDialog,

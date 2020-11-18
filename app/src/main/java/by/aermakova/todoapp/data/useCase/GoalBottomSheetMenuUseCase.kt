@@ -15,12 +15,12 @@ import by.aermakova.todoapp.util.GoalsActionItem
 import by.aermakova.todoapp.util.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Named
+
 
 class GoalBottomSheetMenuUseCase(
-    @Named("AddTaskUseCase") private val addTaskToGoalUseCase: AddItemToParentItemUseCase<TasksNavigation>,
-    @Named("AddStepUseCase") private val addStepToGoalUseCase: AddItemToParentItemUseCase<StepsNavigation>,
-    @Named("AddIdeaUseCase") private val addIdeaToGoalUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
+    private val addTaskToGoalUseCase: AddItemToParentItemUseCase<TasksNavigation>,
+    private val addStepToGoalUseCase: AddItemToParentItemUseCase<StepsNavigation>,
+    private val addIdeaToGoalUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
     private val deleteGoalUseCase: DeleteGoalUseCase,
     val addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
     private val goalActionBind: BottomSheetGoalActionBinding,
@@ -96,7 +96,9 @@ class GoalBottomSheetMenuUseCase(
                 selectedGoalId,
                 errorAction
             )
-            GoalsActionItem.EDIT_GOAL -> mainFlowNavigation.navigateToEditElementFragment(selectedGoalId)
+            GoalsActionItem.EDIT_GOAL -> mainFlowNavigation.navigateToEditElementFragment(
+                selectedGoalId
+            )
             GoalsActionItem.DELETE_GOAL -> deleteGoalUseCase.deleteGoalById(
                 selectedGoalId,
                 disposable,

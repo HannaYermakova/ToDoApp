@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.step.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.StepModel
 import by.aermakova.todoapp.data.useCase.LoadStepUseCase
@@ -11,7 +12,7 @@ import by.aermakova.todoapp.util.Status
 import javax.inject.Inject
 
 class StepDetailsViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationSteps private val mainFlowNavigation: MainFlowNavigation,
     private val loadStepUseCase: LoadStepUseCase,
     private val stepId: Long
     ) : BaseViewModel() {

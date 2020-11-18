@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
 import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
@@ -32,7 +33,7 @@ class TasksModule {
         dialog: BottomSheetDialog,
         taskActionItems: Array<TasksActionItem>,
         resources: Resources,
-        mainFlowNavigation: MainFlowNavigation
+        @NavigationTasks mainFlowNavigation: TasksNavigation
     ) = TaskBottomSheetMenuUseCase(
         deleteTaskUseCase,
         taskActionBind,
@@ -111,7 +112,8 @@ class TasksModule {
         activity.resources
 
     @Provides
-    fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
+    @NavigationTasks
+    fun provideTasksNavigation(controller: NavController) =
         TasksNavigation(controller)
 
     @Provides

@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
@@ -57,7 +58,8 @@ class AddTaskModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
-    fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
+    @NavigationTasks
+    fun provideTasksNavigation(controller: NavController) =
         TasksNavigation(controller)
 
     @Provides

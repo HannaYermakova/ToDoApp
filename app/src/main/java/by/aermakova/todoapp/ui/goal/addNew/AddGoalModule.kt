@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.CreateGoalUseCase
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
@@ -36,6 +37,7 @@ class AddGoalModule {
         activity.getString(R.string.error_empty_field_goal)
 
     @Provides
+    @NavigationGoals
     fun provideGoalsNavigation(controller: NavController): MainFlowNavigation =
         GoalsNavigation(controller)
 

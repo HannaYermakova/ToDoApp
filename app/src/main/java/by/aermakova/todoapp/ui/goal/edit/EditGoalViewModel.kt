@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.goal.edit
 
+import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.useCase.AddNewKeyResultsToGoalUseCase
 import by.aermakova.todoapp.data.useCase.ChangeGoalTextUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
@@ -11,7 +12,7 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class EditGoalViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationGoals private val mainFlowNavigation: MainFlowNavigation,
     val changeGoalTextUseCase: ChangeGoalTextUseCase,
     val addNewKeyResultsToGoalUseCase: AddNewKeyResultsToGoalUseCase,
     findGoalUseCase: FindGoalUseCase,

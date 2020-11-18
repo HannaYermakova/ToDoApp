@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.idea.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.LoadIdeaDetailsUseCase
@@ -16,7 +17,7 @@ import javax.inject.Named
 
 class IdeaDetailsViewModel @Inject constructor(
     private val ideaId: Long,
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
     private val loadIdeaDetails: LoadIdeaDetailsUseCase,
     private val createStepUseCase: CreateStepUseCase,
     @Named("ConvertIdea") private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,

@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
@@ -77,6 +78,7 @@ class StepDetailsModule {
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
+    @NavigationSteps
     fun provideTasksNavigation(controller: NavController): MainFlowNavigation =
         StepsNavigation(controller)
 

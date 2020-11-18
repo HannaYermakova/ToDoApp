@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.goal.addNew
 
 import androidx.lifecycle.LiveData
+import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toCommonModelStringList
 import by.aermakova.todoapp.data.useCase.CreateGoalUseCase
@@ -14,7 +15,7 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class AddGoalViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationGoals private val mainFlowNavigation: MainFlowNavigation,
     private val dialogNavigation: DialogNavigation<String>,
     private val createGoalUseCase: CreateGoalUseCase
 ) : BaseViewModel() {

@@ -2,6 +2,7 @@ package by.aermakova.todoapp.ui.step.addNew
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
@@ -14,7 +15,7 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class AddStepViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationSteps private val mainFlowNavigation: MainFlowNavigation,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
     private val createStepUseCase: CreateStepUseCase,

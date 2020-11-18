@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.*
 import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
@@ -36,10 +37,10 @@ class GoalsModule {
 
     @Provides
     fun provideGoalBottomSheetMenuUseCase(
-        @Named("AddTaskUseCase") addTaskToGoalUseCase: AddItemToParentItemUseCase<TasksNavigation>,
-        @Named("AddStepUseCase") addStepToGoalUseCase: AddItemToParentItemUseCase<StepsNavigation>,
-        @Named("AddIdeaUseCase") addIdeaToGoalUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
-        @Named("GoalsNavigation") mainFlowNavigation: MainFlowNavigation,
+        @AddTaskUseCase addTaskToGoalUseCase: AddItemToParentItemUseCase<TasksNavigation>,
+        @AddStepUseCase addStepToGoalUseCase: AddItemToParentItemUseCase<StepsNavigation>,
+        @AddIdeaUseCase addIdeaToGoalUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
+        @NavigationGoals mainFlowNavigation: MainFlowNavigation,
         deleteGoalUseCase: DeleteGoalUseCase,
         addKeyResultToGoalUseCase: AddKeyResultToGoalUseCase,
         goalActionBind: BottomSheetGoalActionBinding,
@@ -78,10 +79,10 @@ class GoalsModule {
     )
 
     @Provides
-    @Named("AddIdeaUseCase")
+    @AddIdeaUseCase
     fun provideAddIdeaToGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("IdeasNavigation") ideasNavigation: IdeasNavigation,
+        @NavigationIdeas ideasNavigation: IdeasNavigation,
         @Named("AchievedGoalIdea") errorAchievedGoalIdea: String
     ): AddItemToParentItemUseCase<IdeasNavigation> {
         return AddItemToParentItemUseCase(
@@ -93,10 +94,10 @@ class GoalsModule {
     }
 
     @Provides
-    @Named("AddStepUseCase")
+    @AddStepUseCase
     fun provideAddStepToGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("StepsNavigation") stepsNavigation: StepsNavigation,
+        @NavigationSteps stepsNavigation: StepsNavigation,
         @Named("AchievedGoalStep") errorAchievedGoalStep: String
     ): AddItemToParentItemUseCase<StepsNavigation> {
         return AddItemToParentItemUseCase(
@@ -108,10 +109,10 @@ class GoalsModule {
     }
 
     @Provides
-    @Named("AddTaskUseCase")
+    @AddTaskUseCase
     fun provideAddTaskToGoalUseCase(
         goalInteractor: GoalInteractor,
-        @Named("TasksNavigation") tasksNavigation: TasksNavigation,
+        @NavigationTasks tasksNavigation: TasksNavigation,
         @Named("AchievedGoalTask") errorAchievedGoalTask: String
     ): AddItemToParentItemUseCase<TasksNavigation> {
         return AddItemToParentItemUseCase(
@@ -123,17 +124,17 @@ class GoalsModule {
     }
 
     @Provides
-    @Named("TasksNavigation")
+    @NavigationTasks
     fun provideTasksNavigation(controller: NavController): TasksNavigation =
         TasksNavigation(controller)
 
     @Provides
-    @Named("StepsNavigation")
+    @NavigationSteps
     fun provideStepsNavigation(controller: NavController): StepsNavigation =
         StepsNavigation(controller)
 
     @Provides
-    @Named("IdeasNavigation")
+    @NavigationIdeas
     fun provideIdeasNavigation(controller: NavController): IdeasNavigation =
         IdeasNavigation(controller)
 
@@ -210,10 +211,8 @@ class GoalsModule {
         ConfirmDialogNavigation(controller)
 
     @Provides
-    @Named("GoalsNavigation")
-    fun provideGoalsNavigation(controller: NavController): MainFlowNavigation {
-        return GoalsNavigation(controller)
-    }
+    @NavigationGoals
+    fun provideGoalsNavigation(controller: NavController): MainFlowNavigation = GoalsNavigation(controller)
 
     @Provides
     @IntoMap

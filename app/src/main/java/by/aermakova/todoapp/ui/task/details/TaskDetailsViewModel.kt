@@ -2,20 +2,21 @@ package by.aermakova.todoapp.ui.task.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.TaskModel
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
-import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.ui.task.TasksNavigation
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TaskDetailsViewModel @Inject constructor(
-    private val navigation: MainFlowNavigation,
+    @NavigationTasks private val navigation: TasksNavigation,
     private val taskInteractor: TaskInteractor,
     private val findGoal: FindGoalUseCase,
     private val findStep: FindStepUseCase,

@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
+import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
@@ -88,7 +89,8 @@ class EditTaskModule {
         activity.getString(R.string.error_find_step)
 
     @Provides
-    fun provideTaskNavigation(controller: NavController): MainFlowNavigation =
+    @NavigationSteps
+    fun provideTaskNavigation(controller: NavController) =
         TasksNavigation(controller)
 
     @Provides

@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.StepEntity
+import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Item
-import by.aermakova.todoapp.util.Status
 import io.reactivex.Observer
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class AddIdeaViewModel @Inject constructor(
     private val findStepUseCase: FindStepUseCase,
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
     private val createIdeaUseCase: CreateIdeaUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,

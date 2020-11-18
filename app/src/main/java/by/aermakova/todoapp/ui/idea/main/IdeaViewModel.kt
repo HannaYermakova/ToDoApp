@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.idea.main
 
+import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.useCase.LoadAllIdeasUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -10,7 +11,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class IdeaViewModel @Inject constructor(
-    private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
     loadAllIdeasUseCase: LoadAllIdeasUseCase
 ) : BaseViewModel() {
 
