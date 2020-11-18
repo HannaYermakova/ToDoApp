@@ -41,7 +41,7 @@
                 android:layout_height="@dimen/image_button_size"
                 android:layout_margin="@dimen/margin_normal"
                 android:background="@drawable/ic_baseline_exit_to_app_24"
-                android:backgroundTint="@color/color_blue"
+                android:backgroundTint="@color/color_scheme_salt_box"
                 android:stateListAnimator="@drawable/lift_on_touch"
                 app:addTitle="@{@string/confirm_exit_message}"
                 app:layout_constraintBottom_toBottomOf="@+id/all_goals_text"
@@ -67,15 +67,10 @@
                 tools:listitem="@layout/item_goal" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:elevation="@dimen/elevation_button"
-                app:backgroundTint="@color/colorAccent"
+                style="@style/CustomFloatingActionButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:onClick="@{viewModel.addNewElement}"
-                app:srcCompat="@drawable/ic_baseline_add_24" />
+                app:onClick="@{viewModel.addNewElement}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

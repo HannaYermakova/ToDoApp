@@ -56,7 +56,7 @@
                 android:layout_height="@dimen/image_button_size"
                 android:layout_margin="@dimen/margin_normal"
                 android:background="@drawable/ic_baseline_edit_24"
-                android:backgroundTint="@color/color_blue"
+                android:backgroundTint="@color/color_scheme_salt_box"
                 android:stateListAnimator="@drawable/lift_on_touch"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +77,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mark_layout"
-                tools:listitem="@layout/item_step" />
+                tools:listitem="@layout/item_key_result" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/mark_layout"

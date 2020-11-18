@@ -28,9 +28,9 @@ fun setImageColor(background: ImageView, status: Boolean?) {
     val res = background.context.resources
     val theme = background.context.theme
     background.background.setTint(status?.let {
-        if (it) res.getColor(R.color.colorAccent, theme)
-        else res.getColor(R.color.color_grey_light, theme)
-    } ?: res.getColor(R.color.color_grey_light, theme))
+        if (it) res.getColor(R.color.color_scheme_shark, theme)
+        else res.getColor(R.color.color_white, theme)
+    } ?: res.getColor(R.color.color_white, theme))
 }
 
 @BindingAdapter("app:selectedItem")
@@ -59,8 +59,8 @@ fun setDate(textView: TextView, finishTime: Long?) {
     textView.text = finishTime?.let {
         textView.setTextColor(
             if (it > System.currentTimeMillis()) {
-                res.getColor(R.color.colorAccent, theme)
-            } else res.getColor(R.color.color_black, theme)
+                res.getColor(R.color.color_scheme_brick, theme)
+            } else res.getColor(R.color.color_white, theme)
         )
         convertLongToDate(finishTime)
     } ?: res.getString(R.string.not_specified)

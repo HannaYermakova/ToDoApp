@@ -15,5 +15,5 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_normal"
         android:text="@string/not_specified"
-        android:textColor="@color/color_blue" />
+        android:textColor="@color/color_scheme_outer_space" />
 </layout>

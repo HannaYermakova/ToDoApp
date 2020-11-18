@@ -11,7 +11,9 @@
         <item name="android:statusBarColor">@color/color_ripple</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowBackground">@drawable/background_image</item>
+        <!--
+                <item name="android:windowBackground">@drawable/background_image</item>
+        -->
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
@@ -55,9 +57,9 @@
     </style>
 
     <style name="CustomEditTextStyle" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlNormal">@color/color_grey</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/color_scheme_outer_space</item>
+        <item name="colorControlActivated">@color/color_scheme_salt_box</item>
+        <item name="colorControlHighlight">@color/color_scheme_salt_box</item>
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
@@ -73,7 +75,7 @@
     </style>
 
     <style name="RegularButtonStyle" parent="ButtonStyle">
-        <item name="android:textColor">@color/color_blue</item>
+        <item name="android:textColor">@color/color_scheme_outer_space</item>
         <item name="android:background">@drawable/regular_button_bg</item>
     </style>
 
@@ -86,6 +88,15 @@
         <item name="android:textColor">@color/color_grey</item>
     </style>
 
+    <style name="CustomFloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_normal</item>
+        <item name="android:elevation">@dimen/elevation_button</item>
+        <item name="srcCompat">@drawable/ic_baseline_add_24</item>
+        <item name="backgroundTint">@color/color_scheme_brick</item>
+    </style>
+
     <style name="CustomRadioButtonStyle" parent="TextRegular">
         <item name="android:background">@null</item>
         <item name="android:button">@drawable/radio_button_bg</item>
@@ -94,12 +105,12 @@
 
     <style name="TextInstructions" parent="CustomTextStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
-        <item name="android:textColor">@color/color_blue_dark</item>
+        <item name="android:textColor">@color/color_scheme_outer_space</item>
     </style>
 
     <style name="TextTitle">
         <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/color_scheme_salt_box</item>
         <item name="android:fontFamily">@font/proxima_nova_thin</item>
     </style>
 
@@ -111,19 +122,19 @@
 
     <style name="TextAccent">
         <item name="android:textSize">@dimen/regular_text_size</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/color_scheme_driftwood</item>
         <item name="android:fontFamily">@font/proxima_nova_bold</item>
     </style>
 
     <style name="spinnerItemStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
-        <item name="android:textColor">@color/color_grey</item>
+        <item name="android:textColor">@color/color_scheme_shark</item>
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
     <style name="spinnerDropDownItemStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
-        <item name="android:textColor">@color/color_blue</item>
+        <item name="android:textColor">@color/color_scheme_coffee_light</item>
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 

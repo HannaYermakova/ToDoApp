@@ -13,7 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_blue_light"
+        android:backgroundTint="@color/color_scheme_salt_box"
         app:cardCornerRadius="@dimen/card_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#D81B60</color>
     <color name="color_white">#FFFFFF</color>
-    <color name="color_white_milk">#F4F4F4</color>
+    <color name="color_white_milk">#E8E3E3</color>
+    <color name="color_violet">#B02CC6</color>
     <color name="color_black">#000000</color>
     <color name="color_blue">#3949AB</color>
     <color name="color_default">#3C8882</color>
@@ -19,4 +20,15 @@
     <color name="color_yellow">#FFE400</color>
     <color name="color_ripple">#66BDBDBD</color>
     <color name="color_facebook_blue">#3b5998</color>
+
+    <color name="color_scheme_bombay">#D7D8E6</color>
+    <color name="color_scheme_light">#EFEFF6</color>
+    <color name="color_scheme_outer_space">#333738</color>
+    <color name="color_scheme_shark">#2A2F33</color>
+    <color name="color_scheme_driftwood">#DDAB4F</color>
+    <color name="color_scheme_salt_box">#9797A6</color>
+    <color name="color_scheme_coffee_light">#BFB8AA</color>
+    <color name="color_scheme_mantle">#A6C5B9</color>
+    <color name="color_scheme_brick">#CDF44336</color>
+
 </resources>

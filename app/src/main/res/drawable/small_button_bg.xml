@@ -2,7 +2,7 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/color_ripple">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/colorAccent" />
+            <solid android:color="@color/color_scheme_brick" />
             <size
                 android:width="@dimen/add_button_radius"
                 android:height="@dimen/add_button_radius" />

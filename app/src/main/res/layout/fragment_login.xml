@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/image_regular"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/ic_goals"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/color_scheme_driftwood"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
-                android:backgroundTint="@color/color_white_milk"
+                android:backgroundTint="@color/color_scheme_bombay"
                 app:cardCornerRadius="@dimen/card_corner_radius"
                 app:layout_constraintBottom_toBottomOf="@id/guideline">
 
@@ -108,14 +108,13 @@
             <Button
                 android:id="@+id/register_button_email"
                 style="@style/RegularButtonStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
-                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/margin_large"
                 android:text="@string/register_with_email"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guideline"
                 app:onClick="@{viewModel.registerWithEmailButton}" />

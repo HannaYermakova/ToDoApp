@@ -28,7 +28,7 @@
                 android:id="@+id/mark_task_image"
                 style="@style/DoneMarkerStyle"
                 android:background="@drawable/done_star"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/color_scheme_brick"
                 android:checked="@{task.status}" />
 
             <TextView

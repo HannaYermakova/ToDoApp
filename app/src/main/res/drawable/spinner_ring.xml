@@ -15,7 +15,7 @@
         <gradient
             android:centerY="0.50"
             android:endColor="@color/color_white"
-            android:startColor="@color/colorAccent"
+            android:startColor="@color/color_scheme_salt_box"
             android:type="sweep"
             android:useLevel="false" />
     </shape>
