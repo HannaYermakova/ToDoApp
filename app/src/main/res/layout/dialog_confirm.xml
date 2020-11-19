@@ -30,21 +30,22 @@
         <Button
             android:id="@+id/save_button"
             style="@style/AccentButtonStyle"
-            android:layout_marginTop="@dimen/margin_large"
+            android:layout_width="@dimen/button_width_small"
+            android:layout_margin="@dimen/margin_normal"
             android:elevation="@dimen/elevation_button"
             android:text="@string/ok"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cancel_button"
             app:layout_constraintTop_toBottomOf="@id/confirm_text"
             app:onClick="@{viewModel.ok}" />
 
         <Button
             android:id="@+id/cancel_button"
             style="@style/RegularButtonStyle"
+            android:layout_width="@dimen/button_width_small"
+            android:layout_margin="@dimen/margin_normal"
             android:elevation="@dimen/elevation_button"
             android:text="@string/cancel"
             app:layout_constraintBottom_toBottomOf="@id/save_button"
-            app:layout_constraintEnd_toStartOf="@+id/save_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/save_button"
             app:onClick="@{viewModel.cancel}" />

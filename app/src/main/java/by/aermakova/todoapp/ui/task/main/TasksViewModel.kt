@@ -15,6 +15,7 @@ import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -34,6 +35,9 @@ class TasksViewModel @Inject constructor(
     private val dialog: BottomSheetDialog,
     private val taskBottomSheetMenuUseCase: TaskBottomSheetMenuUseCase
 ) : BaseViewModel() {
+
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     val addNewElement = { navigation.navigateToAddNewElementFragment(item = Item.GOAL) }
 

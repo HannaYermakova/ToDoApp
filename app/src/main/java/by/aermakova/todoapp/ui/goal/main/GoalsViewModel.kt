@@ -28,6 +28,9 @@ class GoalsViewModel @Inject constructor(
     private val goalInteractor: GoalInteractor
 ) : BaseViewModel() {
 
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
+
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
     val logoutButton: (String) -> Unit = { confirmExit(it) }

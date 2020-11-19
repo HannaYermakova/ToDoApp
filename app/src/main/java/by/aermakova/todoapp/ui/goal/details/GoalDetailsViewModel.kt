@@ -21,12 +21,15 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class GoalDetailsViewModel @Inject constructor(
-    @NavigationGoals private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationGoals private val navigation: MainFlowNavigation,
     private val goalInteractor: GoalInteractor,
     private val loadAllGoalsUseCase: LoadAllGoalsUseCase,
     private val findGoalUseCase: FindGoalUseCase,
     private val goalId: Long
 ) : BaseViewModel() {
+
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     private val _markedKeyResultIds = arrayListOf<Long>()
 
@@ -60,8 +63,6 @@ class GoalDetailsViewModel @Inject constructor(
                 )
         )
     }
-
-    val popBack = { mainFlowNavigation.popBack() }
 
     private val _goalModel = MutableLiveData<GoalModel>()
     val goalModel: LiveData<GoalModel>

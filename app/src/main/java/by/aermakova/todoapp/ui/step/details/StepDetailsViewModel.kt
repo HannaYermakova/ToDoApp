@@ -8,18 +8,18 @@ import by.aermakova.todoapp.data.model.StepModel
 import by.aermakova.todoapp.data.useCase.LoadStepUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import by.aermakova.todoapp.util.Status
 import javax.inject.Inject
 
 class StepDetailsViewModel @Inject constructor(
-    @NavigationSteps private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationSteps private val navigation: MainFlowNavigation,
     private val loadStepUseCase: LoadStepUseCase,
     private val stepId: Long
-    ) : BaseViewModel() {
+) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
-    val openEditFragment = {mainFlowNavigation.navigateToEditElementFragment(stepId)}
+    val openEditFragment = { mainFlowNavigation.navigateToEditElementFragment(stepId) }
 
     private val _stepModel = MutableLiveData<StepModel>()
     val stepModel: LiveData<StepModel>
@@ -55,7 +55,7 @@ class StepDetailsViewModel @Inject constructor(
             status,
             {
                 successAction.invoke()
-                mainFlowNavigation.popBack()
+                popBack.invoke()
             },
             errorAction
         )

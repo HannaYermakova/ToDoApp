@@ -12,14 +12,15 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class EditGoalViewModel @Inject constructor(
-    @NavigationGoals private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationGoals private val navigation: MainFlowNavigation,
     val changeGoalTextUseCase: ChangeGoalTextUseCase,
     val addNewKeyResultsToGoalUseCase: AddNewKeyResultsToGoalUseCase,
     findGoalUseCase: FindGoalUseCase,
     goalId: Long
 ) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     private val _saveGoalTextSuccess = BehaviorSubject.create<Boolean>()
     private val _saveNewKeyResultsToSuccess = BehaviorSubject.create<Boolean>()

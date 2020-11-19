@@ -12,9 +12,12 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class IdeaViewModel @Inject constructor(
-    @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationIdeas private val navigation: MainFlowNavigation,
     loadAllIdeasUseCase: LoadAllIdeasUseCase
 ) : BaseViewModel() {
+
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     private val _ideasList = PublishSubject.create<List<CommonModel>>()
     val ideasList: Observable<List<CommonModel>>

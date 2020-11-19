@@ -6,6 +6,7 @@ import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
 import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
 import by.aermakova.todoapp.ui.auth.BaseAuthViewModel
 import by.aermakova.todoapp.ui.auth.LoginNavigation
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -51,6 +52,9 @@ class LoginViewModel @Inject constructor(
     override fun enterWithEmailCredentials(it: EmailCredentials) {
         emailLoginManager.signInWithEmailAndPassword(it)
     }
+
+    override val mainFlowNavigation: MainFlowNavigation?
+        get() = null
 
     private fun loginWithFacebook() {
         _facebookLoginManagerListener.onNext(true)

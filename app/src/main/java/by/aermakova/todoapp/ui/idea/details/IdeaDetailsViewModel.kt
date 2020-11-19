@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 class IdeaDetailsViewModel @Inject constructor(
-    @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationIdeas private val navigation: MainFlowNavigation,
     @DialogConvertIdea private val convertIdeaDialogNavigator: ConvertIdeaDialogNavigator,
     @DialogSelectKeyResult private val selectKeyResDialogNavigation: SelectKeyResultDialogNavigation,
     @TitleSelectKeyResult private val selectKeyResultTitle: String,
@@ -27,7 +27,8 @@ class IdeaDetailsViewModel @Inject constructor(
     private val ideaId: Long
 ) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     val convertIdeaToStep = { convertIdeaIntoStep() }
 

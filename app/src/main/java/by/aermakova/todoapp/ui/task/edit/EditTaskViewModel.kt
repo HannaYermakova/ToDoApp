@@ -5,26 +5,29 @@ import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.useCase.EditTaskUseCase
 import by.aermakova.todoapp.data.useCase.SetTaskFieldsUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import javax.inject.Inject
+
 
 class EditTaskViewModel @Inject constructor(
     val setTaskFieldsUseCase: SetTaskFieldsUseCase,
     val editTaskUseCase: EditTaskUseCase,
-    @NavigationSteps private val mainFlowNavigation: TasksNavigation,
+    @NavigationSteps private val navigation: TasksNavigation,
     taskId: Long
 ) : BaseViewModel() {
 
-    private lateinit var taskEntity: TaskEntity
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
-    val popBack = { mainFlowNavigation.popBack() }
+    private lateinit var taskEntity: TaskEntity
 
     val saveTask = {
         editTaskUseCase.saveUpdatedTaskLocal(
             disposable,
             taskEntity,
             loadingAction,
-            { mainFlowNavigation.popBack() },
+            { popBack.invoke() },
             errorAction
         )
     }
@@ -32,5 +35,4 @@ class EditTaskViewModel @Inject constructor(
     init {
         setTaskFieldsUseCase.setTaskFields(taskId, disposable, { taskEntity = it }, errorAction)
     }
-
 }

@@ -8,7 +8,6 @@ import by.aermakova.todoapp.util.Status
 import io.reactivex.Observer
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
-import javax.inject.Named
 
 class AddItemDialogViewModel @Inject constructor(
     @TitleDialogAddItem val title: String,

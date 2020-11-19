@@ -15,14 +15,15 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class AddStepViewModel @Inject constructor(
-    @NavigationSteps private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationSteps private val navigation: MainFlowNavigation,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
     private val createStepUseCase: CreateStepUseCase,
     goalId: Long
 ) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     private val _tempStepTitle = BehaviorSubject.create<String>()
     val tempStepTitle: Observer<String>

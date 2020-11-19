@@ -8,19 +8,19 @@ import by.aermakova.todoapp.data.useCase.CreateGoalUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
-import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class AddGoalViewModel @Inject constructor(
-    @NavigationGoals private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationGoals private val navigation: MainFlowNavigation,
     private val dialogNavigation: DialogNavigation<String>,
     private val createGoalUseCase: CreateGoalUseCase
 ) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     val addKeyResult: (String) -> Unit = { dialogNavigation.openItemDialog(it) }
 

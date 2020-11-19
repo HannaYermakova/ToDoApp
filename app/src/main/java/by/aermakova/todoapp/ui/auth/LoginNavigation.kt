@@ -3,6 +3,7 @@ package by.aermakova.todoapp.ui.auth
 import androidx.navigation.NavController
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.navigation.AuthNavigation
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 
 class LoginNavigation(private val hostController: NavController) : AuthNavigation {
 

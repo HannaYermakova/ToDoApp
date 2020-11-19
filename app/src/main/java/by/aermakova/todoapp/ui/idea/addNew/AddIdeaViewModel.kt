@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class AddIdeaViewModel @Inject constructor(
     private val findStepUseCase: FindStepUseCase,
-    @NavigationIdeas private val mainFlowNavigation: MainFlowNavigation,
+    @NavigationIdeas private val navigation: MainFlowNavigation,
     private val createIdeaUseCase: CreateIdeaUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
@@ -26,7 +26,8 @@ class AddIdeaViewModel @Inject constructor(
     code: Int?
 ) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     val saveIdea = { saveIdeaToLocalDataBaseAndSyncToRemote() }
 
@@ -118,7 +119,7 @@ class AddIdeaViewModel @Inject constructor(
             tempGoalId,
             tempKeyResultId,
             tempStepId,
-            { mainFlowNavigation.popBack() },
+            { navigation.popBack() },
             errorAction
         )
     }

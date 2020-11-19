@@ -9,6 +9,7 @@ import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,7 +24,8 @@ class TaskDetailsViewModel @Inject constructor(
     private val taskId: Long
 ) : BaseViewModel() {
 
-    val popBack = { navigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
 
     val openEditFragment = { navigation.navigateToEditElementFragment(taskId) }
 
@@ -65,7 +67,7 @@ class TaskDetailsViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { navigation.popBack() },
+                    { popBack.invoke() },
                     { it.printStackTrace() }
                 )
         )

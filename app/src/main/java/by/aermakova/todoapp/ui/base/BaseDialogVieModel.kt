@@ -1,9 +1,13 @@
 package by.aermakova.todoapp.ui.base
 
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
 abstract class BaseDialogVieModel : BaseViewModel() {
+
+    override val mainFlowNavigation: MainFlowNavigation?
+        get() = null
 
     protected val _dismissCommand = BehaviorSubject.create<Boolean>()
     val dismissCommand: Observable<Boolean>

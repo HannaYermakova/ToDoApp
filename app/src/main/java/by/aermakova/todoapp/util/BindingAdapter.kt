@@ -517,8 +517,12 @@ fun setLayoutMarginTopAndBottom(view: View, value: Any?) {
 @BindingAdapter("app:paddingTop")
 fun setLayoutMarginTop(view: View, value: Any?) {
     val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
+    val navigationBarHeight =
+        getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
     if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         view.setPadding(0, statusBarHeight, 0, 0)
+    }else {
+        view.setPadding(navigationBarHeight, statusBarHeight, 0, 0)
     }
 }
 

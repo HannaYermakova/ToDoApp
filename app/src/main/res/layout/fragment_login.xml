@@ -19,7 +19,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_image"
+            android:background="@color/color_white"
             app:paddingTopAndBottom="@{null}">
 
             <ImageView
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
-                android:backgroundTint="@color/color_scheme_bombay"
+                android:backgroundTint="@color/color_white_milk"
                 app:cardCornerRadius="@dimen/card_corner_radius"
                 app:layout_constraintBottom_toBottomOf="@id/guideline">
 
@@ -107,11 +107,11 @@
 
             <Button
                 android:id="@+id/register_button_email"
-                style="@style/RegularButtonStyle"
-                android:layout_width="0dp"
+                style="@style/RegularButtonStyleBackground"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_large"
                 android:text="@string/register_with_email"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +121,7 @@
 
             <Button
                 android:id="@+id/login_button_facebook"
-                style="@style/RegularButtonStyle"
+                style="@style/RegularButtonStyleBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_large"
@@ -131,8 +131,7 @@
                 android:padding="16dp"
                 android:text="@string/login_with_facebook"
                 app:addLoginMethod="@{viewModel.facebookLoginManager}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+
                 app:layout_constraintTop_toBottomOf="@id/register_button_email"
                 app:onLoginClick="@{viewModel.loginButton}" />
 
@@ -144,6 +143,7 @@
                 app:layout_constraintGuide_percent="0.6" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <include
             android:id="@+id/placeholder"
             layout="@layout/placeholder_layout" />

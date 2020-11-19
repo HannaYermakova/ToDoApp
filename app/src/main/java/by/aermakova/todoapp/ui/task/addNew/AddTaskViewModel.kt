@@ -13,6 +13,7 @@ import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.data.useCase.StepSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import by.aermakova.todoapp.util.Item
@@ -22,7 +23,7 @@ import javax.inject.Inject
 
 
 class AddTaskViewModel @Inject constructor(
-    @NavigationTasks private val mainFlowNavigation: TasksNavigation,
+    @NavigationTasks private val navigation: TasksNavigation,
     private val findStepUseCase: FindStepUseCase,
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
@@ -34,11 +35,13 @@ class AddTaskViewModel @Inject constructor(
     code: Int?
 ) : BaseViewModel() {
 
-    val popBack = { mainFlowNavigation.popBack() }
+    override val mainFlowNavigation: MainFlowNavigation?
+        get() = navigation
 
     private val saveAndClose = BehaviorSubject.create<Boolean>()
 
     private val _tempTaskTitle = BehaviorSubject.create<String>()
+
     val tempTaskTitle: Observer<String>
         get() = _tempTaskTitle
 
@@ -64,13 +67,13 @@ class AddTaskViewModel @Inject constructor(
     }
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)
-
     val keyResultIsVisible: LiveData<Boolean>
         get() = _keyResultIsVisible
-    private val _stepsIsVisible = MutableLiveData<Boolean>(false)
 
+    private val _stepsIsVisible = MutableLiveData<Boolean>(false)
     val stepsIsVisible: LiveData<Boolean>
         get() = _stepsIsVisible
+
     private val _goalTitle = MutableLiveData<String>()
 
     val goalTitle: LiveData<String>
@@ -133,7 +136,7 @@ class AddTaskViewModel @Inject constructor(
                 .subscribe { taskCreator.tempTaskTitle = it }
         )
         disposable.add(
-            saveAndClose.subscribe { if (it) mainFlowNavigation.popBack() }
+            saveAndClose.subscribe { if (it) popBack.invoke() }
         )
     }
 }

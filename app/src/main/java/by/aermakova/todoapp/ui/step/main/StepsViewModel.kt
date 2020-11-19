@@ -7,6 +7,7 @@ import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
 import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -18,14 +19,17 @@ class StepsViewModel @Inject constructor(
     loadAllStepsUseCase: LoadAllStepsUseCase
 ) : BaseViewModel() {
 
+    override val mainFlowNavigation: MainFlowNavigation
+        get() = navigation
+
     val actionItems: LiveData<List<CommonModel>> =
         stepBottomSheetMenuUseCase.getLiveListOfStepActionsItems(disposable, errorAction)
 
     private val openBottomSheetActions: (Long) -> Unit = {
         stepBottomSheetMenuUseCase.openBottomSheetActions(it, this)
     }
-
     private val _stepsList = PublishSubject.create<List<CommonModel>>()
+
     val stepsList: Observable<List<CommonModel>>
         get() = _stepsList.hide()
 

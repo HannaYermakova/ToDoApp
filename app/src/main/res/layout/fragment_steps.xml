@@ -16,14 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:disposable="@{viewModel.disposable}"
-        app:paddingTopAndBottom="@{null}"
+        app:paddingTop="@{null}"
         app:show_child="@{viewModel.status}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_image">
+            android:background="@color/color_white">
 
             <TextView
                 android:id="@+id/all_steps_text"
