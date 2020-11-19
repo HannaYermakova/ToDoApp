@@ -19,7 +19,7 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_navigation" />
 
@@ -29,11 +29,11 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_gravity="bottom"
-            android:background="@color/color_white"
+            android:background="@color/color_scheme_salt_box_dark"
             app:itemIconTint="@color/nav_item_state_list"
             app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
             app:itemTextAppearanceInactive="@style/BottomNavigationView"
-            app:itemTextColor="@color/color_scheme_salt_box"
+            app:itemTextColor="@color/nav_item_state_list"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>

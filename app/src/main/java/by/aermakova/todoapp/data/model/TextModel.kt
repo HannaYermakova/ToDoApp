@@ -4,15 +4,16 @@ import android.content.res.Resources
 import by.aermakova.todoapp.BR
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.db.entity.*
-import by.aermakova.todoapp.util.GoalsActionItem
-import by.aermakova.todoapp.util.TaskFilterItem
-import by.aermakova.todoapp.util.TaskSortItem
+import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.TaskFilterItem
+import by.aermakova.todoapp.data.useCase.actionEnum.TaskSortItem
 
 data class TextModel(
     val textId: Long,
     val text: String,
     val action: FunctionLong? = null,
-    var selected: Boolean = false
+    var selected: Boolean = false,
+    val imageId: Int? = null
 ) : CommonModel(textId, R.layout.item_text_line, BR.text, action) {
     override fun toString() = text
 }

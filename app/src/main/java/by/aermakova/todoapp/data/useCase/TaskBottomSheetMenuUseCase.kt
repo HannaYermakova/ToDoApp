@@ -7,8 +7,8 @@ import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.task.main.TasksViewModel
-import by.aermakova.todoapp.util.TasksActionItem
-import by.aermakova.todoapp.util.getLiveListOfActionsItems
+import by.aermakova.todoapp.data.useCase.actionEnum.TasksActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 

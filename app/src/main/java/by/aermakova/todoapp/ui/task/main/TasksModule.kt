@@ -15,7 +15,7 @@ import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.util.TasksActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.TasksActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides

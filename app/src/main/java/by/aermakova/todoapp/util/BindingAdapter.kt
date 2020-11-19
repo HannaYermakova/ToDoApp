@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,25 @@ import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 
 
+@BindingAdapter("app:setImage")
+fun setImage(view: ImageView, imageId: Int?) {
+    imageId?.let {
+        view.background =
+            ContextCompat.getDrawable(view.context, imageId)
+    }
+}
+
+@BindingAdapter("app:selectedItem")
+fun setSelectedItem(view: ImageView, selected: Boolean?) {
+    selected?.let {
+        view.background = if (it) {
+            ContextCompat.getDrawable(view.context, R.drawable.ic_baseline_done_24)
+        } else {
+            null
+        }
+    }
+}
+
 @BindingAdapter("app:imageColor")
 fun setImageColor(background: ImageView, status: Boolean?) {
     val res = background.context.resources
@@ -35,15 +55,6 @@ fun setImageColor(background: ImageView, status: Boolean?) {
     } ?: res.getColor(R.color.color_white, theme))
 }
 
-@BindingAdapter("app:selectedItem")
-fun setSelectedItem(background: View, selected: Boolean?) {
-    val res = background.context.resources
-    val theme = background.context.theme
-    background.setBackgroundColor(selected?.let {
-        if (it) res.getColor(R.color.color_blue_light, theme)
-        else res.getColor(R.color.color_white, theme)
-    } ?: res.getColor(R.color.color_white, theme))
-}
 
 @BindingAdapter("app:setStatus")
 fun setStatus(textView: TextView, status: Boolean?) {
@@ -253,7 +264,7 @@ fun editTextListener(
     textView: TextView,
     dateText: LiveData<Long>?
 ) {
-    textView.text =  dateText?.let {
+    textView.text = dateText?.let {
         it.value?.let { date -> convertLongToDate(date) }
             ?: textView.context.resources.getString(R.string.pick_day)
     } ?: textView.context.resources.getString(R.string.pick_day)
@@ -521,7 +532,7 @@ fun setLayoutMarginTop(view: View, value: Any?) {
         getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
     if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         view.setPadding(0, statusBarHeight, 0, 0)
-    }else {
+    } else {
         view.setPadding(navigationBarHeight, statusBarHeight, 0, 0)
     }
 }

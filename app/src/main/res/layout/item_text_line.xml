@@ -10,16 +10,29 @@
             type="by.aermakova.todoapp.data.model.TextModel" />
     </data>
 
-    <TextView
-        android:id="@+id/key_result_item"
-        style="@style/TextRegular"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{text.text}"
-        app:itemId="@{text.id}"
-        app:onClickItem="@{text.action}"
-        app:selectedItem="@{text.selected}"
-        tools:paddingBottom="@dimen/margin_small"
-        tools:paddingTop="@dimen/margin_small"
-        tools:text="@string/add_key_result" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:layout_margin="@dimen/margin_small"
+            android:backgroundTint="@color/color_scheme_salt_box"
+            app:selectedItem="@{text.selected}"
+            app:setImage="@{text.imageId}"
+            tools:background="@drawable/ic_baseline_edit_24" />
+
+        <TextView
+            android:id="@+id/key_result_item"
+            style="@style/TextRegular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{text.text}"
+            app:itemId="@{text.id}"
+            app:onClickItem="@{text.action}"
+            tools:text="@string/add_key_result" />
+    </LinearLayout>
 </layout>

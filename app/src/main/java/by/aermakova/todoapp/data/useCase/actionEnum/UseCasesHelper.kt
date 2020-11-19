@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.util
+package by.aermakova.todoapp.data.useCase.actionEnum
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData

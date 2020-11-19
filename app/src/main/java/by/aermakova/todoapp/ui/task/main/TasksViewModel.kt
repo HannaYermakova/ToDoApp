@@ -12,6 +12,10 @@ import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.actionEnum.TaskFilterItem
+import by.aermakova.todoapp.data.useCase.actionEnum.TaskSortItem
+import by.aermakova.todoapp.data.useCase.actionEnum.createTasksComparator
+import by.aermakova.todoapp.data.useCase.actionEnum.filterTasksList
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.ui.base.BaseViewModel

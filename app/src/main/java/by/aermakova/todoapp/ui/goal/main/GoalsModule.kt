@@ -23,7 +23,7 @@ import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.util.GoalsActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
 import by.aermakova.todoapp.util.Item
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module

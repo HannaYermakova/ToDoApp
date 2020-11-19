@@ -10,8 +10,8 @@ import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.TaskRepository
-import by.aermakova.todoapp.util.TaskFilterItem
-import by.aermakova.todoapp.util.TaskSortItem
+import by.aermakova.todoapp.data.useCase.actionEnum.TaskFilterItem
+import by.aermakova.todoapp.data.useCase.actionEnum.TaskSortItem
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single

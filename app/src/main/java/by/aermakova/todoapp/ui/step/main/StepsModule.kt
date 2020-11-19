@@ -22,7 +22,7 @@ import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.Item
-import by.aermakova.todoapp.util.StepsActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides

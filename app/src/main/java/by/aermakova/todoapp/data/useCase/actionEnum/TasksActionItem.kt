@@ -1,13 +1,14 @@
-package by.aermakova.todoapp.util
+package by.aermakova.todoapp.data.useCase.actionEnum
 
 import android.content.res.Resources
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.model.TextModel
 
-enum class TasksActionItem(private val listId: Int) : ActionTextConverter {
-    EDIT_TASK(R.string.title_edit_task),
-    DELETE_TASK(R.string.title_delete_task);
+enum class TasksActionItem(private val listId: Int, private val imageId: Int? = null) :
+    ActionTextConverter {
+    EDIT_TASK(R.string.title_edit_task, R.drawable.ic_baseline_edit_24),
+    DELETE_TASK(R.string.title_delete_task, R.drawable.ic_delete_24);
 
     override fun toTextModel(
         res: Resources,
@@ -16,8 +17,8 @@ enum class TasksActionItem(private val listId: Int) : ActionTextConverter {
         return TextModel(
             listId.toLong(),
             res.getString(listId),
-            action = clickAction
+            action = clickAction,
+            imageId = imageId
         )
     }
-
 }

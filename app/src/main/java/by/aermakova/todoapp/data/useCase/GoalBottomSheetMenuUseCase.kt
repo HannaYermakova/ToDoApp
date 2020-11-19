@@ -4,6 +4,7 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.goal.main.GoalsViewModel
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
@@ -11,8 +12,7 @@ import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.util.GoalsActionItem
-import by.aermakova.todoapp.util.getLiveListOfActionsItems
+import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 
@@ -40,7 +40,7 @@ class GoalBottomSheetMenuUseCase(
             disposable,
             errorAction,
             resources,
-            { item, disp, error -> goalAction(item, disp, error) }
+            itemAction = { item, disp, error -> goalAction(item, disp, error) }
         )
         val liveList = MutableLiveData<List<CommonModel>>()
         val list = goalActionItems

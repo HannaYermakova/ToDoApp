@@ -9,8 +9,8 @@ import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.main.StepsViewModel
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.util.StepsActionItem
-import by.aermakova.todoapp.util.getLiveListOfActionsItems
+import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 
