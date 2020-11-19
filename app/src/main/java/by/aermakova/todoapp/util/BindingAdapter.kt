@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -254,10 +253,10 @@ fun editTextListener(
     textView: TextView,
     dateText: LiveData<Long>?
 ) {
-    dateText?.let {
-        textView.text = it.value?.let { date -> convertLongToDate(date) }
+    textView.text =  dateText?.let {
+        it.value?.let { date -> convertLongToDate(date) }
             ?: textView.context.resources.getString(R.string.pick_day)
-    }
+    } ?: textView.context.resources.getString(R.string.pick_day)
 }
 
 @BindingAdapter("app:itemSelectedListener")
@@ -490,7 +489,7 @@ fun commonAdapterSettings(
             null -> LinearLayoutManager(context)
             LayoutManagerType.GRID -> GridLayoutManager(
                 context,
-                2,
+                getSpanCountByOrientation(context.resources.configuration.orientation),
                 GridLayoutManager.VERTICAL,
                 false
             )
@@ -500,6 +499,9 @@ fun commonAdapterSettings(
     }
 }
 
+fun getSpanCountByOrientation(orientation: Int) =
+    if (orientation == Configuration.ORIENTATION_PORTRAIT) SPAN_COUNT_PORTRAIT else SPAN_COUNT_LANDSCAPE
+
 @BindingAdapter("app:paddingTopAndBottom")
 fun setLayoutMarginTopAndBottom(view: View, value: Any?) {
     val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
@@ -508,7 +510,6 @@ fun setLayoutMarginTopAndBottom(view: View, value: Any?) {
     if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         view.setPadding(0, statusBarHeight, 0, navigationBarHeight)
     } else {
-        Log.d("A_BindingAdapter", "setLayoutMarginTopAndBottom")
         view.setPadding(navigationBarHeight, statusBarHeight, 0, 0)
     }
 }
@@ -518,9 +519,6 @@ fun setLayoutMarginTop(view: View, value: Any?) {
     val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
     if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         view.setPadding(0, statusBarHeight, 0, 0)
-    } else {
-        Log.d("A_BindingAdapter", "setLayoutMarginTop")
-        view.setPadding(0, 0, -statusBarHeight, 0)
     }
 }
 
@@ -530,9 +528,6 @@ fun setLayoutMarginBottom(view: View, value: Any?) {
         getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
     if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         view.setPadding(0, 0, 0, navigationBarHeight)
-    } else {
-        Log.d("A_BindingAdapter", "setLayoutMarginBottom")
-        view.setPadding(navigationBarHeight, 0, 0, 0)
     }
 }
 
@@ -551,3 +546,5 @@ private const val ATTRIBUTE_NAME_NAVIGATION_BAR = "navigation_bar_height"
 private const val ATTRIBUTE_DIMEN = "dimen"
 private const val ATTRIBUTE_DEF_PACKAGE = "android"
 private const val RECYCLER_SIDE_MARGIN = 8
+private const val SPAN_COUNT_PORTRAIT = 2
+private const val SPAN_COUNT_LANDSCAPE = 4

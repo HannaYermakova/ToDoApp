@@ -103,7 +103,7 @@ class IdeaDetailsViewModel @Inject constructor(
             ideaModel.text,
             ideaModel.goalId,
             keyResultId,
-            { mainFlowNavigation.popBack() }
+            { saveAndClose(true) }
         )
     }
 

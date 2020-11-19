@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.util.Status
-import by.aermakova.todoapp.util.convertLongToDate
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,21 +34,17 @@ class TaskCreator(
 
     val deadlinedTask = MutableLiveData<Boolean>()
 
-    private var tempFinishTime: Long? = null
+    val taskFinishTime = MutableLiveData<Long>()
 
     private val _finishDateIsSelected = MutableLiveData<Boolean>(false)
     val finishDateIsSelected: LiveData<Boolean>
         get() = _finishDateIsSelected
 
-    private val _finishDateText = MutableLiveData<String>()
-    val finishDateText: LiveData<String>
-        get() = _finishDateText
 
     fun checkAndSetFinishTime(finishTime: Long?) {
         if (finishTime != null && finishTime > System.currentTimeMillis()) {
             _finishDateIsSelected.postValue(true)
-            _finishDateText.postValue(convertLongToDate(finishTime))
-            tempFinishTime = finishTime
+            taskFinishTime.postValue(finishTime)
         }
     }
 
@@ -72,7 +67,7 @@ class TaskCreator(
                             tempKeyResultId,
                             tempStepId,
                             finishDate = if (deadlinedTask.value!!) {
-                                tempFinishTime
+                                taskFinishTime.value
                             } else null,
                             scheduledTask = scheduledTask.value!!,
                             interval = if (scheduledTask.value!!) taskInterval.value else null

@@ -26,7 +26,7 @@ class SetTaskFieldsUseCase(
     val goalTitle: LiveData<String>
         get() = _goalTitle
 
-    private val _goalIsVisible = MutableLiveData<Boolean>()
+    private val _goalIsVisible = MutableLiveData<Boolean>(false)
     val goalIsVisible: LiveData<Boolean>
         get() = _goalIsVisible
 
@@ -34,7 +34,7 @@ class SetTaskFieldsUseCase(
     val keyResTitle: LiveData<String>
         get() = _keyResTitle
 
-    private val _keyResIsVisible = MutableLiveData<Boolean>()
+    private val _keyResIsVisible = MutableLiveData<Boolean>(false)
     val keyResIsVisible: LiveData<Boolean>
         get() = _keyResIsVisible
 
@@ -42,7 +42,7 @@ class SetTaskFieldsUseCase(
     val stepTitle: LiveData<String>
         get() = _stepTitle
 
-    private val _stepIsVisible = MutableLiveData<Boolean>()
+    private val _stepIsVisible = MutableLiveData<Boolean>(false)
     val stepIsVisible: LiveData<Boolean>
         get() = _stepIsVisible
 

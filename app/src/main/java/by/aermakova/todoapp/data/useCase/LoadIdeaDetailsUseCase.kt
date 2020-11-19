@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.useCase
 
+import android.util.Log
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.toCommonModel
@@ -61,7 +62,9 @@ class LoadIdeaDetailsUseCase(
     ) {
         disposable.add(
             Single.create<Boolean> { it.onSuccess(true) }
-                .doOnSuccess { ideaInteractor.deleteIdea(ideaId) }
+                .doOnSuccess {
+                    Log.d("A_LoadIdeaDetails", "doOnSuccess")
+                    ideaInteractor.deleteIdea(ideaId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

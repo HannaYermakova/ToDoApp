@@ -20,7 +20,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_image"
+            android:background="@color/color_white"
             android:fitsSystemWindows="true"
             app:paddingTopAndBottom="@{null}">
 
@@ -260,19 +260,19 @@
                 android:id="@+id/deadline_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_small"
+                android:layout_margin="@dimen/margin_normal"
+                android:gravity="center_vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/task_with_deadline_toggle"
+                app:onClick="@{viewModel.editTaskUseCase.pickFinishDay}"
                 app:visible="@{viewModel.editTaskUseCase.finishDateIsSelected}">
 
                 <ImageButton
                     android:id="@+id/set_deadline_button"
                     android:layout_width="@dimen/image_button_size"
                     android:layout_height="@dimen/image_button_size"
-                    android:layout_marginTop="@dimen/margin_small"
                     android:background="@drawable/ic_baseline_calendar_today_24"
-                    android:backgroundTint="@color/color_blue"
+                    android:backgroundTint="@color/color_scheme_mantle"
                     android:elevation="@dimen/elevation_button"
                     android:stateListAnimator="@drawable/lift_on_touch"
                     app:onClick="@{viewModel.editTaskUseCase.pickFinishDay}" />
@@ -282,8 +282,7 @@
                     style="@style/TextRegular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:text="@{viewModel.setTaskFieldsUseCase.taskModel.finishTimeText}"
+                    android:layout_marginStart="@dimen/margin_small"
                     app:convertLongToDate="@{viewModel.editTaskUseCase.taskFinishTime}"
                     tools:text="@string/pick_day" />
             </LinearLayout>

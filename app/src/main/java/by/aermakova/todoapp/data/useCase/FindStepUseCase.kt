@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -18,12 +19,14 @@ class FindStepUseCase(
         errorAction: (String) -> Unit
     ): Disposable? {
         return stepId?.let {
+            if (stepId > INIT_SELECTED_ITEM_ID){
             stepInteractor.getStepById(stepId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { step -> successAction.invoke(step) },
                     { it.handleError(errorMessage, errorAction) }
                 )
+            } else null
         }
     }
 

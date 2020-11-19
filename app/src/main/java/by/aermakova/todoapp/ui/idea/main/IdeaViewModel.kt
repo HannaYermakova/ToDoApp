@@ -5,6 +5,7 @@ import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.useCase.LoadAllIdeasUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
+import by.aermakova.todoapp.util.Item
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -19,7 +20,7 @@ class IdeaViewModel @Inject constructor(
     val ideasList: Observable<List<CommonModel>>
         get() = _ideasList.hide()
 
-    val addNewElement = { mainFlowNavigation.navigateToAddNewElementFragment() }
+    val addNewElement = { mainFlowNavigation.navigateToAddNewElementFragment(item = Item.GOAL) }
 
     init {
         loadingAction.invoke()

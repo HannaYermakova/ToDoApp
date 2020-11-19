@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.useCase
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
@@ -58,13 +57,6 @@ class EditTaskUseCase(
                     val tempTaskInterval = if (tempScheduledTask) {
                         taskInterval.value?.code ?: interval
                     } else null
-
-                    Log.d(
-                        "A_EditTaskUseCase", "title $title\n" +
-                                "tempFinishDate $tempFinishDate\n" +
-                                "tempScheduledTask $tempScheduledTask\n" +
-                                "tempTaskInterval $tempTaskInterval\n"
-                    )
 
                     taskInteractor.updateTaskInLocalDatabase(
                         taskId,
