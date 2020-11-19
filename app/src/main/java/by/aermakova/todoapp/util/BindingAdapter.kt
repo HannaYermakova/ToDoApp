@@ -1,11 +1,13 @@
 package by.aermakova.todoapp.util
 
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.view.marginLeft
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -399,14 +401,17 @@ fun bindCommonListToRecycler(
     }
 
     action?.let {
-        val touchCallback = object : ItemSwipeHelperCallback(recyclerView.context) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        val touchCallback = ItemSwipeHelperCallback.Builder()
+            .iconId(R.drawable.ic_delete_24)
+            .backgroundColorId(R.color.color_scheme_salt_box)
+            .context(recyclerView.context)
+            .onSwipedAction { viewHolder, _ ->
                 action.invoke(
                     recyclerView.adapter?.getItemId(viewHolder.absoluteAdapterPosition)
                         ?: throw Exception("Adapter is not attached to recycler view")
                 )
             }
-        }
+            .build()
         ItemTouchHelper(touchCallback).attachToRecyclerView(recyclerView)
     }
 }
@@ -420,7 +425,6 @@ fun setListSettings(
     divide: Int?,
     layoutManager: LayoutManagerType?
 ) {
-    Log.d("A_BindingAdapter", "setListSettings")
     divide?.let {
         val sideMargin = when (layoutManager) {
             null -> RECYCLER_SIDE_MARGIN
@@ -501,20 +505,35 @@ fun setLayoutMarginTopAndBottom(view: View, value: Any?) {
     val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
     val navigationBarHeight =
         getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
-    view.setPadding(0, statusBarHeight, 0, navigationBarHeight)
+    if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        view.setPadding(0, statusBarHeight, 0, navigationBarHeight)
+    } else {
+        Log.d("A_BindingAdapter", "setLayoutMarginTopAndBottom")
+        view.setPadding(navigationBarHeight, statusBarHeight, 0, 0)
+    }
 }
 
 @BindingAdapter("app:paddingTop")
 fun setLayoutMarginTop(view: View, value: Any?) {
     val statusBarHeight = getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_STATUS_BAR)
-    view.setPadding(0, statusBarHeight, 0, 0)
+    if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        view.setPadding(0, statusBarHeight, 0, 0)
+    } else {
+        Log.d("A_BindingAdapter", "setLayoutMarginTop")
+        view.setPadding(0, 0, -statusBarHeight, 0)
+    }
 }
 
 @BindingAdapter("app:paddingBottom")
 fun setLayoutMarginBottom(view: View, value: Any?) {
     val navigationBarHeight =
         getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
-    view.setPadding(0, 0, 0, navigationBarHeight)
+    if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        view.setPadding(0, 0, 0, navigationBarHeight)
+    } else {
+        Log.d("A_BindingAdapter", "setLayoutMarginBottom")
+        view.setPadding(navigationBarHeight, 0, 0, 0)
+    }
 }
 
 fun getElementPxHeight(resources: Resources, identifier: String): Int {

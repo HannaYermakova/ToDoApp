@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:disposable="@{viewModel.disposable}"
-        app:paddingTop="@{null}"
+        app:paddingTopAndBottom="@{null}"
         app:show_child="@{viewModel.status}">
 
         <androidx.constraintlayout.widget.ConstraintLayout

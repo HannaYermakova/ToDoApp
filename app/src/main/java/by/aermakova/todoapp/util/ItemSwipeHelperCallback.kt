@@ -6,24 +6,62 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
+import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import by.aermakova.todoapp.R
 
-abstract class ItemSwipeHelperCallback(context: Context) :
+class ItemSwipeHelperCallback(builder: Builder) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete_24)!!
-    private val intrinsicWidth = deleteIcon.intrinsicWidth
-    private val intrinsicHeight = deleteIcon.intrinsicHeight
-    private val background = ColorDrawable()
-    private val backgroundColor = context.resources.getColor(
-        R.color.color_scheme_shark,
-        context.theme
-    )
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
+
+    private val icon: Drawable
+    private val iconId: Int?
+    private val context: Context?
+    private val onSwipedAction: ((viewHolder: RecyclerView.ViewHolder, direction: Int) -> Unit)?
+    private var backgroundColorId: Int? = 0
+    private var backgroundColor: Int = 0
+    private var intrinsicWidth: Int = 0
+    private var intrinsicHeight: Int = 0
+
+    private val background = ColorDrawable()
+
+    init {
+        this.iconId = builder.iconId
+        this.context = builder.context
+        this.backgroundColorId = builder.backgroundColorId
+        this.onSwipedAction = builder.onSwipedAction
+        icon = ContextCompat.getDrawable(context!!, iconId!!)!!
+        backgroundColor = context.resources?.getColor(
+            backgroundColorId!!,
+            context.theme
+        ) ?: 0
+        intrinsicWidth = icon.intrinsicWidth
+        intrinsicHeight = icon.intrinsicHeight
+    }
+
+    class Builder {
+        var iconId: Int? = null
+            private set
+
+        var context: Context? = null
+            private set
+
+        var backgroundColorId: Int? = null
+            private set
+
+        var onSwipedAction: ((viewHolder: RecyclerView.ViewHolder, direction: Int) -> Unit)? = null
+            private set
+
+        fun iconId(iconId: Int) = apply { this.iconId = iconId }
+        fun context(context: Context) = apply { this.context = context }
+        fun backgroundColorId(colorId: Int) = apply { this.backgroundColorId = colorId }
+        fun onSwipedAction(action: (viewHolder: RecyclerView.ViewHolder, direction: Int) -> Unit) =
+            apply { this.onSwipedAction = action }
+
+        fun build() = ItemSwipeHelperCallback(this)
+    }
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -41,7 +79,6 @@ abstract class ItemSwipeHelperCallback(context: Context) :
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        Log.d("A_ItemSwipe", "$dX $dY")
         val itemView = viewHolder.itemView
         val itemHeight = itemView.bottom - itemView.top
         val isCanceled = dX == 0f && !isCurrentlyActive
@@ -54,7 +91,15 @@ abstract class ItemSwipeHelperCallback(context: Context) :
                 itemView.right.toFloat(),
                 itemView.bottom.toFloat()
             )
-            super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            super.onChildDraw(
+                canvas,
+                recyclerView,
+                viewHolder,
+                dX,
+                dY,
+                actionState,
+                isCurrentlyActive
+            )
             return
         }
 
@@ -73,14 +118,17 @@ abstract class ItemSwipeHelperCallback(context: Context) :
         val iconLeft = itemView.right - iconMargin - intrinsicWidth
         val iconRight = itemView.right - iconMargin
 
-        deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-        deleteIcon.draw(canvas)
+        icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+        icon.draw(canvas)
 
         super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        onSwipedAction?.invoke(viewHolder, direction)
+    }
+
     private fun clearCanvas(canvas: Canvas?, left: Float, top: Float, right: Float, bottom: Float) {
-        Log.d("A_ItemSwipe", "clearCanvas")
         canvas?.drawRect(left, top, right, bottom, clearPaint)
     }
 }

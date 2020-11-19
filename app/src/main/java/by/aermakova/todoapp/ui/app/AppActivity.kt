@@ -28,7 +28,11 @@ class AppActivity : BaseActivity<AppViewModel>() {
         }
 
         if (intent.getBooleanExtra(SPLASH_AUTH_CHECK, true)) {
-            controller.navigate(R.id.action_loginFragment_to_mainFlowFragment)
+            try {
+                controller.navigate(R.id.action_loginFragment_to_mainFlowFragment)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }
