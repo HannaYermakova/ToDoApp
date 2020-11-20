@@ -163,7 +163,8 @@
                         android:layout_marginTop="@dimen/margin_large"
                         android:text="@string/attached_tasks"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/attach_card" />
+                        app:layout_constraintTop_toBottomOf="@id/attach_card"
+                        app:visible="@{viewModel.tasksIsVisible}" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/attached_tasks_card"
@@ -175,7 +176,8 @@
                         android:backgroundTint="@color/color_scheme_coffee_light"
                         app:cardCornerRadius="@dimen/card_corner_radius"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/attached_tasks_text">
+                        app:layout_constraintTop_toBottomOf="@id/attached_tasks_text"
+                        app:visible="@{viewModel.tasksIsVisible}">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view"
@@ -196,7 +198,8 @@
                         android:layout_marginTop="@dimen/margin_large"
                         android:text="@string/attached_ideas"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/attached_tasks_card" />
+                        app:layout_constraintTop_toBottomOf="@id/attached_tasks_card"
+                        app:visible="@{viewModel.ideasIsVisible}" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/attached_ideas_card"
@@ -208,7 +211,8 @@
                         android:backgroundTint="@color/color_scheme_coffee_light"
                         app:cardCornerRadius="@dimen/card_corner_radius"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/attached_ideas_text">
+                        app:layout_constraintTop_toBottomOf="@id/attached_ideas_text"
+                        app:visible="@{viewModel.ideasIsVisible}">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/ideas_recycler_view"

@@ -17,12 +17,14 @@ import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.DeleteStepUseCase
 import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
 import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
+import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import by.aermakova.todoapp.util.Item
-import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
@@ -111,12 +113,16 @@ class StepsModule {
 
     @Provides
     fun provideDeleteStepUseCase(
+        @DialogConfirm dialogNavigation: DialogNavigation<Boolean>,
+        @TitleDialogDeleteStep dialogTitle: String,
         goalInteractor: GoalInteractor,
         stepInteractor: StepInteractor,
         taskInteractor: TaskInteractor,
         ideaInteractor: IdeaInteractor,
         @ErrorDeleteStep errorMessage: String
     ) = DeleteStepUseCase(
+        dialogNavigation,
+        dialogTitle,
         goalInteractor,
         stepInteractor,
         taskInteractor,
@@ -125,9 +131,19 @@ class StepsModule {
     )
 
     @Provides
+    @DialogConfirm
+    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller)
+
+    @Provides
     @ErrorDeleteStep
     fun provideErrorDeleteStepMessage(activity: Activity) =
         activity.getString(R.string.error_delete_step)
+
+    @Provides
+    @TitleDialogDeleteStep
+    fun provideDeleteStepDialogTitle(activity: Activity) =
+        activity.getString(R.string.confirm_delete_step)
 
     @Provides
     fun provideLoadAllStepsUseCase(

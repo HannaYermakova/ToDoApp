@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
@@ -67,7 +68,7 @@ class StepBottomSheetMenuUseCase(
             StepsActionItem.EDIT_STEP -> mainFlowNavigation.navigateToEditElementFragment(
                 selectedStepId
             )
-            StepsActionItem.DELETE_STEP -> deleteStepUseCase.deleteById(
+            StepsActionItem.DELETE_STEP -> deleteStepUseCase.confirmDeleteStep(
                 selectedStepId,
                 disposable,
                 errorAction

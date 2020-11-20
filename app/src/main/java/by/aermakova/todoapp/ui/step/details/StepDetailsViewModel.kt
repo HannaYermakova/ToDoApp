@@ -37,9 +37,17 @@ class StepDetailsViewModel @Inject constructor(
     val stepTasks: LiveData<List<CommonModel>>
         get() = _stepTasks
 
+    private val _tasksIsVisible = MutableLiveData<Boolean>(false)
+    val tasksIsVisible: LiveData<Boolean>
+        get() = _tasksIsVisible
+
     private val _stepIdeas = MutableLiveData<List<CommonModel>>()
     val stepIdeas: LiveData<List<CommonModel>>
         get() = _stepIdeas
+
+    private val _ideasIsVisible = MutableLiveData<Boolean>(false)
+    val ideasIsVisible: LiveData<Boolean>
+        get() = _ideasIsVisible
 
     val markAsDoneToggle = MutableLiveData<Boolean>(false)
 
@@ -68,8 +76,14 @@ class StepDetailsViewModel @Inject constructor(
             disposable,
             { _goalTitle.postValue(it) },
             { _keyResTitle.postValue(it) },
-            { _stepTasks.postValue(it) },
-            { _stepIdeas.postValue(it) },
+            {
+                _tasksIsVisible.postValue(it.isNotEmpty())
+                _stepTasks.postValue(it)
+            },
+            {
+                _ideasIsVisible.postValue(it.isNotEmpty())
+                _stepIdeas.postValue(it)
+            },
             {
                 successAction.invoke()
                 _stepModel.postValue(it)

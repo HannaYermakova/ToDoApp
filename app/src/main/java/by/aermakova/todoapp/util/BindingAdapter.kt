@@ -391,6 +391,16 @@ fun setErrorMessages(
     }
 }
 
+@BindingAdapter("app:cancelSwipedListener")
+fun setCancelSwipedListener(
+    recyclerView: RecyclerView,
+    cancel: LiveData<Boolean>?
+) {
+    cancel?.let {
+        if (it.value == true) recyclerView.adapter?.notifyDataSetChanged()
+    }
+}
+
 @BindingAdapter(
     "app:bindList",
     "app:addDisposable",

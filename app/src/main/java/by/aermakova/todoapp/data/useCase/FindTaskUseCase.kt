@@ -1,8 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.model.TextModel
-import by.aermakova.todoapp.data.model.toTextModel
+import by.aermakova.todoapp.data.model.*
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +11,7 @@ class FindTaskUseCase(
     private val taskInteractor: TaskInteractor
 ) {
 
-    fun useTasksListByStepId(
+    fun useTextTasksListByStepId(
         taskId: Long?,
         successAction: (List<TextModel>) -> Unit,
         errorAction: ((String?) -> Unit)? = null
@@ -23,6 +22,22 @@ class FindTaskUseCase(
                 .observeEntitiesList(successAction, errorAction) {
                     it.toTextModel()
                 }
+        }
+    }
+
+    fun useTasksListByStepId(
+        taskId: Long?,
+        successAction: (List<TaskTextModel>) -> Unit,
+        errorAction: ((String) -> Unit)? = null
+    ): Disposable? {
+        return taskId?.let {
+            taskInteractor
+                .getTaskByStepId(taskId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { successAction.invoke(it.map { entity -> entity.toTaskTextModel() }) },
+                    { it.handleError(it.message, errorAction) }
+                )
         }
     }
 }

@@ -13,7 +13,7 @@ class ConfirmDialogViewModel @Inject constructor(
 
 
     override fun doOnCancel() {
-
+        router.setDialogResult(false)
     }
 
     override fun doOnOk() {

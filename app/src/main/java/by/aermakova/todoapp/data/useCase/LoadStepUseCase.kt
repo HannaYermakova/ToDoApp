@@ -1,10 +1,9 @@
 package by.aermakova.todoapp.data.useCase
 
+import android.util.Log
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.model.StepModel
-import by.aermakova.todoapp.data.model.TextModel
-import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.data.model.*
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,8 +24,8 @@ class LoadStepUseCase(
         disposable: CompositeDisposable,
         successGoalLoad: (String) -> Unit,
         successKeyResultLoad: (String) -> Unit,
-        successTasksAction: (List<TextModel>) -> Unit,
-        successIdeasAction: (List<TextModel>) -> Unit,
+        successTasksAction: (List<TaskTextModel>) -> Unit,
+        successIdeasAction: (List<IdeaModel>) -> Unit,
         successAction: (StepModel) -> Unit,
         errorAction: (String) -> Unit
     ) {
@@ -36,8 +35,8 @@ class LoadStepUseCase(
                 .map { it.toCommonModel { } }
                 .doOnSuccess { setGoalTitle(it, successGoalLoad) }
                 .doOnSuccess { setKeyResultTitle(it, successKeyResultLoad) }
-                .doOnSuccess { setTasksListAsText(it, successTasksAction) }
-                .doOnSuccess { setIdeasListAsText(it, successIdeasAction) }
+                .doOnSuccess { setTasksList(it, successTasksAction) }
+                .doOnSuccess { setIdeasList(it, successIdeasAction) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -85,7 +84,6 @@ class LoadStepUseCase(
             )
     }
 
-
     private fun setGoalTitle(step: StepModel, loadGoalAction: (String) -> Unit) =
         findGoal.useGoalById(step.goalId, {
             loadGoalAction.invoke(it.text)
@@ -96,12 +94,12 @@ class LoadStepUseCase(
             loadKeyResultAction.invoke(it.text)
         })
 
-    private fun setTasksListAsText(step: StepModel, loadTasksAction: (List<TextModel>) -> Unit) =
+    private fun setTasksList(step: StepModel, loadTasksAction: (List<TaskTextModel>) -> Unit) =
         findTask.useTasksListByStepId(step.stepId, {
             loadTasksAction.invoke(it)
         })
 
-    private fun setIdeasListAsText(step: StepModel, loadIdeasAction: (List<TextModel>) -> Unit) =
+    private fun setIdeasList(step: StepModel, loadIdeasAction: (List<IdeaModel>) -> Unit) =
         findIdea.useIdeasListByStepId(step.stepId, {
             loadIdeasAction.invoke(it)
         })

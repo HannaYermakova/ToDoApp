@@ -42,6 +42,7 @@
     <string name="error_adding_task_to_step">You can\'t add Task to Done Step!</string>
     <string name="error_find_step">Error while finding Step!</string>
     <string name="error_find_idea">Error while finding Idea!</string>
+    <string name="confirm_delete_step">Are you sure you want to delete this Step?</string>
 
     <string name="error_delete_task">Error while deleting Task</string>
 
