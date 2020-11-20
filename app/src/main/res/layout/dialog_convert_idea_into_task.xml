@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_normal"
+        android:padding="@dimen/margin_small"
         tools:context=".ui.goal.addNew.AddGoalFragment">
 
         <TextView
@@ -27,6 +27,33 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/attach_to_key_result_text"
+            style="@style/TextInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/attach_to_key_result_text"
+            android:textAlignment="textStart"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:visible="@{viewModel.keyResultIsVisible}"
+            tools:visibility="visible" />
+
+        <Spinner
+            android:id="@+id/select_key_result_spinner"
+            style="@style/SpinnerTheme"
+            app:addSelectedItem="@{viewModel.keyResultSelectUseCase.selectedKeyResult}"
+            app:addSpinnerAdapter="@{viewModel.keyResultSelectUseCase.keyResultsList}"
+            app:addTitle="@{@string/select_key_result_text}"
+            app:disposable="@{viewModel.disposable}"
+            app:itemSelectedListener="@{viewModel.keyResultSelected}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attach_to_key_result_text"
+            app:visible="@{viewModel.keyResultIsVisible}" />
+
+        <TextView
             android:id="@+id/scheduled_task_text"
             style="@style/TextInstructions"
             android:layout_width="wrap_content"
@@ -36,7 +63,7 @@
             android:text="@string/scheduled_task_text"
             android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/select_key_result_spinner" />
 
         <ToggleButton
             android:id="@+id/scheduled_task_toggle"
@@ -76,7 +103,7 @@
                 android:textAlignment="textStart" />
 
             <RadioGroup
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkedButton="@id/daily_radio_button"
                 android:orientation="horizontal"
@@ -142,7 +169,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/task_with_deadline_toggle"
             app:onClick="@{viewModel.taskCreator.pickFinishDay}"
-            app:visible="@{viewModel.taskCreator.finishDateIsSelected}">
+            app:visible="@{viewModel.taskCreator.deadlinedTask}">
 
             <ImageButton
                 android:id="@+id/set_deadline_button"

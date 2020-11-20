@@ -36,14 +36,8 @@ class TaskCreator(
 
     val taskFinishTime = MutableLiveData<Long>()
 
-    private val _finishDateIsSelected = MutableLiveData<Boolean>(false)
-    val finishDateIsSelected: LiveData<Boolean>
-        get() = _finishDateIsSelected
-
-
     fun checkAndSetFinishTime(finishTime: Long?) {
         if (finishTime != null && finishTime > System.currentTimeMillis()) {
-            _finishDateIsSelected.postValue(true)
             taskFinishTime.postValue(finishTime)
         }
     }

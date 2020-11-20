@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.interactor
 
-import android.util.Log
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
 import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.data.remote.DeleteStepItems
@@ -48,7 +47,6 @@ class IdeaInteractor(
     }
 
     fun deleteIdea(ideaId: Long) {
-        Log.d("A_IdeaInteractor", "delete Idea")
         ideaRepository.deleteIdea(ideaId)
         ideaRemoteDatabase.removeData(ideaId)
     }

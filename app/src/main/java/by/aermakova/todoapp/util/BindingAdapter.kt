@@ -21,6 +21,7 @@ import by.aermakova.todoapp.data.model.*
 import by.aermakova.todoapp.data.remote.auth.loginManager.AppLoginManager
 import by.aermakova.todoapp.ui.adapter.CommonRecyclerAdapter
 import by.aermakova.todoapp.ui.adapter.MarginItemDecorator
+import by.aermakova.todoapp.ui.progress.BallsProgressIndicator
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
@@ -350,10 +351,17 @@ fun setChildOfViewFlipper(
 ) {
     if (status != null && disposable != null) {
         val resources = flipper.context.resources
+        val indicator = flipper.findViewById<BallsProgressIndicator>(R.id.indicator)
         disposable.add(status.subscribe({
             flipper.displayedChild = when (it) {
-                Status.LOADING -> flipper.indexOfChild(flipper.findViewById(R.id.placeholder))
-                else -> flipper.indexOfChild(flipper.findViewById(R.id.content))
+                Status.LOADING -> {
+                    indicator?.startAnimation()
+                    flipper.indexOfChild(flipper.findViewById(R.id.placeholder))
+                }
+                else -> {
+                    indicator?.stopAnimation()
+                    flipper.indexOfChild(flipper.findViewById(R.id.content))
+                }
             }
             if (it == Status.ERROR) {
                 flipper.showToastMessage(it.message)
@@ -423,7 +431,7 @@ fun bindCommonListToRecycler(
     action?.let {
         val touchCallback = ItemSwipeHelperCallback.Builder()
             .iconId(R.drawable.ic_delete_24)
-            .backgroundColorId(R.color.color_scheme_salt_box)
+            .backgroundColorId(R.color.color_white)
             .context(recyclerView.context)
             .onSwipedAction { viewHolder, _ ->
                 action.invoke(

@@ -123,6 +123,7 @@
     <string name="enter_idea_hint">Describe your Idea</string>
     <string name="idea_attach_to_goal_text">Idea is attached to Goal:</string>
     <string name="idea_attach_to_key_result_text">Idea is attached to Key Result:</string>
+    <string name="attach_to_key_result_text">Attach Step to Key Result:</string>
     <string name="idea_attach_to_step_text">Idea is attached to Step:</string>
     <string name="my_idea">My Idea</string>
 

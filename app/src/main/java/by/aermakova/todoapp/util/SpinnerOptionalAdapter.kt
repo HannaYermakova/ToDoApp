@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.util
 
 import android.content.Context
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,7 @@ class SpinnerOptionalAdapter(
     }
 
     private fun initSelection(dropdown: Boolean): View {
-        val view = createTextView()
+        val view = createTitleTextView(true)
         if (dropdown) {
             view.height = 0
         }
@@ -44,10 +45,9 @@ class SpinnerOptionalAdapter(
         position: Int,
         convertView: View?
     ): View {
-
         val row =
             if (convertView != null && convertView !is TextView) convertView else
-                createTextView()
+                createTitleTextView(position == 1)
 
         val pos = position - 1
         val item: TextModel? = getItem(pos)
@@ -55,8 +55,9 @@ class SpinnerOptionalAdapter(
         return row
     }
 
-    private fun createTextView(): TextView {
-        val row = TextView(ContextThemeWrapper(context, R.style.spinnerItemStyle))
+    private fun createTitleTextView(title: Boolean): TextView {
+        val style = if (title) R.style.spinnerDropDownItemStyle else R.style.spinnerItemStyle
+        val row = TextView(ContextThemeWrapper(context, style))
         val spacing = context.resources.getDimensionPixelSize(R.dimen.spacing_smaller)
         row.setPadding(spacing, spacing, 0, spacing)
         return row

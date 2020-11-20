@@ -109,6 +109,7 @@
         <item name="android:background">@null</item>
         <item name="android:button">@drawable/radio_button_bg</item>
         <item name="android:paddingStart">@dimen/margin_small</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="TextInstructions" parent="CustomTextStyle">
@@ -142,17 +143,23 @@
 
     <style name="spinnerDropDownItemStyle">
         <item name="android:textSize">@dimen/regular_text_size</item>
-        <item name="android:textColor">@color/color_scheme_coffee_light</item>
+        <item name="android:textColor">@color/color_scheme_brick</item>
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="SpinnerTheme" parent="android:Widget.Holo.Light.DropDownItem">
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_normal</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
-    <style name="AppModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 

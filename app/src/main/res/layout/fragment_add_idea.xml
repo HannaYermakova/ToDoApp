@@ -80,12 +80,9 @@
 
             <Spinner
                 android:id="@+id/select_goal_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
+                style="@style/SpinnerTheme"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_small"
-                android:spinnerMode="dropdown"
                 app:addSelectedItem="@{viewModel.goalSelectUseCase.selectedGoal}"
                 app:addSpinnerAdapter="@{viewModel.goalSelectUseCase.goalsList}"
                 app:addTitle="@{@string/select_goal_text}"
@@ -111,10 +108,7 @@
 
             <Spinner
                 android:id="@+id/select_key_result_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:spinnerMode="dropdown"
+                style="@style/SpinnerTheme"
                 app:addSelectedItem="@{viewModel.keyResultSelectUseCase.selectedKeyResult}"
                 app:addSpinnerAdapter="@{viewModel.keyResultSelectUseCase.keyResultsList}"
                 app:addTitle="@{@string/select_key_result_text}"
@@ -139,10 +133,7 @@
 
             <Spinner
                 android:id="@+id/select_step_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:spinnerMode="dropdown"
+                style="@style/SpinnerTheme"
                 app:addSelectedItem="@{viewModel.stepSelectUseCase.selectedStep}"
                 app:addSpinnerAdapter="@{viewModel.stepSelectUseCase.stepsList}"
                 app:addTitle="@{@string/select_step_text}"
