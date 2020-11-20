@@ -76,7 +76,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/filter_button"
-                app:paddingBottom="@{null}"
                 tools:listitem="@layout/item_task" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

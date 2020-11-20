@@ -1,22 +1,19 @@
-package by.aermakova.todoapp.data.interactor
+package by.aermakova.todoapp.data.useCase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
+import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
-import by.aermakova.todoapp.util.Status
-import io.reactivex.Observer
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class TaskCreator(
+class CreateTaskUseCase(
     private val pickDayDialogNavigation: PickDayDialogNavigator,
     private val taskInteractor: TaskInteractor,
-    private val disposable: CompositeDisposable,
-    private val saveAndClose: Observer<Boolean>,
-    private val statusObserver: Observer<Status>,
     private val errorMessage: String
 ) {
 
@@ -42,22 +39,25 @@ class TaskCreator(
         }
     }
 
-    val saveTask = { saveTaskToLocalDataBaseAndSyncToRemote() }
-
     val pickFinishDay = { pickDayDialogNavigation.openItemDialog("") }
 
     val selectedFinishDateObserver: LiveData<Long>?
         get() = pickDayDialogNavigation.getDialogResult()
 
-    private fun saveTaskToLocalDataBaseAndSyncToRemote() {
+    fun saveTaskToLocalDataBaseAndSyncToRemote(
+        disposable: CompositeDisposable,
+        loadingAction: () -> Unit,
+        successAction: (Boolean) -> Unit,
+        errorAction: ((String) -> Unit)? = null
+    ) {
         if (!tempTaskTitle.isBlank()) {
-            statusObserver.onNext(Status.LOADING)
+            loadingAction.invoke()
             disposable.add(
                 Single.create<Long> {
                     it.onSuccess(
                         taskInteractor.saveTaskInLocalDatabase(
                             tempTaskTitle,
-                            tempGoalId ,
+                            tempGoalId,
                             tempKeyResultId,
                             tempStepId,
                             finishDate = if (deadlinedTask.value!!) {
@@ -76,12 +76,12 @@ class TaskCreator(
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        { saveAndClose.onNext(true) },
-                        { it.printStackTrace() }
+                        { successAction.invoke(true) },
+                        { it.handleError(errorMessage, errorAction) }
                     )
             )
         } else {
-            statusObserver.onNext(Status.ERROR.apply { message = errorMessage })
+            loadingAction.invoke()
         }
     }
 

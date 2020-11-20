@@ -10,6 +10,8 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.DialogPickDate
 import by.aermakova.todoapp.data.di.scope.NavigationConvertIdea
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.CreateTaskUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import dagger.Module
@@ -19,6 +21,17 @@ import dagger.multibindings.IntoMap
 
 @Module
 class ConvertIdeaIntoTaskModule {
+
+    @Provides
+    fun provideCreateTaskUseCase(
+        @DialogPickDate pickDayDialogNavigation: PickDayDialogNavigator,
+        taskInteractor: TaskInteractor,
+        errorMessage: String
+    ) = CreateTaskUseCase(
+        pickDayDialogNavigation,
+        taskInteractor,
+        errorMessage
+    )
 
     @Provides
     fun provideArgs(fragment: ConvertIdeaIntoTaskDialogFragment): Long {
@@ -40,7 +53,8 @@ class ConvertIdeaIntoTaskModule {
 
     @Provides
     @DialogPickDate
-    fun provideDialogNavigation(controller: NavController) = PickDayDialogNavigator(controller)
+    fun provideDialogNavigation(controller: NavController): PickDayDialogNavigator =
+        PickDayDialogNavigator(controller)
 
     @Provides
     fun provideErrorMessage(activity: Activity): String =

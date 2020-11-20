@@ -51,7 +51,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/all_ideas_text"
                 app:layout_constraintVertical_bias="0.0"
-                app:paddingBottom="@{null}"
                 tools:listitem="@layout/item_idea" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

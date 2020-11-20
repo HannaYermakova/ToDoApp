@@ -29,8 +29,8 @@ class ConvertIdeaIntoTaskDialogFragment : BaseDialogFragment() {
     }
 
     private fun setPickDateObserver() {
-        viewModel.taskCreator.selectedFinishDateObserver?.observe(this, Observer {
-            viewModel.taskCreator.checkAndSetFinishTime(it)
+        viewModel.createTaskUseCase.selectedFinishDateObserver?.observe(this, Observer {
+            viewModel.createTaskUseCase.checkAndSetFinishTime(it)
         })
     }
 

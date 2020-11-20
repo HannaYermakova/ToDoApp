@@ -14,8 +14,8 @@ class AddTaskFragment : BaseFragment<AddTaskViewModel, FragmentAddTaskBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.taskCreator.selectedFinishDateObserver?.observe(viewLifecycleOwner, Observer {
-            viewModel.taskCreator.checkAndSetFinishTime(it)
+        viewModel.createTaskUseCase.selectedFinishDateObserver?.observe(viewLifecycleOwner, Observer {
+            viewModel.createTaskUseCase.checkAndSetFinishTime(it)
         })
     }
 }

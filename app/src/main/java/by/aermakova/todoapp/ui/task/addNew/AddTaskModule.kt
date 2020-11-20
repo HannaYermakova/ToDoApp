@@ -10,10 +10,8 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.data.useCase.FindStepUseCase
-import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
-import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
-import by.aermakova.todoapp.data.useCase.StepSelectUseCase
+import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.ui.task.TasksNavigation
 import dagger.Module
@@ -24,6 +22,17 @@ import dagger.multibindings.IntoMap
 class AddTaskModule {
 
     @Provides
+    fun provideCreateTaskUseCase(
+        pickDayDialogNavigation: PickDayDialogNavigator,
+        taskInteractor: TaskInteractor,
+        errorMessage: String
+    ) = CreateTaskUseCase(
+        pickDayDialogNavigation,
+        taskInteractor,
+        errorMessage
+    )
+
+    @Provides
     fun provideFindStepUseCase(
         stepInteractor: StepInteractor,
         errorMessage: String
@@ -31,14 +40,12 @@ class AddTaskModule {
         FindStepUseCase(stepInteractor, errorMessage)
 
     @Provides
-    fun provideArgs(fragment: AddTaskFragment): Long {
-        return fragment.navArgs<AddTaskFragmentArgs>().value.id
-    }
+    fun provideArgs(fragment: AddTaskFragment) =
+        fragment.navArgs<AddTaskFragmentArgs>().value.id
 
     @Provides
-    fun provideArgsItem(fragment: AddTaskFragment): Int {
-        return fragment.navArgs<AddTaskFragmentArgs>().value.code
-    }
+    fun provideArgsItem(fragment: AddTaskFragment) =
+        fragment.navArgs<AddTaskFragmentArgs>().value.code
 
     @Provides
     fun provideGoalSelectUseCase(goalInteractor: GoalInteractor) =
@@ -53,7 +60,7 @@ class AddTaskModule {
         StepSelectUseCase(stepInteractor)
 
     @Provides
-    fun provideNavController(activity: Activity): NavController =
+    fun provideNavController(activity: Activity) =
         Navigation.findNavController(activity, R.id.app_host_fragment)
 
     @Provides
@@ -62,12 +69,11 @@ class AddTaskModule {
         TasksNavigation(controller)
 
     @Provides
-    fun provideDialogNavigation(controller: NavController): PickDayDialogNavigator {
-        return PickDayDialogNavigator(controller)
-    }
+    fun provideDialogNavigation(controller: NavController) =
+        PickDayDialogNavigator(controller)
 
     @Provides
-    fun provideErrorMessage(activity: Activity): String =
+    fun provideErrorMessage(activity: Activity) =
         activity.getString(R.string.error_empty_field_task)
 
     @Provides

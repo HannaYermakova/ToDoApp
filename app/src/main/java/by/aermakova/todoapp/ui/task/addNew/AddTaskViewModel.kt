@@ -5,12 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
-import by.aermakova.todoapp.data.interactor.TaskCreator
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.useCase.FindStepUseCase
-import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
-import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
-import by.aermakova.todoapp.data.useCase.StepSelectUseCase
+import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -28,9 +24,7 @@ class AddTaskViewModel @Inject constructor(
     val goalSelectUseCase: GoalSelectUseCase,
     val keyResultSelectUseCase: KeyResultSelectUseCase,
     val stepSelectUseCase: StepSelectUseCase,
-    taskInteractor: TaskInteractor,
-    pickDayDialogNavigation: PickDayDialogNavigator,
-    errorMessage: String,
+    val createTaskUseCase: CreateTaskUseCase,
     itemId: Long,
     code: Int?
 ) : BaseViewModel() {
@@ -38,21 +32,10 @@ class AddTaskViewModel @Inject constructor(
     override val mainFlowNavigation: MainFlowNavigation?
         get() = navigation
 
-    private val saveAndClose = BehaviorSubject.create<Boolean>()
-
     private val _tempTaskTitle = BehaviorSubject.create<String>()
 
     val tempTaskTitle: Observer<String>
         get() = _tempTaskTitle
-
-    val taskCreator = TaskCreator(
-        pickDayDialogNavigation,
-        taskInteractor,
-        disposable,
-        saveAndClose,
-        _status,
-        errorMessage
-    )
 
     val goalSelected: (Long) -> Unit = {
         addTempGoal(it)
@@ -64,6 +47,15 @@ class AddTaskViewModel @Inject constructor(
 
     val stepSelected: (Long) -> Unit = {
         addTempStep(it)
+    }
+
+    val saveTask = {
+        createTaskUseCase.saveTaskToLocalDataBaseAndSyncToRemote(
+            disposable, loadingAction, {
+                successAction.invoke()
+                popBack.invoke()
+            }, errorAction
+        )
     }
 
     private val _keyResultIsVisible = MutableLiveData<Boolean>(false)
@@ -80,35 +72,32 @@ class AddTaskViewModel @Inject constructor(
         get() = _goalTitle
 
     private fun addTempGoal(goalId: Long?) {
-        goalId?.let {
-            taskCreator.tempGoalId = if (it == ITEM_IS_NOT_SELECTED_ID) {
-                null
-            } else it
-            _keyResultIsVisible.postValue(taskCreator.tempGoalId != null)
-            taskCreator.tempGoalId?.let { id ->
-                keyResultSelectUseCase.setKeyResultList(disposable, id)
+        with(createTaskUseCase) {
+            goalId?.let {
+                tempGoalId = if (it == ITEM_IS_NOT_SELECTED_ID) {
+                    null
+                } else it
+                _keyResultIsVisible.postValue(tempGoalId != null)
+                tempGoalId?.let { id ->
+                    keyResultSelectUseCase.setKeyResultList(disposable, id)
+                }
             }
         }
     }
 
     private fun addTempKeyResult(keyResultId: Long?) {
-        keyResultId?.let {
-            taskCreator.tempKeyResultId =
-                if (it == ITEM_IS_NOT_SELECTED_ID) null
-                else it
-            _stepsIsVisible.postValue(
-                taskCreator.tempKeyResultId != null
-                        && taskCreator.tempGoalId != null
-            )
-            taskCreator.tempKeyResultId?.let { id ->
-                stepSelectUseCase.setStepsList(id, disposable)
+        with(createTaskUseCase) {
+            keyResultId?.let {
+                tempKeyResultId = if (it == ITEM_IS_NOT_SELECTED_ID) null else it
+                _stepsIsVisible.postValue(tempKeyResultId != null && tempGoalId != null)
+                tempKeyResultId?.let { id -> stepSelectUseCase.setStepsList(id, disposable) }
             }
         }
     }
 
     private fun addTempStep(stepId: Long?) {
         stepId?.let {
-            taskCreator.tempStepId = if (stepId == ITEM_IS_NOT_SELECTED_ID) {
+            createTaskUseCase.tempStepId = if (stepId == ITEM_IS_NOT_SELECTED_ID) {
                 null
             } else stepId
         }
@@ -133,10 +122,10 @@ class AddTaskViewModel @Inject constructor(
         }
         disposable.add(
             _tempTaskTitle
-                .subscribe { taskCreator.tempTaskTitle = it }
-        )
-        disposable.add(
-            saveAndClose.subscribe { if (it) popBack.invoke() }
+                .subscribe(
+                    { createTaskUseCase.tempTaskTitle = it },
+                    { it.printStackTrace() }
+                )
         )
     }
 }
