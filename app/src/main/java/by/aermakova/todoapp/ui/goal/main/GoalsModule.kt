@@ -10,10 +10,7 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.*
-import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
-import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
-import by.aermakova.todoapp.data.useCase.DeleteGoalUseCase
-import by.aermakova.todoapp.data.useCase.GoalBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
@@ -45,7 +42,8 @@ class GoalsModule {
         goalActionBind: BottomSheetGoalActionBinding,
         dialog: BottomSheetDialog,
         goalActionItems: Array<GoalsActionItem>,
-        resources: Resources
+        resources: Resources,
+        findGoalUseCase: FindGoalUseCase
     ) =
         GoalBottomSheetMenuUseCase(
             addTaskToGoalUseCase,
@@ -57,8 +55,21 @@ class GoalsModule {
             dialog,
             goalActionItems,
             resources,
-            mainFlowNavigation
+            mainFlowNavigation,
+            findGoalUseCase
         )
+
+    @Provides
+    fun provideFindGoalUseCase(
+        goalInteractor: GoalInteractor,
+        @ErrorFindGoal errorMessage: String
+    ) =
+        FindGoalUseCase(goalInteractor, errorMessage)
+
+    @Provides
+    @ErrorFindGoal
+    fun provideFindGoalErrorMessage(activity: Activity) =
+        activity.getString(R.string.error_find_goal)
 
     @Provides
     fun provideDeleteGoalUseCase(

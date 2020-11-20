@@ -1,10 +1,10 @@
 package by.aermakova.todoapp.data.useCase
 
 import android.content.res.Resources
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.goal.main.GoalsViewModel
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
@@ -12,7 +12,6 @@ import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 
@@ -27,37 +26,61 @@ class GoalBottomSheetMenuUseCase(
     private val dialog: BottomSheetDialog,
     private val goalActionItems: Array<GoalsActionItem>,
     private val resources: Resources,
-    private val mainFlowNavigation: MainFlowNavigation
+    private val mainFlowNavigation: MainFlowNavigation,
+    private val findGoalUseCase: FindGoalUseCase
 ) {
 
     private var selectedGoalId = INIT_SELECTED_ITEM_ID
 
-    fun getLiveListOfGoalActionsItems(
+    val liveListOfGoalActionsItems = MutableLiveData<List<CommonModel>>()
+
+    private fun getLiveListOfGoalActionsItems(
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
-    ): LiveData<List<CommonModel>> {
+        goalIsAchieved: Boolean,
+        errorAction: (String) -> Unit,
+    ) {
         goalActionItems.getLiveListOfActionsItems(
             disposable,
             errorAction,
             resources,
             itemAction = { item, disp, error -> goalAction(item, disp, error) }
         )
-        val liveList = MutableLiveData<List<CommonModel>>()
         val list = goalActionItems
+            .filter { if (goalIsAchieved) it.forDone else true }
             .map { action ->
                 action.toTextModel(resources) {
                     goalAction(action, disposable, errorAction)
                 }
             }
-        liveList.postValue(list)
-        return liveList
+        liveListOfGoalActionsItems.postValue(list)
     }
 
-    fun openBottomSheetGoalsActions(id: Long, viewModel: GoalsViewModel) {
+    fun openBottomSheetGoalsActions(
+        disposable: CompositeDisposable,
+        id: Long,
+        viewModel: GoalsViewModel,
+        errorAction: (String) -> Unit
+    ) {
         goalActionBind.viewModel = viewModel
         selectedGoalId = id
-        dialog.setContentView(goalActionBind.root)
-        dialog.show()
+        checkIsGoalAchieved(disposable, id, errorAction)
+    }
+
+    private fun checkIsGoalAchieved(
+        disposable: CompositeDisposable,
+        goalId: Long,
+        errorAction: (String) -> Unit
+    ) {
+        findGoalUseCase.useGoalById(
+            disposable,
+            goalId,
+            {
+                getLiveListOfGoalActionsItems(disposable, it.goalStatusDone, errorAction)
+                dialog.setContentView(goalActionBind.root)
+                dialog.show()
+            },
+            errorAction
+        )
     }
 
     fun addKeyResultToSelectedGoal(
@@ -107,5 +130,4 @@ class GoalBottomSheetMenuUseCase(
         }
         selectedGoalId = INIT_SELECTED_ITEM_ID
     }
-
 }

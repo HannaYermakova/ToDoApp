@@ -36,11 +36,10 @@ class GoalsViewModel @Inject constructor(
     val logoutButton: (String) -> Unit = { confirmExit(it) }
 
     private val openBottomSheetGoalsActions: (Long) -> Unit = {
-        goalBottomSheetMenuUseCase.openBottomSheetGoalsActions(it, this)
+        goalBottomSheetMenuUseCase.openBottomSheetGoalsActions(disposable, it, this, errorAction)
     }
 
-    val actionItems: LiveData<List<CommonModel>> =
-        goalBottomSheetMenuUseCase.getLiveListOfGoalActionsItems(disposable, errorAction)
+    val actionItems: LiveData<List<CommonModel>> = goalBottomSheetMenuUseCase.liveListOfGoalActionsItems
 
     val keyResultObserver: LiveData<String>?
         get() = goalBottomSheetMenuUseCase.addKeyResultToGoalUseCase.keyResultObserver

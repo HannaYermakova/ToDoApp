@@ -4,8 +4,6 @@ import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.interactor.GoalInteractor
-import by.aermakova.todoapp.data.model.GoalModel
-import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,6 +38,21 @@ class FindGoalUseCase(
         goalInteractor.getGoalById(goalId).observeEntity(
             successAction, errorAction
         )
+    }
+
+    fun useGoalById(
+        disposable: CompositeDisposable,
+        goalId: Long?,
+        successAction: (GoalEntity) -> Unit,
+        errorAction: ((String) -> Unit)? = null
+    ) {
+        goalId?.let {
+            disposable.add(
+                goalInteractor.getGoalById(goalId).observeEntity(
+                    successAction, errorAction
+                )
+            )
+        }
     }
 
     fun useKeyResultById(
