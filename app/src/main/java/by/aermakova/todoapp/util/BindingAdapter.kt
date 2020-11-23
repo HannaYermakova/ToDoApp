@@ -216,7 +216,7 @@ fun loginClickListener(
     "app:openDialog",
     "app:addTitle"
 )
-fun openDialog(button: View, listener: ((String) -> Unit)?, title: String?) {
+fun openDialog(button: View, listener: FunctionString?, title: String?) {
     title?.let {
         button.setOnClickListener {
             listener?.invoke(title)
@@ -274,7 +274,7 @@ fun editTextListener(
 @BindingAdapter("app:itemSelectedListener")
 fun setSpinnerListener(
     spinner: Spinner,
-    listener: ((Long) -> Unit)?
+    listener: FunctionLong?
 ) {
     spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -3,7 +3,8 @@ package by.aermakova.todoapp.data.useCase.bottomMenu
 import android.content.res.Resources
 import android.view.View
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
-import by.aermakova.todoapp.data.useCase.DeleteIdeaUseCase
+import by.aermakova.todoapp.data.model.FunctionString
+import by.aermakova.todoapp.data.useCase.delete.DeleteIdeaUseCase
 import by.aermakova.todoapp.data.useCase.FindIdeaUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.IdeasActionItem
 import by.aermakova.todoapp.databinding.BottomSheetIdeaActionBinding
@@ -36,7 +37,7 @@ class IdeaBottomSheetMenuUseCase(
         disposable: CompositeDisposable,
         itemId: Long,
         function: (IdeaEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         findIdeaUseCase.useIdeasById(
             disposable, itemId, function, errorAction
@@ -48,7 +49,7 @@ class IdeaBottomSheetMenuUseCase(
     override fun setItemAction(
         action: IdeasActionItem,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         when (action) {
             IdeasActionItem.EDIT_IDEA -> mainFlowNavigation.navigateToEditElementFragment(

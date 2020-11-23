@@ -13,6 +13,7 @@ import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.data.useCase.actionEnum.IdeasActionItem
 import by.aermakova.todoapp.data.useCase.bottomMenu.IdeaBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.delete.DeleteIdeaUseCase
 import by.aermakova.todoapp.databinding.BottomSheetIdeaActionBinding
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation

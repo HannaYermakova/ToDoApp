@@ -3,6 +3,7 @@ package by.aermakova.todoapp.ui.step.addNew
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.di.scope.NavigationSteps
+import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.GoalSelectUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
@@ -41,11 +42,11 @@ class AddStepViewModel @Inject constructor(
 
     private var tempKeyResultId: Long? = null
 
-    val goalSelected: (Long) -> Unit = {
+    val goalSelected: FunctionLong = {
         addTempGoal(it)
     }
 
-    val keyResultSelected: (Long) -> Unit = {
+    val keyResultSelected: FunctionLong = {
         addTempKeyResult(it)
     }
 

@@ -13,6 +13,7 @@ import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.repository.TaskRepository
+import by.aermakova.todoapp.data.useCase.editText.ChangeItemText
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
@@ -32,7 +33,7 @@ class GoalInteractor(
     private val keyResRemoteDatabase: RemoteDatabase<KeyResultRemoteModel>,
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>,
     private val taskRemoteDatabase: RemoteDatabase<TaskRemoteModel>
-) : RemoteSync<GoalRemoteModel>, CheckItemIsDone {
+) : RemoteSync<GoalRemoteModel>, CheckItemIsDone, ChangeItemText<GoalEntity> {
 
     fun saveGoalAndKeyResToLocal(
         goalTitle: String,
@@ -193,5 +194,17 @@ class GoalInteractor(
 
     fun updateGoalTextRemote(updatedGoalEntity: GoalEntity) {
         goalsRemoteDatabase.updateData(updatedGoalEntity.toRemote())
+    }
+
+    override fun updateItemTextLocal(newText: String, itemId: Long): Boolean {
+        return goalRepository.updateGoalText(newText, itemId)
+    }
+
+    override fun updateItemToRemote(entity: GoalEntity?) {
+        entity?.let { goalsRemoteDatabase.updateData(entity.toRemote()) }
+    }
+
+    override fun getItemById(itemId: Long): Single<GoalEntity> {
+        return goalRepository.getSingleGoalById(itemId)
     }
 }

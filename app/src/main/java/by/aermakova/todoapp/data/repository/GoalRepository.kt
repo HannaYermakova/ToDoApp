@@ -110,6 +110,10 @@ class GoalRepository @Inject constructor(
         return goalDao.getObsGoalById(goalId)
     }
 
+    fun getSingleGoalById(goalId: Long): Single<GoalEntity> {
+        return goalDao.getGoalById(goalId)
+    }
+
     fun updateGoalStatus(status: Boolean, goalId: Long) {
         goalDao.updateAllGoalItemsStatus(status, goalId)
     }

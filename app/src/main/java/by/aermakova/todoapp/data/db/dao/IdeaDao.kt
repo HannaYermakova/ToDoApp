@@ -18,7 +18,7 @@ interface IdeaDao {
     fun insertAllIdeas(ideas: List<IdeaEntity>)
 
     @Query("SELECT * FROM ideas_table WHERE idea_id = :ideaId")
-    fun getIdeaById(ideaId: Long): Observable<IdeaEntity>
+    fun getIdeaById(ideaId: Long): Single<IdeaEntity>
 
     @Query("SELECT * FROM ideas_table")
     fun getAllIdeas(): Observable<List<IdeaEntity>>
@@ -43,4 +43,7 @@ interface IdeaDao {
 
     @Query("SELECT idea_id FROM ideas_table WHERE idea_step_id =:stepId")
     fun deleteIdeaByStepId(stepId: Long):Int
+
+    @Query("UPDATE ideas_table SET text = :newText WHERE idea_id = :ideaId")
+    fun updateIdeaText(newText: String, ideaId: Long): Int
 }

@@ -2,10 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
-import by.aermakova.todoapp.data.model.IdeaModel
-import by.aermakova.todoapp.data.model.TextModel
-import by.aermakova.todoapp.data.model.toCommonModel
-import by.aermakova.todoapp.data.model.toTextModel
+import by.aermakova.todoapp.data.model.*
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -42,7 +39,7 @@ class FindIdeaUseCase(
         disposable: CompositeDisposable,
         ideaId: Long?,
         successAction: (IdeaEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         ideaId?.let {
             disposable.add(

@@ -16,6 +16,7 @@ import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import by.aermakova.todoapp.data.useCase.bottomMenu.StepBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.delete.DeleteStepUseCase
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation

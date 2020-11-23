@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Single
@@ -45,7 +46,7 @@ class EditTaskUseCase(
         task: TaskEntity,
         loadingAction: () -> Unit,
         successAction: () -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         loadingAction.invoke()
         disposable.add(

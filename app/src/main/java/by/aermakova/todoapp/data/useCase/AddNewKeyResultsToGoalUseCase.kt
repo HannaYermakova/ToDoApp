@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.toCommonModelStringList
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
@@ -20,7 +21,7 @@ class AddNewKeyResultsToGoalUseCase(
 
     private var goalId = INIT_SELECTED_ITEM_ID
 
-    val addKeyResult: (String) -> Unit =
+    val addKeyResult: FunctionString =
         { dialogNavigation.openItemDialog(addKeyResultDialogTitle) }
 
     val keyResultObserver: LiveData<String>?
@@ -40,7 +41,7 @@ class AddNewKeyResultsToGoalUseCase(
         goalId: Long,
         existingKeyResults: List<String>,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         this.goalId = goalId
         allKeyResults.addAll(existingKeyResults)
@@ -63,7 +64,7 @@ class AddNewKeyResultsToGoalUseCase(
     fun saveChanges(
         disposable: CompositeDisposable,
         saveSuccess: Observer<Boolean>,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         newKeyResults.forEach {
             addKeyResultToGoalUseCase.addKeyResult(goalId, it, disposable, saveSuccess, errorAction)

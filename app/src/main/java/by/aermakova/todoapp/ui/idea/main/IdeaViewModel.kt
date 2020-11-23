@@ -47,12 +47,16 @@ class IdeaViewModel @Inject constructor(
         )
     }
 
+    private val openBottomSheetActions: FunctionLong = {
+        ideaBottomSheetMenuUseCase.openBottomSheetActions(disposable, it, this, errorAction)
+    }
+
     init {
         loadingAction.invoke()
         loadAllIdeasUseCase.loadIdeas(
             disposable,
-            { mainFlowNavigation.navigateToShowDetailsFragment(it) },
-            { id -> ideaBottomSheetMenuUseCase.openBottomSheetActions(disposable, id, this, errorAction) },
+            { navigation.navigateToShowDetailsFragment(it) },
+            openBottomSheetActions,
             {
                 successAction.invoke()
                 _ideasList.onNext(it)

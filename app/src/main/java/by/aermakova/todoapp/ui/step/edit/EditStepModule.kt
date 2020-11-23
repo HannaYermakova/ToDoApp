@@ -10,8 +10,8 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.ErrorWhileLoading
 import by.aermakova.todoapp.data.di.scope.NavigationSteps
 import by.aermakova.todoapp.data.interactor.StepInteractor
-import by.aermakova.todoapp.data.useCase.ChangeStepTextUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
+import by.aermakova.todoapp.data.useCase.editText.ChangeItemTextUseCase
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import dagger.Module
 import dagger.Provides
@@ -26,9 +26,7 @@ class EditStepModule {
         stepInteractor: StepInteractor,
         @ErrorWhileLoading errorMessage: String
     ) =
-        ChangeStepTextUseCase(
-            stepInteractor, errorMessage
-        )
+        ChangeItemTextUseCase(stepInteractor, errorMessage)
 
     @Provides
     fun provideFindStepUseCase(

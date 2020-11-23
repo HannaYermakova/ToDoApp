@@ -3,6 +3,7 @@ package by.aermakova.todoapp.ui.goal.addNew
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.toCommonModelStringList
 import by.aermakova.todoapp.data.useCase.CreateGoalUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -22,7 +23,7 @@ class AddGoalViewModel @Inject constructor(
     override val mainFlowNavigation: MainFlowNavigation
         get() = navigation
 
-    val addKeyResult: (String) -> Unit = { dialogNavigation.openItemDialog(it) }
+    val addKeyResult: FunctionString = { dialogNavigation.openItemDialog(it) }
 
     val saveGoal = { saveGoalToLocalDataBaseAndSyncToRemote() }
 

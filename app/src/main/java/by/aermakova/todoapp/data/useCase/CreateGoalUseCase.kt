@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,7 +17,7 @@ class CreateGoalUseCase(
         tempGoalTitle: String?,
         tempKeyResults: List<String>,
         successAction: () -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ) {
         if (!tempGoalTitle.isNullOrBlank()
             && tempKeyResults.isNotEmpty()

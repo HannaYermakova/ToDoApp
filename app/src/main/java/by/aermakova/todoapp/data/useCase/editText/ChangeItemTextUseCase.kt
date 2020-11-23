@@ -1,8 +1,8 @@
-package by.aermakova.todoapp.data.useCase
+package by.aermakova.todoapp.data.useCase.editText
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observer
 import io.reactivex.Single
@@ -10,46 +10,46 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
-
-class ChangeGoalTextUseCase(
-    private val goalInteractor: GoalInteractor,
+class ChangeItemTextUseCase<Entity>(
+    private val interactor: ChangeItemText<Entity>,
     private val errorMessage: String
 ) {
 
-    private val _existingGoalTitle = MutableLiveData<String>()
-    val existingGoalTitle: LiveData<String>
-        get() = _existingGoalTitle
+    private val _existingItemText = MutableLiveData<String>()
+    val existingItemText: LiveData<String>
+        get() = _existingItemText
 
-    fun setExistingGoalTitle(title: String) {
-        _existingGoalTitle.postValue(title)
+    fun setExistingItemText(title: String) {
+        _existingItemText.postValue(title)
     }
 
-    private val _newGoalTitle = BehaviorSubject.create<String>()
-    val newGoalTitle: Observer<String>
-        get() = _newGoalTitle
+    private val _newItemText = BehaviorSubject.create<String>()
+    val newItemText: Observer<String>
+        get() = _newItemText
 
     fun saveChanges(
-        goalId: Long,
+        itemId: Long,
         disposable: CompositeDisposable,
         saveSuccess: Observer<Boolean>,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
-        val newText = _newGoalTitle.value
+        val newText = _newItemText.value
         if (newText != null
-            && _existingGoalTitle.value != newText
+            && _existingItemText.value != newText
             && !newText.isNullOrBlank()
         ) {
             disposable.add(
                 Single.create<Boolean> {
-                    it.onSuccess(goalInteractor.updateGoalTextLocal(newText, goalId))
+                    it.onSuccess(interactor.updateItemTextLocal(newText, itemId))
                 }
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                         {
-                            goalInteractor.getGoalById(goalId)
+                            interactor.getItemById(itemId)
+                                .subscribeOn(Schedulers.io())
                                 .subscribe(
                                     {
-                                        goalInteractor.updateGoalTextRemote(it)
+                                        interactor.updateItemToRemote(it)
                                         saveSuccess.onNext(true)
                                     },
                                     {

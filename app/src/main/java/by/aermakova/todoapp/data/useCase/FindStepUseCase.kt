@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import android.util.Log
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,9 +19,8 @@ class FindStepUseCase(
     fun useStepByIdInUiThread(
         stepId: Long?,
         successAction: (StepEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ): Disposable? {
-        Log.d("A_FindStepUseCase", "$stepId")
         return stepId?.let {
             if (stepId > INIT_SELECTED_ITEM_ID) {
                 stepInteractor.getStepById(stepId)
@@ -36,7 +36,7 @@ class FindStepUseCase(
     fun findStepById(
         stepId: Long?,
         successAction: (StepEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ): Disposable? {
         return stepId?.let {
             stepInteractor.getStepById(stepId)
@@ -53,7 +53,7 @@ class FindStepUseCase(
         disposable: CompositeDisposable,
         stepId: Long?,
         successAction: (StepEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         stepId?.let {
             disposable.add(

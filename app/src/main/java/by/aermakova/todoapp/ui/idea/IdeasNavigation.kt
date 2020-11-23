@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.idea
 
 import androidx.navigation.NavController
+import by.aermakova.todoapp.AppNavigationDirections
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.ui.main.MainFlowFragmentDirections
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -23,7 +24,13 @@ class IdeasNavigation(private val controller: NavController) : MainFlowNavigatio
     }
 
     override fun navigateToEditElementFragment(id: Long) {
-
+        try {
+            controller.navigate(
+                AppNavigationDirections.actionGlobalEditIdeaFragment(id)
+            )
+        } catch (exception: IllegalArgumentException) {
+            exception.printStackTrace()
+        }
     }
 
     override fun navigateToShowDetailsFragment(id: Long) {

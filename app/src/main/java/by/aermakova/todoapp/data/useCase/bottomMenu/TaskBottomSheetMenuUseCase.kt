@@ -3,7 +3,8 @@ package by.aermakova.todoapp.data.useCase.bottomMenu
 import android.content.res.Resources
 import android.view.View
 import by.aermakova.todoapp.data.db.entity.TaskEntity
-import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
+import by.aermakova.todoapp.data.model.FunctionString
+import by.aermakova.todoapp.data.useCase.delete.DeleteTaskUseCase
 import by.aermakova.todoapp.data.useCase.FindTaskUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.TasksActionItem
 import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
@@ -36,7 +37,7 @@ class TaskBottomSheetMenuUseCase(
         disposable: CompositeDisposable,
         itemId: Long,
         function: (TaskEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         findTaskUseCase.useTasksById(disposable, itemId, function, errorAction)
     }
@@ -46,7 +47,7 @@ class TaskBottomSheetMenuUseCase(
     override fun setItemAction(
         action: TasksActionItem,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         when (action) {
             TasksActionItem.EDIT_TASK -> mainFlowNavigation.navigateToEditElementFragment(

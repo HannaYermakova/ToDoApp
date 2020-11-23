@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.TaskModel
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.util.handleError
@@ -50,7 +51,7 @@ class SetTaskFieldsUseCase(
         taskId: Long,
         disposable: CompositeDisposable,
         successAction: (TaskEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             taskInteractor

@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,7 @@ class CreateIdeaUseCase(
         tempKeyResultId: Long?,
         tempStepId: Long?,
         successAction: () -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ) {
         if (!tempIdeaTitle.isNullOrBlank()
             && tempGoalId != null

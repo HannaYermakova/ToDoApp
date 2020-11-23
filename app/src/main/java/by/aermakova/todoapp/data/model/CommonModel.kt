@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.model
 
 typealias FunctionLong = (Long) -> Unit
+typealias FunctionString = (String) -> Unit
 typealias FunctionSelect = (Long, Boolean) -> Unit
 
 open class CommonModel(

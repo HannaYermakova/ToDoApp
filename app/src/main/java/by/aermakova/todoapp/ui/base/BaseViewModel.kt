@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.base
 
 import androidx.lifecycle.ViewModel
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
@@ -11,7 +12,7 @@ abstract class BaseViewModel : ViewModel() {
 
     abstract val mainFlowNavigation: MainFlowNavigation?
 
-    val errorAction: (String) -> Unit = { _status.onNext(Status.ERROR.apply { message = it }) }
+    val errorAction: FunctionString = { _status.onNext(Status.ERROR.apply { message = it }) }
 
     val loadingAction: () -> Unit = { _status.onNext(Status.LOADING) }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.di.scope.NavigationConvertIdea
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.useCase.CreateTaskUseCase
 import by.aermakova.todoapp.data.useCase.KeyResultSelectUseCase
 import by.aermakova.todoapp.ui.base.BaseDialogVieModel
@@ -65,7 +66,7 @@ class ConvertIdeaIntoTaskViewModel @Inject constructor(
     val keyResultIsVisible: LiveData<Boolean>
         get() = _keyResultIsVisible
 
-    val keyResultSelected: (Long) -> Unit = {
+    val keyResultSelected: FunctionLong = {
         setTaskCreatorFields(it)
     }
 

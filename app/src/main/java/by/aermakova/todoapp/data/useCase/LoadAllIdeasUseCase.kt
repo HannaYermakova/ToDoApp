@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.FunctionLong
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
@@ -21,7 +22,7 @@ class LoadAllIdeasUseCase(
         selectAction: FunctionLong,
         longClickAction: FunctionLong,
         successAction: (List<CommonModel>) -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ) {
         disposable.add(
             ideaInteractor.getAllIdeas().observeList(
@@ -37,7 +38,7 @@ fun <Model> Observable<List<Model>>.observeList(
     errorMessage: String,
     mapEntityToCommonModel: (Model) -> CommonModel,
     successAction: (List<CommonModel>) -> Unit,
-    errorAction: ((String) -> Unit)? = null
+    errorAction: FunctionString? = null
 ): Disposable {
     return subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

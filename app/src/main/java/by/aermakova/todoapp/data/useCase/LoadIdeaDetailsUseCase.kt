@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.util.handleError
@@ -20,26 +21,26 @@ class LoadIdeaDetailsUseCase(
     fun loadIdeaDetailsById(
         ideaId: Long,
         disposable: CompositeDisposable,
-        successGoalLoad: (String) -> Unit,
-        successKeyResultLoad: (String) -> Unit,
-        successStepLoad: (String) -> Unit,
+        successGoalLoad: FunctionString,
+        successKeyResultLoad: FunctionString,
+        successStepLoad: FunctionString,
         successIdeaLoad: (IdeaModel) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             ideaInteractor
                 .getIdeaById(ideaId)
                 .map { it.toCommonModel() }
-                .doOnNext {
+                .doOnSuccess {
                     findGoal.useGoalById(it.goalId, { goal ->
                         successGoalLoad.invoke(goal.text)
                     })
                 }
-                .doOnNext {
+                .doOnSuccess {
                     findGoal.useKeyResultById(it.keyResultId, { keyRes ->
                         successKeyResultLoad.invoke(keyRes.text)
                     })
-                }.doOnNext {
+                }.doOnSuccess {
                     findStep.useStepByIdInUiThread(it.stepId, { stepEntity ->
                         successStepLoad.invoke(stepEntity.text)
                     }, errorAction)
@@ -57,7 +58,7 @@ class LoadIdeaDetailsUseCase(
         ideaId: Long,
         disposable: CompositeDisposable,
         successAction: () -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             Single.create<Boolean> { it.onSuccess(true) }

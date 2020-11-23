@@ -2,19 +2,15 @@ package by.aermakova.todoapp.data.useCase.bottomMenu
 
 import android.content.res.Resources
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.GoalEntity
-import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
-import by.aermakova.todoapp.data.useCase.DeleteGoalUseCase
+import by.aermakova.todoapp.data.useCase.delete.DeleteGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
-import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.goal.main.GoalsViewModel
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
@@ -49,7 +45,7 @@ class GoalBottomSheetMenuUseCase(
         disposable: CompositeDisposable,
         itemId: Long,
         function: (GoalEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         findGoalUseCase.useGoalById(
             disposable,
@@ -64,7 +60,7 @@ class GoalBottomSheetMenuUseCase(
     override fun setItemAction(
         action: GoalsActionItem,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         when (action) {
             GoalsActionItem.ADD_KEY_RESULT_TO_GOAL -> addKeyResultToGoalUseCase.openDialog()
@@ -97,7 +93,7 @@ class GoalBottomSheetMenuUseCase(
     fun addKeyResultToSelectedGoal(
         keyResultTitle: String,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         addKeyResultToGoalUseCase.addKeyResult(
             selectedItemId,

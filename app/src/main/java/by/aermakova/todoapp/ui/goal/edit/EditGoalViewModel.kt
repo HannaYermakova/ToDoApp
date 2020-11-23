@@ -1,9 +1,10 @@
 package by.aermakova.todoapp.ui.goal.edit
 
+import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.useCase.AddNewKeyResultsToGoalUseCase
-import by.aermakova.todoapp.data.useCase.ChangeGoalTextUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.editText.ChangeItemTextUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 class EditGoalViewModel @Inject constructor(
     @NavigationGoals private val navigation: MainFlowNavigation,
-    val changeGoalTextUseCase: ChangeGoalTextUseCase,
+    val changeGoalTextUseCase: ChangeItemTextUseCase<GoalEntity>,
     val addNewKeyResultsToGoalUseCase: AddNewKeyResultsToGoalUseCase,
     findGoalUseCase: FindGoalUseCase,
     goalId: Long
@@ -59,7 +60,7 @@ class EditGoalViewModel @Inject constructor(
         findGoalUseCase.getGoalKeyResultsById(
             goalId, disposable, errorAction
         ) {
-            changeGoalTextUseCase.setExistingGoalTitle(it.goal.text)
+            changeGoalTextUseCase.setExistingItemText(it.goal.text)
             addNewKeyResultsToGoalUseCase.initKeyResultList(
                 goalId,
                 it.keyResults.map { keyRes -> keyRes.text },

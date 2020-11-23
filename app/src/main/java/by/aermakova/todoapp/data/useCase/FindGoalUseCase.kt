@@ -4,6 +4,7 @@ import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +19,7 @@ class FindGoalUseCase(
 
     fun getGoalKeyResultsById(
         goalId: Long, disposable: CompositeDisposable,
-        errorAction: (String) -> Unit,
+        errorAction: FunctionString,
         successAction: (GoalKeyResults) -> Unit
     ) {
         disposable.add(goalInteractor.getGoalKeyResultsById(goalId)
@@ -33,7 +34,7 @@ class FindGoalUseCase(
     fun useGoalById(
         goalId: Long?,
         successAction: (GoalEntity) -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ): Disposable? = goalId?.let {
         goalInteractor.getGoalById(goalId).observeEntity(
             successAction, errorAction
@@ -44,7 +45,7 @@ class FindGoalUseCase(
         disposable: CompositeDisposable,
         goalId: Long?,
         successAction: (GoalEntity) -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ) {
         goalId?.let {
             disposable.add(
@@ -68,7 +69,7 @@ class FindGoalUseCase(
 
 fun <Entity> Observable<Entity>.observeEntity(
     successAction: (Entity) -> Unit,
-    errorAction: ((String) -> Unit)? = null
+    errorAction: FunctionString? = null
 ): Disposable {
     return observeOn(AndroidSchedulers.mainThread())
         .subscribe(

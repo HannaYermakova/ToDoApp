@@ -357,4 +357,14 @@
     <action
         android:id="@+id/action_global_editTaskFragment"
         app:destination="@id/editTaskFragment" />
+    <fragment
+        android:id="@+id/editIdeaFragment"
+        android:name="by.aermakova.todoapp.ui.idea.edit.EditIdeaFragment"
+        android:label="fragment_edit_idea"
+        tools:layout="@layout/fragment_edit_idea" >
+        <argument
+            android:name="ideaId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment><action android:id="@+id/action_global_editIdeaFragment" app:destination="@id/editIdeaFragment"/>
 </navigation>

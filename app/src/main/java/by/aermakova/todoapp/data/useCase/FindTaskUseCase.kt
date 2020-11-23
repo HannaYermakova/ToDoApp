@@ -2,10 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.model.TaskTextModel
-import by.aermakova.todoapp.data.model.TextModel
-import by.aermakova.todoapp.data.model.toTaskTextModel
-import by.aermakova.todoapp.data.model.toTextModel
+import by.aermakova.todoapp.data.model.*
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,7 +31,7 @@ class FindTaskUseCase(
     fun useTasksListByStepId(
         taskId: Long?,
         successAction: (List<TaskTextModel>) -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ): Disposable? {
         return taskId?.let {
             taskInteractor
@@ -51,7 +48,7 @@ class FindTaskUseCase(
         disposable: CompositeDisposable,
         taskId: Long,
         function: (TaskEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             taskInteractor

@@ -1,8 +1,9 @@
 package by.aermakova.todoapp.ui.step.edit
 
+import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.di.scope.NavigationSteps
-import by.aermakova.todoapp.data.useCase.ChangeStepTextUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
+import by.aermakova.todoapp.data.useCase.editText.ChangeItemTextUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 class EditStepViewModel @Inject constructor(
     @NavigationSteps private val navigation: StepsNavigation,
-    val changeStepTextUseCase: ChangeStepTextUseCase,
+    val changeStepTextUseCase: ChangeItemTextUseCase<StepEntity>,
     findStepUseCase: FindStepUseCase,
     stepId: Long
 ) : BaseViewModel() {
@@ -38,7 +39,7 @@ class EditStepViewModel @Inject constructor(
                 )
         )
         findStepUseCase.findStepById(stepId, {
-            changeStepTextUseCase.setExistingStepTitle(it.text)
+            changeStepTextUseCase.setExistingItemText(it.text)
         }, errorAction)
     }
 }

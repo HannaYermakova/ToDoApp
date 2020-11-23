@@ -8,6 +8,7 @@ import by.aermakova.todoapp.data.remote.model.toLocal
 import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.StepRepository
+import by.aermakova.todoapp.data.useCase.editText.ChangeItemText
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
@@ -16,7 +17,7 @@ import io.reactivex.disposables.Disposable
 class StepInteractor(
     private val stepRepository: StepRepository,
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
-) : RemoteSync<StepRemoteModel>, DeleteGoalItems, CheckItemIsDone {
+) : RemoteSync<StepRemoteModel>, DeleteGoalItems, CheckItemIsDone, ChangeItemText<StepEntity> {
 
     fun getStepsByKeyResultId(keyResultId: Long): Observable<List<StepEntity>> {
         return stepRepository.getStepsByKeyResultId(keyResultId)
@@ -94,4 +95,13 @@ class StepInteractor(
     fun updateStepTextLocal(newText: String, stepId: Long): Boolean {
         return stepRepository.updateStepText(newText, stepId)
     }
+
+    override fun updateItemTextLocal(newText: String, itemId: Long) =
+        stepRepository.updateStepText(newText, itemId)
+
+    override fun updateItemToRemote(entity: StepEntity?) {
+        entity?.let { stepRemoteDatabase.updateData(it.toRemote()) }
+    }
+
+    override fun getItemById(itemId: Long)= getStepById(itemId)
 }

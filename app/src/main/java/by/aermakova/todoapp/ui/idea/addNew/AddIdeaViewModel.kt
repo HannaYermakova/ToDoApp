@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.di.scope.NavigationIdeas
+import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -41,15 +42,15 @@ class AddIdeaViewModel @Inject constructor(
 
     private var tempStepId: Long? = null
 
-    val goalSelected: (Long) -> Unit = {
+    val goalSelected: FunctionLong = {
         addTempGoal(it)
     }
 
-    val keyResultSelected: (Long) -> Unit = {
+    val keyResultSelected: FunctionLong = {
         addTempKeyResult(it)
     }
 
-    val stepSelected: (Long) -> Unit = {
+    val stepSelected: FunctionLong = {
         addTempStep(it)
     }
 

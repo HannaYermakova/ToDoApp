@@ -1,4 +1,4 @@
-package by.aermakova.todoapp.data.useCase
+package by.aermakova.todoapp.data.useCase.delete
 
 import android.util.Log
 import by.aermakova.todoapp.data.interactor.*

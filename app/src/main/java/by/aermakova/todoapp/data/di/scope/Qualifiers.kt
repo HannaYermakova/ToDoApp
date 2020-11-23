@@ -100,6 +100,9 @@ annotation class ErrorChangeTitleGoal
 annotation class ErrorEditTask
 
 @Qualifier
+annotation class ErrorEditIdea
+
+@Qualifier
 annotation class ErrorEmptyField
 
 @Qualifier

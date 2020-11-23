@@ -1,14 +1,14 @@
-package by.aermakova.todoapp.data.useCase
+package by.aermakova.todoapp.data.useCase.delete
 
 import android.util.Log
-import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class DeleteTaskUseCase(
-    private val taskInteractor: TaskInteractor,
+class DeleteIdeaUseCase(
+    private val ideaInteractor: IdeaInteractor,
     private val errorMessage: String,
     dialogNavigation: DialogNavigation<Boolean>,
     dialogTitle: String
@@ -17,12 +17,12 @@ class DeleteTaskUseCase(
 
     override fun deleteById() {
         disposable.add(
-            taskInteractor.deleteTaskByIdRemote(itemId)
+            ideaInteractor.deleteIdeaByIdRemote(itemId)
                 .subscribeOn(Schedulers.io())
-                .doOnSuccess { taskInteractor.deleteTaskByIdLocal(itemId) }
+                .doOnSuccess { ideaInteractor.deleteIdeaByIdLocal(itemId) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    { Log.d("A_DeleteTaskUseCase", "Task has been deleted") },
+                    { Log.d("A_DeleteIdeaUseCase", "Idea has been deleted") },
                     { it.handleError(errorMessage, errorAction) }
                 )
         )

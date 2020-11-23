@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="by.aermakova.todoapp.ui.step.edit.EditStepViewModel" />
+            type="by.aermakova.todoapp.ui.idea.edit.EditIdeaViewModel" />
     </data>
 
     <ViewFlipper
@@ -41,7 +41,7 @@
                 style="@style/TextTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/edit_step_title"
+                android:text="@string/edit_idea_title"
                 app:layout_constraintBottom_toBottomOf="@+id/back_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,12 +59,12 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLines="5"
-                android:text="@{viewModel.changeStepTextUseCase.existingItemText}"
+                android:text="@{viewModel.changeIdeaTextUseCase.existingItemText}"
                 android:theme="@style/CustomEditTextStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
-                app:tempTitle="@{viewModel.changeStepTextUseCase.newItemText}" />
+                app:tempTitle="@{viewModel.changeIdeaTextUseCase.newItemText}" />
 
             <Button
                 android:id="@+id/save_button"

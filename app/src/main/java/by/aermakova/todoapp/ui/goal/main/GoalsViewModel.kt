@@ -5,6 +5,8 @@ import by.aermakova.todoapp.data.di.scope.DialogConfirm
 import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionLong
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.toCommonModelGoalList
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
 import by.aermakova.todoapp.data.useCase.bottomMenu.GoalBottomSheetMenuUseCase
@@ -33,9 +35,9 @@ class GoalsViewModel @Inject constructor(
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
-    val logoutButton: (String) -> Unit = { confirmExit(it) }
+    val logoutButton: FunctionString = { confirmExit(it) }
 
-    private val openBottomSheetGoalsActions: (Long) -> Unit = {
+    private val openBottomSheetGoalsActions: FunctionLong = {
         goalBottomSheetMenuUseCase.openBottomSheetActions(disposable, it, this, errorAction)
     }
 

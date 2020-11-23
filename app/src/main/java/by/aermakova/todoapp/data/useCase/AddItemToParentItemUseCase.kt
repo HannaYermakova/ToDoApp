@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.CheckItemIsDone
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Item
 import by.aermakova.todoapp.util.handleError
@@ -18,7 +19,7 @@ class AddItemToParentItemUseCase<Navigator : MainFlowNavigation>(
     fun checkGoalAndOpenDialog(
         disposable: CompositeDisposable,
         itemId: Long,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             itemIsDone.checkIsDone(itemId)

@@ -30,6 +30,8 @@ import by.aermakova.todoapp.ui.idea.addNew.AddIdeaFragment
 import by.aermakova.todoapp.ui.idea.addNew.AddIdeaModule
 import by.aermakova.todoapp.ui.idea.details.IdeaDetailsFragment
 import by.aermakova.todoapp.ui.idea.details.IdeaDetailsModule
+import by.aermakova.todoapp.ui.idea.edit.EditIdeaFragment
+import by.aermakova.todoapp.ui.idea.edit.EditIdeaModule
 import by.aermakova.todoapp.ui.idea.main.IdeaFragment
 import by.aermakova.todoapp.ui.idea.main.IdeaModule
 import by.aermakova.todoapp.ui.main.MainFlowFragment
@@ -138,4 +140,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector(modules = [EditTaskModule::class])
     abstract fun provideEditTaskFragment(): EditTaskFragment
+
+    @ContributesAndroidInjector(modules = [EditIdeaModule::class])
+    abstract fun provideEditIdeaFragment(): EditIdeaFragment
 }

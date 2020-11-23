@@ -1,11 +1,13 @@
 package by.aermakova.todoapp.data.useCase.bottomMenu
 
 import android.content.res.Resources
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
-import by.aermakova.todoapp.data.useCase.DeleteItemUseCase
+import by.aermakova.todoapp.data.model.FunctionString
+import by.aermakova.todoapp.data.useCase.delete.DeleteItemUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.ActionTextConverter
 import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import by.aermakova.todoapp.ui.base.BaseViewModel
@@ -35,7 +37,7 @@ abstract class CommonBottomSheetMenuUseCase<
         disposable: CompositeDisposable,
         id: Long,
         viewModel: VM,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         bindViewModel(viewModel)
         selectedItemId = id
@@ -48,7 +50,7 @@ abstract class CommonBottomSheetMenuUseCase<
     private fun checkIsTaskDone(
         disposable: CompositeDisposable,
         itemId: Long,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         useItemById(
             disposable, itemId, {
@@ -64,7 +66,7 @@ abstract class CommonBottomSheetMenuUseCase<
         disposable: CompositeDisposable,
         itemId: Long,
         function: (Entity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     )
 
     abstract fun checkIsItemDone(entity: Entity): Boolean
@@ -72,7 +74,7 @@ abstract class CommonBottomSheetMenuUseCase<
     private fun getLiveListOfStepActionsItems(
         disposable: CompositeDisposable,
         taskIsDone: Boolean,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         _liveListOfItemsActionsItems.postValue(
             ideaActionItems.getLiveListOfActionsItems(
@@ -87,7 +89,7 @@ abstract class CommonBottomSheetMenuUseCase<
     private fun setAction(
         action: ActionItem,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         dialog.dismiss()
         setItemAction(action, disposable, errorAction)
@@ -97,6 +99,6 @@ abstract class CommonBottomSheetMenuUseCase<
     abstract fun setItemAction(
         action: ActionItem,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     )
 }

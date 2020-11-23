@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
@@ -37,15 +38,15 @@ class AddTaskViewModel @Inject constructor(
     val tempTaskTitle: Observer<String>
         get() = _tempTaskTitle
 
-    val goalSelected: (Long) -> Unit = {
+    val goalSelected: FunctionLong = {
         addTempGoal(it)
     }
 
-    val keyResultSelected: (Long) -> Unit = {
+    val keyResultSelected: FunctionLong = {
         addTempKeyResult(it)
     }
 
-    val stepSelected: (Long) -> Unit = {
+    val stepSelected: FunctionLong = {
         addTempStep(it)
     }
 

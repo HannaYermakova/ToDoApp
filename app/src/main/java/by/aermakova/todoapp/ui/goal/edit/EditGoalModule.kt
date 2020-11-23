@@ -11,8 +11,8 @@ import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
 import by.aermakova.todoapp.data.useCase.AddNewKeyResultsToGoalUseCase
-import by.aermakova.todoapp.data.useCase.ChangeGoalTextUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.editText.ChangeItemTextUseCase
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -63,7 +63,7 @@ class EditGoalModule {
     fun provideChangeGoalTextUseCase(
         goalInteractor: GoalInteractor,
         @ErrorChangeTitleGoal errorMessage: String
-    ) = ChangeGoalTextUseCase(
+    ) = ChangeItemTextUseCase(
         goalInteractor, errorMessage
     )
 

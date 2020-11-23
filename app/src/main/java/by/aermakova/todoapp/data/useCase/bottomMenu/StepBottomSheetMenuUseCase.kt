@@ -3,8 +3,9 @@ package by.aermakova.todoapp.data.useCase.bottomMenu
 import android.content.res.Resources
 import android.view.View
 import by.aermakova.todoapp.data.db.entity.StepEntity
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
-import by.aermakova.todoapp.data.useCase.DeleteStepUseCase
+import by.aermakova.todoapp.data.useCase.delete.DeleteStepUseCase
 import by.aermakova.todoapp.data.useCase.FindStepUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
@@ -40,7 +41,7 @@ class StepBottomSheetMenuUseCase(
         disposable: CompositeDisposable,
         itemId: Long,
         function: (StepEntity) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         findStepUseCase.useStepById(
             disposable,
@@ -55,7 +56,7 @@ class StepBottomSheetMenuUseCase(
     override fun setItemAction(
         action: StepsActionItem,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         when (action) {
             StepsActionItem.ADD_TASK_TO_STEP -> addTaskUseCase.checkGoalAndOpenDialog(

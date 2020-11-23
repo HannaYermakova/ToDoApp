@@ -12,7 +12,7 @@ class IdeaRepository @Inject constructor(
 
     fun saveIdea(ideaEntity: IdeaEntity): Long = ideaDao.insertIdea(ideaEntity)
 
-    fun getIdeaById(ideaId: Long): Observable<IdeaEntity> =
+    fun getIdeaById(ideaId: Long) =
         ideaDao.getIdeaById(ideaId)
 
     fun getAllIdeas(): Observable<List<IdeaEntity>> {
@@ -34,4 +34,6 @@ class IdeaRepository @Inject constructor(
 
     fun getAllIdeasIdByStepId(stepId: Long): Single<List<Long>> =
         ideaDao.getAllIdeasIdsByStepId(stepId)
+
+    fun updateIdeaText(newText: String, stepId: Long)= ideaDao.updateIdeaText(newText, stepId) > 0
 }

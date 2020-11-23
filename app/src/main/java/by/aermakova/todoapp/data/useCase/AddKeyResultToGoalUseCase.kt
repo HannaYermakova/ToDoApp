@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import androidx.lifecycle.LiveData
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observer
@@ -29,7 +30,7 @@ class AddKeyResultToGoalUseCase(
         keyResultTitle: String,
         disposable: CompositeDisposable,
         saveSuccess: Observer<Boolean>? = null,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         val command = BehaviorSubject.create<Boolean>()
         disposable.add(

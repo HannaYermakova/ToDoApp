@@ -12,7 +12,7 @@ import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.*
 import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
-import by.aermakova.todoapp.data.useCase.DeleteGoalUseCase
+import by.aermakova.todoapp.data.useCase.delete.DeleteGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
 import by.aermakova.todoapp.data.useCase.bottomMenu.GoalBottomSheetMenuUseCase

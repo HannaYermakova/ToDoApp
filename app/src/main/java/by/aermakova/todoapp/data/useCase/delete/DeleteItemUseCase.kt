@@ -1,7 +1,8 @@
-package by.aermakova.todoapp.data.useCase
+package by.aermakova.todoapp.data.useCase.delete
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import io.reactivex.disposables.CompositeDisposable
@@ -13,7 +14,7 @@ abstract class DeleteItemUseCase(
 
     protected var itemId: Long = INIT_SELECTED_ITEM_ID
     protected lateinit var disposable: CompositeDisposable
-    protected lateinit var errorAction: (String) -> Unit
+    protected lateinit var errorAction: FunctionString
 
     private val _cancelAction = MutableLiveData<Boolean>(false)
     val cancelAction: LiveData<Boolean>
@@ -33,7 +34,7 @@ abstract class DeleteItemUseCase(
     fun confirmDeleteItem(
         id: Long,
         disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         this.itemId = id
         this.errorAction = errorAction

@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.useCase
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.FunctionLong
+import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,10 +17,10 @@ class LoadAllStepsUseCase(
 
     fun loadSteps(
         disposable: CompositeDisposable,
-        selectAction: (Long) -> Unit,
+        selectAction: FunctionLong,
         longClickAction: FunctionLong? = null,
         successAction: (List<CommonModel>) -> Unit,
-        errorAction: ((String) -> Unit)? = null
+        errorAction: FunctionString? = null
     ) {
         disposable.add(
             stepInteractor.getAllSteps()

@@ -22,12 +22,12 @@ class LoadStepUseCase(
 
     fun loadStep(
         disposable: CompositeDisposable,
-        successGoalLoad: (String) -> Unit,
-        successKeyResultLoad: (String) -> Unit,
+        successGoalLoad: FunctionString,
+        successKeyResultLoad: FunctionString,
         successTasksAction: (List<TaskTextModel>) -> Unit,
         successIdeasAction: (List<IdeaModel>) -> Unit,
         successAction: (StepModel) -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             stepInteractor
@@ -56,7 +56,7 @@ class LoadStepUseCase(
         stepId: Long,
         status: Boolean,
         successAction: () -> Unit,
-        errorAction: (String) -> Unit
+        errorAction: FunctionString
     ) {
         disposable.add(
             Single.create<Boolean> {
@@ -84,12 +84,12 @@ class LoadStepUseCase(
             )
     }
 
-    private fun setGoalTitle(step: StepModel, loadGoalAction: (String) -> Unit) =
+    private fun setGoalTitle(step: StepModel, loadGoalAction: FunctionString) =
         findGoal.useGoalById(step.goalId, {
             loadGoalAction.invoke(it.text)
         })
 
-    private fun setKeyResultTitle(step: StepModel, loadKeyResultAction: (String) -> Unit) =
+    private fun setKeyResultTitle(step: StepModel, loadKeyResultAction: FunctionString) =
         findGoal.useKeyResultById(step.keyResultId, {
             loadKeyResultAction.invoke(it.text)
         })
