@@ -11,7 +11,7 @@ import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
 import by.aermakova.todoapp.data.useCase.FindTaskUseCase
-import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.bottomMenu.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.TasksActionItem
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
@@ -40,11 +40,11 @@ class TasksModule {
     ) = TaskBottomSheetMenuUseCase(
         deleteTaskUseCase,
         taskActionBind,
+        mainFlowNavigation,
+        findTaskUseCase,
         dialog,
         taskActionItems,
-        resources,
-        mainFlowNavigation,
-        findTaskUseCase
+        resources
     )
 
     @Provides

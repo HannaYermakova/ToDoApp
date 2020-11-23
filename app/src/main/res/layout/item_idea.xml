@@ -15,6 +15,8 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/color_scheme_light"
         app:cardCornerRadius="@dimen/card_corner_radius"
+        app:itemLongId="@{idea.ideaId}"
+        app:onLongClickItem="@{idea.longClick}"
         app:itemId="@{idea.ideaId}"
         app:onClickItem="@{idea.action}"
         tools:layout_margin="@dimen/margin_small">

@@ -7,7 +7,7 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.toCommonModelGoalList
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
-import by.aermakova.todoapp.data.useCase.GoalBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.bottomMenu.GoalBottomSheetMenuUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
 import by.aermakova.todoapp.ui.goal.GoalsNavigation
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
@@ -36,10 +36,10 @@ class GoalsViewModel @Inject constructor(
     val logoutButton: (String) -> Unit = { confirmExit(it) }
 
     private val openBottomSheetGoalsActions: (Long) -> Unit = {
-        goalBottomSheetMenuUseCase.openBottomSheetGoalsActions(disposable, it, this, errorAction)
+        goalBottomSheetMenuUseCase.openBottomSheetActions(disposable, it, this, errorAction)
     }
 
-    val actionItems: LiveData<List<CommonModel>> = goalBottomSheetMenuUseCase.liveListOfGoalActionsItems
+    val actionItems: LiveData<List<CommonModel>> = goalBottomSheetMenuUseCase.liveListOfItemsActionsItems
 
     val keyResultObserver: LiveData<String>?
         get() = goalBottomSheetMenuUseCase.addKeyResultToGoalUseCase.keyResultObserver

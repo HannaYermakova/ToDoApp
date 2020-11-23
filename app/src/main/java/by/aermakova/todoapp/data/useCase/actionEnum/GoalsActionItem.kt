@@ -6,7 +6,7 @@ import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.useCase.actionEnum.ActionTextConverter
 
-enum class GoalsActionItem(val listId: Int, val forDone: Boolean, private val imageId: Int? = null, ) :
+enum class GoalsActionItem(val listId: Int, private val forDoneAction: Boolean, private val imageId: Int? = null, ) :
     ActionTextConverter {
     ADD_KEY_RESULT_TO_GOAL(R.string.title_add_key_result, false),
     ADD_STEP_TO_GOAL(R.string.title_add_step, false),
@@ -14,6 +14,9 @@ enum class GoalsActionItem(val listId: Int, val forDone: Boolean, private val im
     ADD_IDEA_TO_GOAL(R.string.title_add_idea, false),
     EDIT_GOAL(R.string.title_edit_goal, false, R.drawable.ic_baseline_edit_24),
     DELETE_GOAL(R.string.title_delete_goal, true, R.drawable.ic_delete_24);
+
+    override val forDone: Boolean
+        get() = forDoneAction
 
     override fun toTextModel(
         res: Resources,

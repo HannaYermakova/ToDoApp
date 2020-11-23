@@ -24,7 +24,7 @@ interface IdeaDao {
     fun getAllIdeas(): Observable<List<IdeaEntity>>
 
     @Query("DELETE FROM ideas_table WHERE idea_id = :ideaId")
-    fun deleteIdea(ideaId: Long)
+    fun deleteIdea(ideaId: Long):Int
 
     @Query("SELECT * FROM ideas_table WHERE idea_goal_id =:goalId")
     fun getIdeasByGoalId(goalId: Long): Single<List<IdeaEntity>>

@@ -15,6 +15,7 @@ import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
+import by.aermakova.todoapp.data.useCase.bottomMenu.StepBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
@@ -74,15 +75,15 @@ class StepsModule {
         findStepUseCase: FindStepUseCase
     ) =
         StepBottomSheetMenuUseCase(
+            deleteStepUseCase,
             addIdeaToStepUseCase,
             addTaskToStepUseCase,
-            deleteStepUseCase,
             stepActionBind,
+            findStepUseCase,
+            mainFlowNavigation,
             dialog,
             stepActionItems,
-            resources,
-            mainFlowNavigation,
-            findStepUseCase
+            resources
         )
 
     @Provides

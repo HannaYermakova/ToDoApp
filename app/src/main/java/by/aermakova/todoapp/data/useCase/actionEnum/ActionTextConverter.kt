@@ -6,6 +6,7 @@ import by.aermakova.todoapp.data.model.TextModel
 
 
 interface ActionTextConverter {
+    val forDone: Boolean
     fun toTextModel(
         res: Resources,
         clickAction: FunctionLong

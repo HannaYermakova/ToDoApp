@@ -45,7 +45,10 @@
     <string name="confirm_delete_step">Are you sure you want to delete this Step?</string>
 
     <string name="error_delete_task">Error while deleting Task</string>
+    <string name="error_delete_idea">Error while deleting Idea</string>
     <string name="confirm_delete_task">Are you sure you want to delete this Task?</string>
+    <string name="confirm_delete_idea">Are you sure you want to delete this Idea?</string>
+    <string name="confirm_delete_goal">Are you sure you want to delete this Goal?</string>
 
     <string name="title_goals">Goals</string>
     <string name="title_tasks">Tasks</string>
@@ -71,6 +74,9 @@
 
     <string name="title_edit_task">Edit Task</string>
     <string name="title_delete_task">Delete Task</string>
+
+    <string name="title_edit_idea">Edit Idea</string>
+    <string name="title_delete_idea">Delete Idea</string>
 
     <string name="add_new_goal_title">Set your new Goal</string>
     <string name="edit_goal_title">Edit your Goal</string>

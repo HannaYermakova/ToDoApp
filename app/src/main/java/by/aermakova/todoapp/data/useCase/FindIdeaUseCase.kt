@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.useCase
 
+import by.aermakova.todoapp.data.db.entity.IdeaEntity
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.TextModel
@@ -7,6 +8,7 @@ import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 
 class FindIdeaUseCase(
     private val ideaInteractor: IdeaInteractor
@@ -34,5 +36,23 @@ class FindIdeaUseCase(
                 { successAction.invoke(it.map { it.toCommonModel() }) },
                 { it.handleError(it.message, errorAction) }
             )
+    }
+
+    fun useIdeasById(
+        disposable: CompositeDisposable,
+        ideaId: Long?,
+        successAction: (IdeaEntity) -> Unit,
+        errorAction: (String) -> Unit
+    ) {
+        ideaId?.let {
+            disposable.add(
+                ideaInteractor.getIdeaById(ideaId)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { successAction.invoke( it) },
+                        { it.handleError(it.message, errorAction) }
+                    )
+            )
+        }
     }
 }

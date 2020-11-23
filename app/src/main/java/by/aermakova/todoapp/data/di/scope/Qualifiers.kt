@@ -73,6 +73,9 @@ annotation class ErrorDeleteStep
 annotation class ErrorDeleteTask
 
 @Qualifier
+annotation class ErrorDeleteIdea
+
+@Qualifier
 annotation class ErrorGoalIsDoneTask
 
 @Qualifier
@@ -109,10 +112,16 @@ annotation class TitleAddKeyResult
 annotation class TitleDialogAddItem
 
 @Qualifier
+annotation class TitleDialogDeleteGoal
+
+@Qualifier
 annotation class TitleDialogDeleteStep
 
 @Qualifier
 annotation class TitleDialogDeleteTask
+
+@Qualifier
+annotation class TitleDialogDeleteIdea
 
 @Qualifier
 annotation class TitleSelectKeyResult

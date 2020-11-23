@@ -19,9 +19,7 @@ class IdeaRepository @Inject constructor(
         return ideaDao.getAllIdeas()
     }
 
-    fun deleteIdea(ideaId: Long) {
-        ideaDao.deleteIdea(ideaId)
-    }
+    fun deleteIdea(ideaId: Long) =  ideaDao.deleteIdea(ideaId) > 0
 
     fun saveIdeas(ideaEntities: List<IdeaEntity>) {
         ideaDao.insertAllIdeas(ideaEntities)

@@ -7,11 +7,8 @@ import by.aermakova.todoapp.data.di.scope.FilterTaskMenu
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
 import by.aermakova.todoapp.data.di.scope.SortTaskMenu
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.model.CommonModel
-import by.aermakova.todoapp.data.model.TextModel
-import by.aermakova.todoapp.data.model.toCommonModel
-import by.aermakova.todoapp.data.model.toTextModel
-import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.model.*
+import by.aermakova.todoapp.data.useCase.bottomMenu.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.TaskFilterItem
 import by.aermakova.todoapp.data.useCase.actionEnum.TaskSortItem
 import by.aermakova.todoapp.data.useCase.actionEnum.createTasksComparator
@@ -46,7 +43,7 @@ class TasksViewModel @Inject constructor(
     val addNewElement = { navigation.navigateToAddNewElementFragment(item = Item.GOAL) }
 
     val actionItems: LiveData<List<CommonModel>> =
-        taskBottomSheetMenuUseCase.liveListOfTasksActionsItems
+        taskBottomSheetMenuUseCase.liveListOfItemsActionsItems
 
     val openFilterDialog = {
         initFilterList()
@@ -81,6 +78,14 @@ class TasksViewModel @Inject constructor(
 
     fun confirmDelete(value: Boolean?) {
         taskBottomSheetMenuUseCase.deleteTaskUseCase.confirmDelete(value)
+    }
+
+    val deleteAction: FunctionLong = {
+        taskBottomSheetMenuUseCase.deleteTaskUseCase.confirmDeleteItem(
+            it,
+            disposable,
+            errorAction
+        )
     }
 
     private fun getLiveListOfSortItems(): LiveData<List<CommonModel>> {

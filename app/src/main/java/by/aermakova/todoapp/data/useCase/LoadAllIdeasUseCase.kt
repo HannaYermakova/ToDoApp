@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.model.toCommonModel
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
@@ -17,15 +18,15 @@ class LoadAllIdeasUseCase(
 
     fun loadIdeas(
         disposable: CompositeDisposable,
-        selectAction: (Long) -> Unit,
+        selectAction: FunctionLong,
+        longClickAction: FunctionLong,
         successAction: (List<CommonModel>) -> Unit,
         errorAction: ((String) -> Unit)? = null
-
     ) {
         disposable.add(
             ideaInteractor.getAllIdeas().observeList(
                 errorMessage,
-                { it.toCommonModel(selectAction) },
+                { it.toCommonModel(selectAction, longClickAction) },
                 successAction, errorAction
             )
         )

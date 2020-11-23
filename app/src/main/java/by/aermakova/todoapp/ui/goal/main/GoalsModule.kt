@@ -10,7 +10,12 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.*
-import by.aermakova.todoapp.data.useCase.*
+import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
+import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
+import by.aermakova.todoapp.data.useCase.DeleteGoalUseCase
+import by.aermakova.todoapp.data.useCase.FindGoalUseCase
+import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
+import by.aermakova.todoapp.data.useCase.bottomMenu.GoalBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
@@ -20,7 +25,6 @@ import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.StepsNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
 import by.aermakova.todoapp.util.Item
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
@@ -52,11 +56,11 @@ class GoalsModule {
             deleteGoalUseCase,
             addKeyResultToGoalUseCase,
             goalActionBind,
+            mainFlowNavigation,
+            findGoalUseCase,
             dialog,
             goalActionItems,
-            resources,
-            mainFlowNavigation,
-            findGoalUseCase
+            resources
         )
 
     @Provides
@@ -78,15 +82,24 @@ class GoalsModule {
         stepInteractor: StepInteractor,
         taskInteractor: TaskInteractor,
         ideaInteractor: IdeaInteractor,
-        @ErrorDeleteGoal errorDeleteGoalMessage: String
+        @ErrorDeleteGoal errorDeleteGoalMessage: String,
+        @DialogConfirm dialogNavigation: DialogNavigation<Boolean>,
+        @TitleDialogDeleteGoal dialogTitle: String,
     ) = DeleteGoalUseCase(
         goalInteractor,
         keyResultInteractor,
         stepInteractor,
         taskInteractor,
         ideaInteractor,
-        errorDeleteGoalMessage
+        errorDeleteGoalMessage,
+        dialogNavigation,
+        dialogTitle
     )
+
+    @Provides
+    @TitleDialogDeleteGoal
+    fun provideTitleDialogDeleteGoal(activity: Activity) =
+        activity.getString(R.string.confirm_delete_goal)
 
     @Provides
     @AddIdeaUseCase
@@ -222,7 +235,8 @@ class GoalsModule {
 
     @Provides
     @NavigationGoals
-    fun provideGoalsNavigation(controller: NavController): MainFlowNavigation = GoalsNavigation(controller)
+    fun provideGoalsNavigation(controller: NavController): MainFlowNavigation =
+        GoalsNavigation(controller)
 
     @Provides
     @IntoMap

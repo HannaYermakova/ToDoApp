@@ -72,4 +72,13 @@ class IdeaInteractor(
         ideaRepository.getAllIdeasIdByStepId(stepId).map { ids ->
             ids.map { ideaRemoteDatabase.removeData(it) }
         }
+
+    fun deleteIdeaByIdRemote(itemId: Long): Single<Boolean> {
+        ideaRemoteDatabase.removeData(itemId)
+        return Single.just(true)
+    }
+
+    fun deleteIdeaByIdLocal(itemId: Long): Single<Boolean> {
+        return Single.just(ideaRepository.deleteIdea(itemId))
+    }
 }

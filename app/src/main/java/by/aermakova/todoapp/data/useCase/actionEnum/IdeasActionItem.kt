@@ -5,10 +5,10 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.model.TextModel
 
-enum class TasksActionItem(private val listId: Int, private val forDoneAction: Boolean, private val imageId: Int? = null) :
+enum class IdeasActionItem(private val listId: Int, private val forDoneAction: Boolean, private val imageId: Int? = null) :
     ActionTextConverter {
-    EDIT_TASK(R.string.title_edit_task, false, R.drawable.ic_baseline_edit_24) ,
-    DELETE_TASK(R.string.title_delete_task, true, R.drawable.ic_delete_24);
+    EDIT_IDEA(R.string.title_edit_idea, false, R.drawable.ic_baseline_edit_24),
+    DELETE_IDEA(R.string.title_delete_idea, true, R.drawable.ic_delete_24);
 
     override val forDone: Boolean
         get() = forDoneAction
