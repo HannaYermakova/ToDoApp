@@ -104,7 +104,7 @@ class StepBottomSheetMenuUseCase(
             StepsActionItem.EDIT_STEP -> mainFlowNavigation.navigateToEditElementFragment(
                 selectedStepId
             )
-            StepsActionItem.DELETE_STEP -> deleteStepUseCase.confirmDeleteStep(
+            StepsActionItem.DELETE_STEP -> deleteStepUseCase.confirmDeleteItem(
                 selectedStepId,
                 disposable,
                 errorAction

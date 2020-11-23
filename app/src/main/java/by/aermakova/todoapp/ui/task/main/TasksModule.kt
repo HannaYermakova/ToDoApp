@@ -12,11 +12,13 @@ import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
 import by.aermakova.todoapp.data.useCase.FindTaskUseCase
 import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.actionEnum.TasksActionItem
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
+import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
+import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.data.useCase.actionEnum.TasksActionItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.Module
 import dagger.Provides
@@ -52,16 +54,30 @@ class TasksModule {
     @Provides
     fun provideDeleteTaskUseCase(
         taskInteractor: TaskInteractor,
-        @ErrorDeleteTask errorMessage: String
+        @ErrorDeleteTask errorMessage: String,
+        @DialogConfirm dialogNavigation: DialogNavigation<Boolean>,
+        @TitleDialogDeleteTask dialogTitle: String
     ) = DeleteTaskUseCase(
         taskInteractor,
-        errorMessage
+        errorMessage,
+        dialogNavigation,
+        dialogTitle
     )
+
+    @Provides
+    @DialogConfirm
+    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller)
 
     @Provides
     @ErrorDeleteTask
     fun provideErrorDeleteTaskMessage(activity: Activity) =
         activity.getString(R.string.error_delete_task)
+
+    @Provides
+    @TitleDialogDeleteTask
+    fun provideTitleDialogDeleteTask(activity: Activity) =
+        activity.getString(R.string.confirm_delete_task)
 
     @Provides
     @TaskActionMenu

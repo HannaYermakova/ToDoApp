@@ -112,4 +112,7 @@ annotation class TitleDialogAddItem
 annotation class TitleDialogDeleteStep
 
 @Qualifier
+annotation class TitleDialogDeleteTask
+
+@Qualifier
 annotation class TitleSelectKeyResult

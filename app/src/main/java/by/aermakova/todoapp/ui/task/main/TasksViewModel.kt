@@ -75,6 +75,14 @@ class TasksViewModel @Inject constructor(
 
     val sortItems: LiveData<List<CommonModel>> = getLiveListOfSortItems()
 
+    val confirmDeleteListener = taskBottomSheetMenuUseCase.deleteTaskUseCase.deleteConfirmObserver
+
+    val cancelAction = taskBottomSheetMenuUseCase.deleteTaskUseCase.cancelAction
+
+    fun confirmDelete(value: Boolean?) {
+        taskBottomSheetMenuUseCase.deleteTaskUseCase.confirmDelete(value)
+    }
+
     private fun getLiveListOfSortItems(): LiveData<List<CommonModel>> {
         val liveList = MutableLiveData<List<CommonModel>>()
         val list = taskInteractor.getSortItems()

@@ -129,13 +129,13 @@ class StepsModule {
         ideaInteractor: IdeaInteractor,
         @ErrorDeleteStep errorMessage: String
     ) = DeleteStepUseCase(
-        dialogNavigation,
-        dialogTitle,
         goalInteractor,
         stepInteractor,
         taskInteractor,
         ideaInteractor,
-        errorMessage
+        errorMessage,
+        dialogNavigation,
+        dialogTitle
     )
 
     @Provides

@@ -2,31 +2,24 @@ package by.aermakova.todoapp.data.useCase
 
 import android.util.Log
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
+import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class DeleteTaskUseCase(
     private val taskInteractor: TaskInteractor,
-    private val errorMessage: String
-) {
+    private val errorMessage: String,
+    dialogNavigation: DialogNavigation<Boolean>,
+    dialogTitle: String
+) : DeleteItemUseCase(dialogNavigation, dialogTitle) {
 
-    private var taskId: Long = INIT_SELECTED_ITEM_ID
-    private lateinit var errorAction: (String) -> Unit
 
-    fun deleteById(
-        taskId: Long,
-        disposable: CompositeDisposable,
-        errorAction: (String) -> Unit
-    ) {
-        this.taskId = taskId
-        this.errorAction = errorAction
+    override fun deleteById() {
         disposable.add(
-            taskInteractor.deleteTaskByIdRemote(taskId)
+            taskInteractor.deleteTaskByIdRemote(itemId)
                 .subscribeOn(Schedulers.io())
-                .doOnSuccess { taskInteractor.deleteTaskByIdLocal(taskId) }
+                .doOnSuccess { taskInteractor.deleteTaskByIdLocal(itemId) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { Log.d("A_DeleteTaskUseCase", "Task has been deleted") },
