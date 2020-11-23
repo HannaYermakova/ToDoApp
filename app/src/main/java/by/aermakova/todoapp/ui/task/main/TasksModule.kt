@@ -10,6 +10,7 @@ import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.useCase.DeleteTaskUseCase
+import by.aermakova.todoapp.data.useCase.FindTaskUseCase
 import by.aermakova.todoapp.data.useCase.TaskBottomSheetMenuUseCase
 import by.aermakova.todoapp.databinding.BottomSheetFilterTaskBinding
 import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
@@ -32,15 +33,21 @@ class TasksModule {
         dialog: BottomSheetDialog,
         taskActionItems: Array<TasksActionItem>,
         resources: Resources,
-        @NavigationTasks mainFlowNavigation: TasksNavigation
+        @NavigationTasks mainFlowNavigation: TasksNavigation,
+        findTaskUseCase: FindTaskUseCase
     ) = TaskBottomSheetMenuUseCase(
         deleteTaskUseCase,
         taskActionBind,
         dialog,
         taskActionItems,
         resources,
-        mainFlowNavigation
+        mainFlowNavigation,
+        findTaskUseCase
     )
+
+    @Provides
+    fun provideFindTaskUseCase(taskInteractor: TaskInteractor) =
+        FindTaskUseCase(taskInteractor)
 
     @Provides
     fun provideDeleteTaskUseCase(

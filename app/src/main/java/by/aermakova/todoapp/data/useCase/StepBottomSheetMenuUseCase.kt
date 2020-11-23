@@ -4,14 +4,14 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
+import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
 import by.aermakova.todoapp.ui.idea.IdeasNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.ui.step.main.StepsViewModel
 import by.aermakova.todoapp.ui.task.TasksNavigation
-import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
-import by.aermakova.todoapp.data.useCase.actionEnum.getLiveListOfActionsItems
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.reactivex.disposables.CompositeDisposable
 
@@ -24,29 +24,65 @@ class StepBottomSheetMenuUseCase(
     private val dialog: BottomSheetDialog,
     private val stepActionItems: Array<StepsActionItem>,
     private val resources: Resources,
-    private val mainFlowNavigation: MainFlowNavigation
+    private val mainFlowNavigation: MainFlowNavigation,
+    private val findStepUseCase: FindStepUseCase
 ) {
 
     private var selectedStepId = INIT_SELECTED_ITEM_ID
 
-    fun openBottomSheetActions(id: Long, viewModel: StepsViewModel) {
+    private val _liveListOfStepActionsItems = MutableLiveData<List<CommonModel>>()
+    val liveListOfStepActionsItems: LiveData<List<CommonModel>>
+        get() = _liveListOfStepActionsItems
+
+    fun openBottomSheetActions(
+        disposable: CompositeDisposable,
+        id: Long,
+        viewModel: StepsViewModel,
+        errorAction: (String) -> Unit
+    ) {
         stepActionBind.viewModel = viewModel
         selectedStepId = id
-        dialog.setContentView(stepActionBind.root)
-        dialog.show()
+        checkIsStepDone(disposable, selectedStepId, errorAction)
     }
 
-    fun getLiveListOfStepActionsItems(
+    private fun checkIsStepDone(
         disposable: CompositeDisposable,
+        stepId: Long,
         errorAction: (String) -> Unit
-    ): LiveData<List<CommonModel>> {
-        return stepActionItems.getLiveListOfActionsItems(
+    ) {
+        findStepUseCase.useStepById(
+            disposable,
+            stepId,
+            {
+                getLiveListOfStepActionsItems(disposable, it.stepStatusDone, errorAction)
+                dialog.setContentView(stepActionBind.root)
+                dialog.show()
+            },
+            errorAction
+        )
+    }
+
+    private fun getLiveListOfStepActionsItems(
+        disposable: CompositeDisposable,
+        stepIsDone: Boolean,
+        errorAction: (String) -> Unit
+    ) {
+        stepActionItems.getLiveListOfActionsItems(
             disposable,
             errorAction,
             resources,
             { item, disp, error -> stepAction(item, disp, error) }
         )
+        _liveListOfStepActionsItems.postValue(stepActionItems
+            .filter { if (stepIsDone) it.forDone else true }
+            .map { action ->
+                action.toTextModel(resources) {
+                    stepAction(action, disposable, errorAction)
+                }
+            }
+        )
     }
+
 
     private fun stepAction(
         action: StepsActionItem,

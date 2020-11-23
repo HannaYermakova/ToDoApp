@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import android.content.res.Resources
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
@@ -32,7 +33,9 @@ class GoalBottomSheetMenuUseCase(
 
     private var selectedGoalId = INIT_SELECTED_ITEM_ID
 
-    val liveListOfGoalActionsItems = MutableLiveData<List<CommonModel>>()
+    private val _liveListOfGoalActionsItems = MutableLiveData<List<CommonModel>>()
+    val liveListOfGoalActionsItems : LiveData<List<CommonModel>>
+        get() = _liveListOfGoalActionsItems
 
     private fun getLiveListOfGoalActionsItems(
         disposable: CompositeDisposable,
@@ -52,7 +55,7 @@ class GoalBottomSheetMenuUseCase(
                     goalAction(action, disposable, errorAction)
                 }
             }
-        liveListOfGoalActionsItems.postValue(list)
+        _liveListOfGoalActionsItems.postValue(list)
     }
 
     fun openBottomSheetGoalsActions(

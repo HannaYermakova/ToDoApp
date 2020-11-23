@@ -13,10 +13,7 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
-import by.aermakova.todoapp.data.useCase.DeleteStepUseCase
-import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
-import by.aermakova.todoapp.data.useCase.StepBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.*
 import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import by.aermakova.todoapp.databinding.BottomSheetStepActionBinding
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
@@ -73,7 +70,8 @@ class StepsModule {
         dialog: BottomSheetDialog,
         stepActionItems: Array<StepsActionItem>,
         resources: Resources,
-        @NavigationSteps mainFlowNavigation: StepsNavigation
+        @NavigationSteps mainFlowNavigation: StepsNavigation,
+        findStepUseCase: FindStepUseCase
     ) =
         StepBottomSheetMenuUseCase(
             addIdeaToStepUseCase,
@@ -83,7 +81,17 @@ class StepsModule {
             dialog,
             stepActionItems,
             resources,
-            mainFlowNavigation
+            mainFlowNavigation,
+            findStepUseCase
+        )
+
+    @Provides
+    fun provideFindStepUseCase(
+        stepInteractor: StepInteractor,
+        @ErrorWhileLoading errorMessage: String
+    ) =
+        FindStepUseCase(
+            stepInteractor, errorMessage
         )
 
     @Provides

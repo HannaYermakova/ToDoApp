@@ -4,6 +4,7 @@ import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.data.model.FunctionLong
 import by.aermakova.todoapp.data.model.toCommonModel
+import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -35,10 +36,7 @@ class LoadAllStepsUseCase(
                             successAction.invoke(it)
                         }
                     },
-                    {
-                        errorAction?.invoke(errorMessage)
-                        it.printStackTrace()
-                    }
+                    { it.handleError(errorMessage, errorAction) }
                 )
         )
     }

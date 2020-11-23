@@ -23,10 +23,10 @@ class StepsViewModel @Inject constructor(
         get() = navigation
 
     val actionItems: LiveData<List<CommonModel>> =
-        stepBottomSheetMenuUseCase.getLiveListOfStepActionsItems(disposable, errorAction)
+        stepBottomSheetMenuUseCase.liveListOfStepActionsItems
 
     private val openBottomSheetActions: (Long) -> Unit = {
-        stepBottomSheetMenuUseCase.openBottomSheetActions(it, this)
+        stepBottomSheetMenuUseCase.openBottomSheetActions(disposable, it, this, errorAction)
     }
     private val _stepsList = PublishSubject.create<List<CommonModel>>()
 

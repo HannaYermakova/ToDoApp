@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.ui.task.details
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.di.scope.NavigationTasks
@@ -78,7 +79,7 @@ class TaskDetailsViewModel @Inject constructor(
             taskInteractor
                 .getTaskById(taskId)
                 .map {
-                    it.toCommonModel { }
+                    it.toCommonModel ()
                 }
                 .doOnSuccess { task ->
                     findGoal.useGoalById(task.goalId, { goal ->
@@ -91,9 +92,11 @@ class TaskDetailsViewModel @Inject constructor(
                     })
                 }
                 .doOnSuccess { task ->
-                    findStep.useStepByIdInUiThread(task.stepId, {
-                        _stepTitle.postValue(it.text)
-                    }, errorAction)
+                    findStep.useStepByIdInUiThread(
+                        task.stepId,
+                        { _stepTitle.postValue(it.text) },
+                        errorAction
+                    )
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

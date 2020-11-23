@@ -47,6 +47,7 @@
                 app:itemSwipeAction="@{viewModel.deleteAction}"
                 app:layoutType="@{LayoutManagerType.LINEAR_VERTICAL}"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:paddingBottom="@{null}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/all_steps_text"
                 tools:listitem="@layout/item_step" />

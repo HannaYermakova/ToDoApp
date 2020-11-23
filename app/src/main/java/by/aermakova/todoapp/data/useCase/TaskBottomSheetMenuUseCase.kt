@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.model.CommonModel
 import by.aermakova.todoapp.databinding.BottomSheetTaskActionBinding
 import by.aermakova.todoapp.ui.goal.main.INIT_SELECTED_ITEM_ID
@@ -19,27 +20,57 @@ class TaskBottomSheetMenuUseCase(
     private val dialog: BottomSheetDialog,
     private val taskActionItems: Array<TasksActionItem>,
     private val resources: Resources,
-    private val mainFlowNavigation: MainFlowNavigation
+    private val mainFlowNavigation: MainFlowNavigation,
+    private val findTaskUseCase: FindTaskUseCase
 ) {
 
     private var selectedTaskId = INIT_SELECTED_ITEM_ID
 
-    fun openBottomSheetActions(id: Long, viewModel: TasksViewModel) {
+    private val _liveListOfTasksActionsItems = MutableLiveData<List<CommonModel>>()
+    val liveListOfTasksActionsItems: LiveData<List<CommonModel>>
+        get() = _liveListOfTasksActionsItems
+
+    fun openBottomSheetActions(disposable: CompositeDisposable, id: Long, viewModel: TasksViewModel, errorAction: (String) -> Unit) {
         taskActionBind.viewModel = viewModel
         selectedTaskId = id
-        dialog.setContentView(taskActionBind.root)
-        dialog.show()
+        checkIsTaskDone(disposable, selectedTaskId, errorAction)
     }
 
-    fun getLiveListOfStepActionsItems(
+    private fun checkIsTaskDone(
         disposable: CompositeDisposable,
+        taskId: Long,
         errorAction: (String) -> Unit
-    ): LiveData<List<CommonModel>> {
-        return taskActionItems.getLiveListOfActionsItems(
+    ) {
+        findTaskUseCase.useTasksById(
+            disposable,
+            taskId,
+            {
+                getLiveListOfStepActionsItems(disposable, it.taskStatusDone, errorAction)
+                dialog.setContentView(taskActionBind.root)
+                dialog.show()
+            },
+            errorAction
+        )
+    }
+
+    private fun getLiveListOfStepActionsItems(
+        disposable: CompositeDisposable,
+        taskIsDone: Boolean,
+        errorAction: (String) -> Unit
+    ) {
+        taskActionItems.getLiveListOfActionsItems(
             disposable,
             errorAction,
             resources,
             { item, disp, error -> stepAction(item, disp, error) }
+        )
+        _liveListOfTasksActionsItems.postValue(taskActionItems
+            .filter { if (taskIsDone) it.forDone else true }
+            .map { action ->
+                action.toTextModel(resources) {
+                    stepAction(action, disposable, errorAction)
+                }
+            }
         )
     }
 

@@ -46,7 +46,7 @@ class TasksViewModel @Inject constructor(
     val addNewElement = { navigation.navigateToAddNewElementFragment(item = Item.GOAL) }
 
     val actionItems: LiveData<List<CommonModel>> =
-        taskBottomSheetMenuUseCase.getLiveListOfStepActionsItems(disposable, errorAction)
+        taskBottomSheetMenuUseCase.liveListOfTasksActionsItems
 
     val openFilterDialog = {
         initFilterList()
@@ -128,7 +128,7 @@ class TasksViewModel @Inject constructor(
                     list.map {
                         it.toCommonModel(
                             { id -> navigation.navigateToShowDetailsFragment(id) },
-                            { id -> taskBottomSheetMenuUseCase.openBottomSheetActions(id, this) }
+                            { id -> taskBottomSheetMenuUseCase.openBottomSheetActions(disposable, id, this, errorAction) }
                         )
                     }
                 }

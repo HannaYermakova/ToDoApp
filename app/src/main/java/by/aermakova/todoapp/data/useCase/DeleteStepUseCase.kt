@@ -78,14 +78,10 @@ class DeleteStepUseCase(
         .subscribeOn(Schedulers.io())
         .subscribe(
             { nextAction.invoke() },
-            {
-                it.printStackTrace()
-                errorAction.invoke(errorMessage)
-            }
+            {it.handleError(errorMessage, errorAction)}
         )
 
     private fun cancelAction() {
-        Log.d("A_DeleteStepUseCase", "cancel action")
         _cancelAction.postValue(true)
     }
 }

@@ -420,6 +420,8 @@ fun bindCommonListToRecycler(
     disposable: CompositeDisposable?,
     action: FunctionLong?
 ) {
+
+    Log.d("A_BindingAdapter", "bind Common List To Recycler")
     if (items != null && disposable != null) {
         disposable.add(
             items.subscribe(
@@ -557,10 +559,11 @@ fun setLayoutMarginTop(view: View, value: Any?) {
 
 @BindingAdapter("app:paddingBottom")
 fun setLayoutMarginBottom(view: View, value: Any?) {
+    Log.d("A_BindingAdapter", "padding Bottom")
     val navigationBarHeight =
         getElementPxHeight(view.context.resources, ATTRIBUTE_NAME_NAVIGATION_BAR)
     if (view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-        view.setPadding(0, 0, 0, navigationBarHeight)
+        view.setPadding(0, 0, 0, 0)
     }
 }
 
