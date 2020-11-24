@@ -19,9 +19,8 @@ class EmailLoginManager(
     override val errorMessage: String?
         get() = message
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d("A_EmailLoginManager", "onActivityResult")
-        return true
     }
 
     fun signInWithEmailAndPassword(emailCredentials: EmailCredentials) {

@@ -1,0 +1,26 @@
+
+¹
+9
+android*http://schemas.android.com/apk/res/androidripple"o
+*http://schemas.android.com/apk/res/androidcolor@color/color_ripple"(¥ƒ„2
+¿€”øcolor/color_ripple*
+    g*è
+ßitem*	
+        
+*´
+«shape"H
+*http://schemas.android.com/apk/res/androidshapeoval"(šƒ„2:0*
+            $*
+„solid"{
+*http://schemas.android.com/apk/res/androidcolor@color/color_scheme_brick"(¥ƒ„2"
+ Á€”øcolor/color_scheme_brick*
+            ?*†
+ısize"z
+*http://schemas.android.com/apk/res/androidheight@dimen/add_button_radius"(Õ‚„2!
+Ï€˜ødimen/add_button_radius"y
+*http://schemas.android.com/apk/res/androidwidth@dimen/add_button_radius"(Ù‚„2!
+Ï€˜ødimen/add_button_radius*	
+        <*
+    	*	
+
+

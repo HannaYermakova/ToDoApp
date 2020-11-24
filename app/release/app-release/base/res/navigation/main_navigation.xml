@@ -1,0 +1,47 @@
+
+È
+9
+android*http://schemas.android.com/apk/res/android
+2
+app'http://schemas.android.com/apk/res-auto
+navigation"z
+'http://schemas.android.com/apk/res-autostartDestination@id/navigation_goals"(Ï…Œø2
+ˆƒ¤øid/navigation_goals"m
+*http://schemas.android.com/apk/res/androidid@+id/main_navigation"(Ğ„2
+Ø‚¤øid/main_navigation*
+
+    0*î
+åfragment"o
+*http://schemas.android.com/apk/res/androidid@+id/navigation_goals"(Ğ„2
+ˆƒ¤øid/navigation_goals"o
+*http://schemas.android.com/apk/res/androidlabel@string/title_goals"(€„2
+ğ‚Äøstring/title_goals"h
+*http://schemas.android.com/apk/res/androidname/by.aermakova.todoapp.ui.goal.main.GoalsFragment(ƒ€„*
+    /*
+
+    *ß
+Öfragment"o
+*http://schemas.android.com/apk/res/androidid@+id/navigation_steps"(Ğ„2
+‹ƒ¤øid/navigation_steps"o
+*http://schemas.android.com/apk/res/androidlabel@string/title_steps"(€„2
+õ‚Äøstring/title_steps"h
+*http://schemas.android.com/apk/res/androidname/by.aermakova.todoapp.ui.step.main.StepsFragment(ƒ€„*
+
+    0*ß
+Öfragment"o
+*http://schemas.android.com/apk/res/androidid@+id/navigation_tasks"(Ğ„2
+Œƒ¤øid/navigation_tasks"o
+*http://schemas.android.com/apk/res/androidlabel@string/title_tasks"(€„2
+÷‚Äøstring/title_tasks"h
+*http://schemas.android.com/apk/res/androidname/by.aermakova.todoapp.ui.task.main.TasksFragment(ƒ€„*
+
+    0*Ş
+Õfragment"o
+*http://schemas.android.com/apk/res/androidid@+id/navigation_ideas"(Ğ„2
+Šƒ¤øid/navigation_ideas"o
+*http://schemas.android.com/apk/res/androidlabel@string/title_ideas"(€„2
+ò‚Äøstring/title_ideas"g
+*http://schemas.android.com/apk/res/androidname.by.aermakova.todoapp.ui.idea.main.IdeaFragment(ƒ€„*
+
+
+0

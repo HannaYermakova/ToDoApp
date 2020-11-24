@@ -1,0 +1,556 @@
+
+Âá
+9
+android*http://schemas.android.com/apk/res/android
+2
+app'http://schemas.android.com/apk/res-auto
+navigation"t
+'http://schemas.android.com/apk/res-autostartDestination@id/loginFragment"(Ï…Œø2
+Ğ‚¤øid/loginFragment"k
+*http://schemas.android.com/apk/res/androidid@+id/app_navigation"(Ğ„2
+ï€¤øid/app_navigation*
+
+    -*ƒ	
+úfragment"i
+*http://schemas.android.com/apk/res/androidid@+id/loginFragment"(Ğ„2
+Ğ‚¤øid/loginFragment"H
+*http://schemas.android.com/apk/res/androidlabelfragment_login(€„"i
+*http://schemas.android.com/apk/res/androidname0by.aermakova.todoapp.ui.auth.login.LoginFragment(ƒ€„*
+
+
+        .*ê
+áaction"u
+'http://schemas.android.com/apk/res-autodestination@id/mainFlowFragment"(‘‚Œø2
+Ö‚¤øid/mainFlowFragment"k
+'http://schemas.android.com/apk/res-autopopUpTo@id/loginFragment"(‰…Œø2
+Ğ‚¤øid/loginFragment"Q
+'http://schemas.android.com/apk/res-autopopUpToInclusivetrue"(Š…Œø2:@"Ÿ
+*http://schemas.android.com/apk/res/androidid-@+id/action_loginFragment_to_mainFlowFragment"(Ğ„25
+3È€¤ø+id/action_loginFragment_to_mainFlowFragment*	
+        **ª
+¡action"u
+'http://schemas.android.com/apk/res-autodestination@id/registerFragment"(‘‚Œø2
+¹ƒ¤øid/registerFragment"Ÿ
+*http://schemas.android.com/apk/res/androidid-@+id/action_loginFragment_to_registerFragment"(Ğ„25
+3É€¤ø+id/action_loginFragment_to_registerFragment*
+    5*
+
+    *İ
+
+Ô
+fragment"o
+*http://schemas.android.com/apk/res/androidid@+id/registerFragment"(Ğ„2
+¹ƒ¤øid/registerFragment"J
+*http://schemas.android.com/apk/res/androidlabelRegisterFragment(€„"o
+*http://schemas.android.com/apk/res/androidname6by.aermakova.todoapp.ui.auth.register.RegisterFragment(ƒ€„*	
+        1*÷
+îaction"u
+'http://schemas.android.com/apk/res-autodestination@id/mainFlowFragment"(‘‚Œø2
+Ö‚¤øid/mainFlowFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"(ˆ…Œø2"
+ €„øanim/fragment_close_exit"q
+'http://schemas.android.com/apk/res-autopopUpTo@id/registerFragment"(‰…Œø2
+¹ƒ¤øid/registerFragment"Q
+'http://schemas.android.com/apk/res-autopopUpToInclusivetrue"(Š…Œø2:@"¥
+*http://schemas.android.com/apk/res/androidid0@+id/action_registerFragment_to_mainFlowFragment"(Ğ„28
+6×€¤ø.id/action_registerFragment_to_mainFlowFragment*
+    %**
+
+    &*Ş4
+Õ4fragment"o
+*http://schemas.android.com/apk/res/androidid@+id/mainFlowFragment"((Ğ„2
+Ö‚¤øid/mainFlowFragment"L
+*http://schemas.android.com/apk/res/androidlabelfragment_main_flow(€„"f
+*http://schemas.android.com/apk/res/androidname-by.aermakova.todoapp.ui.main.MainFlowFragment(ƒ€„*	
+        ,2*­
+¤action"s
+'http://schemas.android.com/apk/res-autodestination@id/addGoalFragment"-(‘‚Œø2
+İ€¤øid/addGoalFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"-(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"-(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"-(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"-(ˆ…Œø2"
+ €„øanim/fragment_close_exit"£
+*http://schemas.android.com/apk/res/androidid/@+id/action_mainFlowFragment_to_addGoalFragment"-(Ğ„27
+5Ê€¤ø-id/action_mainFlowFragment_to_addGoalFragment-*	
+        3:*½
+´action"{
+'http://schemas.android.com/apk/res-autodestination@id/goalDetailsFragment"4(‘‚Œø2 
+‚¤øid/goalDetailsFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"4(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"4(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"4(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"4(ˆ…Œø2"
+ €„øanim/fragment_close_exit"«
+*http://schemas.android.com/apk/res/androidid3@+id/action_mainFlowFragment_to_goalDetailsFragment"4(Ğ„2;
+9Í€¤ø1id/action_mainFlowFragment_to_goalDetailsFragment4*	
+        ::*½
+´action"{
+'http://schemas.android.com/apk/res-autodestination@id/taskDetailsFragment";(‘‚Œø2 
+Ÿ„¤øid/taskDetailsFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter";(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit";(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter";(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit";(ˆ…Œø2"
+ €„øanim/fragment_close_exit"«
+*http://schemas.android.com/apk/res/androidid3@+id/action_mainFlowFragment_to_taskDetailsFragment";(Ğ„2;
+9Ñ€¤ø1id/action_mainFlowFragment_to_taskDetailsFragment;*	
+        A:*­
+¤action"s
+'http://schemas.android.com/apk/res-autodestination@id/addStepFragment"B(‘‚Œø2
+ß€¤øid/addStepFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"B(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"B(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"B(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"B(ˆ…Œø2"
+ €„øanim/fragment_close_exit"£
+*http://schemas.android.com/apk/res/androidid/@+id/action_mainFlowFragment_to_addStepFragment"B(Ğ„27
+5Ì€¤ø-id/action_mainFlowFragment_to_addStepFragmentB*	
+        H:*­
+¤action"s
+'http://schemas.android.com/apk/res-autodestination@id/addIdeaFragment"I(‘‚Œø2
+Ş€¤øid/addIdeaFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"I(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"I(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"I(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"I(ˆ…Œø2"
+ €„øanim/fragment_close_exit"£
+*http://schemas.android.com/apk/res/androidid/@+id/action_mainFlowFragment_to_addIdeaFragment"I(Ğ„27
+5Ë€¤ø-id/action_mainFlowFragment_to_addIdeaFragmentI*	
+        O:*½
+´action"{
+'http://schemas.android.com/apk/res-autodestination@id/stepDetailsFragment"P(‘‚Œø2 
+„¤øid/stepDetailsFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"P(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"P(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"P(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"P(ˆ…Œø2"
+ €„øanim/fragment_close_exit"«
+*http://schemas.android.com/apk/res/androidid3@+id/action_mainFlowFragment_to_stepDetailsFragment"P(Ğ„2;
+9Ğ€¤ø1id/action_mainFlowFragment_to_stepDetailsFragmentP*	
+        V:*½
+´action"{
+'http://schemas.android.com/apk/res-autodestination@id/ideaDetailsFragment"W(‘‚Œø2 
+´‚¤øid/ideaDetailsFragment"}
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"W(»‚Œø2"
+ €„øanim/fragment_fade_enter"z
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"W(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"‚
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"W(‡…Œø2#
+!œ€„øanim/fragment_close_enter"
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"W(ˆ…Œø2"
+ €„øanim/fragment_close_exit"«
+*http://schemas.android.com/apk/res/androidid3@+id/action_mainFlowFragment_to_ideaDetailsFragment"W(Ğ„2;
+9Î€¤ø1id/action_mainFlowFragment_to_ideaDetailsFragmentW*	
+        ]:*ê
+áaction"o
+'http://schemas.android.com/apk/res-autodestination@id/loginFragment"^(‘‚Œø2
+Ğ‚¤øid/loginFragment"q
+'http://schemas.android.com/apk/res-autopopUpTo@id/mainFlowFragment"^(‰…Œø2
+Ö‚¤øid/mainFlowFragment"Q
+'http://schemas.android.com/apk/res-autopopUpToInclusivetrue"^(Š…Œø2:@"Ÿ
+*http://schemas.android.com/apk/res/androidid-@+id/action_mainFlowFragment_to_loginFragment"^(Ğ„25
+3Ï€¤ø+id/action_mainFlowFragment_to_loginFragment^*
+    b*(*
+
+    c*½
+´fragment"m
+*http://schemas.android.com/apk/res/androidid@+id/addGoalFragment"e(Ğ„2
+İ€¤øid/addGoalFragment"K
+*http://schemas.android.com/apk/res/androidlabelfragment_add_goal(€„"l
+*http://schemas.android.com/apk/res/androidname3by.aermakova.todoapp.ui.goal.addNew.AddGoalFragment(ƒ€„e*
+
+    i3*ü
+ódialog"o
+*http://schemas.android.com/apk/res/androidid@+id/name_item_dialog"k(Ğ„2
+„ƒ¤øid/name_item_dialog"u
+*http://schemas.android.com/apk/res/androidname<by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogFragment(ƒ€„*	
+        n/*Ş
+Õargument"@
+'http://schemas.android.com/apk/res-autoargTypestring(±€Œø"G
+*http://schemas.android.com/apk/res/androiddefaultValueSelect(íƒ„">
+*http://schemas.android.com/apk/res/androidnametitle(ƒ€„o*
+    r#k*
+
+    s*
+„dialog"s
+*http://schemas.android.com/apk/res/androidid@+id/select_goal_dialog"u(Ğ„2
+áƒ¤øid/select_goal_dialog"€
+*http://schemas.android.com/apk/res/androidnameGby.aermakova.todoapp.ui.dialog.selectItem.goal.SelectGoalDialogFragment(ƒ€„*
+
+
+        x4*Ş
+Õargument"@
+'http://schemas.android.com/apk/res-autoargTypestring(±€Œø"G
+*http://schemas.android.com/apk/res/androiddefaultValueSelect(íƒ„">
+*http://schemas.android.com/apk/res/androidnametitle(ƒ€„z*
+    }#u*
+
+    ~*°
+¦action"v
+'http://schemas.android.com/apk/res-autodestination@id/name_item_dialog"€(‘‚Œø2
+„ƒ¤øid/name_item_dialog"~
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"€(»‚Œø2"
+ €„øanim/fragment_fade_enter"{
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"€(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"ƒ
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"€(‡…Œø2#
+!œ€„øanim/fragment_close_enter"€
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"€(ˆ…Œø2"
+ €„øanim/fragment_close_exit"Œ
+*http://schemas.android.com/apk/res/androidid#@+id/action_global_name_item_dialog"€(Ğ„2+
+)Â€¤ø!id/action_global_name_item_dialog*
+
+    †4€*
+    ˆ*Ï
+Åfragment"v
+*http://schemas.android.com/apk/res/androidid@+id/goalDetailsFragment"‰(Ğ„2 
+‚¤øid/goalDetailsFragment"M
+*http://schemas.android.com/apk/res/androidlabelGoalDetailsFragment(€„"q
+*http://schemas.android.com/apk/res/androidname8by.aermakova.todoapp.ui.goal.details.GoalDetailsFragment(ƒ€„*	
+        5*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnamegoalId(ƒ€„*
+    ‘!‰*
+    ’*Á
+·fragment"n
+*http://schemas.android.com/apk/res/androidid@+id/addTaskFragment"“(Ğ„2
+à€¤øid/addTaskFragment"I
+*http://schemas.android.com/apk/res/androidlabelAddTaskFragment(€„"l
+*http://schemas.android.com/apk/res/androidname3by.aermakova.todoapp.ui.task.addNew.AddTaskFragment(ƒ€„*	
+        —1*×
+Íargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"D
+*http://schemas.android.com/apk/res/androiddefaultValue-1L(íƒ„";
+*http://schemas.android.com/apk/res/androidnameid(ƒ€„˜*	
+        ›!*ï
+åargument"A
+'http://schemas.android.com/apk/res-autoargTypeinteger(±€Œø"W
+*http://schemas.android.com/apk/res/androiddefaultValue-1"œ(íƒ„2:0ÿÿÿÿÿÿÿÿÿ"=
+*http://schemas.android.com/apk/res/androidnamecode(ƒ€„œ*
+    Ÿ$“*
+     *§
+action"z
+'http://schemas.android.com/apk/res-autodestination@id/select_goal_dialog"¡(‘‚Œø2
+áƒ¤øid/select_goal_dialog"~
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"¡(»‚Œø2"
+ €„øanim/fragment_fade_enter"{
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"¡(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"ƒ
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"¡(‡…Œø2#
+!œ€„øanim/fragment_close_enter"€
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"¡(ˆ…Œø2"
+ €„øanim/fragment_close_exit"
+*http://schemas.android.com/apk/res/androidid%@+id/action_global_select_item_dialog"¡(Ğ„2-
++Æ€¤ø#id/action_global_select_item_dialog¡*
+
+    §6*ı
+ódialog"Š
+*http://schemas.android.com/apk/res/androidid"@+id/selectKeyResultDialogFragment"©(Ğ„2*
+(Şƒ¤ø id/selectKeyResultDialogFragment"W
+*http://schemas.android.com/apk/res/androidlabelSelectKeyResultDialogFragment(€„"Š
+*http://schemas.android.com/apk/res/androidnameQby.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogFragment(ƒ€„*	
+        ­4*ß
+Õargument"@
+'http://schemas.android.com/apk/res-autoargTypestring(±€Œø"G
+*http://schemas.android.com/apk/res/androiddefaultValueSelect(íƒ„">
+*http://schemas.android.com/apk/res/androidnametitle(ƒ€„®*	
+        ±#*Û
+Ñargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"D
+*http://schemas.android.com/apk/res/androiddefaultValue-1L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnamegoalId(ƒ€„²*
+    µ!©*
+
+    ¶*Ô
+Êaction"
+'http://schemas.android.com/apk/res-autodestination!@id/selectKeyResultDialogFragment"¸(‘‚Œø2*
+(Şƒ¤ø id/selectKeyResultDialogFragment"~
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"¸(»‚Œø2"
+ €„øanim/fragment_fade_enter"{
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"¸(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"ƒ
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"¸(‡…Œø2#
+!œ€„øanim/fragment_close_enter"€
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"¸(ˆ…Œø2"
+ €„øanim/fragment_close_exit"¦
+*http://schemas.android.com/apk/res/androidid0@+id/action_global_selectKeyResultDialogFragment"¸(Ğ„28
+6Ä€¤ø.id/action_global_selectKeyResultDialogFragment¸*
+
+    ¾6*ê
+àdialog"€
+*http://schemas.android.com/apk/res/androidid@+id/selectStepDialogFragment"À(Ğ„2%
+#ßƒ¤øid/selectStepDialogFragment"R
+*http://schemas.android.com/apk/res/androidlabelSelectStepDialogFragment(€„"€
+*http://schemas.android.com/apk/res/androidnameGby.aermakova.todoapp.ui.dialog.selectItem.step.SelectStepDialogFragment(ƒ€„*	
+        Ä4*ß
+Õargument"@
+'http://schemas.android.com/apk/res-autoargTypestring(±€Œø"G
+*http://schemas.android.com/apk/res/androiddefaultValueSelect(íƒ„">
+*http://schemas.android.com/apk/res/androidnametitle(ƒ€„Å*	
+        È#*à
+Öargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"D
+*http://schemas.android.com/apk/res/androiddefaultValue-1L(íƒ„"D
+*http://schemas.android.com/apk/res/androidnamekeyResultId(ƒ€„É*
+
+    Ì!À*
+    Î*À
+¶action"†
+'http://schemas.android.com/apk/res-autodestination@id/selectStepDialogFragment"Ï(‘‚Œø2%
+#ßƒ¤øid/selectStepDialogFragment"~
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"Ï(»‚Œø2"
+ €„øanim/fragment_fade_enter"{
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"Ï(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"ƒ
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"Ï(‡…Œø2#
+!œ€„øanim/fragment_close_enter"€
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"Ï(ˆ…Œø2"
+ €„øanim/fragment_close_exit"œ
+*http://schemas.android.com/apk/res/androidid+@+id/action_global_selectStepDialogFragment"Ï(Ğ„23
+1Å€¤ø)id/action_global_selectStepDialogFragmentÏ*
+    Õ6*Ù
+Ïdialog"z
+*http://schemas.android.com/apk/res/androidid@+id/pickDayDialogFragment"Ö(Ğ„2"
+ ­ƒ¤øid/pickDayDialogFragment"O
+*http://schemas.android.com/apk/res/androidlabelPickDayDialogFragment(€„"x
+*http://schemas.android.com/apk/res/androidname?by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogFragment(ƒ€„Ö*
+
+    Ù0*´
+ªaction"€
+'http://schemas.android.com/apk/res-autodestination@id/pickDayDialogFragment"Û(‘‚Œø2"
+ ­ƒ¤øid/pickDayDialogFragment"~
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"Û(»‚Œø2"
+ €„øanim/fragment_fade_enter"{
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"Û(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"ƒ
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"Û(‡…Œø2#
+!œ€„øanim/fragment_close_enter"€
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"Û(ˆ…Œø2"
+ €„øanim/fragment_close_exit"–
+*http://schemas.android.com/apk/res/androidid(@+id/action_global_pickDayDialogFragment"Û(Ğ„20
+.Ã€¤ø&id/action_global_pickDayDialogFragmentÛ*
+    á6*Ï
+Åfragment"v
+*http://schemas.android.com/apk/res/androidid@+id/taskDetailsFragment"â(Ğ„2 
+Ÿ„¤øid/taskDetailsFragment"M
+*http://schemas.android.com/apk/res/androidlabelTaskDetailsFragment(€„"q
+*http://schemas.android.com/apk/res/androidname8by.aermakova.todoapp.ui.task.details.TaskDetailsFragment(ƒ€„*	
+        æ5*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnametaskId(ƒ€„ç*
+    ê!â*
+    ë*Â
+¸fragment"n
+*http://schemas.android.com/apk/res/androidid@+id/addStepFragment"ì(Ğ„2
+ß€¤øid/addStepFragment"I
+*http://schemas.android.com/apk/res/androidlabelAddStepFragment(€„"l
+*http://schemas.android.com/apk/res/androidname3by.aermakova.todoapp.ui.step.addNew.AddStepFragment(ƒ€„*	
+        ğ1*×
+Íargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"D
+*http://schemas.android.com/apk/res/androiddefaultValue-1L(íƒ„";
+*http://schemas.android.com/apk/res/androidnameid(ƒ€„ñ*	
+        ô!*ï
+åargument"A
+'http://schemas.android.com/apk/res-autoargTypeinteger(±€Œø"W
+*http://schemas.android.com/apk/res/androiddefaultValue-1"õ(íƒ„2:0ÿÿÿÿÿÿÿÿÿ"=
+*http://schemas.android.com/apk/res/androidnamecode(ƒ€„õ*
+
+    ø$ì*
+    ú*Á
+·fragment"n
+*http://schemas.android.com/apk/res/androidid@+id/addIdeaFragment"û(Ğ„2
+Ş€¤øid/addIdeaFragment"I
+*http://schemas.android.com/apk/res/androidlabelAddIdeaFragment(€„"l
+*http://schemas.android.com/apk/res/androidname3by.aermakova.todoapp.ui.idea.addNew.AddIdeaFragment(ƒ€„*	
+        ÿ1*×
+Íargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"D
+*http://schemas.android.com/apk/res/androiddefaultValue-1L(íƒ„";
+*http://schemas.android.com/apk/res/androidnameid(ƒ€„€*	
+        ƒ!*ï
+åargument"A
+'http://schemas.android.com/apk/res-autoargTypeinteger(±€Œø"W
+*http://schemas.android.com/apk/res/androiddefaultValue-1"„(íƒ„2:0ÿÿÿÿÿÿÿÿÿ"=
+*http://schemas.android.com/apk/res/androidnamecode(ƒ€„„*
+    ‡$û*
+    ˆ*Ï
+Åfragment"v
+*http://schemas.android.com/apk/res/androidid@+id/stepDetailsFragment"‰(Ğ„2 
+„¤øid/stepDetailsFragment"M
+*http://schemas.android.com/apk/res/androidlabelStepDetailsFragment(€„"q
+*http://schemas.android.com/apk/res/androidname8by.aermakova.todoapp.ui.step.details.StepDetailsFragment(ƒ€„*	
+        5*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnamestepId(ƒ€„*
+    ‘!‰*
+    ’*Ñ
+Çfragment"v
+*http://schemas.android.com/apk/res/androidid@+id/ideaDetailsFragment"“(Ğ„2 
+´‚¤øid/ideaDetailsFragment"M
+*http://schemas.android.com/apk/res/androidlabelIdeaDetailsFragment(€„"q
+*http://schemas.android.com/apk/res/androidname8by.aermakova.todoapp.ui.idea.details.IdeaDetailsFragment(ƒ€„*	
+        —5*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnameideaId(ƒ€„˜*
+
+
+    ›!“*
+    *
+ƒdialog"’
+*http://schemas.android.com/apk/res/androidid&@+id/convertIdeaIntoTaskDialogFragment"Ÿ(Ğ„2.
+,Å¤ø$id/convertIdeaIntoTaskDialogFragment"[
+*http://schemas.android.com/apk/res/androidlabel!ConvertIdeaIntoTaskDialogFragment(€„"…
+*http://schemas.android.com/apk/res/androidnameLby.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaIntoTaskDialogFragment(ƒ€„*	
+        £=*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnameideaId(ƒ€„¤*
+    §!Ÿ*
+    ¨*ä
+Úaction"˜
+'http://schemas.android.com/apk/res-autodestination%@id/convertIdeaIntoTaskDialogFragment"©(‘‚Œø2.
+,Å¤ø$id/convertIdeaIntoTaskDialogFragment"~
+'http://schemas.android.com/apk/res-auto	enterAnim@anim/fragment_fade_enter"©(»‚Œø2"
+ €„øanim/fragment_fade_enter"{
+'http://schemas.android.com/apk/res-autoexitAnim@anim/fragment_fade_exit"©(Ã‚Œø2!
+Ÿ€„øanim/fragment_fade_exit"ƒ
+'http://schemas.android.com/apk/res-autopopEnterAnim@anim/fragment_close_enter"©(‡…Œø2#
+!œ€„øanim/fragment_close_enter"€
+'http://schemas.android.com/apk/res-autopopExitAnim@anim/fragment_close_exit"©(ˆ…Œø2"
+ €„øanim/fragment_close_exit"®
+*http://schemas.android.com/apk/res/androidid4@+id/action_global_convertIdeaIntoTaskDialogFragment"©(Ğ„2<
+:½€¤ø2id/action_global_convertIdeaIntoTaskDialogFragment©*
+
+    ¯6*Ü
+Òdialog"z
+*http://schemas.android.com/apk/res/androidid@+id/confirmDialogFragment"±(Ğ„2"
+ ½¤øid/confirmDialogFragment"O
+*http://schemas.android.com/apk/res/androidlabelConfirmDialogFragment(€„"u
+*http://schemas.android.com/apk/res/androidname<by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogFragment(ƒ€„*	
+        ´.*ß
+Õargument"@
+'http://schemas.android.com/apk/res-autoargTypestring(±€Œø"G
+*http://schemas.android.com/apk/res/androiddefaultValueSelect(íƒ„">
+*http://schemas.android.com/apk/res/androidnametitle(ƒ€„µ*
+    ¸#±*
+    ¹*®
+¤action"€
+'http://schemas.android.com/apk/res-autodestination@id/confirmDialogFragment"º(‘‚Œø2"
+ ½¤øid/confirmDialogFragment"–
+*http://schemas.android.com/apk/res/androidid(@+id/action_global_confirmDialogFragment"º(Ğ„20
+.¼€¤ø&id/action_global_confirmDialogFragmentº*
+
+    ¼6*À
+¶fragment"p
+*http://schemas.android.com/apk/res/androidid@+id/editGoalFragment"¾(Ğ„2
+ö¤øid/editGoalFragment"J
+*http://schemas.android.com/apk/res/androidlabelEditGoalFragment(€„"k
+*http://schemas.android.com/apk/res/androidname2by.aermakova.todoapp.ui.goal.edit.EditGoalFragment(ƒ€„*	
+        Â2*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnamegoalId(ƒ€„Ã*
+    Æ!¾*
+    Ç*™
+action"v
+'http://schemas.android.com/apk/res-autodestination@id/editGoalFragment"È(‘‚Œø2
+ö¤øid/editGoalFragment"Œ
+*http://schemas.android.com/apk/res/androidid#@+id/action_global_editGoalFragment"È(Ğ„2+
+)¾€¤ø!id/action_global_editGoalFragmentÈ*
+    Ê1*•
+‹action"t
+'http://schemas.android.com/apk/res-autodestination@id/addTaskFragment"Ë(‘‚Œø2
+à€¤øid/addTaskFragment"Š
+*http://schemas.android.com/apk/res/androidid"@+id/action_global_addTaskFragment"Ë(Ğ„2*
+(»€¤ø id/action_global_addTaskFragmentË*
+    Í0*Á
+·fragment"p
+*http://schemas.android.com/apk/res/androidid@+id/editStepFragment"Î(Ğ„2
+ø¤øid/editStepFragment"J
+*http://schemas.android.com/apk/res/androidlabelEditStepFragment(€„"k
+*http://schemas.android.com/apk/res/androidname2by.aermakova.todoapp.ui.step.edit.EditStepFragment(ƒ€„*	
+        Ò2*Û
+Ñargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"D
+*http://schemas.android.com/apk/res/androiddefaultValue-1L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnamestepId(ƒ€„Ó*
+    Ö!Î*
+    ×*™
+action"v
+'http://schemas.android.com/apk/res-autodestination@id/editStepFragment"Ø(‘‚Œø2
+ø¤øid/editStepFragment"Œ
+*http://schemas.android.com/apk/res/androidid#@+id/action_global_editStepFragment"Ø(Ğ„2+
+)À€¤ø!id/action_global_editStepFragmentØ*
+    Ú1*À
+¶fragment"p
+*http://schemas.android.com/apk/res/androidid@+id/editTaskFragment"Û(Ğ„2
+ù¤øid/editTaskFragment"J
+*http://schemas.android.com/apk/res/androidlabelEditTaskFragment(€„"k
+*http://schemas.android.com/apk/res/androidname2by.aermakova.todoapp.ui.task.edit.EditTaskFragment(ƒ€„*	
+        ß2*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnametaskId(ƒ€„à*
+    ã!Û*
+    ä*™
+action"v
+'http://schemas.android.com/apk/res-autodestination@id/editTaskFragment"å(‘‚Œø2
+ù¤øid/editTaskFragment"Œ
+*http://schemas.android.com/apk/res/androidid#@+id/action_global_editTaskFragment"å(Ğ„2+
+)Á€¤ø!id/action_global_editTaskFragmentå*
+    ç1*Â
+¸fragment"p
+*http://schemas.android.com/apk/res/androidid@+id/editIdeaFragment"è(Ğ„2
+÷¤øid/editIdeaFragment"L
+*http://schemas.android.com/apk/res/androidlabelfragment_edit_idea(€„"k
+*http://schemas.android.com/apk/res/androidname2by.aermakova.todoapp.ui.idea.edit.EditIdeaFragment(ƒ€„*	
+        ì3*Ú
+Ğargument">
+'http://schemas.android.com/apk/res-autoargTypelong(±€Œø"C
+*http://schemas.android.com/apk/res/androiddefaultValue0L(íƒ„"?
+*http://schemas.android.com/apk/res/androidnameideaId(ƒ€„í*
+    ğ!è*™
+action"v
+'http://schemas.android.com/apk/res-autodestination@id/editIdeaFragment"ñ(‘‚Œø2
+÷¤øid/editIdeaFragment"Œ
+*http://schemas.android.com/apk/res/androidid#@+id/action_global_editIdeaFragment"ñ(Ğ„2+
+)¿€¤ø!id/action_global_editIdeaFragmentñ*
+
+ñp

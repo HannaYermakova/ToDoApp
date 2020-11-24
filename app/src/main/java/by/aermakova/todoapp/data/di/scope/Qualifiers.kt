@@ -1,8 +1,5 @@
 package by.aermakova.todoapp.data.di.scope
 
-import by.aermakova.todoapp.databinding.BottomSheetSortTaskBinding
-import by.aermakova.todoapp.ui.task.main.TasksFragment
-import javax.inject.Named
 import javax.inject.Qualifier
 
 
@@ -128,3 +125,9 @@ annotation class TitleDialogDeleteIdea
 
 @Qualifier
 annotation class TitleSelectKeyResult
+
+@Qualifier
+annotation class LoginFacebook
+
+@Qualifier
+annotation class LoginGoogle

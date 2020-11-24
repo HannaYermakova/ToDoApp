@@ -14,8 +14,7 @@ import com.google.firebase.auth.FacebookAuthProvider
 class FacebookLoginManager(
     private val loginListener: LoginStatusListener,
     private val message: String?
-) :
-    AppLoginManager {
+) : AppLoginManager {
 
     companion object {
         private const val FACEBOOK_PERMISSION_EMAIL = "email"
@@ -58,7 +57,7 @@ class FacebookLoginManager(
             })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-        return _fbCallbackManager.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        _fbCallbackManager.onActivityResult(requestCode, resultCode, data)
     }
 }

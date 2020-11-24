@@ -131,8 +131,22 @@
                 android:padding="16dp"
                 android:text="@string/login_with_facebook"
                 app:addLoginMethod="@{viewModel.facebookLoginManager}"
-
                 app:layout_constraintTop_toBottomOf="@id/register_button_email"
+                app:onLoginClick="@{viewModel.loginButton}" />
+
+            <Button
+                android:id="@+id/login_button_google"
+                style="@style/RegularButtonStyleBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:drawableStart="@drawable/googleg_standard_color_18"
+                android:padding="16dp"
+                android:text="@string/login_with_google"
+                app:addLoginMethod="@{viewModel.googleLoginManager}"
+                app:layout_constraintTop_toBottomOf="@id/login_button_facebook"
                 app:onLoginClick="@{viewModel.loginButton}" />
 
             <androidx.constraintlayout.widget.Guideline

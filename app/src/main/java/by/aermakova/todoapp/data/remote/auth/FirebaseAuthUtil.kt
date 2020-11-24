@@ -2,10 +2,7 @@ package by.aermakova.todoapp.data.remote.auth
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -87,5 +84,19 @@ object FirebaseAuthUtil {
                 }
             }
         }
+    }
+
+    fun firebaseAuthWithGoogle(idToken: String, loginListener: LoginStatusListener) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        authInstance?.signInWithCredential(credential)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("A_FirebaseAuthUtil", "firebaseAuthWithGoogle ok")
+                    signInForDataBase(credential, loginListener)
+                } else {
+                    Log.d("A_FirebaseAuthUtil", "firebaseAuthWithGoogle error")
+                    loginListener.onError(task.exception?.message)
+                }
+            }
     }
 }

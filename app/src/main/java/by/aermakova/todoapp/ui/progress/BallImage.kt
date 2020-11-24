@@ -20,7 +20,7 @@ class BallImage(
         style = Paint.Style.FILL
     }
     var delay: Long = 0
-    private val moveDuration = 150L
+    private val moveDuration = 250L
     private var animator: ValueAnimator? = null
 
     fun draw(canvas: Canvas) {

@@ -33,7 +33,7 @@ class BallsProgressIndicator @JvmOverloads constructor(
             (paneHeight - ballRadius)
         ).apply {
             color = ballColor
-            delay = i * 250L
+            delay = i * 100L
         }
     }
 
