@@ -12,10 +12,8 @@ import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.TaskRepository
 import by.aermakova.todoapp.data.useCase.actionEnum.TaskFilterItem
 import by.aermakova.todoapp.data.useCase.actionEnum.TaskSortItem
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
-import io.reactivex.disposables.Disposable
 
 class TaskInteractor(
     private val taskRepository: TaskRepository,
@@ -78,17 +76,11 @@ class TaskInteractor(
         }
     }
 
-    fun getAllTasks(): Observable<List<TaskEntity>> {
-        return taskRepository.getAllTasks()
-    }
+    fun getAllTasks() = taskRepository.getAllTasks()
 
-    fun getFilterItems(): List<TaskFilterItem> {
-        return TaskFilterItem.values().asList()
-    }
+    fun getFilterItems() = TaskFilterItem.values().asList()
 
-    fun getSortItems(): Array<TaskSortItem> {
-        return TaskSortItem.values()
-    }
+    fun getSortItems() = TaskSortItem.values()
 
     fun updateTask(status: Boolean, taskId: Long) {
         taskRepository.updateTask(status, taskId)
@@ -100,12 +92,10 @@ class TaskInteractor(
         }
     }
 
-    fun getTaskByStepId(stepId: Long): Single<List<TaskEntity>> {
-        return taskRepository.getTaskByStepId(stepId)
-    }
+    fun getTaskByStepId(stepId: Long) = taskRepository.getTaskByStepId(stepId)
 
-    fun markStepsTasksAsDone(status: Boolean, stepId: Long): Disposable {
-        return taskRepository.getTaskByStepId(stepId).subscribe({ list ->
+    fun markStepsTasksAsDone(status: Boolean, stepId: Long) =
+        taskRepository.getTaskByStepId(stepId).subscribe({ list ->
             list.forEach {
                 updateTask(status, it.taskId)
                 updateTaskToRemote(it)
@@ -113,7 +103,6 @@ class TaskInteractor(
         },
             { it.printStackTrace() }
         )
-    }
 
     override fun addItemsDataListener(dataObserver: Observer<List<TaskRemoteModel>>) {
         taskRemoteDatabase.addDataListener(dataObserver)
@@ -138,10 +127,5 @@ class TaskInteractor(
         return Single.just(true)
     }
 
-    fun deleteTaskByIdLocal(taskId: Long): Single<Boolean> {
-        return Single.just(taskRepository.deleteTask(taskId))
-    }
-
-    fun updateTextLocal(newText: String, itemId: Long) =
-        taskRepository.updateTaskText(newText, itemId)
+    fun deleteTaskByIdLocal(taskId: Long) = Single.just(taskRepository.deleteTask(taskId))
 }

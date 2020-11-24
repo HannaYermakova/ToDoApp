@@ -4,7 +4,6 @@ import by.aermakova.todoapp.data.db.entity.GoalEntity
 import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.model.FunctionSelect
-import by.aermakova.todoapp.data.model.GoalModel
 import by.aermakova.todoapp.data.model.TextModel
 import by.aermakova.todoapp.data.model.toTextModel
 import by.aermakova.todoapp.data.remote.RemoteDatabase
@@ -14,7 +13,6 @@ import by.aermakova.todoapp.data.repository.GoalRepository
 import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.repository.TaskRepository
 import by.aermakova.todoapp.data.useCase.editText.ChangeItemText
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -65,20 +63,14 @@ class GoalInteractor(
         }
     }
 
-    fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>> {
-        return goalRepository.getAllGoalsWithKeyResults()
-    }
+    fun getAllGoalsWithKeyResults() = goalRepository.getAllGoalsWithKeyResults()
 
-    fun getAllUndoneGoals(): Observable<List<GoalEntity>> {
-        return goalRepository.getAllUndoneGoals()
-    }
+    fun getAllUndoneGoals() = goalRepository.getAllUndoneGoals()
 
     fun getGoalWithKeyResultsAndUnattachedTasks(
         goalId: Long,
         action: FunctionSelect
-    ): Single<GoalModel> {
-        return goalRepository.getGoalWithInnerItems(goalId, action)
-    }
+    ) = goalRepository.getGoalWithInnerItems(goalId, action)
 
     fun updateGoalStatus(status: Boolean, goalId: Long): Boolean {
         goalRepository.updateGoalStatus(status, goalId)
@@ -110,9 +102,7 @@ class GoalInteractor(
         }
     }
 
-    fun getKeyResultsByIds(keyResIds: List<Long>): Single<List<KeyResultEntity>> {
-        return goalRepository.getKeyResultByIds(keyResIds)
-    }
+    fun getKeyResultsByIds(keyResIds: List<Long>) = goalRepository.getKeyResultByIds(keyResIds)
 
     fun createKeyResultsList(goalId: Long, _keyResultsList: Observer<List<TextModel>>): Disposable {
         return getGoalKeyResultsById(goalId)
@@ -170,8 +160,8 @@ class GoalInteractor(
         keyResRemoteDatabase.saveData(keyResultEntity.toRemote())
     }
 
-    override fun checkIsDone(goalId: Long) =
-        goalRepository.checkGoalDone(goalId)
+    override fun checkIsDone(id: Long) =
+        goalRepository.checkGoalDone(id)
 
     fun deleteGoalAndAllItsItemsLocal(goalId: Long): Single<Boolean> {
         goalRepository.deleteGoalAndAllItsItems(goalId)
@@ -188,23 +178,13 @@ class GoalInteractor(
         return Single.just(true)
     }
 
-    fun updateGoalTextLocal(newGoalTitle: String, goalId: Long): Boolean {
-        return goalRepository.updateGoalText(newGoalTitle, goalId)
-    }
-
-    fun updateGoalTextRemote(updatedGoalEntity: GoalEntity) {
-        goalsRemoteDatabase.updateData(updatedGoalEntity.toRemote())
-    }
-
-    override fun updateItemTextLocal(newText: String, itemId: Long): Boolean {
-        return goalRepository.updateGoalText(newText, itemId)
-    }
+    override fun updateItemTextLocal(newText: String, itemId: Long) =
+        goalRepository.updateGoalText(newText, itemId)
 
     override fun updateItemToRemote(entity: GoalEntity?) {
         entity?.let { goalsRemoteDatabase.updateData(entity.toRemote()) }
     }
 
-    override fun getItemById(itemId: Long): Single<GoalEntity> {
-        return goalRepository.getSingleGoalById(itemId)
-    }
+    override fun getItemById(itemId: Long) =
+        goalRepository.getSingleGoalById(itemId)
 }

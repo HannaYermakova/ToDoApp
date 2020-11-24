@@ -7,6 +7,7 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -49,7 +50,7 @@ class FindGoalUseCase(
     ) {
         goalId?.let {
             disposable.add(
-                goalInteractor.getGoalById(goalId).observeEntity(
+                goalInteractor.getItemById(goalId).observeEntity(
                     successAction, errorAction
                 )
             )
@@ -72,6 +73,17 @@ fun <Entity> Observable<Entity>.observeEntity(
     errorAction: FunctionString? = null
 ): Disposable {
     return observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { successAction.invoke(it) },
+            { it.handleError(it.message, errorAction) }
+        )
+}
+fun <Entity> Single<Entity>.observeEntity(
+    successAction: (Entity) -> Unit,
+    errorAction: FunctionString? = null
+): Disposable {
+    return subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
             { successAction.invoke(it) },
             { it.handleError(it.message, errorAction) }

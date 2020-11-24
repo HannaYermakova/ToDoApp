@@ -9,7 +9,6 @@ import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.StepRepository
 import by.aermakova.todoapp.data.useCase.editText.ChangeItemText
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
@@ -19,25 +18,18 @@ class StepInteractor(
     private val stepRemoteDatabase: RemoteDatabase<StepRemoteModel>
 ) : RemoteSync<StepRemoteModel>, DeleteGoalItems, CheckItemIsDone, ChangeItemText<StepEntity> {
 
-    fun getStepsByKeyResultId(keyResultId: Long): Observable<List<StepEntity>> {
-        return stepRepository.getStepsByKeyResultId(keyResultId)
-    }
+    fun getStepsByKeyResultId(keyResultId: Long) = stepRepository.getStepsByKeyResultId(keyResultId)
 
-    fun getStepById(stepId: Long): Single<StepEntity> {
-        return stepRepository.getStepById(stepId)
-    }
+    fun getStepById(stepId: Long) = stepRepository.getStepById(stepId)
 
-    private fun saveStepInLocalDatabase(stepEntity: StepEntity): Long {
-        return stepRepository.saveStepEntity(stepEntity)
-    }
+    private fun saveStepInLocalDatabase(stepEntity: StepEntity) =
+        stepRepository.saveStepEntity(stepEntity)
 
     private fun saveTaskToRemote(entity: StepEntity) {
         stepRemoteDatabase.saveData(entity.toRemote())
     }
 
-    fun getAllSteps(): Observable<List<StepEntity>> {
-        return stepRepository.getAllSteps()
-    }
+    fun getAllSteps() = stepRepository.getAllSteps()
 
     fun createStep(text: String, goalId: Long, keyResultId: Long): Single<Disposable> {
         return Single.create<Long> {
@@ -74,10 +66,6 @@ class StepInteractor(
         stepRepository.saveSteps(list.map { it.toLocal() })
     }
 
-    fun getUndoneStepsByKeyResultId(keyResultId: Long): Single<List<StepEntity>> {
-        return stepRepository.getUndoneStepsByKeyResultId(keyResultId)
-    }
-
     override fun deleteGoalsItemsById(goalId: Long) =
         stepRepository.getAllStepsIdByGoalId(goalId).map { ids ->
             ids.map { stepRemoteDatabase.removeData(it) }
@@ -88,13 +76,7 @@ class StepInteractor(
         return Single.just(true)
     }
 
-    override fun checkIsDone(id: Long): Single<Boolean> {
-        return stepRepository.checkStepIsDone(id)
-    }
-
-    fun updateStepTextLocal(newText: String, stepId: Long): Boolean {
-        return stepRepository.updateStepText(newText, stepId)
-    }
+    override fun checkIsDone(id: Long) = stepRepository.checkStepIsDone(id)
 
     override fun updateItemTextLocal(newText: String, itemId: Long) =
         stepRepository.updateStepText(newText, itemId)
@@ -103,5 +85,5 @@ class StepInteractor(
         entity?.let { stepRemoteDatabase.updateData(it.toRemote()) }
     }
 
-    override fun getItemById(itemId: Long)= getStepById(itemId)
+    override fun getItemById(itemId: Long) = getStepById(itemId)
 }

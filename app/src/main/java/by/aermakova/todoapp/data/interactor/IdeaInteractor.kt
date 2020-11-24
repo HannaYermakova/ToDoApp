@@ -10,7 +10,6 @@ import by.aermakova.todoapp.data.remote.model.toRemote
 import by.aermakova.todoapp.data.remote.sync.RemoteSync
 import by.aermakova.todoapp.data.repository.IdeaRepository
 import by.aermakova.todoapp.data.useCase.editText.ChangeItemText
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Single
 
@@ -43,9 +42,7 @@ class IdeaInteractor(
         }
     }
 
-    fun getAllIdeas(): Observable<List<IdeaEntity>> {
-        return ideaRepository.getAllIdeas()
-    }
+    fun getAllIdeas() = ideaRepository.getAllIdeas()
 
     fun deleteIdea(ideaId: Long) {
         ideaRepository.deleteIdea(ideaId)
@@ -60,9 +57,7 @@ class IdeaInteractor(
         ideaRepository.saveIdeas(list.map { it.toLocal() })
     }
 
-    fun getIdeasByStepId(stepId: Long): Single<List<IdeaEntity>> {
-        return ideaRepository.getIdeaByStepId(stepId)
-    }
+    fun getIdeasByStepId(stepId: Long) = ideaRepository.getIdeaByStepId(stepId)
 
     override fun deleteGoalsItemsById(goalId: Long) =
         ideaRepository.getAllIdeasIdByGoalId(goalId).map { ids ->
@@ -79,9 +74,7 @@ class IdeaInteractor(
         return Single.just(true)
     }
 
-    fun deleteIdeaByIdLocal(itemId: Long): Single<Boolean> {
-        return Single.just(ideaRepository.deleteIdea(itemId))
-    }
+    fun deleteIdeaByIdLocal(itemId: Long) = Single.just(ideaRepository.deleteIdea(itemId))
 
     override fun updateItemTextLocal(newText: String, itemId: Long) =
         ideaRepository.updateIdeaText(newText, itemId)

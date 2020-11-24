@@ -6,6 +6,7 @@ import by.aermakova.todoapp.data.model.*
 import by.aermakova.todoapp.util.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class FindIdeaUseCase(
     private val ideaInteractor: IdeaInteractor
@@ -44,6 +45,7 @@ class FindIdeaUseCase(
         ideaId?.let {
             disposable.add(
                 ideaInteractor.getIdeaById(ideaId)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                         { successAction.invoke( it) },

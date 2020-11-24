@@ -1,7 +1,6 @@
 package by.aermakova.todoapp.data.useCase.bottomMenu
 
 import android.content.res.Resources
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
