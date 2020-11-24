@@ -1,13 +1,0 @@
-
-Ä
-9
-android*http://schemas.android.com/apk/res/androidFrameLayout"\style"@style/MessengerButton.White.Small"2+
-)·‚Èø!style/MessengerButton.White.Small"y
-*http://schemas.android.com/apk/res/androidid@+id/messenger_send_button"(Ğ„2"
- á‚¤øid/messenger_send_button*
-  *ˆ
-ÿTextView"dstyle&@style/MessengerButtonText.White.Small"2/
--¾‚Èø%style/MessengerButtonText.White.Small"Œ
-*http://schemas.android.com/apk/res/androidtext"@string/messenger_send_button_text"(Ï‚„2+
-)—‚Äø!string/messenger_send_button_text*	
-

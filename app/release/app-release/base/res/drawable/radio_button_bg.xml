@@ -1,28 +1,0 @@
-
-È
-9
-android*http://schemas.android.com/apk/res/androidselector*
-    E*¾
-µitem"ˆ
-*http://schemas.android.com/apk/res/androiddrawable@drawable/pressed_radio_button"(™ƒ„2'
-%ƒ‚œødrawable/pressed_radio_button"P
-*http://schemas.android.com/apk/res/androidstate_checkedtrue"( „2:@"P
-*http://schemas.android.com/apk/res/androidstate_pressedtrue"(§„2:@*
-    '*ì
-ãitem"ˆ
-*http://schemas.android.com/apk/res/androiddrawable@drawable/regular_radio_button"(™ƒ„2'
-%†‚œødrawable/regular_radio_button"P
-*http://schemas.android.com/apk/res/androidstate_pressedtrue"(§„2:@*
-    	'*ì
-ãitem"ˆ
-*http://schemas.android.com/apk/res/androiddrawable@drawable/regular_radio_button"
-(™ƒ„2'
-%†‚œødrawable/regular_radio_button"P
-*http://schemas.android.com/apk/res/androidstate_checkedtrue"
-( „2:@
-*
-    '*š
-‘item"ˆ
-*http://schemas.android.com/apk/res/androiddrawable@drawable/pressed_radio_button"(™ƒ„2'
-%ƒ‚œødrawable/pressed_radio_button*	
-<

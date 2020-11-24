@@ -1,41 +1,0 @@
-
-”
-9
-android*http://schemas.android.com/apk/res/androidmenu*
-
-    A*ß
-Öitem"l
-*http://schemas.android.com/apk/res/androidicon@drawable/ic_goals"(‚€„2
-Ïœødrawable/ic_goals"o
-*http://schemas.android.com/apk/res/androidid@+id/navigation_goals"(Ğ„2
-ˆƒ¤øid/navigation_goals"o
-*http://schemas.android.com/apk/res/androidtitle@string/title_goals"(áƒ„2
-ğ‚Äøstring/title_goals*
-
-    .*ß
-Öitem"l
-*http://schemas.android.com/apk/res/androidicon@drawable/ic_steps"	(‚€„2
-Úœødrawable/ic_steps"o
-*http://schemas.android.com/apk/res/androidid@+id/navigation_steps"	(Ğ„2
-‹ƒ¤øid/navigation_steps"o
-*http://schemas.android.com/apk/res/androidtitle@string/title_steps"	(áƒ„2
-õ‚Äøstring/title_steps	*
-
-    .*ß
-Öitem"l
-*http://schemas.android.com/apk/res/androidicon@drawable/ic_tasks"(‚€„2
-Ûœødrawable/ic_tasks"o
-*http://schemas.android.com/apk/res/androidid@+id/navigation_tasks"(Ğ„2
-Œƒ¤øid/navigation_tasks"o
-*http://schemas.android.com/apk/res/androidtitle@string/title_tasks"(áƒ„2
-÷‚Äøstring/title_tasks*
-
-    .*ß
-Öitem"l
-*http://schemas.android.com/apk/res/androidicon@drawable/ic_ideas"(‚€„2
-Ñœødrawable/ic_ideas"o
-*http://schemas.android.com/apk/res/androidid@+id/navigation_ideas"(Ğ„2
-Šƒ¤øid/navigation_ideas"o
-*http://schemas.android.com/apk/res/androidtitle@string/title_ideas"(áƒ„2
-ò‚Äøstring/title_ideas*	
-.
