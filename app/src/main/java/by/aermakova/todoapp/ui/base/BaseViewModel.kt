@@ -14,9 +14,9 @@ abstract class BaseViewModel : ViewModel() {
 
     val errorAction: FunctionString = { _status.onNext(Status.ERROR.apply { message = it }) }
 
-    val loadingAction: () -> Unit = { _status.onNext(Status.LOADING) }
+    val loadingAction = { _status.onNext(Status.LOADING) }
 
-    val successAction: () -> Unit = { _status.onNext(Status.SUCCESS) }
+    val successAction = { _status.onNext(Status.SUCCESS) }
 
     val popBack = { mainFlowNavigation?.popBack() }
 

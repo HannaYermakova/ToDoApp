@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.StepInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +18,7 @@ class CreateStepUseCase(
         tempStepTitle: String?,
         tempGoalId: Long?,
         tempKeyResultId: Long?,
-        successAction: () -> Unit,
+        successAction: FunctionNoArgs,
         errorAction: FunctionString? = null
     ) {
         if (!tempStepTitle.isNullOrBlank()

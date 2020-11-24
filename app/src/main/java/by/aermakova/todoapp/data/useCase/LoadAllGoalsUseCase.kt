@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.GoalInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +18,7 @@ class LoadAllGoalsUseCase(
         goalId: Long,
         disposable: CompositeDisposable,
         mapAction: () -> Disposable?,
-        successAction: () -> Unit,
+        successAction: FunctionNoArgs,
         errorAction: FunctionString
     ) {
         disposable.add(

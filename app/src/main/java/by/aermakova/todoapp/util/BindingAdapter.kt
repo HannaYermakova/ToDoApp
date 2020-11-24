@@ -164,7 +164,7 @@ fun setSaveGoalButtonVisibility(
 }
 
 @BindingAdapter("app:onClick")
-fun clickListener(view: View, listener: (() -> Unit)?) {
+fun clickListener(view: View, listener: FunctionNoArgs?) {
     view.setOnClickListener {
         listener?.invoke()
     }

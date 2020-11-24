@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.remote.sync
 
 import by.aermakova.todoapp.data.interactor.*
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.remote.model.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +17,7 @@ class RemoteDatabaseSynchronization(
 
     private lateinit var disposable: CompositeDisposable
 
-    fun startSync(compositeDisposable: CompositeDisposable, finishAction: () -> Unit) {
+    fun startSync(compositeDisposable: CompositeDisposable, finishAction: FunctionNoArgs) {
         disposable = compositeDisposable
         syncItemsRemoteDataBase(goalInteractor) {
             syncItemsRemoteDataBase(keyResultInteractor) {
@@ -33,7 +34,7 @@ class RemoteDatabaseSynchronization(
 
     private fun <RemoteModel : BaseRemoteModel> syncItemsRemoteDataBase(
         interactor: RemoteSync<RemoteModel>,
-        nextAction: () -> Unit
+        nextAction: FunctionNoArgs
     ) {
         val dataObserver = PublishSubject.create<List<RemoteModel>>()
         interactor.addItemsDataListener(dataObserver)

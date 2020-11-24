@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
 import io.reactivex.Single
@@ -19,7 +20,7 @@ class CreateIdeaUseCase(
         tempGoalId: Long?,
         tempKeyResultId: Long?,
         tempStepId: Long?,
-        successAction: () -> Unit,
+        successAction: FunctionNoArgs,
         errorAction: FunctionString? = null
     ) {
         if (!tempIdeaTitle.isNullOrBlank()

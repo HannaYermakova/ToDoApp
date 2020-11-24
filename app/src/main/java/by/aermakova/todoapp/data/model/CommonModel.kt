@@ -3,6 +3,7 @@ package by.aermakova.todoapp.data.model
 typealias FunctionLong = (Long) -> Unit
 typealias FunctionString = (String) -> Unit
 typealias FunctionSelect = (Long, Boolean) -> Unit
+typealias FunctionNoArgs = () -> Unit
 
 open class CommonModel(
     val id: Long,

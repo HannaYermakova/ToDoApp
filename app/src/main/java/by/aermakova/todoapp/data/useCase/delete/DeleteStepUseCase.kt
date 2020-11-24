@@ -5,6 +5,7 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.remote.DeleteStepItems
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.util.handleError
@@ -37,7 +38,7 @@ class DeleteStepUseCase(
 
     private fun deleteItemsFromRemote(
         deleteStepItems: DeleteStepItems,
-        nextAction: () -> Unit
+        nextAction: FunctionNoArgs
     ) = deleteStepItems.deleteStepItemsById(itemId)
         .subscribeOn(Schedulers.io())
         .subscribe(

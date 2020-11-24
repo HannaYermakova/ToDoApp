@@ -2,6 +2,7 @@ package by.aermakova.todoapp.data.useCase.delete
 
 import android.util.Log
 import by.aermakova.todoapp.data.interactor.*
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.util.handleError
@@ -40,7 +41,7 @@ class DeleteGoalUseCase(
 
     private fun deleteGoalItemsFromRemote(
         deleteGoalItems: DeleteGoalItems,
-        nextAction: () -> Unit
+        nextAction: FunctionNoArgs
     ) = deleteGoalItems.deleteGoalsItemsById(itemId)
         .subscribeOn(Schedulers.io())
         .subscribe(

@@ -6,10 +6,12 @@ import by.aermakova.todoapp.data.di.scope.DialogConvertIdea
 import by.aermakova.todoapp.data.di.scope.DialogSelectKeyResult
 import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.di.scope.TitleSelectKeyResult
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.useCase.CreateStepUseCase
 import by.aermakova.todoapp.data.useCase.LoadIdeaDetailsUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.base.DetailsScreen
 import by.aermakova.todoapp.ui.dialog.convertIdea.ConvertIdeaDialogNavigator
 import by.aermakova.todoapp.ui.dialog.selectItem.keyResult.SelectKeyResultDialogNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -25,7 +27,7 @@ class IdeaDetailsViewModel @Inject constructor(
     private val loadIdeaDetails: LoadIdeaDetailsUseCase,
     private val createStepUseCase: CreateStepUseCase,
     private val ideaId: Long
-) : BaseViewModel() {
+) : BaseViewModel(), DetailsScreen {
 
     override val mainFlowNavigation: MainFlowNavigation
         get() = navigation
@@ -129,4 +131,10 @@ class IdeaDetailsViewModel @Inject constructor(
             }
         }
     }
+
+    override val openEditFragment: FunctionNoArgs
+        get() = { mainFlowNavigation.navigateToEditElementFragment(ideaId) }
+
+    override val editButtonIsVisible: Boolean
+        get() = true
 }

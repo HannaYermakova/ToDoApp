@@ -24,7 +24,7 @@ class EditIdeaViewModel @Inject constructor(
 
     private val _saveIdeaTextSuccess = BehaviorSubject.create<Boolean>()
 
-    val saveStep = {
+    val saveIdea = {
         changeIdeaTextUseCase.saveChanges(ideaId, disposable, _saveIdeaTextSuccess, errorAction)
     }
 

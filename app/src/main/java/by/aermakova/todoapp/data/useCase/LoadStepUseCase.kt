@@ -55,7 +55,7 @@ class LoadStepUseCase(
         disposable: CompositeDisposable,
         stepId: Long,
         status: Boolean,
-        successAction: () -> Unit,
+        successAction: FunctionNoArgs,
         errorAction: FunctionString
     ) {
         disposable.add(

@@ -18,15 +18,11 @@
         app:paddingTopAndBottom="@{null}">
 
         <ImageButton
+            style="@style/CustomBackButton"
             android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:background="@drawable/back_button_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:onClick="@{viewModel.popBack}"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+            app:onClick="@{viewModel.popBack}"/>
 
         <TextView
             android:id="@+id/title"
@@ -40,6 +36,14 @@
             app:layout_constraintStart_toEndOf="@id/back_button"
             app:layout_constraintTop_toTopOf="@id/back_button"
             tools:text="My Idea" />
+
+        <ImageButton
+            android:id="@+id/edit_button"
+            style="@style/CustomEditButton"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title"
+            app:onClick="@{viewModel.openEditFragment}"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/attach_card"

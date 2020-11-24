@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.util.handleError
@@ -44,8 +45,8 @@ class EditTaskUseCase(
     fun saveUpdatedTaskLocal(
         disposable: CompositeDisposable,
         task: TaskEntity,
-        loadingAction: () -> Unit,
-        successAction: () -> Unit,
+        loadingAction: FunctionNoArgs,
+        successAction: FunctionNoArgs,
         errorAction: FunctionString
     ) {
         loadingAction.invoke()

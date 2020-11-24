@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.useCase
 
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.data.model.IdeaModel
 import by.aermakova.todoapp.data.model.toCommonModel
@@ -57,7 +58,7 @@ class LoadIdeaDetailsUseCase(
     fun saveIdeaDetails(
         ideaId: Long,
         disposable: CompositeDisposable,
-        successAction: () -> Unit,
+        successAction: FunctionNoArgs,
         errorAction: FunctionString
     ) {
         disposable.add(

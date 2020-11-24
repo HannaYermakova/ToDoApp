@@ -25,16 +25,18 @@
 
             <ImageButton
                 android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:background="@drawable/back_button_background"
+                style="@style/CustomBackButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:onClick="@{viewModel.popBack}"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+                app:onClick="@{viewModel.popBack}" />
+
+            <ImageButton
+                android:id="@+id/save_button"
+                style="@style/CustomSaveButton"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title"
+                app:onClick="@{viewModel.saveStep}" />
 
             <TextView
                 android:id="@+id/title"
@@ -66,16 +68,6 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:tempTitle="@{viewModel.changeStepTextUseCase.newItemText}" />
 
-            <Button
-                android:id="@+id/save_button"
-                style="@style/AccentButtonStyle"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:elevation="@dimen/elevation_button"
-                android:text="@string/save_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:onClick="@{viewModel.saveStep}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

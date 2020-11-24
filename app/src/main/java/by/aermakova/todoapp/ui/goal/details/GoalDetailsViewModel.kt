@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.di.scope.NavigationGoals
 import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.model.CommonModel
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionSelect
 import by.aermakova.todoapp.data.model.GoalModel
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.LoadAllGoalsUseCase
 import by.aermakova.todoapp.ui.base.BaseViewModel
+import by.aermakova.todoapp.ui.base.DetailsScreen
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
 import by.aermakova.todoapp.util.Status
 import io.reactivex.Observable
@@ -20,20 +22,26 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
+
 class GoalDetailsViewModel @Inject constructor(
     @NavigationGoals private val navigation: MainFlowNavigation,
     private val goalInteractor: GoalInteractor,
     private val loadAllGoalsUseCase: LoadAllGoalsUseCase,
     private val findGoalUseCase: FindGoalUseCase,
     private val goalId: Long
-) : BaseViewModel() {
+) : BaseViewModel(), DetailsScreen {
 
     override val mainFlowNavigation: MainFlowNavigation
         get() = navigation
 
+    override val openEditFragment: FunctionNoArgs
+        get() = { mainFlowNavigation.navigateToEditElementFragment(goalId) }
+
+    override val editButtonIsVisible: Boolean
+        get() = goalModel.value?.status ?: true
+
     private val _markedKeyResultIds = arrayListOf<Long>()
 
-    val openEditFragment = { mainFlowNavigation.navigateToEditElementFragment(goalId) }
 
     private val keyResultMarkedAsDone: FunctionSelect = { keyResultId, select ->
         if (select) {

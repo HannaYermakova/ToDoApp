@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.aermakova.todoapp.data.db.entity.Interval
 import by.aermakova.todoapp.data.interactor.TaskInteractor
+import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.ui.dialog.datePicker.PickDayDialogNavigator
 import by.aermakova.todoapp.util.handleError
@@ -47,7 +48,7 @@ class CreateTaskUseCase(
 
     fun saveTaskToLocalDataBaseAndSyncToRemote(
         disposable: CompositeDisposable,
-        loadingAction: () -> Unit,
+        loadingAction: FunctionNoArgs,
         successAction: (Boolean) -> Unit,
         errorAction: FunctionString? = null
     ) {
