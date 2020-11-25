@@ -9,13 +9,13 @@ data class TaskRemoteModel(
     var taskId: Long? = 0,
     var status: Boolean? = false,
     var text: String? = "",
-    var goalId: Long? = 0,
-    var keyResultId: Long? = 0,
-    var stepId: Long? = 0,
-    var finishTime: Long? = 0,
+    var goalId: Long? = null,
+    var keyResultId: Long? = null,
+    var stepId: Long? = null,
+    var finishTime: Long? = null,
     var startTime: Long? = 0,
     var scheduledTask: Boolean? = false,
-    var interval: Int? = 0
+    var interval: Int? = null
 ) : BaseRemoteModel(taskId.toString())
 
 fun TaskEntity.toRemote(): TaskRemoteModel =

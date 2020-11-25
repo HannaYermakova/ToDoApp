@@ -31,6 +31,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:onClick="@{viewModel.popBack}"/>
 
+            <ImageButton
+                android:id="@+id/save_button"
+                style="@style/CustomSaveButton"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/title"
+                app:onClick="@{viewModel.saveTask}" />
+
             <TextView
                 android:id="@+id/title"
                 style="@style/TextTitle"
@@ -277,17 +285,6 @@
                     app:convertLongToDate="@{viewModel.createTaskUseCase.taskFinishTime}"
                     tools:text="@string/pick_day" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/save_button"
-                style="@style/AccentButtonStyle"
-                android:layout_margin="@dimen/margin_normal"
-                android:elevation="@dimen/elevation_button"
-                android:text="@string/save_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:onClick="@{viewModel.saveTask}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

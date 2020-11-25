@@ -167,24 +167,18 @@
         <item name="android:layout_width">@dimen/image_button_size</item>
         <item name="android:layout_height">@dimen/image_button_size</item>
         <item name="android:layout_margin">@dimen/margin_normal</item>
-        <item name="android:background">@drawable/ic_baseline_edit_24</item>
-        <item name="android:backgroundTint">@color/color_scheme_salt_box</item>
-        <item name="android:stateListAnimator">@drawable/lift_on_touch</item>
+        <item name="android:background">@drawable/back_button_background</item>
     </style>
 
     <style name="CustomEditButton" parent="CustomImageButton">
-        <item name="android:background">@drawable/ic_baseline_edit_24</item>
+        <item name="srcCompat">@drawable/ic_baseline_edit_24</item>
     </style>
 
     <style name="CustomSaveButton" parent="CustomImageButton">
-        <item name="android:background">@drawable/ic_baseline_done_24</item>
+        <item name="srcCompat">@drawable/ic_baseline_done_24</item>
     </style>
 
-    <style name="CustomBackButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/margin_normal</item>
-        <item name="android:background">@drawable/back_button_background</item>
+    <style name="CustomBackButton" parent="CustomImageButton">
         <item name="srcCompat">@drawable/ic_baseline_arrow_back_24</item>
     </style>
 

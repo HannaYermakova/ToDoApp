@@ -10,9 +10,9 @@ data class IdeaRemoteModel(
 
     var goalId: Long? = 0,
 
-    var keyResultId: Long? = 0,
+    var keyResultId: Long? = null,
 
-    var stepId: Long? = 0,
+    var stepId: Long? = null,
 
     var text: String? = "",
 
