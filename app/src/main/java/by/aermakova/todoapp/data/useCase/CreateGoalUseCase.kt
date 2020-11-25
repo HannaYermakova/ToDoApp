@@ -33,14 +33,15 @@ class CreateGoalUseCase(
                     )
                 }
                     .map {
-                        goalInteractor.getGoalKeyResultsById(it).subscribe { goalKeyResults ->
-                            goalInteractor.saveGoalAndKeyResultsToRemote(goalKeyResults)
-                        }
+                        goalInteractor.getGoalKeyResultsById(it).firstElement()
+                            .subscribe { goalKeyResults ->
+                                goalInteractor.saveGoalAndKeyResultsToRemote(goalKeyResults)
+                            }
                     }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                        {successAction.invoke() },
+                        { successAction.invoke() },
                         {
                             errorAction?.invoke(errorMessage)
                             it.printStackTrace()

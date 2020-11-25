@@ -1,6 +1,6 @@
 package by.aermakova.todoapp.data.useCase.editText
 
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface ChangeItemText<Entity> {
 
@@ -8,5 +8,5 @@ interface ChangeItemText<Entity> {
 
     fun updateItemToRemote(entity: Entity?)
 
-    fun getItemById(itemId: Long): Single<Entity>
+    fun getItemById(itemId: Long): Observable<Entity>
 }

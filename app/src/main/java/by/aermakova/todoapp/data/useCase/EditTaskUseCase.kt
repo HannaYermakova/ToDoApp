@@ -74,7 +74,7 @@ class EditTaskUseCase(
                 })
             }
                 .map {
-                    taskInteractor.getTaskById(it).subscribe { entity ->
+                    taskInteractor.getTaskById(it).firstElement().subscribe { entity ->
                         taskInteractor.saveTaskToRemote(entity)
                     }
                 }

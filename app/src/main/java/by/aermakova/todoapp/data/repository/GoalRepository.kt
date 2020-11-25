@@ -1,9 +1,9 @@
 package by.aermakova.todoapp.data.repository
 
+import android.util.Log
 import by.aermakova.todoapp.data.db.dao.*
 import by.aermakova.todoapp.data.db.database.GoalsDataBase
 import by.aermakova.todoapp.data.db.entity.GoalEntity
-import by.aermakova.todoapp.data.db.entity.GoalKeyResults
 import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.model.*
 import io.reactivex.Observable
@@ -24,59 +24,46 @@ class GoalRepository @Inject constructor(
     }
 
     fun saveGoalsInLocalDataBase(goalEntities: List<GoalEntity>) {
-        goalDao.insertAllGoals(goalEntities)
+        goalDao.insertAllIGoalsTransaction(goalEntities)
     }
 
     fun saveKeyResults(keyResultEntities: List<KeyResultEntity>) {
-        keyResultDao.insertAllKeyResults(keyResultEntities)
+        keyResultDao.insertAllKeyResultsTransaction(keyResultEntities)
     }
 
-    fun getAllGoalsWithKeyResults(): Observable<List<GoalKeyResults>> {
-        return goalDao.getAllGoalsWithKeyResults()
-    }
+    fun getAllGoalsWithKeyResults() = goalDao.getAllGoalsWithKeyResults()
 
-    fun getAllUndoneGoals(): Observable<List<GoalEntity>> {
-        return goalDao.getAllUndoneGoals()
-    }
+    fun getAllUndoneGoals() = goalDao.getAllUndoneGoals()
 
-    fun getKeyResultById(keyResultId: Long): Observable<KeyResultEntity> {
-        return keyResultDao.getKeyResultById(keyResultId)
-    }
+    fun getKeyResultById(keyResultId: Long) = keyResultDao.getKeyResultById(keyResultId)
 
     fun getGoalWithKeyResultsById(id: Long) =
         goalDao.getGoalWithKeyResultsById(id)
 
-    private fun getStepWithTasks(stepId: List<Long>): Single<List<StepInGoalModel>> {
-        return stepDao.getStepsWithTasksById(stepId)
-            .map { stepTasks ->
-                stepTasks
-                    .map { stepTask ->
-                        stepTask.toCommonModel(
-                            stepTask.tasks
-                                .map { task -> task.toTaskTextModel() })
-                    }
+    private fun getStepWithTasks(stepId: List<Long>) = stepDao.getStepsWithTasksById(stepId)
+        .map { stepTasks ->
+            stepTasks.map { stepTask ->
+                stepTask.toCommonModel(stepTask.tasks.map { task -> task.toTaskTextModel() })
             }
-    }
+        }
 
     private fun getKeyResultWithInnerItems(
         keyResId: Long,
         action: FunctionSelect
-    ): Single<KeyResultModel> {
-        return goalDao.getKeyResultWithStepsById(keyResId).flatMap { keyResultStep ->
-            getStepWithTasks(keyResultStep.steps.map { step -> step.stepId })
-                .flatMap { listStepModel ->
-                    taskDao.getTasksUnattachedToStep(keyResultStep.keyResult.keyResultId)
-                        .map { listTaskEntity ->
-                            val list = arrayListOf<CommonModel>()
-                            list.addAll(listStepModel)
-                            list.addAll(listTaskEntity.map { it.toTaskTextModel() })
-                            keyResultStep.keyResult.toCommonModel(list, action)
-                        }
-                }
-        }
+    ) = goalDao.getKeyResultWithStepsById(keyResId).flatMap { keyResultStep ->
+        getStepWithTasks(keyResultStep.steps.map { step -> step.stepId })
+            .flatMap { listStepModel ->
+                taskDao.getTasksUnattachedToStep(keyResultStep.keyResult.keyResultId)
+                    .map { listTaskEntity ->
+                        val list = arrayListOf<CommonModel>()
+                        list.addAll(listStepModel)
+                        list.addAll(listTaskEntity.map { it.toTaskTextModel() })
+                        keyResultStep.keyResult.toCommonModel(list, action)
+                    }
+            }
     }
 
-    fun getGoalWithInnerItems(goalId: Long, action: FunctionSelect): Single<GoalModel> {
+    fun getGoalWithInnerItems(goalId: Long, action: FunctionSelect): Observable<GoalModel> {
         return goalDao.getGoalWithKeyResultsById(goalId)
             .flatMap { goalKeyRes ->
                 val listOfKeyResults = arrayListOf<CommonModel>()
@@ -92,8 +79,7 @@ class GoalRepository @Inject constructor(
                         list.addAll(listTaskEntity.map { it.toTaskTextModel() })
                         list.addAll(listOfKeyResults)
                         list
-
-                    }.doAfterSuccess { list ->
+                    }.doOnNext { list ->
                         ideaDao.getIdeasByGoalId(goalId)
                             .subscribe { ideas ->
                                 list.addAll(ideas.map { it.toCommonModel() })
@@ -102,17 +88,10 @@ class GoalRepository @Inject constructor(
                     .map {
                         goalKeyRes.toCommonModel(it)
                     }
-
             }
     }
 
-    fun getGoalById(goalId: Long): Observable<GoalEntity> {
-        return goalDao.getObsGoalById(goalId)
-    }
-
-    fun getSingleGoalById(goalId: Long): Single<GoalEntity> {
-        return goalDao.getGoalById(goalId)
-    }
+    fun getGoalById(goalId: Long) = goalDao.getObsGoalById(goalId)
 
     fun updateGoalStatus(status: Boolean, goalId: Long) {
         goalDao.updateAllGoalItemsStatus(status, goalId)
@@ -126,9 +105,7 @@ class GoalRepository @Inject constructor(
         goalDao.updateKeyResultsInGoal(status, keyResultIds)
     }
 
-    fun getKeyResultByIds(keyResIds: List<Long>): Single<List<KeyResultEntity>> {
-        return goalDao.getKeyResultsByIds(keyResIds)
-    }
+    fun getKeyResultByIds(keyResIds: List<Long>) = goalDao.getKeyResultsByIds(keyResIds)
 
     fun addNewKeyResult(keyResultEntity: KeyResultEntity): Long =
         keyResultDao.insertKeyResult(keyResultEntity)
@@ -152,7 +129,7 @@ class GoalRepository @Inject constructor(
         database.runInTransaction {
             stepDao.deleteStepById(stepId)
             taskDao.deleteTaskByStepId(stepId)
-            ideaDao.deleteIdeaByStepId(stepId)
+            ideaDao.selectIdeaByStepId(stepId)
         }
     }
 

@@ -36,7 +36,7 @@ class StepInteractor(
             it.onSuccess(saveStepInLocalDatabase(createStepEntity(text, goalId, keyResultId)))
         }
             .map {
-                getStepById(it).subscribe { entity ->
+                getStepById(it).firstElement().subscribe { entity ->
                     saveTaskToRemote(entity)
                 }
             }
@@ -50,7 +50,7 @@ class StepInteractor(
         )
 
     fun updateStep(status: Boolean, stepId: Long): Boolean {
-        stepRepository.updateStatus(status, stepId)
+        stepRepository.updateStepStatus(status, stepId)
         return true
     }
 

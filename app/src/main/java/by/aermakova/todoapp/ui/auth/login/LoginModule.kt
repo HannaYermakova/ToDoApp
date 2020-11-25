@@ -53,29 +53,24 @@ class LoginModule {
         loginNavigation: LoginNavigation,
         fragment: LoginFragment,
         remoteDataBaseSync: RemoteDatabaseSynchronization
-    ): AuthListener {
-        return LoginAuthListener(loginNavigation, fragment, remoteDataBaseSync)
-    }
+    ): AuthListener = LoginAuthListener(loginNavigation, fragment, remoteDataBaseSync)
 
     @Provides
-    fun provideAuthListenerImpl(authListener: AuthListener): LoginAuthorizationListener {
-        return LoginAuthorizationListenerImpl(
-            authListener
-        )
-    }
+    fun provideAuthListenerImpl(authListener: AuthListener): LoginAuthorizationListener =
+        LoginAuthorizationListenerImpl(authListener)
 
     @Provides
     fun provideFacebookLoginManager(
         activity: Activity,
         command: Subject<Status>
-    ): FacebookLoginManager =
+    ) =
         FacebookLoginManager(activity.createLoginStatusListener(command), null)
 
     @Provides
     fun provideGoogleLoginManager(
         activity: Activity,
         command: Subject<Status>
-    ): GoogleLoginManager =
+    ) =
         GoogleLoginManager(activity.createLoginStatusListener(command), null)
 
     @Provides

@@ -4,11 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    <ProgressBar
-            style="@style/CustomProgressBar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
     <by.aermakova.todoapp.ui.progress.BallsProgressIndicator
         android:id="@+id/indicator"
         style="@style/CustomProgressBar"

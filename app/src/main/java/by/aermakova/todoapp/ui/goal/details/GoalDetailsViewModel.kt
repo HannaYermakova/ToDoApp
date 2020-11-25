@@ -37,11 +37,11 @@ class GoalDetailsViewModel @Inject constructor(
     override val openEditFragment: FunctionNoArgs
         get() = { mainFlowNavigation.navigateToEditElementFragment(goalId) }
 
-    override val editButtonIsVisible: Boolean
-        get() = goalModel.value?.status ?: true
+    private val _editButtonIsVisible = MutableLiveData<Boolean>(true)
+    override val editButtonIsVisible: LiveData<Boolean>
+        get() = _editButtonIsVisible
 
     private val _markedKeyResultIds = arrayListOf<Long>()
-
 
     private val keyResultMarkedAsDone: FunctionSelect = { keyResultId, select ->
         if (select) {
@@ -61,6 +61,7 @@ class GoalDetailsViewModel @Inject constructor(
                 .subscribe(
                     {
                         _goalModel.postValue(it)
+                        _editButtonIsVisible.postValue(it.status)
                         it.goalItemsList?.let { list -> _goalItemsList.onNext(list) }
                         successAction.invoke()
                     },

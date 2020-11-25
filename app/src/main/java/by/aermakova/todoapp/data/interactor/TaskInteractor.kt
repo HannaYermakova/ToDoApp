@@ -68,7 +68,7 @@ class TaskInteractor(
         )
     }
 
-    fun getTaskById(taskId: Long): Single<TaskEntity> = taskRepository.getTaskById(taskId)
+    fun getTaskById(taskId: Long) = taskRepository.getTaskById(taskId)
 
     fun saveTaskToRemote(taskEntity: TaskEntity?) {
         taskEntity?.let {

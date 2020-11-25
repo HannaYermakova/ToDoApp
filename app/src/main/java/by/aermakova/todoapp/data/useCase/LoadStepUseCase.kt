@@ -1,13 +1,11 @@
 package by.aermakova.todoapp.data.useCase
 
-import android.util.Log
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
 import by.aermakova.todoapp.data.model.*
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class LoadStepUseCase(
@@ -32,11 +30,11 @@ class LoadStepUseCase(
         disposable.add(
             stepInteractor
                 .getStepById(stepId)
-                .map { it.toCommonModel { } }
-                .doOnSuccess { setGoalTitle(it, successGoalLoad) }
-                .doOnSuccess { setKeyResultTitle(it, successKeyResultLoad) }
-                .doOnSuccess { setTasksList(it, successTasksAction) }
-                .doOnSuccess { setIdeasList(it, successIdeasAction) }
+                .map { it.toCommonModel() }
+                .doOnNext { setGoalTitle(it, successGoalLoad) }
+                .doOnNext { setKeyResultTitle(it, successKeyResultLoad) }
+                .doOnNext { setTasksList(it, successTasksAction) }
+                .doOnNext { setIdeasList(it, successIdeasAction) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -66,23 +64,21 @@ class LoadStepUseCase(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {successAction.invoke() },
-                    {errorAction.invoke(errorMessage) }
+                    { successAction.invoke() },
+                    { errorAction.invoke(errorMessage) }
                 )
         )
     }
 
-    private fun markTasksAsDone(): Disposable {
-        return stepInteractor
-            .getStepById(stepId)
-            .subscribe(
-                { entity ->
-                    stepInteractor.updateStepToRemote(entity)
-                    tasksInteractor.markStepsTasksAsDone(true, stepId)
-                },
-                { it.printStackTrace() }
-            )
-    }
+    private fun markTasksAsDone() = stepInteractor
+        .getStepById(stepId)
+        .subscribe(
+            { entity ->
+                stepInteractor.updateStepToRemote(entity)
+                tasksInteractor.markStepsTasksAsDone(true, stepId)
+            },
+            { it.printStackTrace() }
+        )
 
     private fun setGoalTitle(step: StepModel, loadGoalAction: FunctionString) =
         findGoal.useGoalById(step.goalId, {

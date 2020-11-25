@@ -1,9 +1,6 @@
 package by.aermakova.todoapp.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import by.aermakova.todoapp.data.db.entity.TaskEntity
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -20,8 +17,17 @@ interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllTasks(tasks: List<TaskEntity>)
 
+    @Transaction
+    fun insertAllTasksTransaction(tasks: List<TaskEntity>) {
+        deleteAllTasks()
+        insertAllTasks(tasks)
+    }
+
+    @Query("DELETE FROM tasks_table")
+    fun deleteAllTasks()
+
     @Query("SELECT * FROM tasks_table WHERE task_id = :taskId")
-    fun getTaskById(taskId: Long): Single<TaskEntity>
+    fun getTaskById(taskId: Long): Observable<TaskEntity>
 
     @Query("SELECT * FROM tasks_table WHERE task_step_id = :stepId")
     fun getTasksByStepId(stepId: Long): Single<List<TaskEntity>>
@@ -33,7 +39,7 @@ interface TaskDao {
     fun getAllTasks(): Observable<List<TaskEntity>>
 
     @Query("SELECT * FROM tasks_table WHERE task_goal_id = :goalId AND task_key_result_id IS NULL")
-    fun getTasksUnattachedToKeyResult(goalId: Long): Single<List<TaskEntity>>
+    fun getTasksUnattachedToKeyResult(goalId: Long): Observable<List<TaskEntity>>
 
     @Query("SELECT * FROM tasks_table WHERE task_key_result_id = :keyResultId AND task_step_id IS NULL")
     fun getTasksUnattachedToStep(keyResultId: Long): Single<List<TaskEntity>>

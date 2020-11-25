@@ -1,9 +1,11 @@
 package by.aermakova.todoapp.data.useCase
 
+import android.util.Log
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.model.FunctionString
 import by.aermakova.todoapp.util.ITEM_IS_NOT_SELECTED_ID
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -39,10 +41,11 @@ class CreateIdeaUseCase(
                             )
                     )
                 }.map {
-                    ideaInteractor.getIdeaById(it)
-                        .subscribe { entity ->
-                            ideaInteractor.saveIdeaToRemote(entity)
-                        }
+                    ideaInteractor.getIdeaById(it).firstElement()
+                        .subscribe(
+                            { entity -> ideaInteractor.saveIdeaToRemote(entity) },
+                            { it.printStackTrace() }
+                        )
                 }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

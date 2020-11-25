@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.*
+import by.aermakova.todoapp.data.db.entity.KeyResultEntity
 import by.aermakova.todoapp.data.db.entity.StepEntity
 import by.aermakova.todoapp.data.db.entity.StepTasks
 import io.reactivex.Observable
@@ -15,8 +16,17 @@ interface StepDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllSteps(steps: List<StepEntity>)
 
+    @Transaction
+    fun insertAllStepsTransaction(steps: List<StepEntity>) {
+        deleteAllSteps()
+        insertAllSteps(steps)
+    }
+
+    @Query("DELETE FROM steps_table")
+    fun deleteAllSteps()
+
     @Query("SELECT * FROM steps_table WHERE step_id = :stepId")
-    fun getStepById(stepId: Long): Single<StepEntity>
+    fun getStepById(stepId: Long): Observable<StepEntity>
 
     @Query("SELECT * FROM steps_table WHERE step_key_result_id = :keyResultId")
     fun getStepByKeyResultId(keyResultId: Long): Observable<List<StepEntity>>

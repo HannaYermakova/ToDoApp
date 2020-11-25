@@ -12,7 +12,7 @@ class TaskRepository @Inject constructor(
 
     fun saveTask(taskEntity: TaskEntity): Long = taskDao.insertTask(taskEntity)
 
-    fun getTaskById(taskId: Long): Single<TaskEntity> = taskDao.getTaskById(taskId)
+    fun getTaskById(taskId: Long) = taskDao.getTaskById(taskId)
 
     fun getAllTasks(): Observable<List<TaskEntity>> {
         return taskDao.getAllTasks()
@@ -35,7 +35,7 @@ class TaskRepository @Inject constructor(
     }
 
     fun saveTasks(taskEntities: List<TaskEntity>) {
-        taskDao.insertAllTasks(taskEntities)
+        taskDao.insertAllTasksTransaction(taskEntities)
     }
 
     fun getAllTasksIdByGoalId(goalId: Long): Single<List<Long>> {

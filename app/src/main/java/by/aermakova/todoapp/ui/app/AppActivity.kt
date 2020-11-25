@@ -1,18 +1,25 @@
 package by.aermakova.todoapp.ui.app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
+import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
 import by.aermakova.todoapp.data.remote.auth.SPLASH_AUTH_CHECK
 import by.aermakova.todoapp.databinding.ActivityMainBinding
 import by.aermakova.todoapp.ui.base.BaseActivity
 import com.google.firebase.FirebaseApp
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 class AppActivity : BaseActivity<AppViewModel>() {
 
     private lateinit var controller: NavController
+
+    @Inject
+    lateinit var disposable: CompositeDisposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App).tryInjectAppActivity(this)
@@ -34,5 +41,10 @@ class AppActivity : BaseActivity<AppViewModel>() {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 }

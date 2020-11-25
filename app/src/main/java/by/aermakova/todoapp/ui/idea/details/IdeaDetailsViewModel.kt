@@ -135,6 +135,7 @@ class IdeaDetailsViewModel @Inject constructor(
     override val openEditFragment: FunctionNoArgs
         get() = { mainFlowNavigation.navigateToEditElementFragment(ideaId) }
 
-    override val editButtonIsVisible: Boolean
-        get() = true
+    private val _editButtonIsVisible = MutableLiveData<Boolean>(true)
+    override val editButtonIsVisible: LiveData<Boolean>
+        get() = _editButtonIsVisible
 }

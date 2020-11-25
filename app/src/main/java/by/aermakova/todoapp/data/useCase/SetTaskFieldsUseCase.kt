@@ -60,19 +60,19 @@ class SetTaskFieldsUseCase(
                     successAction.invoke(it)
                     it.toCommonModel { }
                 }
-                .doOnSuccess { task ->
+                .doOnNext { task ->
                     findGoal.useGoalById(task.goalId, { goal ->
                         _goalIsVisible.postValue(true)
                         _goalTitle.postValue(goal.text)
                     })
                 }
-                .doOnSuccess { task ->
+                .doOnNext { task ->
                     findGoal.useKeyResultById(task.keyResultId, { keyRes ->
                         _keyResIsVisible.postValue(true)
                         _keyResTitle.postValue(keyRes.text)
                     })
                 }
-                .doOnSuccess { task ->
+                .doOnNext { task ->
                     findStep.useStepByIdInUiThread(task.stepId, {
                         _stepIsVisible.postValue(true)
                         _stepTitle.postValue(it.text)

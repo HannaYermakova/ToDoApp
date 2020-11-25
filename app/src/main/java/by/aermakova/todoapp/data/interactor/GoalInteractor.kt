@@ -186,5 +186,5 @@ class GoalInteractor(
     }
 
     override fun getItemById(itemId: Long) =
-        goalRepository.getSingleGoalById(itemId)
+        goalRepository.getGoalById(itemId)
 }

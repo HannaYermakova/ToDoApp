@@ -2,7 +2,6 @@ package by.aermakova.todoapp.ui.auth
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
 import by.aermakova.todoapp.ui.base.BaseFragment
 import by.aermakova.todoapp.util.hideKeyboard

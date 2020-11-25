@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
-import by.aermakova.todoapp.data.di.scope.NavigationIdeas
 import by.aermakova.todoapp.data.remote.auth.AuthListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListenerImpl
@@ -34,14 +33,11 @@ class RegisterModule {
     }
 
     @Provides
-    fun provideAuthListenerImpl(authListener: AuthListener): LoginAuthorizationListener {
-        return LoginAuthorizationListenerImpl(
-            authListener
-        )
-    }
+    fun provideAuthListenerImpl(authListener: AuthListener): LoginAuthorizationListener
+        = LoginAuthorizationListenerImpl(authListener)
 
     @Provides
-    fun provideDisposable(): CompositeDisposable = CompositeDisposable()
+    fun provideDisposable() = CompositeDisposable()
 
     @Provides
     fun provideEmailLoginManager(activity: Activity, command: Subject<Status>) =

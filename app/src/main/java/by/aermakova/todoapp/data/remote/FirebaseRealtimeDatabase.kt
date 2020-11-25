@@ -1,5 +1,6 @@
 package by.aermakova.todoapp.data.remote
 
+import android.util.Log
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
 import by.aermakova.todoapp.data.remote.model.BaseRemoteModel
 import com.google.firebase.database.*
@@ -71,8 +72,8 @@ class FirebaseRealtimeDatabase<Type : BaseRemoteModel>(
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val model: List<Type> = convertDataSnapshotToList(snapshot.children)
                     dataObserver.onNext(model)
+                    Log.d("FirebaseRealtimeDB", "on data changed $model")
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     print(error.message)
                 }

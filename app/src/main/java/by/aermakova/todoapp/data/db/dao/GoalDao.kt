@@ -1,10 +1,7 @@
 package by.aermakova.todoapp.data.db.dao
 
 import androidx.room.*
-import by.aermakova.todoapp.data.db.entity.GoalEntity
-import by.aermakova.todoapp.data.db.entity.GoalKeyResults
-import by.aermakova.todoapp.data.db.entity.KeyResultEntity
-import by.aermakova.todoapp.data.db.entity.KeyResultSteps
+import by.aermakova.todoapp.data.db.entity.*
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -17,6 +14,12 @@ interface GoalDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllGoals(goals: List<GoalEntity>)
+
+    @Transaction
+    fun insertAllIGoalsTransaction(goals: List<GoalEntity>) {
+        deleteAllGoals()
+        insertAllGoals(goals)
+    }
 
     @Query("SELECT * FROM goals_table")
     fun getAllGoals(): Observable<List<GoalEntity>>
@@ -36,7 +39,7 @@ interface GoalDao {
 
     @Transaction
     @Query("SELECT * FROM goals_table WHERE goal_id =:id")
-    fun getGoalWithKeyResultsById(id: Long): Single<GoalKeyResults>
+    fun getGoalWithKeyResultsById(id: Long): Observable<GoalKeyResults>
 
     @Transaction
     @Query("SELECT * FROM key_results_table WHERE key_result_id =:keyRes ")
@@ -107,7 +110,7 @@ interface GoalDao {
             deleteAllGoals(),
             deleteAllSteps(),
             deleteAllTasks(),
-            deleteAllIdeas()
+            deleteAllIdeas(),
         )
     }
 

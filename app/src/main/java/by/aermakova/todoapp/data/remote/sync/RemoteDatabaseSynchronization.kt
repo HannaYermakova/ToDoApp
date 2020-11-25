@@ -43,9 +43,7 @@ class RemoteDatabaseSynchronization(
                 .observeOn(Schedulers.io())
                 .doOnNext { nextAction.invoke() }
                 .subscribe(
-                    {
-                        interactor.saveItemsInLocalDatabase(it)
-                    },
+                    { interactor.saveItemsInLocalDatabase(it) },
                     { it.printStackTrace() }
                 )
         )

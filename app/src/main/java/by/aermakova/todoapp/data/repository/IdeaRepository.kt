@@ -2,7 +2,6 @@ package by.aermakova.todoapp.data.repository
 
 import by.aermakova.todoapp.data.db.dao.IdeaDao
 import by.aermakova.todoapp.data.db.entity.IdeaEntity
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -15,14 +14,12 @@ class IdeaRepository @Inject constructor(
     fun getIdeaById(ideaId: Long) =
         ideaDao.getIdeaById(ideaId)
 
-    fun getAllIdeas(): Observable<List<IdeaEntity>> {
-        return ideaDao.getAllIdeas()
-    }
+    fun getAllIdeas() = ideaDao.getAllIdeas()
 
     fun deleteIdea(ideaId: Long) =  ideaDao.deleteIdea(ideaId) > 0
 
     fun saveIdeas(ideaEntities: List<IdeaEntity>) {
-        ideaDao.insertAllIdeas(ideaEntities)
+        ideaDao.insertAllIdeasTransaction(ideaEntities)
     }
 
     fun getIdeaByStepId(stepId: Long): Single<List<IdeaEntity>> {

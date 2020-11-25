@@ -32,16 +32,16 @@ class LoadIdeaDetailsUseCase(
             ideaInteractor
                 .getIdeaById(ideaId)
                 .map { it.toCommonModel() }
-                .doOnSuccess {
+                .doOnNext {
                     findGoal.useGoalById(it.goalId, { goal ->
                         successGoalLoad.invoke(goal.text)
                     })
                 }
-                .doOnSuccess {
+                .doOnNext {
                     findGoal.useKeyResultById(it.keyResultId, { keyRes ->
                         successKeyResultLoad.invoke(keyRes.text)
                     })
-                }.doOnSuccess {
+                }.doOnNext {
                     findStep.useStepByIdInUiThread(it.stepId, { stepEntity ->
                         successStepLoad.invoke(stepEntity.text)
                     }, errorAction)
