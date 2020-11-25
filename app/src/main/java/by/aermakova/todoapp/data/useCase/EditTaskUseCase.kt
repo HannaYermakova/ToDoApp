@@ -53,7 +53,7 @@ class EditTaskUseCase(
         disposable.add(
             Single.create<Long> {
                 it.onSuccess(with(task) {
-                    val title = newTitle.value ?: text
+                    val title = if (!newTitle.value.isNullOrBlank()) newTitle.value!! else text
                     val tempFinishDate = taskFinishTime.value ?: finishDate
                     val tempScheduledTask = scheduled.value ?: scheduledTask
                     val tempTaskInterval = if (tempScheduledTask) {
