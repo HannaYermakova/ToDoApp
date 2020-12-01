@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 
 class IdeaBottomSheetMenuUseCase(
-    val deleteIdeaUseCase: DeleteIdeaUseCase,
+    private val deleteIdeaUseCase: DeleteIdeaUseCase,
     private val ideaActionBind: BottomSheetIdeaActionBinding,
     private val mainFlowNavigation: MainFlowNavigation,
     private val findIdeaUseCase: FindIdeaUseCase,

@@ -32,6 +32,7 @@ object FirebaseAuthUtil {
 
     fun getAuthStateListener(authListener: AuthListener): AuthStateListener =
         AuthStateListener { firebaseAuth ->
+            Log.d("A_FirebaseAuthUtil", "get auth state listener")
             val user = firebaseAuth.currentUser
             user?.let { authListener.isSignIn() } ?: authListener.notSignIn()
         }

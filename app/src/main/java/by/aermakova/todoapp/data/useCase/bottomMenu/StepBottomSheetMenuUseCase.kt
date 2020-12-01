@@ -18,7 +18,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 
 class StepBottomSheetMenuUseCase(
-    val deleteStepUseCase: DeleteStepUseCase,
+    private val deleteStepUseCase: DeleteStepUseCase,
     private val addIdeaUseCase: AddItemToParentItemUseCase<IdeasNavigation>,
     private val addTaskUseCase: AddItemToParentItemUseCase<TasksNavigation>,
     private val stepActionBind: BottomSheetStepActionBinding,

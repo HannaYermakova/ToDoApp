@@ -13,7 +13,7 @@ abstract class DeleteItemUseCase(
 ) {
 
     protected var itemId: Long = INIT_SELECTED_ITEM_ID
-    protected lateinit var disposable: CompositeDisposable
+    protected var disposable: CompositeDisposable? = null
     protected lateinit var errorAction: FunctionString
 
     private val _cancelAction = MutableLiveData<Boolean>(false)

@@ -12,10 +12,10 @@ import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.*
 import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
 import by.aermakova.todoapp.data.useCase.AddKeyResultToGoalUseCase
-import by.aermakova.todoapp.data.useCase.delete.DeleteGoalUseCase
 import by.aermakova.todoapp.data.useCase.FindGoalUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.GoalsActionItem
 import by.aermakova.todoapp.data.useCase.bottomMenu.GoalBottomSheetMenuUseCase
+import by.aermakova.todoapp.data.useCase.delete.DeleteGoalUseCase
 import by.aermakova.todoapp.databinding.BottomSheetGoalActionBinding
 import by.aermakova.todoapp.ui.dialog.addItem.AddItemDialogNavigation
 import by.aermakova.todoapp.ui.dialog.confirm.ConfirmDialogNavigation
@@ -83,7 +83,8 @@ class GoalsModule {
         taskInteractor: TaskInteractor,
         ideaInteractor: IdeaInteractor,
         @ErrorDeleteGoal errorDeleteGoalMessage: String,
-        @DialogConfirm dialogNavigation: DialogNavigation<Boolean>,
+//        @DialogConfirm dialogNavigation: DialogNavigation<Boolean>,
+        controller: NavController,
         @TitleDialogDeleteGoal dialogTitle: String,
     ) = DeleteGoalUseCase(
         goalInteractor,
@@ -92,7 +93,8 @@ class GoalsModule {
         taskInteractor,
         ideaInteractor,
         errorDeleteGoalMessage,
-        dialogNavigation,
+//        dialogNavigation,
+        ConfirmDialogNavigation(controller, dialogTitle),
         dialogTitle
     )
 
@@ -100,6 +102,11 @@ class GoalsModule {
     @TitleDialogDeleteGoal
     fun provideTitleDialogDeleteGoal(activity: Activity) =
         activity.getString(R.string.confirm_delete_goal)
+
+    @Provides
+    @TitleDialogLogout
+    fun provideTitleDialogLogout(activity: Activity) =
+        activity.getString(R.string.confirm_exit_message)
 
     @Provides
     @AddIdeaUseCase
@@ -230,8 +237,11 @@ class GoalsModule {
 
     @Provides
     @DialogConfirm
-    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
-        ConfirmDialogNavigation(controller)
+    fun provideDialogNavigation(
+        controller: NavController,
+        @TitleDialogLogout tag: String
+    ): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller, tag)
 
     @Provides
     @NavigationGoals

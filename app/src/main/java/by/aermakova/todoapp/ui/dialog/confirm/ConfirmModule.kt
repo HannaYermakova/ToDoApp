@@ -15,9 +15,9 @@ import dagger.multibindings.IntoMap
 class ConfirmModule {
 
     @Provides
-    fun provideDialogNavigation(activity: Activity): DialogNavigation<Boolean> {
+    fun provideDialogNavigation(activity: Activity, title: String): DialogNavigation<Boolean> {
         val navController = Navigation.findNavController(activity, R.id.app_host_fragment)
-        return ConfirmDialogNavigation(navController)
+        return ConfirmDialogNavigation(navController, title)
     }
 
     @Provides

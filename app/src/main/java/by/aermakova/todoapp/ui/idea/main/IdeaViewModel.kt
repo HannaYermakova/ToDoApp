@@ -31,16 +31,16 @@ class IdeaViewModel @Inject constructor(
     val actionItems: LiveData<List<CommonModel>> =
         ideaBottomSheetMenuUseCase.liveListOfItemsActionsItems
 
-    val confirmDeleteListener = ideaBottomSheetMenuUseCase.deleteIdeaUseCase.deleteConfirmObserver
+    val confirmDeleteListener = ideaBottomSheetMenuUseCase.deleteItemUseCase.deleteConfirmObserver
 
-    val cancelAction = ideaBottomSheetMenuUseCase.deleteIdeaUseCase.cancelAction
+    val cancelAction = ideaBottomSheetMenuUseCase.deleteItemUseCase.cancelAction
 
     fun confirmDelete(value: Boolean?) {
-        ideaBottomSheetMenuUseCase.deleteIdeaUseCase.confirmDelete(value)
+        ideaBottomSheetMenuUseCase.deleteItemUseCase.confirmDelete(value)
     }
 
     val deleteAction: FunctionLong = {
-        ideaBottomSheetMenuUseCase.deleteIdeaUseCase.confirmDeleteItem(
+        ideaBottomSheetMenuUseCase.deleteItemUseCase.confirmDeleteItem(
             it,
             disposable,
             errorAction

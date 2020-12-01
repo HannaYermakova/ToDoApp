@@ -16,7 +16,7 @@ class DeleteIdeaUseCase(
 
 
     override fun deleteById() {
-        disposable.add(
+        disposable?.add(
             ideaInteractor.deleteIdeaByIdRemote(itemId)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { ideaInteractor.deleteIdeaByIdLocal(itemId) }

@@ -124,6 +124,9 @@ annotation class TitleDialogDeleteTask
 annotation class TitleDialogDeleteIdea
 
 @Qualifier
+annotation class TitleDialogLogout
+
+@Qualifier
 annotation class TitleSelectKeyResult
 
 @Qualifier

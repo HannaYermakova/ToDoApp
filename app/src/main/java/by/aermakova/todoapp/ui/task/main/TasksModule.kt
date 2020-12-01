@@ -66,8 +66,8 @@ class TasksModule {
 
     @Provides
     @DialogConfirm
-    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
-        ConfirmDialogNavigation(controller)
+    fun provideDialogNavigation(controller: NavController, @TitleDialogDeleteTask dialogTitle: String): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller, dialogTitle)
 
     @Provides
     @ErrorDeleteTask

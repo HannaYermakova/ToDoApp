@@ -22,7 +22,7 @@ class DeleteStepUseCase(
 ) : DeleteItemUseCase(dialogNavigation, dialogTitle) {
 
     override fun deleteById() {
-        disposable.add(
+        disposable?.add(
             deleteItemsFromRemote(taskInteractor) {
                 deleteItemsFromRemote(ideaInteractor) {
                     stepInteractor.deleteStepByIdRemote(itemId)

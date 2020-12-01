@@ -46,12 +46,18 @@ class GoalsViewModel @Inject constructor(
     val keyResultObserver: LiveData<String>?
         get() = goalBottomSheetMenuUseCase.addKeyResultToGoalUseCase.keyResultObserver
 
+    val confirmDeleteListener = goalBottomSheetMenuUseCase.deleteItemUseCase.deleteConfirmObserver
+
     fun addKeyResultToSelectedGoal(keyResultTitle: String) {
         goalBottomSheetMenuUseCase.addKeyResultToSelectedGoal(
             keyResultTitle,
             disposable,
             errorAction
         )
+    }
+
+    fun confirmDelete(value: Boolean?) {
+        goalBottomSheetMenuUseCase.deleteItemUseCase.confirmDelete(value)
     }
 
     private fun confirmExit(message: String) {

@@ -1,6 +1,7 @@
 package by.aermakova.todoapp.ui.goal.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import by.aermakova.todoapp.R
 import by.aermakova.todoapp.databinding.FragmentGoalsBinding
@@ -22,5 +23,9 @@ class GoalsFragment : BaseFragment<GoalsViewModel, FragmentGoalsBinding>() {
             Observer {
                 viewModel.addKeyResultToSelectedGoal(it)
             })
+
+        viewModel.confirmDeleteListener?.observe(viewLifecycleOwner, Observer {
+            viewModel.confirmDelete(it)
+        })
     }
 }

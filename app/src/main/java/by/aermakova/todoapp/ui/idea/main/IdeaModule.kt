@@ -10,7 +10,8 @@ import by.aermakova.todoapp.R
 import by.aermakova.todoapp.data.di.module.ViewModelKey
 import by.aermakova.todoapp.data.di.scope.*
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
-import by.aermakova.todoapp.data.useCase.*
+import by.aermakova.todoapp.data.useCase.FindIdeaUseCase
+import by.aermakova.todoapp.data.useCase.LoadAllIdeasUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.IdeasActionItem
 import by.aermakova.todoapp.data.useCase.bottomMenu.IdeaBottomSheetMenuUseCase
 import by.aermakova.todoapp.data.useCase.delete.DeleteIdeaUseCase
@@ -71,8 +72,11 @@ class IdeaModule {
 
     @Provides
     @DialogConfirm
-    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
-        ConfirmDialogNavigation(controller)
+    fun provideDialogNavigation(
+        controller: NavController,
+        @TitleDialogDeleteIdea dialogTitle: String
+    ): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller, dialogTitle)
 
     @Provides
     fun provideFindIdeaUseCase(ideaInteractor: IdeaInteractor) =

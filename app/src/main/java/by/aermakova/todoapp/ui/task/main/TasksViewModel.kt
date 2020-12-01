@@ -72,16 +72,16 @@ class TasksViewModel @Inject constructor(
 
     val sortItems: LiveData<List<CommonModel>> = getLiveListOfSortItems()
 
-    val confirmDeleteListener = taskBottomSheetMenuUseCase.deleteTaskUseCase.deleteConfirmObserver
+    val confirmDeleteListener = taskBottomSheetMenuUseCase.deleteItemUseCase.deleteConfirmObserver
 
-    val cancelAction = taskBottomSheetMenuUseCase.deleteTaskUseCase.cancelAction
+    val cancelAction = taskBottomSheetMenuUseCase.deleteItemUseCase.cancelAction
 
     fun confirmDelete(value: Boolean?) {
-        taskBottomSheetMenuUseCase.deleteTaskUseCase.confirmDelete(value)
+        taskBottomSheetMenuUseCase.deleteItemUseCase.confirmDelete(value)
     }
 
     val deleteAction: FunctionLong = {
-        taskBottomSheetMenuUseCase.deleteTaskUseCase.confirmDeleteItem(
+        taskBottomSheetMenuUseCase.deleteItemUseCase.confirmDeleteItem(
             it,
             disposable,
             errorAction

@@ -13,7 +13,9 @@ import by.aermakova.todoapp.data.interactor.GoalInteractor
 import by.aermakova.todoapp.data.interactor.IdeaInteractor
 import by.aermakova.todoapp.data.interactor.StepInteractor
 import by.aermakova.todoapp.data.interactor.TaskInteractor
-import by.aermakova.todoapp.data.useCase.*
+import by.aermakova.todoapp.data.useCase.AddItemToParentItemUseCase
+import by.aermakova.todoapp.data.useCase.FindStepUseCase
+import by.aermakova.todoapp.data.useCase.LoadAllStepsUseCase
 import by.aermakova.todoapp.data.useCase.actionEnum.StepsActionItem
 import by.aermakova.todoapp.data.useCase.bottomMenu.StepBottomSheetMenuUseCase
 import by.aermakova.todoapp.data.useCase.delete.DeleteStepUseCase
@@ -142,8 +144,10 @@ class StepsModule {
 
     @Provides
     @DialogConfirm
-    fun provideDialogNavigation(controller: NavController): DialogNavigation<Boolean> =
-        ConfirmDialogNavigation(controller)
+    fun provideDialogNavigation(
+        controller: NavController,
+        @TitleDialogDeleteStep dialogTitle: String): DialogNavigation<Boolean> =
+        ConfirmDialogNavigation(controller, dialogTitle)
 
     @Provides
     @ErrorDeleteStep

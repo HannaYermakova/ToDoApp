@@ -34,7 +34,7 @@ class StepsViewModel @Inject constructor(
         get() = _stepsList.hide()
 
     val deleteAction: FunctionLong = {
-        stepBottomSheetMenuUseCase.deleteStepUseCase.confirmDeleteItem(
+        stepBottomSheetMenuUseCase.deleteItemUseCase.confirmDeleteItem(
             it,
             disposable,
             errorAction
@@ -43,12 +43,12 @@ class StepsViewModel @Inject constructor(
 
     val addNewElement = { navigation.navigateToAddNewElementFragment() }
 
-    val confirmDeleteListener = stepBottomSheetMenuUseCase.deleteStepUseCase.deleteConfirmObserver
+    val confirmDeleteListener = stepBottomSheetMenuUseCase.deleteItemUseCase.deleteConfirmObserver
 
-    val cancelAction = stepBottomSheetMenuUseCase.deleteStepUseCase.cancelAction
+    val cancelAction = stepBottomSheetMenuUseCase.deleteItemUseCase.cancelAction
 
     fun confirmDelete(value: Boolean?) {
-        stepBottomSheetMenuUseCase.deleteStepUseCase.confirmDelete(value)
+        stepBottomSheetMenuUseCase.deleteItemUseCase.confirmDelete(value)
     }
 
     init {

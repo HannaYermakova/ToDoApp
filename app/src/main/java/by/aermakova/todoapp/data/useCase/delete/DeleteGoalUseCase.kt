@@ -6,6 +6,7 @@ import by.aermakova.todoapp.data.model.FunctionNoArgs
 import by.aermakova.todoapp.data.remote.DeleteGoalItems
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import by.aermakova.todoapp.util.handleError
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class DeleteGoalUseCase(
@@ -21,7 +22,7 @@ class DeleteGoalUseCase(
 
 
     override fun deleteById() {
-        disposable.add(
+        disposable?.add(
             deleteGoalItemsFromRemote(keyResultInteractor) {
                 deleteGoalItemsFromRemote(stepInteractor) {
                     deleteGoalItemsFromRemote(taskInteractor) {
@@ -29,8 +30,13 @@ class DeleteGoalUseCase(
                             goalInteractor.deleteGoalByIdRemote(itemId)
                                 .compose { goalInteractor.deleteGoalAndAllItsItemsLocal(itemId) }
                                 .subscribe(
-                                    { Log.d("A_DeleteGoalUseCase", "Goal and all its items hab been deleted") },
-                                    {it.handleError(errorMessage, errorAction)}
+                                    {
+                                        Log.d(
+                                            "A_DeleteGoalUseCase",
+                                            "Goal and all its items hab been deleted"
+                                        )
+                                    },
+                                    { it.handleError(errorMessage, errorAction) }
                                 )
                         }
                     }

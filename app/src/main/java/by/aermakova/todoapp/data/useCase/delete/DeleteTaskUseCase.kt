@@ -16,7 +16,7 @@ class DeleteTaskUseCase(
 
 
     override fun deleteById() {
-        disposable.add(
+        disposable?.add(
             taskInteractor.deleteTaskByIdRemote(itemId)
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess { taskInteractor.deleteTaskByIdLocal(itemId) }

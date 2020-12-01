@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 
 class TaskBottomSheetMenuUseCase(
-    val deleteTaskUseCase: DeleteTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
     private val taskActionBind: BottomSheetTaskActionBinding,
     private val mainFlowNavigation: MainFlowNavigation,
     private val findTaskUseCase: FindTaskUseCase,
