@@ -6,15 +6,15 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class IdeaRemoteModel(
 
-    var ideaId: Long? = 0,
+    val ideaId: Long? = 0,
 
-    var goalId: Long? = 0,
+    val goalId: Long? = 0,
 
-    var keyResultId: Long? = null,
+    val keyResultId: Long? = null,
 
-    var stepId: Long? = null,
+    val stepId: Long? = null,
 
-    var text: String? = "",
+    val text: String? = "",
 
 ) : BaseRemoteModel(ideaId.toString())
 
@@ -34,11 +34,11 @@ fun IdeaRemoteModel.toLocal(): IdeaEntity {
         text != null
     )
         IdeaEntity(
-            ideaId!!,
-            goalId!!,
+            ideaId,
+            goalId,
             keyResultId,
             stepId,
-            text!!
+            text
         )
     else throw Exception("Task can't be null!")
 }

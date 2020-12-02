@@ -6,15 +6,15 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class StepRemoteModel(
 
-    var stepId: Long? = 0,
+    val stepId: Long? = 0,
 
-    var stepKeyResultId: Long? = 0,
+    val stepKeyResultId: Long? = 0,
 
-    var stepGoalId: Long? = 0,
+    val stepGoalId: Long? = 0,
 
-    var stepStatusDone: Boolean? = false,
+    val stepStatusDone: Boolean? = false,
 
-    var text: String? = ""
+    val text: String? = ""
 ) : BaseRemoteModel(stepId.toString())
 
 fun StepEntity.toRemote(): StepRemoteModel =

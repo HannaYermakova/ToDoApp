@@ -6,11 +6,11 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class GoalRemoteModel(
 
-    var goalId: Long? = 0,
+    val goalId: Long? = 0,
 
-    var goalStatusDone: Boolean? = false,
+    val goalStatusDone: Boolean? = false,
 
-    var text: String? = ""
+    val text: String? = ""
 
 ) : BaseRemoteModel(goalId.toString())
 
@@ -20,6 +20,6 @@ internal fun GoalEntity.toRemote(): GoalRemoteModel {
 
 fun GoalRemoteModel.toLocal(): GoalEntity {
     return if (goalId != null && goalStatusDone != null && text != null)
-        GoalEntity(goalId!!, goalStatusDone!!, text!!)
+        GoalEntity(goalId, goalStatusDone, text)
     else throw Exception("Goal can't be null!")
 }

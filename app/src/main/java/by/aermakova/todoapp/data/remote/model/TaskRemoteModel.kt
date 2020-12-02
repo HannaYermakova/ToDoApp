@@ -6,16 +6,16 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class TaskRemoteModel(
 
-    var taskId: Long? = 0,
-    var status: Boolean? = false,
-    var text: String? = "",
-    var goalId: Long? = null,
-    var keyResultId: Long? = null,
-    var stepId: Long? = null,
-    var finishTime: Long? = null,
-    var startTime: Long? = 0,
-    var scheduledTask: Boolean? = false,
-    var interval: Int? = null
+    val taskId: Long? = 0,
+    val status: Boolean? = false,
+    val text: String? = "",
+    val goalId: Long? = null,
+    val keyResultId: Long? = null,
+    val stepId: Long? = null,
+    val finishTime: Long? = null,
+    val startTime: Long? = 0,
+    val scheduledTask: Boolean? = false,
+    val interval: Int? = null
 ) : BaseRemoteModel(taskId.toString())
 
 fun TaskEntity.toRemote(): TaskRemoteModel =
@@ -41,15 +41,15 @@ fun TaskRemoteModel.toLocal(): TaskEntity {
         scheduledTask != null
     )
         TaskEntity(
-        taskId!!,
-        status!!,
-        text!!,
+        taskId,
+        status,
+        text,
         goalId,
         keyResultId,
         stepId,
         finishTime,
-        startTime!!,
-        scheduledTask!!,
+        startTime,
+        scheduledTask,
         interval
     )
     else throw Exception("Task can't be null!")

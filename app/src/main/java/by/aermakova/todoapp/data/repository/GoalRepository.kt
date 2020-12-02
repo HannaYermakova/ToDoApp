@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.repository
 
-import android.util.Log
 import by.aermakova.todoapp.data.db.dao.*
 import by.aermakova.todoapp.data.db.database.GoalsDataBase
 import by.aermakova.todoapp.data.db.entity.GoalEntity
@@ -10,7 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GoalRepository @Inject constructor(
+class GoalRepository (
     private val goalDao: GoalDao,
     private val keyResultDao: KeyResultDao,
     private val stepDao: StepDao,

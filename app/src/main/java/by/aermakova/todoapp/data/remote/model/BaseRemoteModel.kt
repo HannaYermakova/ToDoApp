@@ -1,3 +1,3 @@
 package by.aermakova.todoapp.data.remote.model
 
-open class BaseRemoteModel(val id: String)
+abstract class BaseRemoteModel(val id: String)

@@ -83,7 +83,6 @@ class GoalsModule {
         taskInteractor: TaskInteractor,
         ideaInteractor: IdeaInteractor,
         @ErrorDeleteGoal errorDeleteGoalMessage: String,
-//        @DialogConfirm dialogNavigation: DialogNavigation<Boolean>,
         controller: NavController,
         @TitleDialogDeleteGoal dialogTitle: String,
     ) = DeleteGoalUseCase(
@@ -93,7 +92,6 @@ class GoalsModule {
         taskInteractor,
         ideaInteractor,
         errorDeleteGoalMessage,
-//        dialogNavigation,
         ConfirmDialogNavigation(controller, dialogTitle),
         dialogTitle
     )

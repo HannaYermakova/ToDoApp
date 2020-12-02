@@ -6,13 +6,13 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class KeyResultRemoteModel(
 
-    var keyResultId: Long? = 0,
+    val keyResultId: Long? = 0,
 
-    var goalId: Long? = 0,
+    val goalId: Long? = 0,
 
-    var status: Boolean? = false,
+    val status: Boolean? = false,
 
-    var text: String? = ""
+    val text: String? = ""
 
 ) : BaseRemoteModel(keyResultId.toString())
 
@@ -28,10 +28,10 @@ fun KeyResultRemoteModel.toLocal(): KeyResultEntity {
         text != null
     )
         KeyResultEntity(
-            keyResultId!!,
-            goalId!!,
-            status!!,
-            text!!
+            keyResultId,
+            goalId,
+            status,
+            text
         )
     else throw Exception("Goal can't be null!")
 }

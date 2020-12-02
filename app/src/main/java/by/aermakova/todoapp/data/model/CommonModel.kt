@@ -5,7 +5,7 @@ typealias FunctionString = (String) -> Unit
 typealias FunctionSelect = (Long, Boolean) -> Unit
 typealias FunctionNoArgs = () -> Unit
 
-open class CommonModel(
+abstract class CommonModel(
     val id: Long,
     val layout: Int,
     val variableId: Int,
