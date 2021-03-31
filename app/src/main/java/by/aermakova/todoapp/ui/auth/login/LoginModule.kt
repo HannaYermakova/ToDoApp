@@ -12,10 +12,7 @@ import by.aermakova.todoapp.data.remote.auth.AuthListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListener
 import by.aermakova.todoapp.data.remote.auth.LoginAuthorizationListenerImpl
-import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
-import by.aermakova.todoapp.data.remote.auth.loginManager.GoogleLoginManager
-import by.aermakova.todoapp.data.remote.auth.loginManager.createEmailLoginManager
-import by.aermakova.todoapp.data.remote.auth.loginManager.createLoginStatusListener
+import by.aermakova.todoapp.data.remote.auth.loginManager.*
 import by.aermakova.todoapp.data.remote.sync.RemoteDatabaseSynchronization
 import by.aermakova.todoapp.ui.auth.LoginNavigation
 import by.aermakova.todoapp.util.Status
@@ -58,6 +55,14 @@ class LoginModule {
     @Provides
     fun provideAuthListenerImpl(authListener: AuthListener): LoginAuthorizationListener =
         LoginAuthorizationListenerImpl(authListener)
+
+    @Provides
+    fun provideAnonymousLoginManager(
+        activity: Activity,
+        command: Subject<Status>
+    ) =
+        AnonymousLoginManager(activity.createLoginStatusListener(command), null)
+
 
     @Provides
     fun provideFacebookLoginManager(

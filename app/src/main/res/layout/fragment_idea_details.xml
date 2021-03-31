@@ -118,11 +118,12 @@
                 <TextView
                     android:id="@+id/attached_to_key_result_text"
                     style="@style/TextInstructions"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:text="@string/title_key_result"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
                     app:layout_constraintTop_toBottomOf="@id/attach_to_goal"
                     app:visible="@{viewModel.keyResVisible}" />
 

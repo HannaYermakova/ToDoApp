@@ -100,4 +100,17 @@ object FirebaseAuthUtil {
                 }
             }
     }
+
+    fun signInAnonymously(loginListener: LoginStatusListener){
+        Log.d("A_FirebaseAuthUtil","signInAnonymously")
+        authInstance?.signInAnonymously()?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("A_FirebaseAuthUtil","signInAnonymously:success")
+                    loginListener.onSuccess()
+                } else {
+                    Log.d("A_FirebaseAuthUtil","signInAnonymously:failure", task.exception)
+                    loginListener.onError(task.exception?.message)
+                }
+            }
+    }
 }

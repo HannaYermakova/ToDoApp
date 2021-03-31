@@ -1,10 +1,7 @@
 package by.aermakova.todoapp.ui.auth.login
 
 import by.aermakova.todoapp.data.remote.auth.EmailCredentials
-import by.aermakova.todoapp.data.remote.auth.loginManager.AppLoginManager
-import by.aermakova.todoapp.data.remote.auth.loginManager.EmailLoginManager
-import by.aermakova.todoapp.data.remote.auth.loginManager.FacebookLoginManager
-import by.aermakova.todoapp.data.remote.auth.loginManager.GoogleLoginManager
+import by.aermakova.todoapp.data.remote.auth.loginManager.*
 import by.aermakova.todoapp.ui.auth.BaseAuthViewModel
 import by.aermakova.todoapp.ui.auth.LoginNavigation
 import by.aermakova.todoapp.ui.navigation.MainFlowNavigation
@@ -16,6 +13,7 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     val emailLoginManager: EmailLoginManager,
+    val anonymousLoginManager: AnonymousLoginManager,
     private val loginNavigation: LoginNavigation,
     private val statusListener: Subject<Status>
 ) : BaseAuthViewModel() {
@@ -49,6 +47,7 @@ class LoginViewModel @Inject constructor(
             is EmailLoginManager -> enterWithEmail(emailLoginManager.errorMessage)
             is FacebookLoginManager -> loginWithFacebook()
             is GoogleLoginManager -> loginWithGoogle()
+            is AnonymousLoginManager -> anonymousLogin()
         }
     }
 
@@ -69,5 +68,9 @@ class LoginViewModel @Inject constructor(
 
     private fun loginWithGoogle() {
         _googleLoginManagerListener.onNext(true)
+    }
+
+    private fun anonymousLogin() {
+        anonymousLoginManager.signInAnonymously()
     }
 }

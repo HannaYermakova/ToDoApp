@@ -1,6 +1,5 @@
 package by.aermakova.todoapp.data.remote
 
-import android.util.Log
 import by.aermakova.todoapp.data.remote.auth.FirebaseAuthUtil
 import by.aermakova.todoapp.data.remote.model.BaseRemoteModel
 import com.google.firebase.database.*

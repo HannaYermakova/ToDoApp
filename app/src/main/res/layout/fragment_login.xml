@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/image_regular"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/ic_goals"
-                android:backgroundTint="@color/color_scheme_driftwood"
+                android:backgroundTint="@color/color_scheme_brick"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -147,6 +147,23 @@
                 android:text="@string/login_with_google"
                 app:addLoginMethod="@{viewModel.googleLoginManager}"
                 app:layout_constraintTop_toBottomOf="@id/login_button_facebook"
+                app:onLoginClick="@{viewModel.loginButton}" />
+
+            <TextView
+                style="@style/TextRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_button_rect_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/margin_small"
+                android:text="@string/continue_without_registration"
+                android:textColor="@color/color_scheme_salt_box"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_button_google"
+                app:addLoginMethod="@{viewModel.anonymousLoginManager}"
                 app:onLoginClick="@{viewModel.loginButton}" />
 
             <androidx.constraintlayout.widget.Guideline

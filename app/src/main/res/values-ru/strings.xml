@@ -1,0 +1,163 @@
+<resources>
+
+    <string name="login_with_facebook">Продолжить через Facebook</string>
+    <string name="login_with_google">Продолжить через Google</string>
+    <string name="login_with_email">Войти</string>
+    <string name="register_with_email">Регистрация</string>
+    <string name="enter_email_hint">Введите email</string>
+    <string name="enter_password_hint">Введите пароль</string>
+    <string name="back_to_login">Вернуться к вариантам входа</string>
+
+    <string name="cancel">Отмена</string>
+    <string name="ok">OK</string>
+    <string name="no_text">нет</string>
+    <string name="save_button">Сохранить</string>
+    <string name="select">Выберите</string>
+    <string name="pick_day">Выберите день</string>
+    <string name="empty" />
+    <string name="error_while_loading">Ошибка загрузки</string>
+    <string name="error_while_setting_task_fields">Ошибка заполнения полей Задачи</string>
+    <string name="error_while_updating_task">Ошибка обновления Задачи</string>
+    <string name="error_while_login">Ошибка входа</string>
+    <string name="error_invalid_email_or_password">Неверный email или пароль</string>
+    <string name="error_loading_cancel">Загрузка прервана</string>
+    <string name="error_empty_field">Поле не может быть пустым</string>
+    <string name="error_empty_field_goal">Определите название и несколько Ключевых результатов Цели!</string>
+    <string name="error_empty_field_idea">Определите название и прикрепите Идею к Цели!</string>
+    <string name="error_empty_field_step">Определите название Шага и прикрепите его к Цели или Ключевому результату!</string>
+    <string name="error_empty_field_task">Определите название Задачи!</string>
+    <string name="error_adding_key_result">Вы не можете добавить Ключевой результат к достигнутой Цели!</string>
+    <string name="error_adding_task">Вы не можете добавить Задачу к достигнутой Цели!</string>
+    <string name="error_adding_step">Вы не можете добавить Шаг к достигнутой Цели!</string>
+    <string name="error_adding_idea">Вы не можете добавить Идею к достигнутой Цели!</string>
+    <string name="error_delete_goal">Ошибка удаления Цели</string>
+    <string name="error_find_goal">Ошибка поиска Цели</string>
+    <string name="error_change_goal_text">Ошибка изменения названия Цели</string>
+
+    <string name="error_delete_step">Ошибка удаления Шага</string>
+    <string name="error_adding_idea_to_step">Нельзя добавить Идею к выполненному Шагу!</string>
+    <string name="error_adding_task_to_step">Нельзя добавить Задачу к выполненному Шагу!</string>
+    <string name="error_find_step">Ошибка поиска Шага!</string>
+    <string name="error_find_idea">Ошибка поиска Идеи!</string>
+    <string name="confirm_delete_step">Вы уверены, что хотите удалить этот Шаг?</string>
+
+    <string name="error_delete_task">Ошибка удаления Задачи</string>
+    <string name="error_delete_idea">Ошибка удаления Идеи</string>
+    <string name="confirm_delete_task">Вы уверены, что хотите удалить эту Задачу?</string>
+    <string name="confirm_delete_idea">Вы уверены, что хотите удалить эту Идею?</string>
+    <string name="confirm_delete_goal">Вы уверены, что хотите удалить эту Цель?</string>
+
+    <string name="title_goals">Цели</string>
+    <string name="title_tasks">Задачи</string>
+    <string name="title_steps">Шаги</string>
+    <string name="title_ideas">Идеи</string>
+
+    <string name="title_goal">Цель</string>
+
+    <string name="title_task">Задача</string>
+    <string name="title_step">Шаг</string>
+    <string name="title_key_result">Ключевой результат</string>
+    <string name="title_idea">Идея</string>
+
+    <string name="title_add_task">Добавить Задачу</string>
+    <string name="title_add_step">Добавить Шаг</string>
+    <string name="title_add_key_result">Добавить Ключевой результат</string>
+    <string name="title_add_idea">Добавить Идею</string>
+    <string name="title_edit_goal">Редактировать Цель</string>
+    <string name="title_delete_goal">Удалить Цель</string>
+
+    <string name="title_edit_step">Редактировать Шаг</string>
+    <string name="title_delete_step">Удалить Шаг</string>
+
+    <string name="title_edit_task">Редактировать Задачу</string>
+    <string name="title_delete_task">Удалить Задачу</string>
+
+    <string name="title_edit_idea">Редактировать Идею</string>
+    <string name="title_delete_idea">Удалить Идею</string>
+    <string name="error_editing_idea">Ошибка редактирования Идеи</string>
+
+    <string name="add_new_goal_title">Поставьте Цель</string>
+    <string name="edit_goal_title">Редоктирование Цели</string>
+    <string name="confirm_exit_message">Вы уверены, что хотите выйти?</string>
+    <string name="add_new_goal_instruction">Добавьте новую Цель и определите несколько Ключевых результатов имеющих к ней отношение</string>
+    <string name="specify_key_results">Определите несколько Ключевых результатов\nимеющих отношение к Цели</string>
+    <string name="add_key_results">Добавьте Ключевые результаты</string>
+    <string name="add_key_result">Определите Ключевые результаты</string>
+    <string name="key_results">Ключевые результаты Цели:</string>
+    <string name="enter_goal_hint">Название для Цели</string>
+    <string name="all_goals_text">Все Цели</string>
+    <string name="all_steps_text">Все Шаги</string>
+    <string name="all_ideas_text">Все Идеи</string>
+
+    <string name="add_new_task_title">Добавьте новую Задачу</string>
+    <string name="edit_task_title">Редактирование Задачи</string>
+    <string name="enter_task_hint">Название для Задачи</string>
+    <string name="task_attach_to_goal_text">Задача прикреплена к Цели:</string>
+    <string name="select_goal_text">Выберите Цель</string>
+    <string name="task_attach_to_key_result_text">Задача прикреплена к Ключевому результату</string>
+    <string name="select_key_result_text">Выберите Ключевой результат</string>
+    <string name="attach_to_step_text">Задача прикреплена к Шагу</string>
+    <string name="select_step_text">Выберите Шаг</string>
+    <string name="scheduled_task_text">Запланированная задача</string>
+    <string name="set_finish_time_task_text">Установить конечный срок для Задачи</string>
+    <string name="repeat_text">Повторять:</string>
+    <string name="daily_text">каждый день</string>
+    <string name="weekly_text">каждую неделю</string>
+    <string name="monthly_text">каждый месяц</string>
+
+    <string name="deadline_text">Конечный срок:</string>
+    <string name="start_text">Начало:</string>
+    <string name="status_text">Статус:</string>
+    <string name="scheduled_text">Запланировано:</string>
+    <string name="status_done">Выполнено</string>
+    <string name="status_in_progress">В процессе</string>
+    <string name="not_specified">Не определено</string>
+    <string name="attach_to">Прикреплено к:</string>
+    <string name="attached_tasks">Прикреплённые Задачи:</string>
+    <string name="attached_ideas">Прикреплённые Идеи:</string>
+    <string name="mark_as_done_text">Пометить как выполненное</string>
+    <string name="mark_goal_done_text">Пометить Цель как достигнутую</string>
+
+    <string name="add_new_step_title">Добавьте новый Шаг</string>
+    <string name="edit_step_title">Редактирование Шага</string>
+    <string name="enter_step_hint">Название для Шага</string>
+    <string name="step_attach_to_goal_text">Шаг прикреплён к Цели:</string>
+    <string name="step_attach_to_key_result_text">Шаг прикреплён к Ключевому результату:</string>
+
+    <string name="add_new_idea_title">Добавьте новую Идею</string>
+    <string name="enter_idea_hint">Опишите вашу Идею</string>
+    <string name="idea_attach_to_goal_text">Идея прикреплена к Цели:</string>
+    <string name="idea_attach_to_key_result_text">Идея прикреплена к Ключевому результату:</string>
+    <string name="attach_to_key_result_text">Прикрепить Шаг к Ключевому результатуt:</string>
+    <string name="idea_attach_to_step_text">Идея прикреплена к Шагу:</string>
+    <string name="my_idea">Моя Идея</string>
+    <string name="edit_idea_title">Редактирование Идеи</string>
+
+    <string name="convert_idea_into_step">Преобразовать Идею в Шаг</string>
+    <string name="convert_idea_into_task">Преобразовать Идею в Задачу</string>
+
+    <string name="sort_by">Сортировать задачи по</string>
+    <string name="sort_by_name">имени</string>
+    <string name="sort_by_start_date">дате начала</string>
+    <string name="sort_by_finish_date">дате окончания</string>
+
+    <string name="filter_today">сегодня</string>
+    <string name="filter_today_title">Задачи, которые должны быть выполнены сегодня</string>
+    <string name="filter_tomorrow">завтра</string>
+    <string name="filter_tomorrow_title">Задачи, которые должны быть выполнены завтра</string>
+    <string name="filter_this_week">текущая неделя</string>
+    <string name="filter_this_week_title">Задачи, которые должны быть выполнены на этой неделе</string>
+    <string name="filter_next_week">следующая неделя</string>
+    <string name="filter_next_week_title">Задачи, которые должны быть выполнены на следующей неделе</string>
+    <string name="filter_later">позже</string>
+    <string name="filter_later_title">Задачи, которые должны быть выполнены позже</string>
+    <string name="filter_someday">когда-нибудь</string>
+    <string name="filter_someday_title">Задачи, которые должны быть выполнены когда-нибудь</string>
+    <string name="filter_done">Показать выполненные задачи</string>
+    <string name="filter_done_title">Выполненные задачи</string>
+    <string name="filter_all">Показать все задачи</string>
+    <string name="filter_all_title">Все задачи</string>
+    <string name="filter_by">Показать задачи предстоящие к выполнению</string>
+    <string name="select_item">Выбрать позицию</string>
+    <string name="continue_without_registration">Продолжить без регистрации</string>
+</resources>
