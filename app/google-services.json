@@ -15,6 +15,38 @@
       },
       "oauth_client": [
         {
+          "client_id": "544461285344-43as31rutnvou77h6hpghbrq77rhhquh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.aermakova.todoapp",
+            "certificate_hash": "3246dc76c1d158dd3f4023b24273ffa547174bfc"
+          }
+        },
+        {
+          "client_id": "544461285344-5k2tqlcid7n3ofd8crsfuoi0lilr83h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.aermakova.todoapp",
+            "certificate_hash": "fe58fbd0dc19dc622b8a27bb6c6f496f6656ca80"
+          }
+        },
+        {
+          "client_id": "544461285344-9lvlh3ta1l386oj3jjm6k6e7lsi4m2iq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.aermakova.todoapp",
+            "certificate_hash": "42a1936a1b3df33d6e43e7536fc9cbe0d066bac8"
+          }
+        },
+        {
+          "client_id": "544461285344-v9us33jsl34tuaq326cccrknod3bfllb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.aermakova.todoapp",
+            "certificate_hash": "25c2f9b4f2ad3fd188d51cbb7edb369e7066fa26"
+          }
+        },
+        {
           "client_id": "544461285344-lkko1t61ih2gdu1inopd5ablbff3im6j.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -48,7 +48,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/email_edit_text"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/clickable_height"
                         android:layout_margin="@dimen/margin_normal"
                         android:theme="@style/CustomEditTextStyle"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/clickable_height"
                             android:hint="@string/enter_email_hint"
                             android:imeOptions="actionNext"
                             android:importantForAutofill="no"
@@ -69,7 +69,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/password_edit_text"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/clickable_height"
                         android:layout_marginStart="@dimen/margin_normal"
                         android:layout_marginEnd="@dimen/margin_normal"
                         android:theme="@style/CustomEditTextStyle"
@@ -80,7 +80,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/clickable_height"
                             android:hint="@string/enter_password_hint"
                             android:imeOptions="actionDone"
                             android:importantForAutofill="no"
@@ -129,6 +129,7 @@
                 android:layout_marginEnd="@dimen/margin_large"
                 android:drawableStart="@drawable/facebook_logo"
                 android:padding="16dp"
+                android:visibility="gone"
                 android:text="@string/login_with_facebook"
                 app:addLoginMethod="@{viewModel.facebookLoginManager}"
                 app:layout_constraintTop_toBottomOf="@id/register_button_email"
@@ -152,9 +153,10 @@
             <TextView
                 style="@style/TextRegular"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/clickable_height"
                 android:background="@drawable/back_button_rect_background"
                 android:clickable="true"
+                android:gravity="center_vertical"
                 android:focusable="true"
                 android:padding="@dimen/margin_small"
                 android:text="@string/continue_without_registration"

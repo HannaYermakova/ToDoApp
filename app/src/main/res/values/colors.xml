@@ -26,10 +26,11 @@
     <color name="color_scheme_outer_space">#333738</color>
     <color name="color_scheme_shark">#2A2F33</color>
     <color name="color_scheme_driftwood">#DDAB4F</color>
-    <color name="color_scheme_salt_box">#9797A6</color>
+    <color name="color_scheme_salt_box">#7C7C8A</color>
+    <color name="color_scheme_text">#50505A</color>
     <color name="color_scheme_salt_box_dark">#4E4E6A</color>
     <color name="color_scheme_coffee_light">#BFB8AA</color>
     <color name="color_scheme_mantle">#A6C5B9</color>
-    <color name="color_scheme_brick">#CDF44336</color>
+    <color name="color_scheme_brick">#D9F44336</color>
 
 </resources>

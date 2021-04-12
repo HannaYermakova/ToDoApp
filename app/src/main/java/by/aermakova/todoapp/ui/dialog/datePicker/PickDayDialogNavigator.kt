@@ -8,11 +8,14 @@ import by.aermakova.todoapp.AppNavigationDirections
 import by.aermakova.todoapp.ui.navigation.DialogNavigation
 import java.util.*
 
-private const val DIALOG_RESULT = "pick_day_dialog_result"
 
 class PickDayDialogNavigator(private val controller: NavController) :
     DatePickerDialog.OnDateSetListener,
     DialogNavigation<Long> {
+
+    companion object {
+        private const val DIALOG_RESULT = "pick_day_dialog_result"
+    }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         setDialogResult(convertDateToLong(year, month, day))

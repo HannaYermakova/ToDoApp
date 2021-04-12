@@ -56,8 +56,8 @@
 
     <style name="CustomEditTextStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@color/color_scheme_outer_space</item>
-        <item name="colorControlActivated">@color/color_scheme_salt_box</item>
-        <item name="colorControlHighlight">@color/color_scheme_salt_box</item>
+        <item name="colorControlActivated">@color/color_scheme_text</item>
+        <item name="colorControlHighlight">@color/color_scheme_text</item>
         <item name="android:fontFamily">@font/proxima_nova_font</item>
     </style>
 
@@ -119,7 +119,7 @@
 
     <style name="TextTitle">
         <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/color_scheme_salt_box</item>
+        <item name="android:textColor">@color/color_scheme_text</item>
         <item name="android:fontFamily">@font/proxima_nova_thin</item>
     </style>
 
